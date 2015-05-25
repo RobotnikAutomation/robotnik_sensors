@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot name="sensor_hokuyo3d" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+  <xacro:macro name="sensor_hokuyo3d" params="name parent *origin">
+     
+    <joint name="${name}_laser_joint" type="fixed">
+      <insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_laser_link"/>
+	</joint>
+
+  
+	<link name="${name}_laser_link">
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 0.08"/>
+			</geometry>
+		</collision>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+	     		<mesh filename="package://rbcar_description/meshes/sensors/hokuyo3d.dae"/>
+			</geometry>
+		</visual>
+
+		<inertial>
+			<mass value="1e-5" />
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+		</inertial>
+	</link>
+	
+
+	<!-- Hokuyo sensor for simulation -->		
+	<sensor_hokuyo3d_gazebo/>
+		
+  </xacro:macro>
+  
+    
+  <xacro:macro name="sensor_hokuyo3d_gazebo">
+    <gazebo reference="${name}_laser_link">
+			<sensor type="ray" name="${name}_sensor">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<update_rate>20</update_rate>
+				<ray>
+					<scan>
+                        <horizontal>
+                            <samples>16</samples>
+                            <resolution>1.0</resolution>
+                            <min_angle>-1.83591184</min_angle>
+                            <max_angle>1.83591184</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>162</samples>
+                            <resolution>1.0</resolution>
+                            <min_angle>-0.0872664626</min_angle>
+                            <max_angle>0.610865238</max_angle>
+                        </vertical>
+					</scan>
+					<range>
+						<min>0.10</min>
+						<max>20.0</max>
+						<resolution>0.01</resolution>
+					</range>
+					<noise>
+						<type>gaussian</type>
+						<mean>0.0</mean>
+						<stddev>0.01</stddev>
+					</noise>
+				</ray>
+				<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_block_laser.so">
+					<topicName>${name}/points2</topicName>
+					<frameName>${name}_laser_link</frameName>
+				</plugin>
+			</sensor>
+		</gazebo>
+  </xacro:macro>
+  
+</robot>
