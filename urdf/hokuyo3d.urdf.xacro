@@ -22,7 +22,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
-	     		<mesh filename="package://rbcar_description/meshes/sensors/hokuyo3d.dae"/>
+	     		<mesh filename="package://robotnik_sensors/meshes/hokuyo3d.dae"/>
 			</geometry>
 		</visual>
 
