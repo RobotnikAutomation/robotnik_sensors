@@ -44,7 +44,10 @@
         <alwaysOn>1</alwaysOn>
 				<updateRate>10.0</updateRate>
 				<bodyName>base_footprint</bodyName>
-				<topicName>fix</topicName>
+				<topicName>mavros/gps/fix</topicName>
+				<!-- Robotnik position-->
+				<referenceLatitude>39.493800</referenceLatitude>
+				<referenceLongitude>-0.377982</referenceLongitude>
 				<velocityTopicName>fix_velocity</velocityTopicName>
 				<drift>5.0 5.0 5.0</drift>
 				<gaussianNoise>0.1 0.1 0.1</gaussianNoise>
