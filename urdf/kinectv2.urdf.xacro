@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sensor_kinect" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="sensor_kinectv2" xmlns:xacro="http://ros.org/wiki/xacro">
 	
   <xacro:property name="M_PI" value="3.1415926535897931" />
 	<xacro:property name="cam_px" value="-0.087" />
@@ -9,7 +9,7 @@
 	<xacro:property name="cam_op" value="0" />
 	<xacro:property name="cam_oy" value="0" />
 
-  <xacro:macro name="sensor_kinect" params="name parent *origin">
+  <xacro:macro name="sensor_kinectv2" params="name parent *origin">
     
     <joint name="${name}_rgb_joint" type="fixed">
       <insert_block name="origin" />
@@ -51,7 +51,7 @@
     <visual>
      <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
       <geometry>
-       <mesh filename="package://robotnik_sensors/meshes/sensors/kinectv2.dae"/>
+       <mesh filename="package://robotnik_sensors/meshes/kinectv2.dae"/>
       </geometry>
     </visual>
 	  <collision>
@@ -102,12 +102,12 @@
 	</link>
 	
 		<!-- Kinect sensor for simulation -->
-	  <sensor_kinect_gazebo/>
+	  <sensor_kinectv2_gazebo/>
   
   </xacro:macro>
 
 
-  <xacro:macro name="sensor_kinect_gazebo">
+  <xacro:macro name="sensor_kinectv2_gazebo">
   
     <gazebo reference="${name}_link">  
       <sensor type="depth" name="cam">
