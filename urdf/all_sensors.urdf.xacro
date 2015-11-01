@@ -21,6 +21,9 @@
   <!-- Hokuyo utm30lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_utm30lx.urdf.xacro" />  
   
+  <!-- Hokuyo ust10lx -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust10lx.urdf.xacro" />  
+
   <!-- Imu -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/imu.urdf.xacro" />  
     
