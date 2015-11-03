@@ -32,5 +32,8 @@
   
   <!-- Hokuyo 3d -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo3d.urdf.xacro" /> 
+  
+  <!-- Sick s3000 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_s3000.urdf.xacro" /> 
     
 </robot>
