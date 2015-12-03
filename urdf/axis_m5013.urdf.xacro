@@ -38,7 +38,7 @@
         
 	    </visual>
 	    <collision>
-	      <origin xyz="0.03 0.0 -0.3" rpy="0 0 0"/>
+	      <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
 	      <geometry>
 	        <mesh filename= "package://robotnik_sensors/meshes/axis_m5013.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
