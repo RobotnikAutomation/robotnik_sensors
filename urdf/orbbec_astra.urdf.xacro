@@ -106,7 +106,7 @@
   
   </xacro:macro>
   
-   <xacro:macro name="sensor_xtion_pro_gazebo">
+   <xacro:macro name="sensor_orbbec_astra_gazebo">
   
     <gazebo reference="${name}_cam_depth_frame">  
       <sensor type="depth" name="cam">
@@ -124,7 +124,7 @@
             <far>3.5</far>
           </clip>
         </camera>
-        <plugin name="xtion_pro_cam_controller" filename="libgazebo_ros_openni_kinect.so">
+        <plugin name="orbbec_astra_cam_controller" filename="libgazebo_ros_openni_kinect.so">
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>15</updateRate>
