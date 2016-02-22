@@ -42,4 +42,7 @@
   <!-- KinectV2 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/kinectv2.urdf.xacro" /> 
 
+  <!-- Orbbec Astra -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" /> 
+
 </robot>
