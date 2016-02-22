@@ -47,8 +47,8 @@
 
 
 	  <joint name="joint_${name}_pan" type="continuous">
-	     <axis xyz="0 0 1" />
-	     <origin xyz="0.0 0.0 0.1"/>
+	     <axis xyz="0 0 -1" />
+	     <origin xyz="0.0 0.0 0.03"/>
 	     <parent link="${name}_link"/>
 	     <child link="${name}_pan_link"/>
 	     <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-3.1416" upper="3.1416"/>
@@ -76,7 +76,7 @@
 
 
 	  <joint name="joint_${name}_tilt" type="continuous">
-	     <axis xyz="0 1 0" />
+	     <axis xyz="0 -1 0" />
 	     <origin xyz="0.0 0.0 0.0"/>
 	     <parent link="${name}_pan_link"/>
 	     <child link="${name}_tilt_link"/>
@@ -103,29 +103,29 @@
 	     </actuator>
 	  </transmission>
 
-		<!-- Optical frame -->
+	  <!-- Optical frame -->
 
-		<joint name="${name}_depth_optical_joint" type="fixed">
-			<origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-			<parent link="${name}_link"/>
-			<child link="${name}_depth_optical_frame" />
-		</joint>
-		<link name="${name}_depth_optical_frame">
-			<inertial>
-				<mass value="0.001" />
-				<origin xyz="0 0 0" />
-				<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-								 iyy="0.0001" iyz="0.0"
-								 izz="0.0001" />
-			</inertial>
-		</link>
+	  <joint name="${name}_depth_optical_joint" type="fixed">
+		  <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+		  <parent link="${name}_tilt_link"/>
+		  <child link="${name}_depth_optical_frame" />
+	  </joint>
+	  <link name="${name}_depth_optical_frame">
+	    <inertial>
+	      <mass value="0.001" />
+	      <origin xyz="0 0 0" />
+	      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+					       iyy="0.0001" iyz="0.0"
+					       izz="0.0001" />
+	    </inertial>
+	  </link>
 
-	  <gazebo reference="${name}_link">
+    <gazebo reference="${name}_link">
       <material>Gazebo/FlatBlack</material>
     </gazebo>
 
-		<!-- Axis sensor for simulation -->
-		<sensor_axis_m5013_gazebo/>
+    <!-- Axis sensor for simulation -->
+    <sensor_axis_m5013_gazebo/>
 
   </xacro:macro>
 
