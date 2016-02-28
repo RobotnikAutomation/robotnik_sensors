@@ -2,9 +2,19 @@
 <robot name="sensor_orbbec_astra" xmlns:xacro="http://ros.org/wiki/xacro">
   
   <!-- Xacro properties -->
-  <xacro:property name="M_SCALE" value="0.001"/>
-  <xacro:property name="orbbec_astra_depth_rel_rgb_py" value="0.0270" />
-  <xacro:property name="orbbec_astra_cam_rel_rgb_py"   value="-0.0220" />
+  <xacro:property name="M_SCALE" value="1.0"/>
+  
+  <!-- RGB sensor - cam -->
+  <xacro:property name="orbbec_astra_cam_rel_rgb_px"   value="0.015" />
+  <xacro:property name="orbbec_astra_cam_rel_rgb_py"   value="0.0" />
+  <xacro:property name="orbbec_astra_cam_rel_rgb_pz"   value="0.0125" />  
+  <!-- IR sensor - depth -->
+  <xacro:property name="orbbec_astra_depth_rel_rgb_px" value="0.015" />
+  <xacro:property name="orbbec_astra_depth_rel_rgb_py" value="0.0" />
+  <xacro:property name="orbbec_astra_depth_rel_rgb_pz" value="0.0375" />
+
+  <!-- xacro:property name="orbbec_astra_px" value="-0.010" />
+  <xacro:property name="orbbec_astra_pz" value="0.015" / -->
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="sensor_orbbec_astra" params="name parent *origin">
@@ -26,7 +36,7 @@
     </link>
 
     <joint name="${name}_cam_rgb_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <origin xyz="${orbbec_astra_cam_rel_rgb_px} ${orbbec_astra_cam_rel_rgb_py} ${orbbec_astra_cam_rel_rgb_pz}" rpy="0.0 ${M_PI/2} ${M_PI/2}" />      
       <parent link="${name}_cam_rgb_frame" />
       <child link="${name}_cam_rgb_optical_frame" />
     </joint>
@@ -42,15 +52,15 @@
     </link>
 
     <joint name="${name}_cam_joint" type="fixed">
-      <origin xyz="0 ${orbbec_astra_cam_rel_rgb_py} 0" 
+      <origin xyz="0.0 0.0 0.0"
               rpy="0 0 0"/>
       <parent link="${name}_cam_rgb_frame"/>
       <child link="${name}_cam_link"/>
     </joint>
     <link name="${name}_cam_link">
       <visual>
-        <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
-        <geometry>
+        <origin xyz="0 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
+        <geometry>			              
           <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
         </geometry>
       </visual>
@@ -70,7 +80,7 @@
     </link>
 
     <joint name="${name}_cam_depth_joint" type="fixed">
-      <origin xyz="0 ${orbbec_astra_depth_rel_rgb_py} 0" rpy="0 0 0" />
+      <origin xyz="${orbbec_astra_depth_rel_rgb_px} ${orbbec_astra_depth_rel_rgb_py} ${orbbec_astra_depth_rel_rgb_pz}" rpy="0 0 0" />
       <parent link="${name}_cam_rgb_frame" />
       <child link="${name}_cam_depth_frame" />
     </joint>
@@ -86,7 +96,8 @@
     </link>
 
     <joint name="${name}_cam_depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <!-- origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" / -->
+      <origin xyz="0 0 0" rpy="0 ${M_PI/2} ${M_PI/2}" />      
       <parent link="${name}_cam_depth_frame" />
       <child link="${name}_cam_depth_optical_frame" />
     </joint>
