@@ -6,8 +6,8 @@
   
   <!-- RGB sensor - cam -->
   <xacro:property name="orbbec_astra_cam_rel_rgb_px"   value="0.0" />
-  <xacro:property name="orbbec_astra_cam_rel_rgb_py"   value="0.0" />
-  <xacro:property name="orbbec_astra_cam_rel_rgb_pz"   value="0.015" />  
+  <xacro:property name="orbbec_astra_cam_rel_rgb_py"   value="-0.0125" />
+  <xacro:property name="orbbec_astra_cam_rel_rgb_pz"   value="-0.0150" />  
   <!-- IR sensor - depth -->
   <xacro:property name="orbbec_astra_depth_rel_rgb_px" value="0.0" />
   <xacro:property name="orbbec_astra_depth_rel_rgb_py" value="0.0250" />
@@ -50,7 +50,7 @@
     </link>
 
     <joint name="${name}_cam_joint" type="fixed">
-      <origin xyz="0 0 0"
+      <origin xyz="${orbbec_astra_cam_rel_rgb_px} ${orbbec_astra_cam_rel_rgb_py} ${orbbec_astra_cam_rel_rgb_pz}"
               rpy="0 0 0"/>
       <parent link="${name}_cam_rgb_frame"/>
       <child link="${name}_cam_link"/>
