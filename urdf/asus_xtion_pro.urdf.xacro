@@ -2,9 +2,9 @@
 <robot name="sensor_asus_xtion_pro" xmlns:xacro="http://ros.org/wiki/xacro">
   
   <!-- Xacro properties -->
-  <xacro:property name="M_SCALE" value="0.001"/>
+  <xacro:property name="asus_xtion_scale" value="0.001"/>
   <xacro:property name="asus_xtion_pro_depth_rel_rgb_py" value="0.0270" />
-  <xacro:property name="asus_xtion_pro_cam_rel_rgb_py"   value="-0.0220" />
+  <xacro:property name="asus_xtion_pro_cam_rel_rgb_py"   value="-0.0220" />z
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="sensor_asus_xtion_pro" params="name parent *origin">
@@ -51,7 +51,7 @@
       <visual>
         <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/asus_xtion_pro_live.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://robotnik_sensors/meshes/asus_xtion_pro_live.dae" scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}"/>
         </geometry>
       </visual>
       <collision>
