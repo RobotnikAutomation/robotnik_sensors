@@ -2,7 +2,7 @@
 <robot name="sensor_orbbec_astra" xmlns:xacro="http://ros.org/wiki/xacro">
   
   <!-- Xacro properties -->
-  <xacro:property name="M_SCALE" value="1.0"/>
+  <xacro:property name="orbbec_astra_scale" value="1.0"/>
   
   <!-- RGB sensor - cam -->
   <xacro:property name="orbbec_astra_cam_rel_rgb_px"   value="0.0" />
@@ -59,7 +59,7 @@
       <visual>       	
         <origin xyz="0 0 0" rpy="0 0 0"/>  
         <geometry>			              
-          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${orbbec_astra_scale} ${orbbec_astra_scale} ${orbbec_astra_scale}"/>
         </geometry>
       </visual>
       <collision>
