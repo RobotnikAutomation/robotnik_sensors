@@ -9,15 +9,14 @@
   <author email="rnavarro@robotnik.es">Román Navarro</author>
   <author email="jarino@robotnik.es">Jorge Ariño</author>
   <author email="dcarbonell@robotnik.es">Dani Carbonell</author>
+  
   <buildtool_depend>catkin</buildtool_depend>
     
-  <maintainer email="dcarbonell@robotnik.es">Dani Carbonell</maintainer>
-  
-  <run_depend>urdf</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>gazebo_ros</run_depend>
-  <run_depend>robot_state_publisher</run_depend>
+  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
+
   <run_depend>xacro</run_depend>
   <run_depend>hector_gazebo_plugins</run_depend>
+
   
 </package>
