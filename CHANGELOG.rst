@@ -2,8 +2,8 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2016-06-27)
+------------------
 * Setting build & run dependencies
 * adding .gitignore
 * Removed author
