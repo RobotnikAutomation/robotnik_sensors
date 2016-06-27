@@ -110,7 +110,7 @@
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->
-  <sensor_xtion_pro_gazebo/>
+  <sensor_orbbec_astra_gazebo/>
   
   </xacro:macro>
   
