@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
 <robot name="sensor_kinectv2" xmlns:xacro="http://ros.org/wiki/xacro">
-	
-  <xacro:property name="M_PI" value="3.1415926535897931" />
-	<xacro:property name="cam_px" value="-0.087" />
-	<xacro:property name="cam_py" value="-0.0125" />
-	<xacro:property name="cam_pz" value="0.2870" />
-	<xacro:property name="cam_or" value="0" />
-	<xacro:property name="cam_op" value="0" />
-	<xacro:property name="cam_oy" value="0" />
-
-  <xacro:macro name="sensor_kinectv2" params="name parent *origin">
     
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+    <xacro:property name="cam_px" value="-0.087" />
+    <xacro:property name="cam_py" value="-0.0125" />
+    <xacro:property name="cam_pz" value="0.2870" />
+    <xacro:property name="cam_or" value="0" />
+    <xacro:property name="cam_op" value="0" />
+    <xacro:property name="cam_oy" value="0" />
+
+
+  <xacro:macro name="sensor_kinectv2" params="name parent base:=true *origin">
+
     <joint name="${name}_rgb_joint" type="fixed">
       <insert_block name="origin" />
       <parent link="${parent}"/>
@@ -43,23 +44,44 @@
     </link>
 
   <joint name="${name}_joint" type="fixed">
-    <origin xyz="-0.031 ${-cam_py} -0.016" rpy="0 0 0"/>
+    <!--<origin xyz="-0.031 ${-cam_py} -0.016" rpy="0 0 0"/>--> <!-- with base -->
+    <xacro:if value="${base}">
+        <origin xyz="-0.031 ${-cam_py} -0.016" rpy="0 0 0"/>
+    </xacro:if>
+    <xacro:unless value="${base}">
+        <origin xyz="-0.031 ${-cam_py} -0.016" rpy="0 0 0"/>
+    </xacro:unless>
+
     <parent link="${name}_rgb_frame"/>
     <child link="${name}_link"/>
   </joint>  
     <link name="${name}_link">
     <visual>
-     <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
+      <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
       <geometry>
-       <mesh filename="package://robotnik_sensors/meshes/kinectv2.dae"/>
+        <xacro:if value="${base}">
+          <mesh filename="package://robotnik_sensors/meshes/kinectv2.dae"/>
+        </xacro:if>
+        <xacro:unless value="${base}">
+          <mesh filename="package://robotnik_sensors/meshes/kinectv2_nobase.dae"/>
+        </xacro:unless>
       </geometry>
     </visual>
-	  <collision>
-      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-	    <geometry>
-	      <box size="0.07271 0.27794 0.073"/>
-	    </geometry>
-	  </collision>
+    <!-- with base -->
+    <collision>
+      <xacro:if value="${base}">
+        <origin xyz="-0.015 0.0 0.03225" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.0943 0.25 0.0645"/>
+        </geometry>
+      </xacro:if>
+      <xacro:unless value="${base}">
+        <origin xyz="-0.015 0.0 0.020" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.0943 0.25 0.045"/>
+        </geometry>
+      </xacro:unless>
+    </collision>
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -68,16 +90,16 @@
                izz="0.0001" />
     </inertial>
   </link>
-	  
+      
   <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch 
        files. However, for Gazebo simulation we need them, so we add them here.
        (Hence, don't publish them additionally!) -->
-	<joint name="${name}_depth_joint" type="fixed">
-	  <origin xyz="0 ${2 * -cam_py} 0" rpy="0 0 0" />
-	  <parent link="${name}_rgb_frame" />
-	  <child link="${name}_depth_frame" />
-	</joint>
-	<link name="${name}_depth_frame">
+    <joint name="${name}_depth_joint" type="fixed">
+      <origin xyz="0 ${2 * -cam_py} 0" rpy="0 0 0" />
+      <parent link="${name}_rgb_frame" />
+      <child link="${name}_depth_frame" />
+    </joint>
+    <link name="${name}_depth_frame">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -85,13 +107,13 @@
                iyy="0.0001" iyz="0.0"
                izz="0.0001" />
     </inertial>
-	</link>
-	<joint name="${name}_depth_optical_joint" type="fixed">
-	  <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-	  <parent link="${name}_depth_frame" />
-	  <child link="${name}_depth_optical_frame" />
-	</joint>
-	<link name="${name}_depth_optical_frame">
+    </link>
+    <joint name="${name}_depth_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${name}_depth_frame" />
+      <child link="${name}_depth_optical_frame" />
+    </joint>
+    <link name="${name}_depth_optical_frame">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -99,10 +121,10 @@
                iyy="0.0001" iyz="0.0"
                izz="0.0001" />
     </inertial>
-	</link>
-	
-		<!-- Kinect sensor for simulation -->
-	  <sensor_kinectv2_gazebo/>
+    </link>
+    
+        <!-- Kinect sensor for simulation -->
+      <sensor_kinectv2_gazebo/>
   
   </xacro:macro>
 
