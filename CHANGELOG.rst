@@ -1,0 +1,55 @@
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package robotnik_sensors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1.0.1 (2016-06-27)
+------------------
+* Setting build & run dependencies
+* adding .gitignore
+* Removed author
+* Removing run dependencies and adding mantainers
+* corrected angular resolution
+* updated s300 standard sensor params
+* added sick s300
+* changed scale to 1 as the meshes were updated to scale 1
+* added imu_hector_plugin.urdf.xacro, that seems to work better in sim
+* reduced gps drift for rtk tests
+* changed scale in asus_xtion_pro.urdf.xacro for new dae
+* Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/robotnik_sensors into indigo-devel
+* updated asus_xtion_pro_live.dae
+* fixing 'scale' variable name. It was colliding between asus_xtion and orbec_astra sensors
+* changed cam_link to have a reference frame for mounting in robot, not very useful at al...
+* orbbec_astra frames updated to be compatible with gazebo plugin
+* corrected scale and positions of optical frames
+* added orbbec to all_sensors.urdf.xacro
+* minor change names
+* Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/robotnik_sensors into indigo-devel
+  locally added orbbec astra sensor
+* added orbecc_astra sensor
+* minor change in collision box
+* axis sensor: corrected pan tilt joints positions
+* Added optical frame and modified parameters to axis_m5013.urdf.xacro
+* axis_m5013 collision pos corrected
+* changed collision box of ust10
+* Merging master with indigo-devel to add the Sick S3000 laser
+* Sicks3000
+* malformed stl error rviz corrected by meshlab edit
+* robotnik_sensors: adding min and max angle params to hokuyo sensors
+* robotnik_sensors: removed collision model of the utm30lx sensor (it was colliding with itself)
+* Adding new sensor SICKS3000
+* corrected mesh file link
+* renamed file, new sensor in all_sensors.urdf.xacro
+* added hokuyo_ust_10lx model
+* added latest stl of kinectv2. Note that dae was rotated 270ºZ from stl to be compliant with rest of rgbd devices tf
+* added kinectv2 urdf (to be improved)
+* added kinectv2
+* Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/robotnik_sensors into indigo-devel
+* added pointCloudCutoffMax param
+* Change reference coordinates and topic name
+* Setting hokuyo3d.dae path correctly
+* compliant with new tag hardwareInterface requirement in joint
+* removed dependancy from rbcar, modified sensor links and samples
+* added gps_with_mast
+* First commit. Compiles in indigo
+* Initial commit
+* Contributors: Dani Carbonell, ElenaFG, Jorge Arino, Marc Bosch-Jorge, RomanRobotnik, carlos3dx, mcantero, rguzman
