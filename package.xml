@@ -13,7 +13,9 @@
     
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
-
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+  <run_depend>urdf</run_depend>
   <run_depend>xacro</run_depend>
   <run_depend>hector_gazebo_plugins</run_depend>
 
