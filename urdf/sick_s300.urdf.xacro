@@ -15,7 +15,8 @@
 			<origin xyz="0 0 0.076" rpy="0 0 0"/>
 			<geometry>
 				<!--<box size="0.106 0.094 0.152"/>-->
-				<cylinder radius="0.058" length="0.152"/>
+				<!--<cylinder radius="0.058" length="0.152"/>-->
+	     		<mesh filename="package://robotnik_sensors/meshes/sick_s300.dae"/>
 			</geometry>
 		</collision>
 
