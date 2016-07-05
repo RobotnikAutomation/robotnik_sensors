@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 	
-  <xacro:macro name="sensor_sick_tim571" params="prefix parent *origin min_angle:=-0.785398 max_angle:=3.92699">
+  <xacro:macro name="sensor_sick_tim571" params="prefix parent *origin min_angle:=-2.36 max_angle:=2.36">
      
     <joint name="${prefix}laser_base_joint" type="fixed">
       <insert_block name="origin" />
@@ -53,20 +53,20 @@
 			<sensor type="ray" name="${prefix}sick_tim571_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
-				<update_rate>10</update_rate>
+				<update_rate>15</update_rate>
 				<ray>
 					<scan>
 						<horizontal>
-							<samples>361</samples>
+							<samples>819</samples>
 							<resolution>1</resolution>
 							<min_angle>${min_angle}</min_angle>
 							<max_angle>${max_angle}</max_angle>
 						</horizontal>
 					</scan>
 					<range>
-						<min>0.15</min>
-						<max>6.0</max>
-						<resolution>0.0174</resolution>
+						<min>0.05</min>
+						<max>25.0</max>
+						<resolution>0.00575</resolution>
 					</range>
 					<noise>
 						<type>gaussian</type>
