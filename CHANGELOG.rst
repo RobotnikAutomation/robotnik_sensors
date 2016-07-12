@@ -2,6 +2,20 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Setting TIM571 params
+* Added Sick Tim571 sensor
+* New collision model for s3000
+* Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/robotnik_sensors into indigo-devel
+* adding the rplidar sensor
+* sick_s300: changed collision model
+* kinectv2: added model with no base and corrected bounding box of collision
+* Merge remote-tracking branch 'origin/indigo-devel' into indigo-devel
+* asus_xtrion_pro: corrected typo
+* orbbec_astra: now calls the correct gazebo sensor
+* Contributors: Jose Rapado, Marc Bosch-Jorge, RomanRobotnik
+
 1.0.1 (2016-06-27)
 ------------------
 * Setting build & run dependencies
