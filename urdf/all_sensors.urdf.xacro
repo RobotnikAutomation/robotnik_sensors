@@ -50,5 +50,8 @@
 
   <!-- Orbbec Astra -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" /> 
+  
+  <!-- uEye CP Gige -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ueye_cp_gige.urdf.xacro" /> 
 
 </robot>
