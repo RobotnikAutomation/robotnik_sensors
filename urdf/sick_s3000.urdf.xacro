@@ -15,7 +15,7 @@
 		<collision>
 			<origin xyz="-0.093 0 -0.0625" rpy="0 0 0"/>
 			<geometry>
-				<box size="0.16 0.155 0.211"/>
+	     		<mesh filename="package://robotnik_sensors/meshes/sick_s3000.dae"/>
 			</geometry>
 		</collision>
 
