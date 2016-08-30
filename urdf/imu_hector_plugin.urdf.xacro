@@ -38,13 +38,22 @@
 	       <bodyName>imu_link</bodyName>
 	       <updateRate>50.0</updateRate> 
 	       <serviceName>imu_service</serviceName>
-	       <accelDrift>0.005 0.005 0.005</accelDrift>
-               <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-               <rateDrift>0.02 0.02 0.02</rateDrift>
-               <rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise>
-	       <headingOffset>0.2</headingOffset>
-               <headingDrift>0.02</headingDrift>
-               <headingGaussianNoise>0.01</headingGaussianNoise>
+	       <accelOffset>0.0 0.0 0.0</accelOffset>
+           <accelDrift>0.0 0.0 0.0</accelDrift>
+           <accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>
+           <rateDrift>0.0 0.0 0.0</rateDrift>
+           <rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>
+           <headingOffset>0.0</headingOffset>
+           <headingDrift>0.0</headingDrift>
+           <headingGaussianNoise>0.0004</headingGaussianNoise>
+           
+           <!--<accelDrift>0.005 0.005 0.005</accelDrift>-->
+               <!--<accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>-->
+               <!--<rateDrift>0.02 0.02 0.02</rateDrift>-->
+               <!--<rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise>-->
+           <!--<headingOffset>0.2</headingOffset>-->
+               <!--<headingDrift>0.02</headingDrift>-->
+               <!--<headingGaussianNoise>0.01</headingGaussianNoise>-->
 	    </plugin>
 	  </gazebo>
     
