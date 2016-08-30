@@ -38,22 +38,28 @@
 	       <bodyName>imu_link</bodyName>
 	       <updateRate>50.0</updateRate> 
 	       <serviceName>imu_service</serviceName>
-	       <accelOffset>0.0 0.0 0.0</accelOffset>
-           <accelDrift>0.0 0.0 0.0</accelDrift>
-           <accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>
-           <rateDrift>0.0 0.0 0.0</rateDrift>
-           <rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>
-           <headingOffset>0.0</headingOffset>
-           <headingDrift>0.0</headingDrift>
-           <headingGaussianNoise>0.0004</headingGaussianNoise>
-           
-           <!--<accelDrift>0.005 0.005 0.005</accelDrift>-->
-               <!--<accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>-->
-               <!--<rateDrift>0.02 0.02 0.02</rateDrift>-->
-               <!--<rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise>-->
-           <!--<headingOffset>0.2</headingOffset>-->
-               <!--<headingDrift>0.02</headingDrift>-->
-               <!--<headingGaussianNoise>0.01</headingGaussianNoise>-->
+
+	       <!-- orientation parameters -->
+           <yawOffset>0.0</yawOffset>
+           <!--<yawOffset>0.0</yawOffset>-->
+           <yawDrift>0.02</yawDrift>
+           <!--<yawDrift>0.0</yawDrift>-->
+           <yawGaussianNoise>0.01</yawGaussianNoise>
+           <!--<yawGaussianNoise>0.0004</yawGaussianNoise>-->
+
+           <!-- angular velocities parameters -->
+           <rateOffset>0.0 0.0 0.0</rateOffset>
+           <rateDrift>0.02 0.02 0.02</rateDrift>
+           <!--<rateDrift>0.0 0.0 0.0</rateDrift>-->
+           <rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise>
+           <!--<rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>-->
+
+           <!-- linear accelerations parameters -->
+           <accelOffset>0.0 0.0 0.0</accelOffset>
+           <accelDrift>0.005 0.005 0.005</accelDrift>
+           <!--<accelDrift>0.0 0.0 0.0</accelDrift>-->
+           <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+           <!--<accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>-->
 	    </plugin>
 	  </gazebo>
     
