@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <robot name="sensor_gps_with_mast" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <property name="mast_height" value="0.5" /> 
-  <property name="mast_radius" value="0.010" />
+  <xacro:property name="mast_height" value="0.5" /> 
+  <xacro:property name="mast_radius" value="0.010" />
 		
   <xacro:macro name="sensor_gps_with_mast" params="name parent *origin">
 	      
 	  <!-- MAST OF THE ANTENNA GPS -->
 	  <joint name="${name}_joint" type="fixed">
 	    <axis xyz="0 1 0"/>
-	    <insert_block name="origin"/>
+	    <xacro:insert_block name="origin"/>
 	    <parent link="${parent}"/>
 	    <child link="${name}_mast_link"/>
 	  </joint>

@@ -5,7 +5,7 @@
   <xacro:macro name="sensor_sick_s3000" params="name parent *origin">
      
     <joint name="${name}_laser_joint" type="fixed">
-      <insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${name}_laser_link"/>
 	</joint>

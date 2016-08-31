@@ -18,7 +18,7 @@
   <xacro:macro name="sensor_orbbec_astra" params="name parent *origin">
     
     <joint name="${name}_cam_rgb_joint" type="fixed">
-	  <insert_block name="origin" />
+	  <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${name}_cam_rgb_frame" />
     </joint>

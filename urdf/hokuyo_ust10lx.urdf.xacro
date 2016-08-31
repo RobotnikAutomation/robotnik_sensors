@@ -5,7 +5,7 @@
   <xacro:macro name="sensor_hokuyo_ust10lx" params="name parent *origin min_angle:=2.3562 max_angle:=-2.3562">
      
     <joint name="${name}_laser_joint" type="fixed">
-      <insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${name}_laser_link"/>
     </joint>

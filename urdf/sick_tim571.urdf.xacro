@@ -4,7 +4,7 @@
   <xacro:macro name="sensor_sick_tim571" params="prefix parent *origin min_angle:=-2.36 max_angle:=2.36">
      
     <joint name="${prefix}laser_base_joint" type="fixed">
-      <insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}laser_base_link"/>
     </joint>
