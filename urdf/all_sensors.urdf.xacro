@@ -52,9 +52,12 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim571.urdf.xacro" />
 
   <!-- Orbbec Astra -->
-  <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" /> 
   
   <!-- Rplidar -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar.urdf.xacro" /> 
 
+  <!-- uEye CP Gige -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ueye_cp_gige.urdf.xacro" /> 
+  
 </robot>
