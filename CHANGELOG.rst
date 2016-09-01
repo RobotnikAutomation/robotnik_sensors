@@ -2,8 +2,8 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.3 (2016-09-01)
+------------------
 * modified xmls:xacro
 * Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/robotnik_sensors into indigo-devel
 * Modified .xacro files
