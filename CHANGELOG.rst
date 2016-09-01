@@ -2,6 +2,9 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.2 (2016-07-12)
 ------------------
 * Setting TIM571 params
