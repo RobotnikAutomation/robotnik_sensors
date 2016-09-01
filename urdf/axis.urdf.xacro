@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sensor_axis" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="sensor_axis" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
 	<xacro:property name="ptz_joint_effort_limit" value="100.0" /> 
   <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>  
