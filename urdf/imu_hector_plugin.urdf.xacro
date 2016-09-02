@@ -49,9 +49,9 @@
 
            <!-- angular velocities parameters -->
            <rateOffset>0.0 0.0 0.0</rateOffset>
-           <rateDrift>0.02 0.02 0.02</rateDrift>
+           <rateDrift>0.002 0.002 0.002</rateDrift>
            <!--<rateDrift>0.0 0.0 0.0</rateDrift>-->
-           <rateGaussianNoise>0.01 0.01 0.01</rateGaussianNoise>
+           <rateGaussianNoise>0.001 0.001 0.001</rateGaussianNoise>
            <!--<rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>-->
 
            <!-- linear accelerations parameters -->
