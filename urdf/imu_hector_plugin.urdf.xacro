@@ -32,13 +32,14 @@
 	  </link>
        
 	  <gazebo>
-	    <plugin name="ros_imu_hector" filename="libhector_gazebo_ros_imu.so">
+	    <plugin name="${name}_controller" filename="libhector_gazebo_ros_imu.so">
 	       <alwaysOn>true</alwaysOn>
-	       <topicName>imu_data</topicName>
-	       <bodyName>imu_link</bodyName>
+	       <topicName>${name}/data</topicName>
+		   <serviceName>${name}/service</serviceName>
+		   <bodyName>${name}_link</bodyName>
 	       <updateRate>50.0</updateRate> 
-	       <serviceName>imu_service</serviceName>
 
+	       <gaussianNoise>0.005</gaussianNoise>		
 	       <!-- orientation parameters -->
            <yawOffset>0.0</yawOffset>
            <!--<yawOffset>0.0</yawOffset>-->

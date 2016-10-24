@@ -31,12 +31,11 @@
 	      </collision>
 	  </link>
     
-    
 	  <gazebo>
-	    <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
-	       <topicName>imu_data</topicName>
-				 <bodyName>imu_link</bodyName>
-				 <serviceName>imu_service</serviceName>
+	    <plugin name="${name}_controller" filename="libgazebo_ros_imu.so">
+	       <topicName>${name}/data</topicName>
+		   <serviceName>${name}/service</serviceName>
+		   <bodyName>${name}_link</bodyName>
 	       <gaussianNoise>0.005</gaussianNoise>		
 	    </plugin>
 	  </gazebo>

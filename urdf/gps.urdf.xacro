@@ -40,26 +40,26 @@
 	  </gazebo>
   
     <gazebo>
-      <plugin name="${name}_link" filename="libhector_gazebo_ros_gps.so">
+      <plugin name="${name}_controller" filename="libhector_gazebo_ros_gps.so">
         <alwaysOn>1</alwaysOn>
-				<updateRate>5.0</updateRate>
-				<bodyName>base_footprint</bodyName>
-				<frameId>gps_link</frameId>
-				<topicName>mavros/gps/fix</topicName>
-				<!-- Robotnik position at Fuente del Jarro -->
-				<referenceLatitude>39.5080331</referenceLatitude>
-				<referenceLongitude>-0.4619816</referenceLongitude>
-				<!-- To set heading in ENU orientation (degrees) -->
-				<referenceHeading>90</referenceHeading>
-				<velocityTopicName>fix_velocity</velocityTopicName>
-				<!-- drift>5.0 5.0 5.0</drift -->
-				<!--<drift>0.0001 0.0001 0.0001</drift>-->
-				<drift>0.3 0.3 0.3</drift>
-				<!--<gaussianNoise>0.1 0.1 0.1</gaussianNoise>-->
-				<gaussianNoise>0.00001 0.00001 0.00001</gaussianNoise>
-				<velocityDrift>0.00001 0.00001 0.00001</velocityDrift>
-				<!--<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>-->
-				<velocityGaussianNoise>0.00001 0.00001 0.00001</velocityGaussianNoise>
+        <updateRate>5</updateRate>
+        <bodyName>${name}_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
+        <frameId>${name}_link</frameId>
+        <topicName>${name}/fix</topicName>
+        <!-- Robotnik position at Fuente del Jarro -->
+        <referenceLatitude>39.5080331</referenceLatitude>
+        <referenceLongitude>-0.4619816</referenceLongitude>
+        <!-- To set heading in ENU orientation (degrees) -->
+        <referenceHeading>90</referenceHeading>
+        <velocityTopicName>${name}/fix_velocity</velocityTopicName>
+        <drift>0.0 0.0 0.0</drift>
+        <!--<drift>0.0001 0.0001 0.0001</drift>-->
+        <!--<drift>0.3 0.3 0.3</drift>-->
+        <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
+        <!--<gaussianNoise>0.00001 0.00001 0.00001</gaussianNoise>-->
+        <velocityDrift>0.00001 0.00001 0.00001</velocityDrift>
+        <!--<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>-->
+        <velocityGaussianNoise>0.00001 0.00001 0.00001</velocityGaussianNoise>
       </plugin>	
 	</gazebo>
     

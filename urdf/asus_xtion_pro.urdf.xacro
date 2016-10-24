@@ -8,18 +8,18 @@
   <!-- xacro:property name="asus_xtion_scale" value="0.001"/ -->
   <xacro:property name="asus_xtion_scale" value="1.0"/>
   <xacro:property name="asus_xtion_pro_depth_rel_rgb_py" value="0.0270" />
-  <xacro:property name="asus_xtion_pro_cam_rel_rgb_py"   value="-0.0220" />
+  <xacro:property name="asus_xtion_pro_rgb_rel_rgb_py"   value="-0.0220" />
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="sensor_asus_xtion_pro" params="name parent *origin">
     
-    <joint name="${name}_cam_rgb_joint" type="fixed">
+    <joint name="${name}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_cam_rgb_frame" />
+      <child link="${name}_rgb_frame" />
     </joint>
 
-    <link name="${name}_cam_rgb_frame">
+    <link name="${name}_rgb_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -29,13 +29,13 @@
       </inertial>
     </link>
 
-    <joint name="${name}_cam_rgb_optical_joint" type="fixed">
+    <joint name="${name}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${name}_cam_rgb_frame" />
-      <child link="${name}_cam_rgb_optical_frame" />
+      <parent link="${name}_rgb_frame" />
+      <child link="${name}_rgb_optical_frame" />
     </joint>
 
-    <link name="${name}_cam_rgb_optical_frame">
+    <link name="${name}_rgb_optical_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -45,13 +45,13 @@
       </inertial>
     </link>
 
-    <joint name="${name}_cam_joint" type="fixed">
-      <origin xyz="0 ${asus_xtion_pro_cam_rel_rgb_py} 0" 
+    <joint name="${name}_joint" type="fixed">
+      <origin xyz="0 ${asus_xtion_pro_rgb_rel_rgb_py} 0" 
               rpy="0 0 0"/>
-      <parent link="${name}_cam_rgb_frame"/>
-      <child link="${name}_cam_link"/>
+      <parent link="${name}_rgb_frame"/>
+      <child link="${name}_link"/>
     </joint>
-    <link name="${name}_cam_link">
+    <link name="${name}_link">
       <visual>
         <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
         <geometry>
@@ -73,13 +73,13 @@
       </inertial>
     </link>
 
-    <joint name="${name}_cam_depth_joint" type="fixed">
+    <joint name="${name}_depth_joint" type="fixed">
       <origin xyz="0 ${asus_xtion_pro_depth_rel_rgb_py} 0" rpy="0 0 0" />
-      <parent link="${name}_cam_rgb_frame" />
-      <child link="${name}_cam_depth_frame" />
+      <parent link="${name}_rgb_frame" />
+      <child link="${name}_depth_frame" />
     </joint>
 
-    <link name="${name}_cam_depth_frame">
+    <link name="${name}_depth_frame">
       <inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
@@ -89,13 +89,13 @@
       </inertial>
     </link>
 
-    <joint name="${name}_cam_depth_optical_joint" type="fixed">
+    <joint name="${name}_depth_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${name}_cam_depth_frame" />
-      <child link="${name}_cam_depth_optical_frame" />
+      <parent link="${name}_depth_frame" />
+      <child link="${name}_depth_optical_frame" />
     </joint>
 
-    <link name="${name}_cam_depth_optical_frame">
+    <link name="${name}_depth_optical_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -112,8 +112,8 @@
   
    <xacro:macro name="sensor_xtion_pro_gazebo">
   
-    <gazebo reference="${name}_cam_depth_frame">  
-      <sensor type="depth" name="cam">
+    <gazebo reference="${name}_depth_frame">  
+      <sensor type="depth" name="${name}_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
         <camera>
@@ -128,7 +128,7 @@
             <far>3.5</far>
           </clip>
         </camera>
-        <plugin name="xtion_pro_cam_controller" filename="libgazebo_ros_openni_kinect.so">
+        <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>15</updateRate>
@@ -137,7 +137,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${name}_cam_depth_optical_frame</frameName>
+          <frameName>${name}_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

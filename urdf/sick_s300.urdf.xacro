@@ -3,14 +3,14 @@
 
   <xacro:macro name="sensor_sick_s300" params="name parent *origin">
      
-    <joint name="${name}_laser_fix_joint" type="fixed">
+    <joint name="${name}_fix_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_laser_fix_link"/>
+      <child link="${name}_fix_link"/>
 	</joint>
 
   
-	<link name="${name}_laser_fix_link">
+	<link name="${name}_fix_link">
 		<collision>
 			<origin xyz="0 0 0.076" rpy="0 0 0"/>
 			<geometry>
@@ -34,13 +34,13 @@
 		</inertial>
 	</link>
     
-    <joint name="${name}_laser_joint" type="fixed">
-      <parent link="${name}_laser_fix_link"/>
-      <child link="${name}_laser_link"/>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${name}_fix_link"/>
+      <child link="${name}_link"/>
       <origin xyz="0.0 0 0.116" rpy="0 0 0"/>
 	</joint>
 	
-	<link name="${name}_laser_link" />
+	<link name="${name}_link" />
 
 	<!-- Sick sensor sensor for simulation -->		
 	<sensor_sick_s300_gazebo />
@@ -48,7 +48,7 @@
   </xacro:macro>
   
   <xacro:macro name="sensor_sick_s300_gazebo">
-    <gazebo reference="${name}_laser_link">
+    <gazebo reference="${name}_link">
 			<sensor type="ray" name="${name}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
@@ -73,9 +73,9 @@
 						<stddev>0.03</stddev>
 					</noise>
 				</ray>
-				<plugin name="gazebo_ros_head_sick_s300_controller" filename="libgazebo_ros_laser.so">
+				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
 					<topicName>${name}/scan</topicName>
-					<frameName>/${name}_laser_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
+					<frameName>/${name}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
 				</plugin>
 			</sensor>
 		</gazebo>
