@@ -9,8 +9,8 @@
   <!-- Axis m5013 -->  
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_m5013.urdf.xacro" />  
 	
-  <!-- Fotonic -->
-  <xacro:include filename="$(find robotnik_sensors)/urdf/fotonic.urdf.xacro" /> 
+  <!-- Fotonic E Series -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/fotonic_e.urdf.xacro" /> 
 	
   <!-- GPS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps.urdf.xacro" /> 
