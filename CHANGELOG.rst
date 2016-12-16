@@ -2,6 +2,16 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* MOD: Fixed problem with rotations
+* --amend
+* standarized all sensors: frames, joints, topics and params
+* reduced rate drift and associated gaussian noise
+* 1.0.3
+* updated changelog
+* Contributors: Jose Rapado, Marc Bosch-Jorge, carlos3dx, rguzman1
+
 1.0.3 (2016-09-01)
 ------------------
 * modified xmls:xacro
