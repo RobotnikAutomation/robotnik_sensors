@@ -2,8 +2,8 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.4 (2016-12-16)
+------------------
 * MOD: Fixed problem with rotations
 * --amend
 * standarized all sensors: frames, joints, topics and params
