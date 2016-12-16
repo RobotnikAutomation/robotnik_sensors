@@ -2,8 +2,8 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.1 (2016-12-16)
+------------------
 * Merge indigo to kinetic
 * 1.0.5
 * updated changelog
