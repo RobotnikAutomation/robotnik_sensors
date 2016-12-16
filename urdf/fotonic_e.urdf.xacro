@@ -13,7 +13,7 @@
 	
 	  <link name="${name}_link">
 	    <inertial>
-				<origin xyz="-0.275 0 -0.260" rpy="0 0 0" />
+			<origin xyz="0.0 0 0.0" rpy="0 0 0" />
 	      <mass value="0.0001" />
 	      <origin xyz="0 0 0" />
 	      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
@@ -21,24 +21,24 @@
 	               izz="0.0001" />
 	    </inertial>
 	    <visual>
-	      <origin xyz="-0.275 0 -0.260" rpy="0 0 0" /> <!-- to center the .dae model -->
+	      <origin xyz="0.0 0.0 -0.04" rpy="0 0 0" /> <!-- to center the .dae model -->
 	      <material name="fotonic_color">
            <color rgba="0.5 0.5 0.5 1"/>
         </material>
 	      <geometry>
-					<mesh filename= "package://robotnik_sensors/meshes/fotonic.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename= "package://robotnik_sensors/meshes/fotonic_e.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </visual>
 	    <collision>
-	      <origin xyz="-0.275 0 -0.260" rpy="0 0 0" />
+	      <origin xyz="0.0 0 -0.04" rpy="0 0 0" />
 	      <geometry>
-					<mesh filename= "package://robotnik_sensors/meshes/fotonic.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename= "package://robotnik_sensors/meshes/fotonic_e.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </collision>
 	  </link>
 	
 	  <joint name="${name}_depth_joint" type="fixed">
-			<origin xyz="0 0 0" rpy="0 0 0" />
+			<origin xyz="0.0375 0 0" rpy="0 0 0" />
 	    <parent link="${name}_link" />
 	    <child link="${name}_depth_frame" />
 	  </joint>
@@ -85,14 +85,14 @@
     </gazebo>
 		
     <gazebo reference="${name}_depth_frame">
-	    <sensor type="depth" name="fotonic">
+	    <sensor type="depth" name="${name}_sensor">
 	      <update_rate>30.0</update_rate>
 	      <camera name="fotonic">
 	        <horizontal_fov>1.221730476</horizontal_fov>  <!-- 70 deg -->
 	        <image>
-	          <width>800</width>  <!-- 160 -->
-	          <height>600</height> <!-- 120 -->
-	          <format>R8G8B8</format>
+	          <width>160</width>  <!-- 160 -->
+	          <height>120</height> <!-- 120 -->
+	          <format>L8</format> <!-- gray -->
 	        </image>
 	        <clip>
 	          <near>0.05</near>
@@ -105,17 +105,15 @@
 	        </noise>
 	      </camera>
 	      
-		    <plugin name="kinect_depth_optical_frame_controller" filename="libgazebo_ros_openni_kinect.so">
-					<baseline>0.2</baseline>
+		    <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
 					<alwaysOn>true</alwaysOn>
-					<updateRate>1.0</updateRate>
+					<updateRate>10.0</updateRate>
 					<cameraName>${name}</cameraName>
-					<imageTopicName>fotonic_3dcamera/image_raw</imageTopicName>
-					<cameraInfoTopicName>fotonic/depth/camera_info</cameraInfoTopicName>
-					<depthImageTopicName>fotonic/depth/image_raw</depthImageTopicName>
-					<depthImageInfoTopicName>fotonic_3dcamera/depth/camera_info</depthImageInfoTopicName>
-					<depthImageCameraInfoTopicName>fotonic_3dcamera/camera_info</depthImageCameraInfoTopicName>
-					<pointCloudTopicName>fotonic_3dcamera/depth/points</pointCloudTopicName>
+					<imageTopicName>ir/image_raw</imageTopicName>
+					<cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
+					<depthImageTopicName>depth/image_raw</depthImageTopicName>
+					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+					<pointCloudTopicName>points</pointCloudTopicName>
 					<frameName>${name}_depth_optical_frame</frameName>
 					<pointCloudCutoff>0.5</pointCloudCutoff>
 					<distortionK1>0</distortionK1>

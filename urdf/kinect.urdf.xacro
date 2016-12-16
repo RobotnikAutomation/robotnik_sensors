@@ -110,7 +110,7 @@
   <xacro:macro name="sensor_kinect_gazebo">
   
     <gazebo reference="${name}_link">  
-      <sensor type="depth" name="cam">
+      <sensor type="depth" name="${name}_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
         <camera>
@@ -125,7 +125,7 @@
             <far>8.0</far>
           </clip>
         </camera>
-        <plugin name="kinect_cam_controller" filename="libgazebo_ros_openni_kinect.so">
+        <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>

@@ -3,13 +3,13 @@
 
   <xacro:macro name="sensor_hokuyo3d" params="name parent *origin">
      
-    <joint name="${name}_laser_fix_joint" type="fixed">
+    <joint name="${name}_fix_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_laser_fix_link"/>
+      <child link="${name}_fix_link"/>
 	</joint>
 	
-	<link name="${name}_laser_fix_link">
+	<link name="${name}_fix_link">
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
@@ -31,11 +31,11 @@
 		</inertial>
 	</link>
 
-	<link name="${name}_laser_link">
+	<link name="${name}_link">
 	</link>
-    <joint name="${name}_laser_joint" type="fixed">
-      <parent link="${name}_laser_fix_link"/>
-      <child link="${name}_laser_link"/>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${name}_fix_link"/>
+      <child link="${name}_link"/>
       <origin xyz="0.08 0 0.08" rpy="0 0 0"/>
 	</joint>
 
@@ -47,7 +47,7 @@
   
     
   <xacro:macro name="sensor_hokuyo3d_gazebo">
-    <gazebo reference="${name}_laser_link">
+    <gazebo reference="${name}_link">
 			<sensor type="ray" name="${name}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
@@ -78,9 +78,9 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_block_laser.so">
-					<topicName>${name}/points2</topicName>
-					<frameName>${name}_laser_link</frameName>
+				<plugin name="${name}_controller" filename="libgazebo_ros_block_laser.so">
+					<topicName>${name}/points</topicName>
+					<frameName>${name}_link</frameName>
 				</plugin>
 			</sensor>
 		</gazebo>
