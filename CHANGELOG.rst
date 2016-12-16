@@ -12,8 +12,8 @@ Changelog for package robotnik_sensors
 * updated changelog
 * Contributors: Jose Rapado, Marc Bosch-Jorge, carlos3dx, rguzman1
 
-Forthcoming
------------
+1.0.5 (2016-12-16)
+------------------
 * 1.0.4
 * update changelog
 * MOD: Fixed problem with rotations
