@@ -50,6 +50,9 @@
 
   <!-- Sick Tim 571 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim571.urdf.xacro" />
+  
+  <!-- Sick Tim 551 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim551.urdf.xacro" />
 
   <!-- Orbbec Astra -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" /> 
