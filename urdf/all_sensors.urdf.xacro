@@ -58,6 +58,9 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar.urdf.xacro" /> 
 
   <!-- uEye CP Gige -->
-  <xacro:include filename="$(find robotnik_sensors)/urdf/ueye_cp_gige.urdf.xacro" /> 
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ueye_cp_gige.urdf.xacro" />
+
+  <!-- Pointgrey Bumblebee -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/pointgrey_bumblebee2.urdf.xacro" /> 
   
 </robot>
