@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_imu" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_imu" params="name parent *origin">
+  <xacro:macro name="sensor_imu" params="name prefix_frame prefix_topic parent *origin">
 
 	  <joint name="${name}_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
 	      <!--origin xyz="0 0 0.2825"/-->
 	      <xacro:insert_block name="origin"/>
 	      <parent link="${parent}"/>
-	      <child link="${name}_link"/>
+	      <child link="${prefix_frame}_link"/>
 	  </joint>
 	
 	  <link name="${name}_link">
@@ -33,9 +33,9 @@
     
 	  <gazebo>
 	    <plugin name="${name}_controller" filename="libgazebo_ros_imu.so">
-	       <topicName>${name}/data</topicName>
-		   <serviceName>${name}/service</serviceName>
-		   <bodyName>${name}_link</bodyName>
+	       <topicName>${prefix_topic}/data</topicName>
+		   <serviceName>${prefix_topic}/service</serviceName>
+		   <bodyName>${prefix_frame}_link</bodyName>
 	       <gaussianNoise>0.005</gaussianNoise>		
 	    </plugin>
 	  </gazebo>
