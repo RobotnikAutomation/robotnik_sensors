@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_s300" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_sick_s300" params="name parent *origin">
+  <xacro:macro name="sensor_sick_s300" params="name prefix_frame prefix_topic parent *origin">
      
     <joint name="${name}_fix_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -74,8 +74,8 @@
 					</noise>
 				</ray>
 				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${name}/scan</topicName>
-					<frameName>/${name}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
+					<topicName>${prefix_topic}${name}/scan</topicName>
+					<frameName>${prefix_frame}_${name}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
 				</plugin>
 			</sensor>
 		</gazebo>

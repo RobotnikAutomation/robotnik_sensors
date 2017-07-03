@@ -3,7 +3,7 @@
 	
 	
 	
-  <xacro:macro name="sensor_fotonic" params="name parent *origin">
+  <xacro:macro name="sensor_fotonic" params="name prefix_frame prefix_topic parent *origin">
     
     <joint name="${name}_joint" type="fixed">
 			<xacro:insert_block name="origin"/>
@@ -109,12 +109,12 @@
 					<alwaysOn>true</alwaysOn>
 					<updateRate>10.0</updateRate>
 					<cameraName>${name}</cameraName>
-					<imageTopicName>ir/image_raw</imageTopicName>
-					<cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
-					<depthImageTopicName>depth/image_raw</depthImageTopicName>
-					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-					<pointCloudTopicName>points</pointCloudTopicName>
-					<frameName>${name}_depth_optical_frame</frameName>
+					<imageTopicName>${prefix_topic}ir/image_raw</imageTopicName>
+					<cameraInfoTopicName>${prefix_topic}ir/camera_info</cameraInfoTopicName>
+					<depthImageTopicName>${prefix_topic}depth/image_raw</depthImageTopicName>
+					<depthImageCameraInfoTopicName>${prefix_topic}depth/camera_info</depthImageCameraInfoTopicName>
+					<pointCloudTopicName>${prefix_topic}points</pointCloudTopicName>
+					<frameName>${prefix_frame}_${name}_depth_optical_frame</frameName>
 					<pointCloudCutoff>0.5</pointCloudCutoff>
 					<distortionK1>0</distortionK1>
 					<distortionK2>0</distortionK2>

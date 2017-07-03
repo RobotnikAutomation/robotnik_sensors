@@ -16,7 +16,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_orbbec_astra" params="name parent *origin">
+  <xacro:macro name="sensor_orbbec_astra" params="name prefix_frame prefix_topic parent *origin">
     
     <joint name="${name}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
@@ -142,12 +142,12 @@
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
-          <imageTopicName>rgb/image_raw</imageTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
-          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${name}_depth_optical_frame</frameName>
+          <imageTopicName>${prefix_topic}rgb/image_raw</imageTopicName>
+          <depthImageTopicName>${prefix_topic}depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>${prefix_topic}depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>${prefix_topic}rgb/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>${prefix_topic}depth/camera_info</depthImageCameraInfoTopicName>
+          <frameName>${prefix_frame}_${name}_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

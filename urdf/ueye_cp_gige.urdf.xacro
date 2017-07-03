@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_ueye_cp_gige" params="name parent *origin">
+  <xacro:macro name="sensor_ueye_cp_gige" params="name prefix_frame prefix_topic parent *origin">
     <joint name="${name}_joint" type="fixed">
       <insert_block name="origin"/>
       <parent link="${parent}"/>
@@ -89,9 +89,9 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
           <cameraName>${name}</cameraName>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${name}_rgb_frame</frameName>
+          <imageTopicName>${prefix_topic}${name}/image_raw</imageTopicName>
+          <cameraInfoTopicName>${prefix_topic}${name}/camera_info</cameraInfoTopicName>
+          <frameName>${prefix_frame}_${name}_rgb_frame</frameName>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>
           <distortionK3>0.0</distortionK3>

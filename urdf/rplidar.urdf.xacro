@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
-  <xacro:macro name="sensor_rplidar" params="prefix parent *origin min_angle:=3.14159 max_angle:=-3.14159">
+  <xacro:macro name="sensor_rplidar" params="name prefix_frame prefix_topic parent *origin min_angle:=3.14159 max_angle:=-3.14159">
      
-    <joint name="${prefix}_laser_base_joint" type="fixed">
+    <joint name="${name}_laser_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_laser_base_link"/>
+      <child link="${name}_laser_base_link"/>
     </joint>
   
     
-    <link name="${prefix}_laser_base_link">
+    <link name="${name}_laser_base_link">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -32,14 +32,14 @@
       </inertial>
     </link>
     
-    <joint name="${prefix}_laser_joint" type="fixed">
+    <joint name="${name}_laser_joint" type="fixed">
       <origin xyz="0 0 0.0461" rpy="0 0 0"/>
-      <parent link="${prefix}_laser_base_link"/>
-      <child link="${prefix}_laser_link"/>
+      <parent link="${name}_laser_base_link"/>
+      <child link="${name}_laser_link"/>
     </joint>
   
     
-    <link name="${prefix}_laser_link">
+    <link name="${name}_laser_link">
     </link>
     
   	
@@ -49,8 +49,8 @@
   
     
   <xacro:macro name="sensor_rplidar_gazebo">
-    <gazebo reference="${prefix}_laser_link">
-			<sensor type="ray" name="${prefix}_rplidar_sensor">
+    <gazebo reference="${name}_laser_link">
+			<sensor type="ray" name="${name}_rplidar_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>10</update_rate>
@@ -75,8 +75,8 @@
 					</noise>
 				</ray>
 				<plugin name="gazebo_ros_rplidar_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${prefix}/scan</topicName>
-					<frameName>${prefix}_laser_link</frameName>
+					<topicName>${prefix_topic}${name}/scan</topicName>
+					<frameName>${prefix_frame}_${name}_laser_link</frameName>
 				</plugin>
 			</sensor>
 	</gazebo>

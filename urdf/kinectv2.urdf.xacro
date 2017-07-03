@@ -10,7 +10,7 @@
     <xacro:property name="cam_oy" value="0" />
 
 
-  <xacro:macro name="sensor_kinectv2" params="name parent base:=true *origin">
+  <xacro:macro name="sensor_kinectv2" params="name prefix_frame prefix_topic parent base:=true *origin">
 
     <joint name="${name}_rgb_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -151,12 +151,12 @@
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
-          <imageTopicName>rgb/image_raw</imageTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
-          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${name}_depth_optical_frame</frameName>
+          <imageTopicName>${prefix_topic}rgb/image_raw</imageTopicName>
+          <depthImageTopicName>${prefix_topic}depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>${prefix_topic}depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>${prefix_topic}rgb/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>${prefix_topic}depth/camera_info</depthImageCameraInfoTopicName>
+          <frameName>${prefix_frame}_${name}_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

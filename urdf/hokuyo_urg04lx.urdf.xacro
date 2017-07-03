@@ -2,7 +2,7 @@
 <robot name="sensor_hokuyo_urg04lx" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
 	
-  <xacro:macro name="sensor_hokuyo_urg04lx" params="name parent *origin min_angle:=-2.0943 max_angle:=2.0943">
+  <xacro:macro name="sensor_hokuyo_urg04lx" params="name prefix_frame prefix_topic parent *origin min_angle:=-2.0943 max_angle:=2.0943">
      
     <joint name="${name}_joint" type="fixed">
       <!-- FRONT MOUNT  -->
@@ -71,8 +71,8 @@
 					</noise>
 				</ray>
 				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${name}/scan</topicName>
-					<frameName>${name}_link</frameName>
+					<topicName>${prefix_topic}${name}/scan</topicName>
+					<frameName>${prefix_frame}_${name}_link</frameName>
 				</plugin>
 			</sensor>
 	</gazebo>

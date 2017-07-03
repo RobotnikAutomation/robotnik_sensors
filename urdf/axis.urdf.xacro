@@ -5,7 +5,7 @@
   <xacro:property name="ptz_joint_friction" value="0.1"/>
   <xacro:property name="ptz_joint_damping" value="0.1"/>
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
-  <xacro:macro name="sensor_axis" params="name parent *origin">
+  <xacro:macro name="sensor_axis" params="name prefix_frame prefix_topic parent *origin">
     <joint name="${name}_joint" type="fixed">
       <axis xyz="0 1 0"/>
       <xacro:insert_block name="origin"/>
@@ -143,9 +143,9 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
           <cameraName>${name}</cameraName>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${name}_optical_frame</frameName>
+          <imageTopicName>${prefix_topic}image_raw</imageTopicName>
+          <cameraInfoTopicName>${prefix_topic}camera_info</cameraInfoTopicName>
+          <frameName>${prefix_frame}_${name}_optical_frame</frameName>
           <hackBaseline>0.0</hackBaseline>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>

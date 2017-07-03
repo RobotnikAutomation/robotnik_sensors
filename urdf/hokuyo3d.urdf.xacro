@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo3d" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_hokuyo3d" params="name parent *origin">
+  <xacro:macro name="sensor_hokuyo3d" params="name prefix_frame prefix_topic parent *origin">
      
     <joint name="${name}_fix_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -79,8 +79,8 @@
 					</noise>
 				</ray>
 				<plugin name="${name}_controller" filename="libgazebo_ros_block_laser.so">
-					<topicName>${name}/points</topicName>
-					<frameName>${name}_link</frameName>
+					<topicName>${prefix_topic}${name}/points</topicName>
+					<frameName>${prefix_frame}_${name}_link</frameName>
 				</plugin>
 			</sensor>
 		</gazebo>
