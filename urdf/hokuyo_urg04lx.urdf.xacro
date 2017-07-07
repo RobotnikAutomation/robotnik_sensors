@@ -45,8 +45,8 @@
   
     
   <xacro:macro name="sensor_hokuyo_urg_gazebo">
-    <gazebo reference="${name}_link">
-			<sensor type="ray" name="${name}_sensor">
+    <gazebo reference="${prefix_frame}${name}_link">
+			<sensor type="ray" name="${prefix_frame}${name}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>10</update_rate>
@@ -71,8 +71,9 @@
 					</noise>
 				</ray>
 				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${prefix_topic}${name}/scan</topicName>
+					<topicName>${prefix_topic}scan</topicName>
 					<frameName>${prefix_frame}_${name}_link</frameName>
+					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>
 	</gazebo>

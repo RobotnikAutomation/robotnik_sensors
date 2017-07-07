@@ -8,10 +8,10 @@
 	      <!--origin xyz="0 0 0.2825"/-->
 	      <xacro:insert_block name="origin"/>
 	      <parent link="${parent}"/>
-	      <child link="${prefix_frame}_link"/>
+	      <child link="${prefix_frame}${name}_link"/>
 	  </joint>
 	
-	  <link name="${name}_link">
+	  <link name="${prefix_frame}${name}_link">
 	      <inertial>
 	        <mass value="0.001"/>
 	        <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -32,10 +32,10 @@
 	  </link>
     
 	  <gazebo>
-	    <plugin name="${name}_controller" filename="libgazebo_ros_imu.so">
+	    <plugin name="${prefix_frame}${name}_controller" filename="libgazebo_ros_imu.so">
 	       <topicName>${prefix_topic}data</topicName>
 		   <serviceName>${prefix_topic}service</serviceName>
-		   <bodyName>${prefix_frame}_link</bodyName>
+		   <bodyName>${prefix_frame}${name}_link</bodyName>
 	       <gaussianNoise>0.005</gaussianNoise>		
 	    </plugin>
 	  </gazebo>

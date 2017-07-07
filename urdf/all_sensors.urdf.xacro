@@ -47,15 +47,21 @@
     
   <!-- KinectV2 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/kinectv2.urdf.xacro" /> 
+  
+  <!-- Sick Tim 551 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim551.urdf.xacro" />
 
   <!-- Sick Tim 571 -->
-  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim571.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_tim571.urdf.xacro" />  
 
   <!-- Orbbec Astra -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" /> 
   
   <!-- Rplidar -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar.urdf.xacro" /> 
+  
+  <!-- Rplidar A2 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar_a2.urdf.xacro" />
 
   <!-- uEye CP Gige -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/ueye_cp_gige.urdf.xacro" /> 

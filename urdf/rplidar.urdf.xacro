@@ -6,11 +6,11 @@
     <joint name="${name}_laser_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_laser_base_link"/>
+      <child link="${prefix_frame}${name}_laser_base_link"/>
     </joint>
   
     
-    <link name="${name}_laser_base_link">
+    <link name="${prefix_frame}${name}_laser_base_link">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -34,12 +34,12 @@
     
     <joint name="${name}_laser_joint" type="fixed">
       <origin xyz="0 0 0.0461" rpy="0 0 0"/>
-      <parent link="${name}_laser_base_link"/>
-      <child link="${name}_laser_link"/>
+      <parent link="${prefix_frame}${name}_laser_base_link"/>
+      <child link="${prefix_frame}${name}_laser_link"/>
     </joint>
   
     
-    <link name="${name}_laser_link">
+    <link name="${prefix_frame}${name}_laser_link">
     </link>
     
   	
@@ -49,8 +49,8 @@
   
     
   <xacro:macro name="sensor_rplidar_gazebo">
-    <gazebo reference="${name}_laser_link">
-			<sensor type="ray" name="${name}_rplidar_sensor">
+    <gazebo reference="${prefix_frame}${name}_laser_link">
+			<sensor type="ray" name="${prefix_frame}${name}_rplidar_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>10</update_rate>
@@ -75,8 +75,9 @@
 					</noise>
 				</ray>
 				<plugin name="gazebo_ros_rplidar_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${prefix_topic}${name}/scan</topicName>
-					<frameName>${prefix_frame}_${name}_laser_link</frameName>
+					<topicName>${prefix_topic}scan</topicName>
+					<frameName>${prefix_frame}${name}_laser_link</frameName>
+					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>
 	</gazebo>
