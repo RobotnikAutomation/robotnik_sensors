@@ -2,8 +2,40 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.3 (2016-09-01)
+1.1.1 (2016-12-16)
 ------------------
+* Merge indigo to kinetic
+* 1.0.5
+* updated changelog
+* 1.0.4
+* update changelog
+* MOD: Fixed problem with rotations
+* --amend
+* standarized all sensors: frames, joints, topics and params
+* reduced rate drift and associated gaussian noise
+* 1.0.3
+* updated changelog
+* Contributors: Jose Rapado, Marc Bosch-Jorge, carlos3dx, rguzman1
+
+1.1.0 (2016-09-01 08:19:07 +0200)
+---------------------------------
+* updated changelog
+* Contributors: carlos3dx
+
+1.0.5 (2016-12-16 10:29:20 +0100)
+---------------------------------
+* updated changelog
+* 1.0.4
+* update changelog
+* MOD: Fixed problem with rotations
+* --amend
+* standarized all sensors: frames, joints, topics and params
+* reduced rate drift and associated gaussian noise
+* Contributors: Jose Rapado, Marc Bosch-Jorge, carlos3dx, rguzman1
+
+1.0.3 (2016-09-01 08:12:30 +0200)
+---------------------------------
+* updated changelog
 * modified xmls:xacro
 * Merge branch 'indigo-devel' of https://github.com/RobotnikAutomation/robotnik_sensors into indigo-devel
 * Modified .xacro files
@@ -14,8 +46,9 @@ Changelog for package robotnik_sensors
 * Added rplidar to all_sensors
 * Contributors: Marc Bosch-Jorge, carlos3dx, summit
 
-1.0.2 (2016-07-12)
-------------------
+1.0.2 (2016-07-12 07:30:38 +0200)
+---------------------------------
+* updated changelog
 * Setting TIM571 params
 * Added Sick Tim571 sensor
 * New collision model for s3000
@@ -26,10 +59,11 @@ Changelog for package robotnik_sensors
 * Merge remote-tracking branch 'origin/indigo-devel' into indigo-devel
 * asus_xtrion_pro: corrected typo
 * orbbec_astra: now calls the correct gazebo sensor
-* Contributors: Jose Rapado, Marc Bosch-Jorge, RomanRobotnik
+* Contributors: Jose Rapado, Marc Bosch-Jorge, RomanRobotnik, carlos3dx
 
-1.0.1 (2016-06-27)
-------------------
+1.0.1 (2016-06-27 09:13:11 +0200)
+---------------------------------
+* Adding CHANGELOG
 * Setting build & run dependencies
 * adding .gitignore
 * Removed author
