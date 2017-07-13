@@ -3,15 +3,15 @@
 	
 	
 	
-  <xacro:macro name="sensor_fotonic" params="name prefix_frame prefix_topic parent *origin">
+  <xacro:macro name="sensor_fotonic" params="prefix parent *origin">
     
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${prefix}_joint" type="fixed">
 			<xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="${prefix}_link"/>
 	  </joint>
 	
-	  <link name="${name}_link">
+	  <link name="${prefix}_link">
 	    <inertial>
 			<origin xyz="0.0 0 0.0" rpy="0 0 0" />
 	      <mass value="0.0001" />
@@ -37,13 +37,13 @@
 	    </collision>
 	  </link>
 	
-	  <joint name="${name}_depth_joint" type="fixed">
+	  <joint name="${prefix}_depth_joint" type="fixed">
 			<origin xyz="0.0375 0 0" rpy="0 0 0" />
-	    <parent link="${name}_link" />
-	    <child link="${name}_depth_frame" />
+	    <parent link="${prefix}_link" />
+	    <child link="${prefix}_depth_frame" />
 	  </joint>
 	
-	  <link name="${name}_depth_frame">
+	  <link name="${prefix}_depth_frame">
 	    <inertial>
 	      <mass value="0.0001" />
 	      <origin xyz="0 0 0" />
@@ -53,13 +53,13 @@
 	    </inertial>
 	  </link>
 	
-	  <joint name="${name}_depth_optical_joint" type="fixed">
+	  <joint name="${prefix}_depth_optical_joint" type="fixed">
 	    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708" />
-	    <parent link="${name}_depth_frame" />
-	    <child link="${name}_depth_optical_frame" />
+	    <parent link="${prefix}_depth_frame" />
+	    <child link="${prefix}_depth_optical_frame" />
 	  </joint>
 	
-	  <link name="${name}_depth_optical_frame">
+	  <link name="${prefix}_depth_optical_frame">
 	    <inertial>
 	      <mass value="0.0001" />
 	      <origin xyz="0 0 0" />
@@ -80,12 +80,12 @@
     
   <xacro:macro name="sensor_fotonic_gazebo">
 		
-		<gazebo reference="${name}_link">
+		<gazebo reference="${prefix}_link">
       <material>Gazebo/Grey</material>
     </gazebo>
 		
-    <gazebo reference="${name}_depth_frame">
-	    <sensor type="depth" name="${name}_sensor">
+    <gazebo reference="${prefix}_depth_frame">
+	    <sensor type="depth" name="${prefix}_sensor">
 	      <update_rate>30.0</update_rate>
 	      <camera name="fotonic">
 	        <horizontal_fov>1.221730476</horizontal_fov>  <!-- 70 deg -->
@@ -105,16 +105,16 @@
 	        </noise>
 	      </camera>
 	      
-		    <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
+		    <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
 					<alwaysOn>true</alwaysOn>
 					<updateRate>10.0</updateRate>
-					<cameraName>${name}</cameraName>
-					<imageTopicName>${prefix_topic}ir/image_raw</imageTopicName>
-					<cameraInfoTopicName>${prefix_topic}ir/camera_info</cameraInfoTopicName>
-					<depthImageTopicName>${prefix_topic}depth/image_raw</depthImageTopicName>
-					<depthImageCameraInfoTopicName>${prefix_topic}depth/camera_info</depthImageCameraInfoTopicName>
-					<pointCloudTopicName>${prefix_topic}points</pointCloudTopicName>
-					<frameName>${prefix_frame}_${name}_depth_optical_frame</frameName>
+					<cameraName>${prefix}</cameraName>
+					<imageTopicName>ir/image_raw</imageTopicName>
+					<cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
+					<depthImageTopicName>depth/image_raw</depthImageTopicName>
+					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+					<pointCloudTopicName>points</pointCloudTopicName>
+					<frameName>${prefix}_depth_optical_frame</frameName>
 					<pointCloudCutoff>0.5</pointCloudCutoff>
 					<distortionK1>0</distortionK1>
 					<distortionK2>0</distortionK2>
@@ -126,6 +126,7 @@
 					<Cy>0</Cy>
 					<focalLength>0</focalLength>
 					<hackBaseline>0</hackBaseline>
+					<ignoreTfPrefix>1</ignoreTfPrefix>
 			  </plugin>      
 	    </sensor>
 	  </gazebo>

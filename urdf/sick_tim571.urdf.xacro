@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
-  <xacro:macro name="sensor_sick_tim571" params="name prefix_frame prefix_topic parent *origin min_angle:=-2.36 max_angle:=2.36">
+  <xacro:macro name="sensor_sick_tim571" params="prefix parent *origin min_angle:=-2.36 max_angle:=2.36">
      
-    <joint name="${name}_base_joint" type="fixed">
+    <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_base_link"/>
+      <child link="${prefix}_base_link"/>
     </joint>
   
     
-    <link name="${name}_base_link">
+    <link name="${prefix}_base_link">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -32,14 +32,14 @@
       </inertial>
     </link>
     
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${prefix}_joint" type="fixed">
       <origin xyz="0 0 0.06246" rpy="0 0 0"/>
-      <parent link="${name}_base_link"/>
-      <child link="${name}_link"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
     </joint>
   
     
-    <link name="${name}_link">
+    <link name="${prefix}_link">
     </link>
     
   	
@@ -49,8 +49,8 @@
   
     
   <xacro:macro name="sensor_sick_tim571_gazebo">
-	<gazebo reference="${prefix_frame}${name}_link">
-			<sensor type="ray" name="${prefix_frame}${name}_sensor">
+	<gazebo reference="${prefix}_link">
+			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>15</update_rate>
@@ -74,9 +74,9 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix_frame}${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${prefix_topic}scan</topicName>
-					<frameName>${prefix_frame}${name}_link</frameName>
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
+					<topicName>scan</topicName>
+					<frameName>${prefix}_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>

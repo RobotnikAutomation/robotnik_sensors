@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <robot name="sensor_imu" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_imu_hector" params="prefix_frame prefix_topic parent *origin">
+  <xacro:macro name="sensor_imu_hector" params="prefix parent *origin">
 
-	  <joint name="${prefix_frame}_joint" type="fixed">
+	  <joint name="${prefix}_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
 	      <!--origin xyz="0 0 0.2825"/-->
 	      <xacro:insert_block name="origin"/>
@@ -11,7 +11,7 @@
 	      <child link="${prefix_frame}_link"/>
 	  </joint>
 	
-	  <link name="${prefix_frame}_link">
+	  <link name="${prefix}_link">
 	      <inertial>
 	        <mass value="0.001"/>
 	        <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -32,11 +32,11 @@
 	  </link>
        
 	  <gazebo>
-	    <plugin name="${prefix_frame}_controller" filename="libhector_gazebo_ros_imu.so">
+	    <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_imu.so">
 	       <alwaysOn>true</alwaysOn>
-	       <topicName>${prefix_topic}imu/data</topicName>
-		   <serviceName>${prefix_topic}imu/service</serviceName>
-		   <bodyName>${prefix_frame}_link</bodyName>
+	       <topicName>imu/data</topicName>
+		   <serviceName>${prefix}imu/service</serviceName>
+		   <bodyName>${prefix}_link</bodyName>
 	       <updateRate>50.0</updateRate> 
 
 	       <gaussianNoise>0.005</gaussianNoise>		
@@ -61,6 +61,7 @@
            <!--<accelDrift>0.0 0.0 0.0</accelDrift>-->
            <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
            <!--<accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>-->
+           	<ignoreTfPrefix>1</ignoreTfPrefix>
 	    </plugin>
 	  </gazebo>
     

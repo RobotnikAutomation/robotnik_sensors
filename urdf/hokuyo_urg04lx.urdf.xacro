@@ -2,20 +2,20 @@
 <robot name="sensor_hokuyo_urg04lx" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
 	
-  <xacro:macro name="sensor_hokuyo_urg04lx" params="name prefix_frame prefix_topic parent *origin min_angle:=-2.0943 max_angle:=2.0943">
+  <xacro:macro name="sensor_hokuyo_urg04lx" params="prefix parent *origin min_angle:=-2.0943 max_angle:=2.0943">
      
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${prefix}_joint" type="fixed">
       <!-- FRONT MOUNT  -->
       <!-- origin xyz="0.29 0 0.1" -->
       <!-- TOP MOUNT -->
       <!-- origin xyz="0.0 0.0 0.325"-->
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="${prefix}_link"/>
     </joint>
   
     
-    <link name="${name}_link">
+    <link name="${prefix}_link">
       <collision>
         <origin xyz="0 0 -0.05" rpy="0 0 0"/>
         <geometry>
@@ -45,8 +45,8 @@
   
     
   <xacro:macro name="sensor_hokuyo_urg_gazebo">
-    <gazebo reference="${prefix_frame}${name}_link">
-			<sensor type="ray" name="${prefix_frame}${name}_sensor">
+    <gazebo reference="${prefix}_link">
+			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>10</update_rate>
@@ -71,8 +71,8 @@
 					</noise>
 				</ray>
 				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${prefix_topic}scan</topicName>
-					<frameName>${prefix_frame}_${name}_link</frameName>
+					<topicName>scan</topicName>
+					<frameName>${prefix}_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>
