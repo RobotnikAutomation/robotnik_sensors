@@ -14,9 +14,9 @@
     <joint name="${prefix}_rgb_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_rgb_frame" />
+      <child link="${prefix}_rgb_base_link" />
     </joint>
-    <link name="${prefix}_rgb_frame">
+    <link name="${prefix}_rgb_base_link">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -29,10 +29,10 @@
     
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_rgb_frame" />
-      <child link="${prefix}_rgb_optical_frame" />
+      <parent link="${prefix}_rgb_base_link" />
+      <child link="${prefix}_rgb_optical_link" />
     </joint>
-    <link name="${prefix}_rgb_optical_frame">
+    <link name="${prefix}_rgb_optical_link">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -44,7 +44,7 @@
 
   <joint name="${prefix}_joint" type="fixed">
     <origin xyz="-0.031 ${-cam_py} -0.016" rpy="0 0 0"/>
-    <parent link="${prefix}_rgb_frame"/>
+    <parent link="${prefix}_rgb_base_link"/>
     <child link="${prefix}_link"/>
   </joint>  
     <link name="${prefix}_link">
@@ -74,10 +74,10 @@
        (Hence, don't publish them additionally!) -->
 	<joint name="${prefix}_depth_joint" type="fixed">
 	  <origin xyz="0 ${2 * -cam_py} 0" rpy="0 0 0" />
-	  <parent link="${prefix}_rgb_frame" />
-	  <child link="${prefix}_depth_frame" />
+	  <parent link="${prefix}_rgb_base_link" />
+	  <child link="${prefix}_depth_link" />
 	</joint>
-	<link name="${prefix}_depth_frame">
+	<link name="${prefix}_depth_link">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -88,10 +88,10 @@
 	</link>
 	<joint name="${prefix}_depth_optical_joint" type="fixed">
 	  <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-	  <parent link="${prefix}_depth_frame" />
-	  <child link="${prefix}_depth_optical_frame" />
+	  <parent link="${prefix}_depth_link" />
+	  <child link="${prefix}_depth_optical_link" />
 	</joint>
-	<link name="${prefix}_depth_optical_frame">
+	<link name="${prefix}_depth_optical_link">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -134,7 +134,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${prefix}_depth_optical_frame</frameName>
+          <frameName>${prefix}_depth_optical_link</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

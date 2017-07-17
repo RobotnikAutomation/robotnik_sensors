@@ -7,11 +7,11 @@
     <joint name="${prefix}_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_link"/>
+      <child link="${prefix}_base_link"/>
 	</joint>
 
   
-	<link name="${prefix}_link">
+	<link name="${prefix}_base_link">
 		<collision>
 			<origin xyz="-0.093 0 -0.0625" rpy="0 0 0"/>
 			<geometry>
@@ -41,7 +41,7 @@
   
     
   <xacro:macro name="sensor_sick_s3000_gazebo">
-    <gazebo reference="${prefix}_link">
+    <gazebo reference="${prefix}_base_link">
 			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
@@ -68,7 +68,7 @@
 				</ray>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
 					<topicName>scan</topicName>
-					<frameName>${prefix}_link</frameName>
+					<frameName>${prefix}_base_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>

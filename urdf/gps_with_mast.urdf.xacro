@@ -11,10 +11,10 @@
 	    <axis xyz="0 1 0"/>
 	    <xacro:insert_block name="origin"/>
 	    <parent link="${parent}"/>
-	    <child link="${prefix}_mast_link"/>
+	    <child link="${prefix}_mast_base_link"/>
 	  </joint>
 	  
-	  <link name="${prefix}_mast_link">
+	  <link name="${prefix}_mast_base_link">
 	    <inertial>
 	      <mass value="0.001"/>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -39,12 +39,12 @@
 
 	  <joint name="${prefix}_mast_joint" type="fixed">
 	    <axis xyz="0 1 0"/>
-	    <parent link="${prefix}_mast_link"/>
+	    <parent link="${prefix}_mast_base_link"/>
 	    <child link="${prefix}_link"/>
 	    <origin xyz="0 0 ${mast_height/2.0}" rpy="0 0 0" />  
 	  </joint>
 
-	  <gazebo reference="${prefix}_mast_link">
+	  <gazebo reference="${prefix}_mast_base_link">
 	    <material>Gazebo/Black</material>
 	    <gravity>true</gravity>
 	  </gazebo>

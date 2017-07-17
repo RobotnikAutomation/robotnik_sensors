@@ -4,18 +4,18 @@
 
   <xacro:macro name="sensor_hokuyo_utm30lx" params="prefix parent *origin min_angle:=-2.35 max_angle:=2.35">
      
-    <joint name="${prefix}_joint" type="fixed">
+    <joint name="${prefix}_base_joint" type="fixed">
       <!-- FRONT MOUNT  -->
       <!-- origin xyz="0.29 0 0.1" -->
       <!-- TOP MOUNT -->
       <!-- origin xyz="0.0 0.0 0.325"-->
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_link"/>
+      <child link="${prefix}_base_link"/>
     </joint>
 
   
-    <link name="${prefix}_link">
+    <link name="${prefix}_base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -38,7 +38,7 @@
   
     
   <xacro:macro name="sensor_hokuyo_utm_gazebo">
-    <gazebo reference="${prefix}_link">
+    <gazebo reference="${prefix}_base_link">
 			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
@@ -65,7 +65,7 @@
 				</ray>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
 					<topicName>scan</topicName>
-					<frameName>${prefix}_link</frameName>
+					<frameName>${prefix}_base_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>

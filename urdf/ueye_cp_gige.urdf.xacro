@@ -5,9 +5,9 @@
     <joint name="${prefix}_joint" type="fixed">
       <insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${prefix}_link"/>
+      <child link="${prefix}_base_link"/>
     </joint>
-    <link name="${prefix}_link"> <!-- TODO: review masses, inertial -->
+    <link name="${prefix}_base_link"> <!-- TODO: review masses, inertial -->
       <inertial>
         <origin xyz="0.0 0.0 0." rpy="0 0 0"/>
         <mass value="0.1"/>
@@ -34,10 +34,10 @@
 
     <joint name="${prefix}_rgb_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" /> 
-      <parent link="${prefix}_link"/>
-      <child link="${prefix}_rgb_frame"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_rgb_frame_link"/>
     </joint>
-    <link name="${prefix}_rgb_frame">
+    <link name="${prefix}_rgb_frame_link">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -49,10 +49,10 @@
     
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" /> 
-      <parent link="${prefix}_rgb_frame"/>
-      <child link="${prefix}_rgb_optical_frame"/>
+      <parent link="${prefix}_rgb_frame_link"/>
+      <child link="${prefix}_rgb_optical_frame_link"/>
     </joint>
-    <link name="${prefix}_rgb_optical_frame">
+    <link name="${prefix}_rgb_optical_frame_link">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -65,7 +65,7 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_ueye_cp_gige_gazebo">
-    <gazebo reference="${prefix}_link">
+    <gazebo reference="${prefix}_base_link">
       <sensor type="camera" name="${prefix}_sensor">
         <update_rate>30.0</update_rate>
         <camera name="head">
@@ -91,7 +91,7 @@
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${prefix}_rgb_frame</frameName>
+          <frameName>${prefix}_rgb_frame_link</frameName>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>
           <distortionK3>0.0</distortionK3>

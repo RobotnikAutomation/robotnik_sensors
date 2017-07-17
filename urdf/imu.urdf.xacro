@@ -3,15 +3,15 @@
 
   <xacro:macro name="sensor_imu" params="prefix parent *origin">
 
-	  <joint name="${prefix}_joint" type="fixed">
+	  <joint name="${prefix}_base_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
 	      <!--origin xyz="0 0 0.2825"/-->
 	      <xacro:insert_block name="origin"/>
 	      <parent link="${parent}"/>
-	      <child link="${prefix}_link"/>
+	      <child link="${prefix}_base_link"/>
 	  </joint>
 	
-	  <link name="${prefix}_link">
+	  <link name="${prefix}_base_link">
 	      <inertial>
 	        <mass value="0.001"/>
 	        <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -35,7 +35,7 @@
 	    <plugin name="${prefix}_controller" filename="libgazebo_ros_imu.so">
 	       <topicName>data</topicName>
 		   <serviceName>${prefix}service</serviceName>
-		   <bodyName>${prefix}_link</bodyName>
+		   <bodyName>${prefix}_base_link</bodyName>
 	       <gaussianNoise>0.005</gaussianNoise>		
 	       	<ignoreTfPrefix>1</ignoreTfPrefix>
 	    </plugin>

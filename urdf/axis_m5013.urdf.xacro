@@ -15,9 +15,9 @@
 -->
       <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${prefix}_link"/>
+      <child link="${prefix}_base_link"/>
     </joint>
-    <link name="${prefix}_link">
+    <link name="${prefix}_base_link">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.1"/>
@@ -46,7 +46,7 @@
       <axis xyz="1 0 0"/>
       <origin xyz="0.04 0.0 0.0" rpy="0 0 0"/>
       <!-- check the displacement -->
-      <parent link="${prefix}_link"/>
+      <parent link="${prefix}_base_link"/>
       <child link="${prefix}_pan_link"/>
       <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-3.1416" upper="3.1416"/>
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
@@ -96,9 +96,9 @@
     <joint name="${prefix}_frame_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${prefix}_tilt_link"/>
-      <child link="${prefix}_frame"/>
+      <child link="${prefix}_frame_link"/>
     </joint>
-    <link name="${prefix}_frame">
+    <link name="${prefix}_frame_link">
       <inertial>
         <mass value="0.001"/>
         <origin xyz="0 0 0"/>
@@ -108,17 +108,17 @@
     <!-- Optical frame -->
     <joint name="${prefix}_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
-      <parent link="${prefix}_frame"/>
-      <child link="${prefix}_optical_frame"/>
+      <parent link="${prefix}_frame_link"/>
+      <child link="${prefix}_optical_frame_link"/>
     </joint>
-    <link name="${prefix}_optical_frame">
+    <link name="${prefix}_optical_frame_link">
       <inertial>
         <mass value="0.001"/>
         <origin xyz="0 0 0"/>
         <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
       </inertial>
     </link>
-    <gazebo reference="${prefix}_link">
+    <gazebo reference="${prefix}_base_link">
       <material>Gazebo/FlatBlack</material>
     </gazebo>
 
@@ -130,7 +130,7 @@
 
 	<xacro:macro name="sensor_axis_m5013_gazebo">
 
-		<gazebo reference="${prefix}_frame"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
+		<gazebo reference="${prefix}_frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
 			<sensor type="camera" name="${prefix}_sensor">
 				<update_rate>30.0</update_rate>
 				<camera name="${prefix}">
@@ -152,7 +152,7 @@
 					<cameraName>${prefix}</cameraName>
 					<imageTopicName>image_raw</imageTopicName>
 					<cameraInfoTopicName>camera_info</cameraInfoTopicName>
-					<frameName>${prefix}_optical_frame</frameName>
+					<frameName>${prefix}_optical_frame_link</frameName>
 					<!-- this is just which name the Image msg will have, it does not affect the simulation.
 					     However must be set to the optical_frame,  -->
 					<hackBaseline>0.07</hackBaseline>

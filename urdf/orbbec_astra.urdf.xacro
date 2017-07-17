@@ -21,10 +21,10 @@
     <joint name="${prefix}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_rgb_frame_link" />
+      <child link="${prefix}_rgb_base_link" />
     </joint>
 
-    <link name="${prefix}_rgb_frame_link">
+    <link name="${prefix}_rgb_base_link">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -36,7 +36,7 @@
 
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />      
-      <parent link="${prefix}_rgb_frame_link" />
+      <parent link="${prefix}_rgb_base_link" />
       <child link="${prefix}_rgb_optical_frame_link" />
     </joint>
 
@@ -53,7 +53,7 @@
     <joint name="${prefix}_joint" type="fixed">
       <origin xyz="${orbbec_astra_rel_rgb_px} ${orbbec_astra_rel_rgb_py} ${orbbec_astra_rel_rgb_pz}"
               rpy="0.0 0 0"/>
-      <parent link="${prefix}_rgb_frame_link"/>
+      <parent link="${prefix}_rgb_base_link"/>
       <child link="${prefix}_link"/>
     </joint>
     <link name="${prefix}_link">
@@ -85,7 +85,7 @@
 
     <joint name="${prefix}_depth_joint" type="fixed">
       <origin xyz="${orbbec_astra_depth_rel_rgb_px} ${orbbec_astra_depth_rel_rgb_py} ${orbbec_astra_depth_rel_rgb_pz}" rpy="0 0 0" />
-      <parent link="${prefix}_rgb_frame_link" />
+      <parent link="${prefix}_rgb_base_link" />
       <child link="${prefix}_depth_frame_link" />
     </joint>
 
@@ -122,7 +122,7 @@
   
    <xacro:macro name="sensor_orbbec_astra_gazebo">
   
-    <gazebo reference="${prefix}_rgb_frame_link">  
+    <gazebo reference="${prefix}_rgb_base_link">  
       <sensor type="depth" name="${prefix}_depth_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>

@@ -8,10 +8,10 @@
     <joint name="${prefix}_joint" type="fixed">
 			<xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${prefix}_link"/>
+      <child link="${prefix}_base_link"/>
 	  </joint>
 	
-	  <link name="${prefix}_link">
+	  <link name="${prefix}_base_link">
 	    <inertial>
 			<origin xyz="0.0 0 0.0" rpy="0 0 0" />
 	      <mass value="0.0001" />
@@ -39,11 +39,11 @@
 	
 	  <joint name="${prefix}_depth_joint" type="fixed">
 			<origin xyz="0.0375 0 0" rpy="0 0 0" />
-	    <parent link="${prefix}_link" />
-	    <child link="${prefix}_depth_frame" />
+	    <parent link="${prefix}_base_link" />
+	    <child link="${prefix}_depth_frame_link" />
 	  </joint>
 	
-	  <link name="${prefix}_depth_frame">
+	  <link name="${prefix}_depth_frame_link">
 	    <inertial>
 	      <mass value="0.0001" />
 	      <origin xyz="0 0 0" />
@@ -55,11 +55,11 @@
 	
 	  <joint name="${prefix}_depth_optical_joint" type="fixed">
 	    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708" />
-	    <parent link="${prefix}_depth_frame" />
-	    <child link="${prefix}_depth_optical_frame" />
+	    <parent link="${prefix}_depth_frame_link" />
+	    <child link="${prefix}_depth_optical_frame_link" />
 	  </joint>
 	
-	  <link name="${prefix}_depth_optical_frame">
+	  <link name="${prefix}_depth_optical_frame_link">
 	    <inertial>
 	      <mass value="0.0001" />
 	      <origin xyz="0 0 0" />
@@ -80,11 +80,11 @@
     
   <xacro:macro name="sensor_fotonic_gazebo">
 		
-		<gazebo reference="${prefix}_link">
+		<gazebo reference="${prefix}_base_link">
       <material>Gazebo/Grey</material>
     </gazebo>
 		
-    <gazebo reference="${prefix}_depth_frame">
+    <gazebo reference="${prefix}_depth_frame_link">
 	    <sensor type="depth" name="${prefix}_sensor">
 	      <update_rate>30.0</update_rate>
 	      <camera name="fotonic">
@@ -114,7 +114,7 @@
 					<depthImageTopicName>depth/image_raw</depthImageTopicName>
 					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
 					<pointCloudTopicName>points</pointCloudTopicName>
-					<frameName>${prefix}_depth_optical_frame</frameName>
+					<frameName>${prefix}_depth_optical_frame_link</frameName>
 					<pointCloudCutoff>0.5</pointCloudCutoff>
 					<distortionK1>0</distortionK1>
 					<distortionK2>0</distortionK2>
