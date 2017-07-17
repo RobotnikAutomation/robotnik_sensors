@@ -37,6 +37,13 @@
       </inertial>
     </link>
     
+    <link name="${prefix}_link">
+	</link>
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0.00 0 0.05" rpy="0 0 0"/>
+	</joint>
     
     <!-- Hokuyo sensor for simulation -->		
     <sensor_hokuyo_urg_gazebo/>
@@ -45,7 +52,7 @@
   
     
   <xacro:macro name="sensor_hokuyo_urg_gazebo">
-    <gazebo reference="${prefix}_base_link">
+    <gazebo reference="${prefix}_link">
 			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
@@ -72,7 +79,7 @@
 				</ray>
 				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
 					<topicName>scan</topicName>
-					<frameName>${prefix}_base_link</frameName>
+					<frameName>${prefix}_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
 			</sensor>
