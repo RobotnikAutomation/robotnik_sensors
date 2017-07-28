@@ -139,11 +139,7 @@
           </clip>
         </camera>
         <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
-<<<<<<< HEAD
-          <cameraName>orbbec_cam</cameraName>
-=======
           <cameraName>orbbec_astra</cameraName>
->>>>>>> 87d6fd4af98a49c232df0c009ad7fb82cfe5decd
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
           <imageTopicName>rgb/image_raw</imageTopicName>
