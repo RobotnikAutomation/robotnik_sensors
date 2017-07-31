@@ -19,12 +19,13 @@
       <visual>
         <origin xyz="0 0 -0.05" rpy="0 0 0"/>
         <geometry>
-            <mesh filename="package://robotnik_sensors/meshes/hokuyo_urg_04lx2.dae"/>
+            <mesh filename="package://robotnik_sensors/meshes/hokuyo_urg_04lx.dae"/>
         </geometry>
       </visual>
   
       <inertial>
         <mass value="1e-5" />
+        
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
       </inertial>
