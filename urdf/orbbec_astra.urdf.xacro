@@ -37,10 +37,10 @@
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />      
       <parent link="${prefix}_rgb_base_link" />
-      <child link="${prefix}_rgb_optical_frame_link" />
+      <child link="${prefix}_rgb_optical_frame" />
     </joint>
 
-    <link name="${prefix}_rgb_optical_frame_link">
+    <link name="${prefix}_rgb_optical_frame">
       <!--inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -86,10 +86,10 @@
     <joint name="${prefix}_depth_joint" type="fixed">
       <origin xyz="${orbbec_astra_depth_rel_rgb_px} ${orbbec_astra_depth_rel_rgb_py} ${orbbec_astra_depth_rel_rgb_pz}" rpy="0 0 0" />
       <parent link="${prefix}_rgb_base_link" />
-      <child link="${prefix}_depth_frame_link" />
+      <child link="${prefix}_depth_frame" />
     </joint>
 
-    <link name="${prefix}_depth_frame_link">
+    <link name="${prefix}_depth_frame">
       <!--inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
@@ -101,11 +101,11 @@
 
     <joint name="${prefix}_depth_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />      
-      <parent link="${prefix}_depth_frame_link" />
-      <child link="${prefix}_depth_optical_frame_link" />
+      <parent link="${prefix}_depth_frame" />
+      <child link="${prefix}_depth_optical_frame" />
     </joint>
 
-    <link name="${prefix}_depth_optical_frame_link">
+    <link name="${prefix}_depth_optical_frame">
       <!--inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -147,7 +147,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${prefix}_depth_optical_frame_link</frameName>
+          <frameName>${prefix}_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>
