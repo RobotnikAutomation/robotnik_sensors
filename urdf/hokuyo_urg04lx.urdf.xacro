@@ -70,7 +70,7 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
 					<topicName>scan</topicName>
 					<frameName>${prefix}_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>

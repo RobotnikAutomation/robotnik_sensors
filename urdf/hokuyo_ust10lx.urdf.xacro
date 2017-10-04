@@ -3,7 +3,6 @@
 	
 	
   <xacro:macro name="sensor_hokuyo_ust10lx" params="prefix parent *origin min_angle:=-2.3562 max_angle:=2.3562">
-			<!--arg name="namespace" value="$(arg namespace)"/-->
      
     <joint name="${prefix}_joint" type="fixed">
       <xacro:insert_block name="origin" />
