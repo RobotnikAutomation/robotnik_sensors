@@ -45,13 +45,13 @@
         <updateRate>5</updateRate>
         <bodyName>${prefix}_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
         <frameId>${prefix}_link</frameId>
-        <topicName>fix</topicName>
+        <topicName>${prefix}/fix</topicName>
         <!-- Robotnik position at Fuente del Jarro -->
         <referenceLatitude>39.5080331</referenceLatitude>
         <referenceLongitude>-0.4619816</referenceLongitude>
         <!-- To set heading in ENU orientation (degrees) -->
         <referenceHeading>90</referenceHeading>
-        <velocityTopicName>fix_velocity</velocityTopicName>
+        <velocityTopicName>${prefix}/fix_velocity</velocityTopicName>
         <drift>0.0 0.0 0.0</drift>
         <!--<drift>0.0001 0.0001 0.0001</drift>-->
         <!--<drift>0.3 0.3 0.3</drift>-->
