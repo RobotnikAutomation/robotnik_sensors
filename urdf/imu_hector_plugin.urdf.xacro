@@ -35,7 +35,7 @@
 	    <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_imu.so">
 	       <alwaysOn>true</alwaysOn>
 	       <topicName>imu/data</topicName>
-		   <serviceName>${prefix}imu/service</serviceName>
+		   <serviceName>${prefix}/service</serviceName>
 		   <bodyName>${prefix}_link</bodyName>
 	       <updateRate>50.0</updateRate> 
 
