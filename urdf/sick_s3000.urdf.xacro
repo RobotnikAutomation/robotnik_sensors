@@ -2,7 +2,7 @@
 <robot name="sensor_sick_s3000" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-  <xacro:macro name="sensor_sick_s3000" params="prefix parent *origin">
+  <xacro:macro name="sensor_sick_s3000" params="prefix parent prefix_scan *origin">
      
     <joint name="${prefix}_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -67,7 +67,7 @@
 					</noise>
 				</ray>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>scan</topicName>
+					<topicName>${prefix_scan}/scan</topicName>
 					<frameName>${prefix}_base_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
