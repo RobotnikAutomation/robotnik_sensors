@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
-  <xacro:macro name="sensor_sick_tim551" params="prefix parent prefix_scan *origin min_angle:=-2.36 max_angle:=2.36">
+  <xacro:macro name="sensor_sick_tim551" params="prefix parent prefix_topic *origin min_angle:=-2.36 max_angle:=2.36">
      
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -75,7 +75,7 @@
 					</noise>
 				</ray>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${prefix_scan}/scan</topicName>
+					<topicName>${prefix_topic}/scan</topicName>
 					<frameName>${prefix}_link</frameName> <!-- leading / avoids that current namespace is added as prefix in the frame name (/ns/prefix_link) -->
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
