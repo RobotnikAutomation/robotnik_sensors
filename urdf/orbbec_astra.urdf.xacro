@@ -16,7 +16,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_orbbec_astra" params="prefix parent *origin">
+  <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic *origin">
     
     <joint name="${prefix}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
@@ -139,7 +139,7 @@
           </clip>
         </camera>
         <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
-          <cameraName>orbbec_astra</cameraName>
+          <cameraName>${prefix_topic}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
           <imageTopicName>rgb/image_raw</imageTopicName>

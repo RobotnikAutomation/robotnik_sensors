@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
-  <xacro:macro name="sensor_rplidar" params="prefix parent *origin min_angle:=3.14159 max_angle:=-3.14159">
+  <xacro:macro name="sensor_rplidar" params="prefix parent prefix_topic *origin min_angle:=3.14159 max_angle:=-3.14159">
      
     <joint name="${prefix}_laser_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -75,7 +75,7 @@
 					</noise>
 				</ray>
 				<plugin name="gazebo_ros_rplidar_controller" filename="libgazebo_ros_laser.so">
-					<topicName>scan</topicName>
+					<topicName>${prefix_topic}/scan</topicName>
 					<frameName>${prefix}_laser_link</frameName>
 					<ignoreTfPrefix>1</ignoreTfPrefix>
 				</plugin>
