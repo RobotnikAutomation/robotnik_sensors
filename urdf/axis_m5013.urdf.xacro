@@ -63,7 +63,7 @@
       <joint name="${prefix}_pan_joint">
         <hardwareInterface>PositionJointInterface</hardwareInterface>
       </joint>
-      <actuator name="pan_motor">
+      <actuator name="${prefix}pan_motor">
         <hardwareInterface>PositionJointInterface</hardwareInterface>
         <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
       </actuator>
@@ -83,12 +83,12 @@
         <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
       </inertial>
     </link>
-    <transmission name="${name}_tilt_trans">
+    <transmission name="${prefix}_tilt_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${name}_tilt_joint">
+      <joint name="${prefix}_tilt_joint">
         <hardwareInterface>PositionJointInterface</hardwareInterface>
       </joint>
-      <actuator name="tilt_motor">
+      <actuator name="${prefix}tilt_motor">
         <hardwareInterface>PositionJointInterface</hardwareInterface>
         <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
       </actuator>
