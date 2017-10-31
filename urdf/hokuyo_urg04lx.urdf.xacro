@@ -2,7 +2,7 @@
 <robot name="sensor_hokuyo_urg04lx" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
 	
-  <xacro:macro name="sensor_hokuyo_urg04lx" params="prefix parent prefix_topic *origin min_angle:=-2.0943 max_angle:=2.0943">
+  <xacro:macro name="sensor_hokuyo_urg04lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.0943 max_angle:=2.0943">
      
     <joint name="${prefix}_base_joint" type="fixed">
       <!-- FRONT MOUNT  -->

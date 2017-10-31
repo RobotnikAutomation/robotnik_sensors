@@ -16,7 +16,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic *origin">
+  <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
     
     <joint name="${prefix}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
