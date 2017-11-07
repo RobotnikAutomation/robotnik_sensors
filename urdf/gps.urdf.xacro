@@ -44,7 +44,7 @@
         <alwaysOn>1</alwaysOn>
         <updateRate>5</updateRate>
         <bodyName>${prefix}_base_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
-        <frameId>${prefix}_base_link</frameId>
+        <frameId>/${prefix}_base_link</frameId>
         <topicName>fix</topicName>
         <!-- Robotnik position at Fuente del Jarro -->
         <referenceLatitude>39.5080331</referenceLatitude>
@@ -60,7 +60,7 @@
         <velocityDrift>0.00001 0.00001 0.00001</velocityDrift>
         <!--<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>-->
         <velocityGaussianNoise>0.00001 0.00001 0.00001</velocityGaussianNoise>
-        <ignoreTfPrefix>1</ignoreTfPrefix>
+        
       </plugin>	
 	</gazebo>
     

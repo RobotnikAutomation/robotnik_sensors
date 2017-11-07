@@ -76,8 +76,7 @@
 				</ray>
 				<plugin name="${prefix}gazebo_ros_rplidar_a2_controller" filename="libgazebo_ros_laser.so">
 					<topicName>${prefix_topic}/scan</topicName>
-					<frameName>${prefix}_link</frameName>
-					<ignoreTfPrefix>1</ignoreTfPrefix>
+					<frameName>/${prefix}_link</frameName>
 				</plugin>
 			</sensor>
 	</gazebo>

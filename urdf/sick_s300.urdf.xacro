@@ -75,8 +75,7 @@
 				</ray>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
 					<topicName>${prefix_scan}/scan</topicName>
-					<frameName>${prefix}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
-					<ignoreTfPrefix>1</ignoreTfPrefix>
+					<frameName>/${prefix}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
 				</plugin>
 			</sensor>
 		</gazebo>
