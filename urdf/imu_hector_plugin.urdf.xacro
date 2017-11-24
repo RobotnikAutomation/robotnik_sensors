@@ -61,7 +61,6 @@
            <!--<accelDrift>0.0 0.0 0.0</accelDrift>-->
            <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
            <!--<accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>-->
-           	<ignoreTfPrefix>1</ignoreTfPrefix>
 	    </plugin>
 	  </gazebo>
     

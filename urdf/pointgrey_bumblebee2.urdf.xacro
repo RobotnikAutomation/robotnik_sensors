@@ -48,7 +48,7 @@
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${prefix}_frame</frameName>
+          <frameName>/${prefix}_frame</frameName>
           <hackBaseline>${baseline}</hackBaseline>
           <!-- NOTE: Distortion is currently unused -->
           <distortionK1>0.0</distortionK1>

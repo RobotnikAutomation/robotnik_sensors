@@ -35,9 +35,8 @@
 	    <plugin name="${prefix}_controller" filename="libgazebo_ros_imu.so">
 	       <topicName>data</topicName>
 		   <serviceName>${prefix}service</serviceName>
-		   <bodyName>${prefix}_base_link</bodyName>
+		   <bodyName>/${prefix}_base_link</bodyName>
 	       <gaussianNoise>0.005</gaussianNoise>		
-	       	<ignoreTfPrefix>1</ignoreTfPrefix>
 	    </plugin>
 	  </gazebo>
     

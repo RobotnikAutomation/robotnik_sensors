@@ -91,13 +91,12 @@
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${prefix}_rgb_frame_link</frameName>
+          <frameName>/${prefix}_rgb_frame_link</frameName>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>
           <distortionK3>0.0</distortionK3>
           <distortionT1>0.0</distortionT1>
           <distortionT2>0.0</distortionT2>
-          <ignoreTfPrefix>1</ignoreTfPrefix>
         </plugin>
       </sensor>
     </gazebo>
