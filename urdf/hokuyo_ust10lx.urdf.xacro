@@ -1,27 +1,34 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo_ust10lx" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	
-	
   <xacro:macro name="sensor_hokuyo_ust10lx" params="prefix parent prefix_topic *origin min_angle:=-2.3562 max_angle:=2.3562">
-			<!--arg name="namespace" value="$(arg namespace)"/-->
-     
-    <joint name="${prefix}_base_joint" type="fixed">
-      <xacro:insert_block name="origin" />
+    
+    <link name="${prefix}_link">
+	</link>
+    <joint name="${prefix}_joint" type="fixed">
       <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+      <xacro:insert_block name="origin" />
+	</joint>
+    
+    <joint name="${prefix}_base_joint" type="fixed">
+      <origin xyz="0.00 0 -0.05" rpy="0 0 0"/>
+      <parent link="${prefix}_link"/>
       <child link="${prefix}_base_link"/>
+     
     </joint>
-  
     
     <link name="${prefix}_base_link">
       <collision>
-        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
           <box size="0.010 0.010 0.010"/>
         </geometry>
       </collision>
   
       <visual>
-        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <!--origin xyz="0 0 -0.05" rpy="0 0 0"/-->
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
             <mesh filename="package://robotnik_sensors/meshes/hokuyo_ust_10lx.dae"/>
         </geometry>
@@ -34,14 +41,7 @@
       </inertial>
     </link>
     
-    <link name="${prefix}_link">
-	</link>
-    <joint name="${prefix}_joint" type="fixed">
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_link"/>
-      <origin xyz="0.00 0 0.0" rpy="0 0 0"/>
-      <!--origin xyz="0.00 0 0.0474" rpy="0 0 0"/-->
-	</joint>
+   
   
     <!-- Hokuyo sensor for simulation -->		
     <xacro:sensor_hokuyo_ust10_gazebo/>
