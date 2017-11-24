@@ -65,9 +65,12 @@
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-        <geometry>
+        <!--geometry>
         <box size="0.0730 .2760 0.0720"/>
-      </geometry>
+      </geometry-->
+      <geometry>			              
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${orbbec_astra_scale} ${orbbec_astra_scale} ${orbbec_astra_scale}"/>
+        </geometry>
       </collision>
       <inertial>
         <!--mass value="0.01" />
