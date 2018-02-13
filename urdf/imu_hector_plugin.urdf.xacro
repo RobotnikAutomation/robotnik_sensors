@@ -37,6 +37,7 @@
 	       <topicName>imu/data</topicName>
 		   <serviceName>${prefix}imu/service</serviceName>
 		   <bodyName>${prefix}_link</bodyName>
+		   <frameId>${prefix}_link</frameId>
 	       <updateRate>50.0</updateRate> 
 
 	       <gaussianNoise>0.005</gaussianNoise>		
