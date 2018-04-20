@@ -14,9 +14,7 @@
     peripherial camera tripod mount -->
   <xacro:property name="r430_cam_width" value="0.105"/>
   <xacro:property name="r430_cam_depth" value="0.019"/>
-  <!-- xacro:property name="r430_cam_height" value="0.039"/>
-  <xacro:property name="r430_cam_mount_from_center_offset" value=".0275"/ -->
-  <xacro:property name="r430_cam_height" value="0.0"/>
+  <xacro:property name="r430_cam_height" value="0.020"/>
   <xacro:property name="r430_cam_mount_from_center_offset" value="0.0"/>   
   
   <!-- The following offset is relative the the physical R430 camera peripherial
@@ -41,7 +39,7 @@
     <link name="${prefix}_camera_link">
       <visual>
       <!-- origin xyz="0 ${-r430_cam_mount_from_center_offset} ${r430_cam_height/2}" rpy="${M_PI/2} 0 ${M_PI/2}"/ -->
-      <origin xyz="0 ${-r430_cam_mount_from_center_offset} ${r430_cam_height/2}" rpy="0 0 0"/>
+      <origin xyz="0 ${-r430_cam_mount_from_center_offset} 0" rpy="0 0 0"/>
         <geometry>		  
           <!-- box size="${r430_cam_width} ${r430_cam_height} ${r430_cam_depth}"/ -->
           <mesh filename="package://robotnik_sensors/meshes/intel_realsense_depth_camera_d435.dae" />
@@ -130,12 +128,13 @@
   
    <xacro:macro name="sensor_r430_gazebo">
   
-    <gazebo reference="${prefix}_rgb_base_link">  
+    <!-- gazebo reference="${prefix}_rgb_base_link" -->
+    <gazebo reference="${prefix}_camera_link">
       <sensor type="depth" name="${prefix}_depth_sensor">
         <always_on>true</always_on>
-        <update_rate>20.0</update_rate>
+        <update_rate>15.0</update_rate>
         <camera>
-          <horizontal_fov>${60.0*M_PI/180.0}</horizontal_fov>
+          <horizontal_fov>${91.2*M_PI/180.0}</horizontal_fov>
           <image>
             <format>R8G8B8</format>
             <width>640</width>
@@ -154,8 +153,8 @@
           <depthImageTopicName>depth/image_raw</depthImageTopicName>
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>/${prefix}_depth_optical_frame</frameName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>          
+          <frameName>/${prefix}_camera_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>
