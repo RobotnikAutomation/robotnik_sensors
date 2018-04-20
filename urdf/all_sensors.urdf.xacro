@@ -78,4 +78,7 @@
   <!-- Pointgrey Bumblebee -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/pointgrey_bumblebee2.urdf.xacro" /> 
   
+  <!-- Intel Realsense D435 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/intel_d435.urdf.xacro" /> 
+
 </robot>
