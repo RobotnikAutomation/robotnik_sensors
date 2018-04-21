@@ -11,10 +11,10 @@
 
   <!-- The following values model the aluminum peripherial case for the
     R430 camera, with the camera joint represented by the actual 
-    peripherial camera tripod mount -->
-  <xacro:property name="r430_cam_width" value="0.105"/>
-  <xacro:property name="r430_cam_depth" value="0.019"/>
-  <xacro:property name="r430_cam_height" value="0.020"/>
+    peripherial camera tripod mount -->  
+  <xacro:property name="r430_cam_width" value="0.100"/>
+  <xacro:property name="r430_cam_depth" value="0.025"/>
+  <xacro:property name="r430_cam_height" value="0.025"/>
   <xacro:property name="r430_cam_mount_from_center_offset" value="0.0"/>   
   
   <!-- The following offset is relative the the physical R430 camera peripherial
@@ -47,7 +47,7 @@
         <material name="aluminum"/>
       </visual>
       <collision>
-        <origin xyz="0.0 0.0 ${r430_cam_height/2}" rpy="0 0 0"/>
+        <origin xyz="${-r430_cam_depth/2} 0.0 0.0" rpy="0 0 0"/>
         <geometry>
         <box size="${r430_cam_depth} ${r430_cam_width} ${r430_cam_height}"/>
         </geometry>
@@ -141,8 +141,8 @@
             <height>480</height>
           </image>
           <clip>
-            <near>0.05</near>
-            <far>3.5</far>
+            <near>0.3</near>
+            <far>10.0</far>
           </clip>
         </camera>
         <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
