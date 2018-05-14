@@ -2,6 +2,62 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.2 (2018-05-14)
+------------------
+* solved depreciation warnings
+* merging with kinetic-multidevel
+* Adding dependencies and updating maintainers list
+* updating imu_plugin: topic and link names
+* corrected collision box d435
+* intel_d435 updated to run in gazebo
+* added intel realsense d435
+* adding frameid to imu_hector_plugin
+* collision model of sick s300 corrected
+* merging with kinetic multi that removes namespaces in the frames
+* hokuyo ust20lx. fixing frame name to avoid namespace in it
+* hokuyo ust10lx. changing links relation
+* changing collision geometry for the orbbec
+* adding / before any frame name
+* prefix_topic param set to default values
+* axis_m5013: changed name to prefix
+* setting hokuyos laser_link z to 0.0 from the base_link
+* renamig prefix_scan with prefix_topic for all the 2d lasers
+* adding prefix topic for the orbbec astra
+* adding prefix_scan to rplidars
+* adding prefix_scan to all 2d lasers
+* prepended 'hardware_interface/' before 'PositionJointInterface' in axis ptz urdf
+* changed wrong name using prefix
+* orbbec_astra: removing the suffix link from frame links
+* laser hokuyo_urg04lx updated
+* camera name changed
+* hokuyo_urg04 model updated
+* camera name changed
+* added ust20 laser sensor
+* robotnik_sensors: adding sensors from other branches
+* added link position to hokuyo lasers
+* links of xacro files renamed
+* prefix added to imu hector urdf
+* udf updated with prefix
+* updated urdf to multirobot
+* Merge branch 'indigo-devel' into kinetic-devel
+* sensors updated to multirobot
+* added urdf.xacro of sick_tim551
+* added urdf.xacro of rplidar_a2
+* added meshes of sick_tim551
+* added meshes rplidar_a2
+* adding prefix_topic and prefix_frame for multirobot
+* adding prefix_frame and prefix_topic
+* robotnik_sensors: removed _laser from rplidar_a2 frame
+* robotnik_sensors: adding pointgrey_bumblebee
+* updated model of axis camera
+* added sick_tim551 to all_sensors
+* added sick_tim551
+* Adding RPLIDAR A2 model
+* axis_m5013: changing joint names and new position adjustments
+* adding param to ignore de tf_prefix of the laser plugin (needs modified version of the plugin
+* added / to gazebo plugin frame name
+
+
 1.1.1 (2016-12-16)
 ------------------
 * Merge indigo to kinetic
