@@ -2,9 +2,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:macro name="stereo_camera"
-    params="frame name fps baseline hfov width height format near far">
+    params="prefix fps baseline hfov width height format near far">
 
-    <gazebo reference="${frame}">
+    <gazebo reference="${prefix}_frame">
       <sensor type="multicamera" name="stereo_camera">
         <update_rate>${fps}</update_rate>
         <camera name="left">
@@ -45,10 +45,10 @@
         </camera>
         <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
           <alwaysOn>true</alwaysOn>
-          <cameraName>${name}</cameraName>
+          <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${frame}</frameName>
+          <frameName>/${prefix}_frame</frameName>
           <hackBaseline>${baseline}</hackBaseline>
           <!-- NOTE: Distortion is currently unused -->
           <distortionK1>0.0</distortionK1>
@@ -56,15 +56,16 @@
           <distortionK3>0.0</distortionK3>
           <distortionT1>0.0</distortionT1>
           <distortionT2>0.0</distortionT2>
+          <ignoreTfPrefix>1</ignoreTfPrefix>
         </plugin>
       </sensor>
     </gazebo>
   </xacro:macro>
 
   <xacro:macro name="pointgrey_bumblebee2"
-    params="frame:=bumblebee name:=bumblebee hfov format:=R8G8B8 near:=0.5 far:=300 high_res:=false">
+    params="prefix:=bumblebee hfov format:=R8G8B8 near:=0.5 far:=300 high_res:=false">
 
-    <link name="${frame}">
+    <link name="${prefix}_base_link">
       <visual>
         <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
         <geometry>
@@ -86,7 +87,7 @@
       </inertial>
     </link>
 
-    <link name="${frame}_optical">
+    <link name="${prefix}_optical_link">
       <inertial>
         <mass value="1E-5" />
         <inertia
@@ -98,14 +99,14 @@
 
     <joint name="${frame}_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
-      <parent link="${frame}" />
-      <child link="${frame}_optical" />
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_optical_link" />
     </joint>
 
     <xacro:if value="${high_res}">
       <xacro:stereo_camera
-        frame="${frame}_optical"
-        name="${name}"
+        frame="${prefix}_optical_link"
+        name="${prefix}"
         hfov="${hfov}"
         baseline="0.120"
         fps="20"
@@ -118,8 +119,8 @@
 
     <xacro:unless value="${high_res}">
       <xacro:stereo_camera
-        frame="${frame}_optical"
-        name="${name}"
+        frame="${prefix}_optical_link"
+        name="${prefix}"
         hfov="${hfov}"
         baseline="0.120"
         fps="48"
@@ -131,27 +132,27 @@
     </xacro:unless>
   </xacro:macro>
 
-  <xacro:macro name="BB2-03S2C-25" params="frame:=bumblebee name:=bumblebee" >
-    <pointgrey_bumblebee2 frame="${frame}" name="${name}" hfov="1.69296937443" />
+  <xacro:macro name="BB2-03S2C-25" params="prefix:=bumblebee" >
+    <pointgrey_bumblebee2 prefix="${prefix}" hfov="1.69296937443" />
   </xacro:macro>
 
-  <xacro:macro name="BB2-03S2C-38" params="frame:=bumblebee name:=bumblebee" >
-    <pointgrey_bumblebee2 frame="${frame}" name="${name}" hfov="1.15191730632" />
+  <xacro:macro name="BB2-03S2C-38" params="prefix:=bumblebee" >
+    <pointgrey_bumblebee2 prefix="${prefix}" hfov="1.15191730632" />
   </xacro:macro>
 
-  <xacro:macro name="BB2-03S2C-60" params="frame:=bumblebee name:=bumblebee" >
-    <pointgrey_bumblebee2 frame="${frame}" name="${name}" hfov="0.75049157835" />
+  <xacro:macro name="BB2-03S2C-60" params="prefix=bumblebee" >
+    <pointgrey_bumblebee2 prefix="${prefix}" hfov="0.75049157835" />
   </xacro:macro>
 
   <xacro:macro name="BB2-08S2C-25" params="frame:=bumblebee name:=bumblebee" >
-    <pointgrey_bumblebee2 frame="${frame}" name="${name}" hfov="1.69296937443" high_res="true" />
+    <pointgrey_bumblebee2 prefix="${prefix}" hfov="1.69296937443" high_res="true" />
   </xacro:macro>
 
   <xacro:macro name="BB2-08S2C-38" params="frame:=bumblebee name:=bumblebee" >
-    <pointgrey_bumblebee2 frame="${frame}" name="${name}" hfov="1.15191730632" high_res="true" />
+    <pointgrey_bumblebee2 prefix="${prefix}" hfov="1.15191730632" high_res="true" />
   </xacro:macro>
 
   <xacro:macro name="BB2-08S2C-60" params="frame:=bumblebee name:=bumblebee" >
-    <pointgrey_bumblebee2 frame="${frame}" name="${name}" hfov="0.75049157835" high_res="true" />
+    <pointgrey_bumblebee2 prefix="${prefix}" hfov="0.75049157835" high_res="true" />
   </xacro:macro>
 </robot>

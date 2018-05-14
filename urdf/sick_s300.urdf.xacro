@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_s300" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_sick_s300" params="name parent *origin">
+  <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' *origin">
      
-    <joint name="${name}_fix_joint" type="fixed">
+    <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_fix_link"/>
+      <child link="${prefix}_base_link"/>
 	</joint>
 
   
-	<link name="${name}_fix_link">
+	<link name="${prefix}_base_link">
 		<collision>
-			<origin xyz="0 0 0.076" rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
 				<!--<box size="0.106 0.094 0.152"/>-->
 				<!--<cylinder radius="0.058" length="0.152"/>-->
@@ -34,13 +34,13 @@
 		</inertial>
 	</link>
     
-    <joint name="${name}_joint" type="fixed">
-      <parent link="${name}_fix_link"/>
-      <child link="${name}_link"/>
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
       <origin xyz="0.0 0 0.116" rpy="0 0 0"/>
 	</joint>
 	
-	<link name="${name}_link" />
+	<link name="${prefix}_link" />
 
 	<!-- Sick sensor sensor for simulation -->		
 	<sensor_sick_s300_gazebo />
@@ -48,8 +48,8 @@
   </xacro:macro>
   
   <xacro:macro name="sensor_sick_s300_gazebo">
-    <gazebo reference="${name}_link">
-			<sensor type="ray" name="${name}_sensor">
+    <gazebo reference="${prefix}_link">
+			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>12.5</update_rate>
@@ -73,9 +73,9 @@
 						<stddev>0.03</stddev>
 					</noise>
 				</ray>
-				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${name}/scan</topicName>
-					<frameName>/${name}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
+					<topicName>${prefix_topic}/scan</topicName>
+					<frameName>/${prefix}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
 				</plugin>
 			</sensor>
 		</gazebo>

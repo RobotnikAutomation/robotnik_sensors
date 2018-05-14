@@ -2,16 +2,16 @@
 <robot name="sensor_sick_s3000" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-  <xacro:macro name="sensor_sick_s3000" params="name parent *origin">
+  <xacro:macro name="sensor_sick_s3000" params="prefix parent prefix_topic:='front_laser' *origin">
      
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${prefix}_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="${prefix}_base_link"/>
 	</joint>
 
   
-	<link name="${name}_link">
+	<link name="${prefix}_base_link">
 		<collision>
 			<origin xyz="-0.093 0 -0.0625" rpy="0 0 0"/>
 			<geometry>
@@ -41,8 +41,8 @@
   
     
   <xacro:macro name="sensor_sick_s3000_gazebo">
-    <gazebo reference="${name}_link">
-			<sensor type="ray" name="${name}_sensor">
+    <gazebo reference="${prefix}_base_link">
+			<sensor type="ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>16.6</update_rate>
@@ -66,9 +66,9 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${name}_controller" filename="libgazebo_ros_laser.so">
-					<topicName>${name}/scan</topicName>
-					<frameName>${name}_link</frameName>
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_laser.so">
+					<topicName>${prefix_topic}/scan</topicName>
+					<frameName>/${prefix}_base_link</frameName>
 				</plugin>
 			</sensor>
 		</gazebo>

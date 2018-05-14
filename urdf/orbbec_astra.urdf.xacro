@@ -16,15 +16,15 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_orbbec_astra" params="name parent *origin">
+  <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
     
-    <joint name="${name}_rgb_joint" type="fixed">
+    <joint name="${prefix}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${name}_rgb_frame" />
+      <child link="${prefix}_rgb_base_link" />
     </joint>
 
-    <link name="${name}_rgb_frame">
+    <link name="${prefix}_rgb_base_link">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -34,13 +34,13 @@
       </inertial>
     </link>
 
-    <joint name="${name}_rgb_optical_joint" type="fixed">
+    <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />      
-      <parent link="${name}_rgb_frame" />
-      <child link="${name}_rgb_optical_frame" />
+      <parent link="${prefix}_rgb_base_link" />
+      <child link="${prefix}_rgb_optical_frame" />
     </joint>
 
-    <link name="${name}_rgb_optical_frame">
+    <link name="${prefix}_rgb_optical_frame">
       <!--inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -50,13 +50,13 @@
       </inertial-->
     </link>
 
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${prefix}_joint" type="fixed">
       <origin xyz="${orbbec_astra_rel_rgb_px} ${orbbec_astra_rel_rgb_py} ${orbbec_astra_rel_rgb_pz}"
               rpy="0.0 0 0"/>
-      <parent link="${name}_rgb_frame"/>
-      <child link="${name}_link"/>
+      <parent link="${prefix}_rgb_base_link"/>
+      <child link="${prefix}_link"/>
     </joint>
-    <link name="${name}_link">
+    <link name="${prefix}_link">
       <visual>       	
         <origin xyz="0 0 0" rpy="0 0 0"/>  
         <geometry>			              
@@ -65,9 +65,12 @@
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-        <geometry>
+        <!--geometry>
         <box size="0.0730 .2760 0.0720"/>
-      </geometry>
+      </geometry-->
+      <geometry>			              
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${orbbec_astra_scale} ${orbbec_astra_scale} ${orbbec_astra_scale}"/>
+        </geometry>
       </collision>
       <inertial>
         <!--mass value="0.01" />
@@ -83,13 +86,13 @@
        </inertial>
     </link>
 
-    <joint name="${name}_depth_joint" type="fixed">
+    <joint name="${prefix}_depth_joint" type="fixed">
       <origin xyz="${orbbec_astra_depth_rel_rgb_px} ${orbbec_astra_depth_rel_rgb_py} ${orbbec_astra_depth_rel_rgb_pz}" rpy="0 0 0" />
-      <parent link="${name}_rgb_frame" />
-      <child link="${name}_depth_frame" />
+      <parent link="${prefix}_rgb_base_link" />
+      <child link="${prefix}_depth_frame" />
     </joint>
 
-    <link name="${name}_depth_frame">
+    <link name="${prefix}_depth_frame">
       <!--inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
@@ -99,13 +102,13 @@
       </inertial-->
     </link>
 
-    <joint name="${name}_depth_optical_joint" type="fixed">
+    <joint name="${prefix}_depth_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />      
-      <parent link="${name}_depth_frame" />
-      <child link="${name}_depth_optical_frame" />
+      <parent link="${prefix}_depth_frame" />
+      <child link="${prefix}_depth_optical_frame" />
     </joint>
 
-    <link name="${name}_depth_optical_frame">
+    <link name="${prefix}_depth_optical_frame">
       <!--inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -122,8 +125,8 @@
   
    <xacro:macro name="sensor_orbbec_astra_gazebo">
   
-    <gazebo reference="${name}_link">  
-      <sensor type="depth" name="${name}">
+    <gazebo reference="${prefix}_rgb_base_link">  
+      <sensor type="depth" name="${prefix}_depth_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
         <camera>
@@ -138,8 +141,8 @@
             <far>3.5</far>
           </clip>
         </camera>
-        <plugin name="${name}_controller" filename="libgazebo_ros_openni_kinect.so">
-          <cameraName>${name}</cameraName>
+        <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
+          <cameraName>${prefix_topic}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
           <imageTopicName>rgb/image_raw</imageTopicName>
@@ -147,7 +150,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${name}_depth_optical_frame</frameName>
+          <frameName>/${prefix}_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

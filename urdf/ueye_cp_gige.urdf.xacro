@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_ueye_cp_gige" params="name parent *origin">
-    <joint name="${name}_joint" type="fixed">
+  <xacro:macro name="sensor_ueye_cp_gige" params="prefix parent *origin">
+    <joint name="${prefix}_joint" type="fixed">
       <insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="${prefix}_base_link"/>
     </joint>
-    <link name="${name}_link"> <!-- TODO: review masses, inertial -->
+    <link name="${prefix}_base_link"> <!-- TODO: review masses, inertial -->
       <inertial>
         <origin xyz="0.0 0.0 0." rpy="0 0 0"/>
         <mass value="0.1"/>
@@ -32,12 +32,12 @@
       </collision>
     </link>
 
-    <joint name="${name}_rgb_joint" type="fixed">
+    <joint name="${prefix}_rgb_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" /> 
-      <parent link="${name}_link"/>
-      <child link="${name}_rgb_frame"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_rgb_frame_link"/>
     </joint>
-    <link name="${name}_rgb_frame">
+    <link name="${prefix}_rgb_frame_link">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -47,12 +47,12 @@
     </inertial>
     </link>
     
-    <joint name="${name}_rgb_optical_joint" type="fixed">
+    <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" /> 
-      <parent link="${name}_rgb_frame"/>
-      <child link="${name}_rgb_optical_frame"/>
+      <parent link="${prefix}_rgb_frame_link"/>
+      <child link="${prefix}_rgb_optical_frame_link"/>
     </joint>
-    <link name="${name}_rgb_optical_frame">
+    <link name="${prefix}_rgb_optical_frame_link">
     <inertial>
       <mass value="0.001" />
       <origin xyz="0 0 0" />
@@ -65,8 +65,8 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_ueye_cp_gige_gazebo">
-    <gazebo reference="${name}_link">
-      <sensor type="camera" name="${name}_sensor">
+    <gazebo reference="${prefix}_base_link">
+      <sensor type="camera" name="${prefix}_sensor">
         <update_rate>30.0</update_rate>
         <camera name="head">
           <horizontal_fov>1.3962634</horizontal_fov>
@@ -85,13 +85,13 @@
             <stddev>0.007</stddev>
           </noise>
         </camera>
-        <plugin name="${name}_controller" filename="libgazebo_ros_camera.so">
+        <plugin name="${prefix}_controller" filename="libgazebo_ros_camera.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
-          <cameraName>${name}</cameraName>
+          <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${name}_rgb_frame</frameName>
+          <frameName>/${prefix}_rgb_frame_link</frameName>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>
           <distortionK3>0.0</distortionK3>
