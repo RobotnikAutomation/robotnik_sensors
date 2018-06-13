@@ -84,4 +84,6 @@
   <!-- Velodyne VLP16 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/velodyne_vlp16.urdf.xacro" />
 
+  <!-- Teraranger Duo-->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/teraranger_tr_duo.urdf.xacro" />  
 </robot>
