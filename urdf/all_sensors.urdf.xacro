@@ -81,4 +81,7 @@
   <!-- Intel Realsense D435 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/intel_d435.urdf.xacro" /> 
 
+  <!-- Velodyne VLP16 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/velodyne_vlp16.urdf.xacro" />
+
 </robot>
