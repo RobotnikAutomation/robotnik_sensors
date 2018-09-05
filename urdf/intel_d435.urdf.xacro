@@ -23,10 +23,6 @@
   <xacro:property name="r430_cam_depth_py" value="-0.0115"/>
   <xacro:property name="r430_cam_depth_pz" value="0.0"/>
 
-  <material name="aluminum">
-    <color rgba="0.5 0.5 0.5 1"/>
-  </material>
-
   <xacro:macro name="sensor_r430" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
 
     <!-- camera body, with origin at bottom screw mount -->
@@ -44,7 +40,9 @@
           <!-- box size="${r430_cam_width} ${r430_cam_height} ${r430_cam_depth}"/ -->
           <mesh filename="package://robotnik_sensors/meshes/intel_realsense_depth_camera_d435.dae" />
         </geometry>
-        <material name="aluminum"/>
+        <material name="aluminum">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
       </visual>
       <collision>
         <origin xyz="${-r430_cam_depth/2} 0.0 0.0" rpy="0 0 0"/>
