@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_imu" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_imu" params="prefix parent *origin">
+  <xacro:macro name="sensor_imu" params="prefix ns:='' parent *origin">
 
 	  <joint name="${prefix}_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
@@ -10,7 +10,7 @@
 	      <parent link="${parent}"/>
 	      <child link="${prefix}_link"/>
 	  </joint>
-	
+
 	  <link name="${prefix}_link">
 	      <inertial>
 	        <mass value="0.001"/>
@@ -30,17 +30,17 @@
 	        </geometry>
 	      </collision>
 	  </link>
-    
+
 	  <gazebo>
 	    <plugin name="${prefix}_controller" filename="libgazebo_ros_imu.so">
-	       <topicName>imu/data</topicName>
+	       <topicName>${ns}imu/data</topicName>
 	       <serviceName>imu/service</serviceName>
 		   <bodyName>${prefix}_link</bodyName>
 		   <updateRateHZ>50.0</updateRateHZ>
-	       <gaussianNoise>0.005</gaussianNoise>		
+	       <gaussianNoise>0.005</gaussianNoise>
 	    </plugin>
 	  </gazebo>
-    
+
   </xacro:macro>
 
 </robot>
