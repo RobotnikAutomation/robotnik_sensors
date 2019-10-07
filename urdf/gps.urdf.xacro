@@ -55,7 +55,7 @@
         <drift>0.0 0.0 0.0</drift>
         <!--<drift>0.0001 0.0001 0.0001</drift>-->
         <!--<drift>0.3 0.3 0.3</drift>-->
-        <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
+        <gaussianNoise>0.00001 0.00001 0.00001</gaussianNoise>
         <!--<gaussianNoise>0.00001 0.00001 0.00001</gaussianNoise>-->
         <velocityDrift>0.00001 0.00001 0.00001</velocityDrift>
         <!--<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>-->
