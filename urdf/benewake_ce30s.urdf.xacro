@@ -62,7 +62,108 @@
 	               izz="0.0001" />
 	    </inertial>
 	  </link>
-    
+    <sensor_ce30s_gazebo/>
   </xacro:macro>
+
+ <xacro:macro name="sensor_ce30s_gazebo">
+    <!-- Gazebo requires the velodyne_gazebo_plugins package -->
+    <gazebo reference="${prefix}_link">
+      <sensor type="ray" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>20.0</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+				<!-- for a high quality simulation -->
+                <samples>320</samples>
+                <!-- Configuration for the ROS ce30s ros driver as provided by Benewake, with sensor front axis being y -->
+                <!-- min_angle>-${132/2.0*M_PI/180.0-M_PI/2.0}</min_angle>
+                <max_angle>${132/2.0*M_PI/180.0+M_PI/2.0}</max_angle -->
+				<!-- Configuration for modified ce30s ros driver x2=y1 y2=-x1 -->
+                <min_angle>-${132/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${132/2.0*M_PI/180.0}</max_angle>
+                <!-- samples>132</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.15192</min_angle>
+                <max_angle>1.15192</max_angle -->
+              </horizontal>
+              <vertical>
+                <!-- samples>24</samples -->
+                <!-- min_angle>-${9.0/2.0*M_PI/180.0}</min_angle>
+                <max_angle> ${9.0/2.0*M_PI/180.0}</max_angle -->
+                <samples>10</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.07854</min_angle>
+                <max_angle>0.07854</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.3</min>
+              <max>4.5</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </ray>
+          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_block_laser2.so">
+            <topicName>ce30s_output</topicName>
+            <frameName>ce30s</frameName>
+            <min_range>0.3</min_range>
+            <max_range>5.0</max_range>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </sensor>
+		<!--<sensor type="depth" name="${prefix}_depth_sensor">-->
+		  <!--<update_rate>30.0</update_rate>-->
+		  <!--<camera name="fotonic">-->
+			<!--<horizontal_fov>1.221730476</horizontal_fov>  [> 70 deg <]-->
+			<!--<image>-->
+			  <!--<width>160</width>  [> 160 <]-->
+			  <!--<height>120</height> [> 120 <]-->
+			  <!--<format>L8</format> [> gray <]-->
+			<!--</image>-->
+			<!--<clip>-->
+			  <!--<near>0.05</near>-->
+			  <!--<far>7.0</far>         [> outdoor down to 3m depending on luminosity <]-->
+			<!--</clip>-->
+			<!--<noise>-->
+			  <!--<type>gaussian</type>-->
+			  <!--<mean>0.0</mean>-->
+			  <!--<stddev>0.007</stddev>-->
+			<!--</noise>-->
+		  <!--</camera>-->
+		  
+			<!--<plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">-->
+					<!--<alwaysOn>true</alwaysOn>-->
+					<!--<updateRate>10.0</updateRate>-->
+					<!--<cameraName>${prefix}</cameraName>-->
+					<!--<imageTopicName>ir/image_raw</imageTopicName>-->
+					<!--<cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>-->
+					<!--<depthImageTopicName>depth/image_raw</depthImageTopicName>-->
+					<!--<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>-->
+					<!--<pointCloudTopicName>points</pointCloudTopicName>-->
+					<!--<frameName>${prefix}_depth_optical_frame_link</frameName>-->
+					<!--<pointCloudCutoff>0.5</pointCloudCutoff>-->
+					<!--<distortionK1>0</distortionK1>-->
+					<!--<distortionK2>0</distortionK2>-->
+					<!--<distortionK3>0</distortionK3>-->
+					<!--<distortionT1>0</distortionT1>-->
+					<!--<distortionT2>0</distortionT2>-->
+					<!--<CxPrime>0</CxPrime>-->
+					<!--<Cx>0</Cx>-->
+					<!--<Cy>0</Cy>-->
+					<!--<focalLength>0</focalLength>-->
+					<!--<hackBaseline>0</hackBaseline>-->
+					<!--<ignoreTfPrefix>1</ignoreTfPrefix>-->
+			  <!--</plugin>      -->
+		<!--</sensor>-->
+    </gazebo>
+
+    </xacro:macro>
+
 
 </robot>

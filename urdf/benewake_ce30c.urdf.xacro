@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<robot name="sensor_ce30c" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:property name="ce30c_width" value="0.079"/>
+  <xacro:property name="ce30c_length" value="0.050"/>
+  <xacro:property name="ce30c_height" value="0.047"/>
+
+  <xacro:property name="ce30c_depth_px" value="0.00"/>
+  <xacro:property name="ce30c_depth_py" value="-0.0115"/>
+  <xacro:property name="ce30c_depth_pz" value="0.0"/>
+
+
+  <xacro:macro name="sensor_ce30c" params="prefix parent prefix_topic:='front_3d_lidar' *origin">
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+    
+    <joint name="${prefix}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_link" />
+    </joint>
+
+    <link name="${prefix}_link">
+      <visual>      
+      <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>		  
+          <!-- box size="${ce30c_width} ${ce30c_length} ${ce30c_height}"/ -->
+          <!-- mesh filename="package://robotnik_sensors/meshes/benewake_ce30c.dae" / -->
+          <box size="${ce30c_length} ${ce30c_width} ${ce30c_height}"/>
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="${-ce30c_length/2} ${-ce30c_width/2} 0.0" rpy="0 0 0"/>
+        <geometry>
+        <box size="${ce30c_length} ${ce30c_width} ${ce30c_height}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <mass value="0.564" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+    </link>
+    
+    <joint name="${prefix}_sensor_joint" type="fixed">     
+      <parent link="${prefix}_link"/>
+      <!-- default ce30c_driver_ros configuration -->
+      <child link="ce30c" />
+    </joint>
+    <link name="ce30c"/>
+           
+  <!-- Ray sensor for simulation, same as Hokuyo3d -->
+  <sensor_ce30c_gazebo/>
+  
+  </xacro:macro>
+  
+  <!-- xacro:macro name="sensor_ce30c_gazebo">
+    <gazebo reference="${prefix}_link">
+			<sensor type="ray" name="${prefix}_sensor">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<update_rate>15</update_rate>
+				<ray>
+					<scan>
+                        <horizontal>
+                            <samples>660</samples>
+                            <resolution>1.0</resolution>
+                            <min_angle>-${132/2.0*M_PI/180.0}</min_angle>
+                            <max_angle>${132/2.0*M_PI/180.0}</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>24</samples>
+                            <resolution>1.0</resolution>
+                            <min_angle>-${9.0/2.0*M_PI/180.0}</min_angle>								
+                            <max_angle>${9.0/2.0*M_PI/180.0}</max_angle>
+                        </vertical>
+					</scan>
+					<range>
+						<min>0.30</min>
+						<max>4.0</max>
+						<resolution>0.01</resolution>
+					</range>
+					<noise>
+						<type>gaussian</type>
+						<mean>0.0</mean>
+						<stddev>0.01</stddev>
+					</noise>
+				</ray>				
+				<plugin name="${prefix}controller" filename="libgazebo_ros_block_laser.so">				
+					<topicName>ce30c_output</topicName>
+					<frameName>ce30c</frameName>					
+					<ignoreTfPrefix>1</ignoreTfPrefix>
+				</plugin>
+			</sensor>
+		</gazebo>
+  </xacro:macro -->
+  
+  <xacro:macro name="sensor_ce30c_gazebo">  
+    <!-- Gazebo requires the velodyne_gazebo_plugins package -->
+    <gazebo reference="${prefix}_link">
+      <sensor type="ray" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>20.0</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+				<!-- for a high quality simulation -->
+                <samples>320</samples> 
+                <!-- Configuration for the ROS ce30c ros driver as provided by Benewake, with sensor front axis being y -->
+                <!-- min_angle>-${132/2.0*M_PI/180.0-M_PI/2.0}</min_angle>
+                <max_angle>${132/2.0*M_PI/180.0+M_PI/2.0}</max_angle -->
+				<!-- Configuration for modified ce30c ros driver x2=y1 y2=-x1 -->
+                <min_angle>-${132/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${132/2.0*M_PI/180.0}</max_angle>
+                <!-- samples>132</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.15192</min_angle>
+                <max_angle>1.15192</max_angle -->
+              </horizontal>
+              <vertical>
+                <!-- samples>24</samples -->
+                <!-- min_angle>-${9.0/2.0*M_PI/180.0}</min_angle>
+                <max_angle> ${9.0/2.0*M_PI/180.0}</max_angle -->
+                <samples>10</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.07854</min_angle>
+                <max_angle>0.07854</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.3</min>
+              <max>4.5</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </ray>
+          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_block_laser.so">
+            <topicName>ce30c_output</topicName>
+            <frameName>ce30c</frameName>
+            <min_range>0.3</min_range>
+            <max_range>5.0</max_range>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </sensor>
+    </gazebo> 
+    
+    </xacro:macro>
+      
+</robot>

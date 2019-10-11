@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<robot name="sensor_benewake_ce30d" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:property name="ce30d_width" value="0.079"/>
+  <xacro:property name="ce30d_length" value="0.050"/>
+  <xacro:property name="ce30d_height" value="0.047"/>
+
+  <xacro:property name="ce30d_depth_px" value="0.00"/>
+  <xacro:property name="ce30d_depth_py" value="-0.0115"/>
+  <xacro:property name="ce30d_depth_pz" value="0.0"/>
+
+
+  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent *origin">
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
+    
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>      
+      <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>		  
+          <!-- box size="${ce30d_width} ${ce30d_length} ${ce30d_height}"/ -->
+          <!-- mesh filename="package://robotnik_sensors/meshes/benewake_ce30d.dae" / -->
+          <box size="${ce30d_length} ${ce30d_width} ${ce30d_height}"/>
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="${-ce30d_length/2} ${-ce30d_width/2} 0.0" rpy="0 0 0"/>
+        <geometry>
+        <box size="${ce30d_length} ${ce30d_width} ${ce30d_height}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <!-- The following are not reliable values, and should not be used for modeling -->
+        <mass value="0.564" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+      </inertial>
+    </link>
+    
+    <joint name="${prefix}_joint" type="fixed">     
+      <parent link="${prefix}_base_link"/>
+      <!-- default ce30d_driver_ros configuration -->
+      <child link="${prefix}_link" />
+    </joint>
+    <link name="${prefix}_link"/>
+           
+  <!-- Ray sensor for simulation, same as Hokuyo3d -->
+  <sensor_benewake_ce30d_gazebo/>
+  
+  </xacro:macro>
+  
+  <xacro:macro name="sensor_benewake_ce30d_gazebo">  
+    <gazebo reference="${prefix}_link">
+      <sensor type="ray" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>20.0</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+				<!-- for a high quality simulation -->
+                <samples>320</samples> 
+                <min_angle>-${60/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${60/2.0*M_PI/180.0}</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>20</samples>
+                <min_angle>-${10/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${10/2.0*M_PI/180.0}</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.4</min>
+              <max>28</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.1</mean>
+              <stddev>0.1</stddev>
+            </noise>
+          </ray>
+          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_block_laser.so">
+            <topicName>${prefix}/points</topicName>
+            <frameName>${prefix}_link</frameName>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </sensor>
+    </gazebo> 
+    
+  </xacro:macro>
+      
+</robot>
