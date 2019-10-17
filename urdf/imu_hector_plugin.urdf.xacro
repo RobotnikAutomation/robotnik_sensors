@@ -40,28 +40,20 @@
 		   <frameId>${prefix}_link</frameId>
 	       <updateRate>50.0</updateRate> 
 
-	       <gaussianNoise>0.005</gaussianNoise>		
-	       <!-- orientation parameters -->
+	       <gaussianNoise>0.00</gaussianNoise>		
            <yawOffset>0.0</yawOffset>
-           <!--<yawOffset>0.0</yawOffset>-->
-           <yawDrift>0.02</yawDrift>
-           <!--<yawDrift>0.0</yawDrift>-->
-           <yawGaussianNoise>0.01</yawGaussianNoise>
-           <!--<yawGaussianNoise>0.0004</yawGaussianNoise>-->
+           <yawDrift>0.0</yawDrift>
+           <yawGaussianNoise>0.0</yawGaussianNoise>
 
            <!-- angular velocities parameters -->
            <rateOffset>0.0 0.0 0.0</rateOffset>
-           <rateDrift>0.002 0.002 0.002</rateDrift>
-           <!--<rateDrift>0.0 0.0 0.0</rateDrift>-->
-           <rateGaussianNoise>0.001 0.001 0.001</rateGaussianNoise>
-           <!--<rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>-->
+           <rateDrift>0.0 0.0 0.0</rateDrift>
+           <rateGaussianNoise>0.0 0.0 0.0</rateGaussianNoise>
 
            <!-- linear accelerations parameters -->
            <accelOffset>0.0 0.0 0.0</accelOffset>
-           <accelDrift>0.005 0.005 0.005</accelDrift>
-           <!--<accelDrift>0.0 0.0 0.0</accelDrift>-->
-           <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-           <!--<accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>-->
+           <accelDrift>0.0 0.0 0.0</accelDrift>
+           <accelGaussianNoise>0.0 0.0 0.0</accelGaussianNoise>
 	    </plugin>
 	  </gazebo>
     
