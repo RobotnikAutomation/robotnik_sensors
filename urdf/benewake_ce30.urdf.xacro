@@ -12,7 +12,7 @@
   <xacro:property name="ce30d_depth_pz" value="0.0"/>
 
 
-  <xacro:macro name="sensor_benewake_ce30" params="prefix parent *origin range_min range_max hfov vfov fps">
+  <xacro:macro name="sensor_benewake_ce30" params="prefix parent *origin range_min range_max hfov vfov fps gpu">
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1"/>
     </material>
@@ -55,14 +55,22 @@
     </joint>
     <link name="${prefix}_link"/>
            
-  <!-- Ray sensor for simulation, same as Hokuyo3d -->
-  <sensor_benewake_ce30_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}"/>
+  <sensor_benewake_ce30_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}" gpu="${gpu}"/>
   
   </xacro:macro>
   
-  <xacro:macro name="sensor_benewake_ce30_gazebo" params="range_min range_max hfov vfov fps">  
+  <xacro:macro name="sensor_benewake_ce30_gazebo" params="range_min range_max hfov vfov fps gpu">  
     <gazebo reference="${prefix}_link">
-      <sensor type="ray" name="${prefix}_sensor">
+      <xacro:if value="${gpu}">
+        <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_block_laser.so" />
+      </xacro:unless>
+        <sensor type="${ray_type}" name="${prefix}_sensor">
           <pose>0 0 0 0 0 0.0</pose>
           <visualize>false</visualize>
           <update_rate>${fps}</update_rate>
@@ -86,12 +94,10 @@
               <resolution>0.01</resolution>
             </range>
             <noise>
-              <type>gaussian</type>
-              <mean>0.1</mean>
-              <stddev>0.1</stddev>
+              <type>none</type>
             </noise>
           </ray>
-          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_block_laser.so">
+          <plugin name="gazebo_ros_laser_controller" filename="${plugin_lib}">
             <topicName>${prefix}/points</topicName>
             <frameName>${prefix}_link</frameName>
             <gaussianNoise>0.008</gaussianNoise>
@@ -101,20 +107,20 @@
     
   </xacro:macro>
   
-  <xacro:macro name="sensor_benewake_ce30a" params="prefix parent *origin">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" >
+  <xacro:macro name="sensor_benewake_ce30a" params="prefix parent *origin gpu:=false">
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
   
-  <xacro:macro name="sensor_benewake_ce30c" params="prefix parent *origin">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" >
+  <xacro:macro name="sensor_benewake_ce30c" params="prefix parent *origin gpu:=false">
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
 
-  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent *origin">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" >
+  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent *origin gpu:=false">
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
