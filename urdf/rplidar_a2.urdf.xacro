@@ -49,7 +49,7 @@
     
   <xacro:macro name="sensor_rplidar_a2_gazebo">
     <gazebo reference="${prefix}_link">
-			<sensor type="ray" name="${prefix}_rplidar_a2_sensor">
+			<sensor type="gpu_ray" name="${prefix}_rplidar_a2_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>10</update_rate>
@@ -73,7 +73,7 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}gazebo_ros_rplidar_a2_controller" filename="libgazebo_ros_laser.so">
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_gpu_laser.so">
 					<topicName>${prefix_topic}/scan</topicName>
 					<frameName>/${prefix}_link</frameName>
 				</plugin>
