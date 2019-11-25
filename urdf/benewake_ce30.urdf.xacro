@@ -65,6 +65,7 @@
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
         <xacro:property name="ray_type" value="gpu_ray" />
         <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+
       </xacro:if>
       <xacro:unless value="${gpu}">
         <xacro:property name="ray_type" value="ray" />
@@ -97,7 +98,7 @@
               <type>none</type>
             </noise>
           </ray>
-          <plugin name="gazebo_ros_laser_controller" filename="${plugin_lib}">
+          <plugin name="${prefix}_controller" filename="${plugin_lib}">
             <topicName>${prefix}/points</topicName>
             <frameName>${prefix}_link</frameName>
             <gaussianNoise>0.008</gaussianNoise>
