@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<robot name="all_sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="all_sensors" 
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-	<!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
+  <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Axis p5512 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis.urdf.xacro" />
@@ -27,10 +28,10 @@
   <!-- Hokuyo ust10lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust10lx.urdf.xacro" />
 
-   <!-- Hokuyo ust20lx -->
+  <!-- Hokuyo ust20lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust20lx.urdf.xacro" />
-   
-   <!-- Hokuyo ust20lx -->
+
+  <!-- Hokuyo ust20lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust20lx.urdf.xacro" />
 
   <!-- Imu -->
@@ -53,6 +54,9 @@
 
   <!-- Sick s300 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sick_s300.urdf.xacro" />
+
+  <!-- Sick microScan3 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_microScan3.urdf.xacro" />
 
   <!-- KinectV2 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/kinectv2.urdf.xacro" />
