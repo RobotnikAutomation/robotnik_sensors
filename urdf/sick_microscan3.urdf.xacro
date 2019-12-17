@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<robot name="sensor_sick_microScan3" 
+<robot name="sensor_sick_microscan3" 
 	xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-	<xacro:macro name="sensor_sick_microScan3" params="prefix parent prefix_topic:='front_laser' *origin">
+	<xacro:macro name="sensor_sick_microscan3" params="prefix parent prefix_topic:='front_laser' *origin">
 
 		<joint name="${prefix}_base_joint" type="fixed">
 			<xacro:insert_block name="origin" />
@@ -17,14 +17,14 @@
 				<geometry>
 					<!--<box size="0.106 0.094 0.152"/>-->
 					<!--<cylinder radius="0.058" length="0.152"/>-->
-					<mesh filename="package://robotnik_sensors/meshes/sick_microScan3.dae"/>
+					<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>
 				</geometry>
 			</collision>
 
 			<visual>
 				<origin xyz="0 0 0" rpy="0 0 0"/>
 				<geometry>
-					<mesh filename="package://robotnik_sensors/meshes/sick_microScan3.dae"/>
+					<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>
 				</geometry>
 			</visual>
 
@@ -44,11 +44,11 @@
 		<link name="${prefix}_link" />
 
 		<!-- Sick sensor sensor for simulation -->
-		<sensor_sick_microScan3_gazebo />
+		<sensor_sick_microscan3_gazebo />
 
 	</xacro:macro>
 
-	<xacro:macro name="sensor_sick_microScan3_gazebo">
+	<xacro:macro name="sensor_sick_microscan3_gazebo">
 		<gazebo reference="${prefix}_link">
 			<sensor type="gpu_ray" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>

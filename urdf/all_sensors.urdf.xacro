@@ -55,8 +55,8 @@
   <!-- Sick s300 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sick_s300.urdf.xacro" />
 
-  <!-- Sick microScan3 -->
-  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_microScan3.urdf.xacro" />
+  <!-- Sick microscan3 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_microscan3.urdf.xacro" />
 
   <!-- KinectV2 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/kinectv2.urdf.xacro" />
