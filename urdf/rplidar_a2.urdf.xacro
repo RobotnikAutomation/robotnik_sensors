@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-	
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
   <xacro:macro name="sensor_rplidar_a2" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14159 max_angle:=3.14159">
-     
+
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
     </joint>
-  
-    
+
+
     <link name="${prefix}_base_link">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -17,21 +17,21 @@
          <mesh filename="package://robotnik_sensors/meshes/rplidar_a2.dae"/>
         </geometry>
       </collision>
-  
+
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
             <mesh filename="package://robotnik_sensors/meshes/rplidar_a2.dae"/>
         </geometry>
       </visual>
-  
+
       <inertial>
         <mass value="1e-5" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
       </inertial>
     </link>
-    
+
 
     <joint name="${prefix}_laser_joint" type="fixed">
       <origin xyz="0 0 0.03086" rpy="0 0 3.1415"/>
@@ -40,13 +40,13 @@
     </joint>
     <link name="${prefix}_link">
     </link>
-    
-  	
+
+
     <sensor_rplidar_a2_gazebo/>
-		
+
   </xacro:macro>
-  
-    
+
+
   <xacro:macro name="sensor_rplidar_a2_gazebo">
     <gazebo reference="${prefix}_link">
 			<sensor type="gpu_ray" name="${prefix}_rplidar_a2_sensor">
@@ -80,5 +80,5 @@
 			</sensor>
 	</gazebo>
   </xacro:macro>
-  
+
 </robot>

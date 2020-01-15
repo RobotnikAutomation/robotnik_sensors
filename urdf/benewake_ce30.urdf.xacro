@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sensor_benewake_ce30" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor_benewake_ce30" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
@@ -16,7 +16,7 @@
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1"/>
     </material>
-    
+
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
@@ -24,10 +24,10 @@
     </joint>
 
     <link name="${prefix}_base_link">
-      <visual>      
+      <visual>
       <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
       <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>		  
+        <geometry>
           <!-- box size="${ce30d_width} ${ce30d_length} ${ce30d_height}"/ -->
           <!-- mesh filename="package://robotnik_sensors/meshes/benewake_ce30d.dae" / -->
           <box size="${ce30d_length} ${ce30d_width} ${ce30d_height}"/>
@@ -47,19 +47,19 @@
         <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
       </inertial>
     </link>
-    
-    <joint name="${prefix}_joint" type="fixed">     
+
+    <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link"/>
       <!-- default ce30d_driver_ros configuration -->
       <child link="${prefix}_link" />
     </joint>
     <link name="${prefix}_link"/>
-           
+
   <sensor_benewake_ce30_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}" gpu="${gpu}"/>
-  
+
   </xacro:macro>
-  
-  <xacro:macro name="sensor_benewake_ce30_gazebo" params="range_min range_max hfov vfov fps gpu">  
+
+  <xacro:macro name="sensor_benewake_ce30_gazebo" params="range_min range_max hfov vfov fps gpu">
     <gazebo reference="${prefix}_link">
       <xacro:if value="${gpu}">
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
@@ -79,7 +79,7 @@
             <scan>
               <horizontal>
 				<!-- for a high quality simulation -->
-                <samples>320</samples> 
+                <samples>320</samples>
                 <min_angle>-${hfov/2.0*M_PI/180.0}</min_angle>
                 <max_angle>${hfov/2.0*M_PI/180.0}</max_angle>
               </horizontal>
@@ -104,16 +104,16 @@
             <gaussianNoise>0.008</gaussianNoise>
           </plugin>
         </sensor>
-    </gazebo> 
-    
+    </gazebo>
+
   </xacro:macro>
-  
+
   <xacro:macro name="sensor_benewake_ce30a" params="prefix parent *origin gpu:=false">
     <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
-  
+
   <xacro:macro name="sensor_benewake_ce30c" params="prefix parent *origin gpu:=false">
     <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />

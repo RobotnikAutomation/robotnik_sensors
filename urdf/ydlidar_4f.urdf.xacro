@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<robot name="sensor_ydlidar_4f" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  
+<robot name="sensor_ydlidar_4f" xmlns:xacro="http://wiki.ros.org/xacro">
+
   <xacro:macro name="sensor_ydlidar_4f" params="prefix parent prefix_topic:='front_laser' *origin">
-     
+
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
 	  </joint>
 
-  
+
     <link name="${prefix}_base_link">
       <inertial>
         <origin xyz="-0.00029774 0.0066667 0.00013047" rpy="0 0 0" />
@@ -38,13 +38,13 @@
         </geometry>
       </collision>
     </link>
-    
+
     <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link"/>
       <origin xyz="0.0 0 0.0116" rpy="0 0 0"/>
 	  </joint>
-	
+
     <link name="${prefix}_link">
       <inertial>
         <origin xyz="-0.00036659 0.00064155 -0.00027052" rpy="0 0 0" />
@@ -58,6 +58,6 @@
           izz="0.00011103" />
       </inertial>
     </link>
-		
+
   </xacro:macro>
 </robot>

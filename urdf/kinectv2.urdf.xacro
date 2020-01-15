@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<robot name="sensor_kinectv2" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    
+<robot name="sensor_kinectv2" xmlns:xacro="http://wiki.ros.org/xacro">
+
   <xacro:property name="M_PI" value="3.1415926535897931" />
     <xacro:property name="cam_px" value="-0.087" />
     <xacro:property name="cam_py" value="-0.0125" />
@@ -26,8 +26,8 @@
                  izz="0.0001" />
       </inertial>
     </link>
-    
-    
+
+
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
       <parent link="${prefix}_rgb_base_link" />
@@ -54,7 +54,7 @@
 
     <parent link="${prefix}_rgb_base_link"/>
     <child link="${prefix}_link"/>
-  </joint>  
+  </joint>
     <link name="${prefix}_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
@@ -90,8 +90,8 @@
                izz="0.0001" />
     </inertial>
   </link>
-      
-  <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch 
+
+  <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch
        files. However, for Gazebo simulation we need them, so we add them here.
        (Hence, don't publish them additionally!) -->
     <joint name="${prefix}_depth_joint" type="fixed">
@@ -122,16 +122,16 @@
                izz="0.0001" />
     </inertial>
     </link>
-    
+
         <!-- Kinect sensor for simulation -->
       <sensor_kinectv2_gazebo/>
-  
+
   </xacro:macro>
 
 
   <xacro:macro name="sensor_kinectv2_gazebo">
-  
-    <gazebo reference="${prefix}_link">  
+
+    <gazebo reference="${prefix}_link">
       <sensor type="depth" name="${prefix}_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
@@ -168,7 +168,7 @@
         </plugin>
       </sensor>
     </gazebo>
-  
+
   </xacro:macro>
-  
+
 </robot>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sensor_r430" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor_r430" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
@@ -10,13 +10,13 @@
   <xacro:property name="r430_cam_depth_to_fisheye_offset" value="0.044"/>
 
   <!-- The following values model the aluminum peripherial case for the
-    R430 camera, with the camera joint represented by the actual 
-    peripherial camera tripod mount -->  
+    R430 camera, with the camera joint represented by the actual
+    peripherial camera tripod mount -->
   <xacro:property name="r430_cam_width" value="0.100"/>
   <xacro:property name="r430_cam_depth" value="0.025"/>
   <xacro:property name="r430_cam_height" value="0.025"/>
-  <xacro:property name="r430_cam_mount_from_center_offset" value="0.0"/>   
-  
+  <xacro:property name="r430_cam_mount_from_center_offset" value="0.0"/>
+
   <!-- The following offset is relative the the physical R430 camera peripherial
     camera tripod mount -->
   <xacro:property name="r430_cam_depth_px" value="0.00"/>
@@ -36,7 +36,7 @@
       <visual>
       <!-- origin xyz="0 ${-r430_cam_mount_from_center_offset} ${r430_cam_height/2}" rpy="${M_PI/2} 0 ${M_PI/2}"/ -->
       <origin xyz="0 ${-r430_cam_mount_from_center_offset} 0" rpy="0 0 0"/>
-        <geometry>		  
+        <geometry>
           <!-- box size="${r430_cam_width} ${r430_cam_height} ${r430_cam_depth}"/ -->
           <mesh filename="package://robotnik_sensors/meshes/intel_realsense_depth_camera_d435.dae" />
         </geometry>
@@ -57,7 +57,7 @@
         <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
       </inertial>
     </link>
-   
+
     <!-- camera depth joints and links -->
     <joint name="${prefix}_camera_depth_joint" type="fixed">
       <origin xyz="${r430_cam_depth_px} ${r430_cam_depth_py} ${r430_cam_depth_pz}" rpy="0 0 0"/>
@@ -72,7 +72,7 @@
       <child link="${prefix}_camera_depth_optical_frame" />
     </joint>
     <link name="${prefix}_camera_depth_optical_frame"/>
-      
+
     <!-- camera left IR joints and links -->
     <joint name="${prefix}_camera_left_ir_joint" type="fixed">
       <origin xyz="0 ${r430_cam_depth_to_left_ir_offset} 0" rpy="0 0 0" />
@@ -117,15 +117,15 @@
       <child link="${prefix}_camera_fisheye_optical_frame" />
     </joint>
     <link name="${prefix}_camera_fisheye_optical_frame"/>
-  
-  
+
+
   <!-- RGBD sensor for simulation, same as Kinect -->
   <sensor_r430_gazebo/>
-  
+
   </xacro:macro>
-  
+
    <xacro:macro name="sensor_r430_gazebo">
-  
+
     <!-- gazebo reference="${prefix}_rgb_base_link" -->
     <gazebo reference="${prefix}_camera_link">
       <sensor type="depth" name="${prefix}_depth_sensor">
@@ -151,7 +151,7 @@
           <depthImageTopicName>depth/image_raw</depthImageTopicName>
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>          
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
           <frameName>/${prefix}_camera_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>

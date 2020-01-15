@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
   <xacro:property name="rubedos_viper_width" value="0.246"/>
   <xacro:property name="rubedos_viper_height" value="0.035"/>
   <xacro:property name="rubedos_viper_depth" value="0.09"/>
@@ -68,7 +68,7 @@
 
   <xacro:macro name="rubedos_viper"
     params="prefix:=bumblebee parent *origin format:=R8G8B8 near:=0.05 far:=300">
-    
+
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>

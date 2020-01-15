@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<robot name="sensor_hokuyo3d" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor_hokuyo3d" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="sensor_hokuyo3d" params="prefix parent *origin gpu:=false">
-     
+
     <joint name="${prefix}_fix_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
     </joint>
-    
+
     <link name="${prefix}_base_link">
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -40,12 +40,12 @@
     </joint>
 
 
-    <!-- Hokuyo sensor for simulation -->       
+    <!-- Hokuyo sensor for simulation -->
     <sensor_hokuyo3d_gazebo gpu="${gpu}"/>
-        
+
   </xacro:macro>
-  
-    
+
+
   <xacro:macro name="sensor_hokuyo3d_gazebo" params="gpu">
     <gazebo reference="${prefix}_link">
       <xacro:if value="${gpu}">
@@ -57,7 +57,7 @@
         <xacro:property name="ray_type" value="ray" />
         <xacro:property name="plugin_lib" value="libgazebo_ros_block_laser.so" />
       </xacro:unless>
-      
+
       <sensor type="${ray_type}" name="${prefix}_sensor">
           <pose>0 0 0 0 0 0</pose>
           <visualize>false</visualize>
@@ -73,7 +73,7 @@
                   <vertical>
                       <samples>74</samples>
                       <resolution>1.0</resolution>
-                      <min_angle>-0.610865238</min_angle>                            
+                      <min_angle>-0.610865238</min_angle>
                       <max_angle>0.0872664626</max_angle>
                   </vertical>
               </scan>
@@ -96,6 +96,5 @@
             </sensor>
         </gazebo>
   </xacro:macro>
-  
-</robot>
 
+</robot>

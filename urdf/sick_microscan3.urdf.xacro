@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_microscan3"
-	xmlns:xacro="http://www.ros.org/wiki/xacro">
+	xmlns:xacro="http://wiki.ros.org/xacro">
 
 	<xacro:macro name="sensor_sick_microscan3" params="prefix parent prefix_topic:='front_laser' *origin max_angle:=2.3562 min_angle:=-2.3562">
 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sensor_gps" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor_gps" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="sensor_gps" params="prefix parent *origin">
 

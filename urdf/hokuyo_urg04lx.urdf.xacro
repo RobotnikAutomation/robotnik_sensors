@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<robot name="sensor_hokuyo_urg04lx" xmlns:xacro="http://www.ros.org/wiki/xacro">
-	
-	
+<robot name="sensor_hokuyo_urg04lx" xmlns:xacro="http://wiki.ros.org/xacro">
+
+
   <xacro:macro name="sensor_hokuyo_urg04lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.0943 max_angle:=2.0943">
-     
+
     <joint name="${prefix}_base_joint" type="fixed">
       <!-- FRONT MOUNT  -->
       <!--origin xyz="0.29 0 0.1" -->
@@ -13,24 +13,24 @@
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
     </joint>
-  
-    
-    <link name="${prefix}_base_link"> 
+
+
+    <link name="${prefix}_base_link">
       <visual>
         <origin xyz="0 0 -0.05" rpy="0 0 0"/>
         <geometry>
             <mesh filename="package://robotnik_sensors/meshes/hokuyo_urg_04lx.dae"/>
         </geometry>
       </visual>
-  
+
       <inertial>
         <mass value="1e-5" />
-        
+
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
       </inertial>
     </link>
-    
+
     <link name="${prefix}_link">
 	</link>
     <joint name="${prefix}_joint" type="fixed">
@@ -38,13 +38,13 @@
       <child link="${prefix}_link"/>
       <origin xyz="0.00 0 0.00" rpy="0 0 0"/>
 	</joint>
-    
-    <!-- Hokuyo sensor for simulation -->		
+
+    <!-- Hokuyo sensor for simulation -->
     <sensor_hokuyo_urg04lx_gazebo/>
-		
+
   </xacro:macro>
-  
-    
+
+
   <xacro:macro name="sensor_hokuyo_urg04lx_gazebo">
     <gazebo reference="${prefix}_link">
 			<sensor type="gpu_ray" name="${prefix}_sensor">
@@ -79,5 +79,5 @@
 			</sensor>
 	</gazebo>
   </xacro:macro>
-  
+
 </robot>
