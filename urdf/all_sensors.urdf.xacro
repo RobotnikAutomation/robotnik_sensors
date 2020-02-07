@@ -73,6 +73,9 @@
   <!-- Orbbec Astra -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" />
 
+  <!-- Zed -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/zed.urdf.xacro" />
+
   <!-- Rplidar -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar.urdf.xacro" />
 
