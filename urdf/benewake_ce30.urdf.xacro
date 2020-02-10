@@ -26,7 +26,7 @@
     <link name="${prefix}_base_link">
       <visual>
       <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
-      <origin xyz="0.02 0 -0.025" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <mesh filename="package://robotnik_sensors/meshes/benewake_ce30${model}.stl" />
           <!--box size="${ce30d_length} ${ce30d_width} ${ce30d_height}"/-->
@@ -34,7 +34,7 @@
         <material name="black_alu"/>
       </visual>
       <collision>
-        <origin xyz="0.02 0 -0.025" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <mesh filename="package://robotnik_sensors/meshes/benewake_ce30${model}.stl" />
         </geometry>
