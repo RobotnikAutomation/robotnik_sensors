@@ -12,7 +12,7 @@
   <xacro:property name="ce30d_depth_pz" value="0.0"/>
 
 
-  <xacro:macro name="sensor_benewake_ce30" params="model prefix parent *origin range_min range_max hfov vfov fps gpu">
+  <xacro:macro name="sensor_benewake_ce30" params="prefix parent *origin range_min range_max hfov vfov fps gpu">
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1"/>
     </material>
@@ -28,7 +28,7 @@
       <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
       <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/benewake_ce30${model}.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/benewake_ce30.stl" />
           <!--box size="${ce30d_length} ${ce30d_width} ${ce30d_height}"/-->
         </geometry>
         <material name="black_alu"/>
@@ -36,7 +36,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/benewake_ce30${model}.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/benewake_ce30.stl" />
         </geometry>
       </collision>
       <inertial>
@@ -108,19 +108,19 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_benewake_ce30a" params="prefix parent *origin gpu:=false">
-    <sensor_benewake_ce30 model="a" prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
 
   <xacro:macro name="sensor_benewake_ce30c" params="prefix parent *origin gpu:=false">
-    <sensor_benewake_ce30 model="c" prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
 
   <xacro:macro name="sensor_benewake_ce30d" params="prefix parent *origin gpu:=false">
-    <sensor_benewake_ce30 model="d" prefix="${prefix}" parent="${parent}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
