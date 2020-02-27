@@ -57,7 +57,7 @@
 
     <!-- Left camera -->
     <joint name="${prefix}_rgb_left_joint" type="fixed">
-      <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0" />
+      <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0" />
       <parent link="${prefix}_link" />
       <child link="${prefix}_left_rgb_frame" />
     </joint>
@@ -65,7 +65,7 @@
     <link name="${prefix}_left_rgb_frame"/>
 
     <joint name="${prefix}_rgb_left_optical_joint" type="fixed">
-      <origin xyz="0.0 0.06 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
       <parent link="${prefix}_left_rgb_frame" />
       <child link="${prefix}_left_rgb_optical_frame" />
     </joint>
@@ -74,7 +74,7 @@
 
     <!-- Right camera-->
     <joint name="${prefix}_rgb_right_joint" type="fixed">
-      <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0" />
+      <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0" />
       <parent link="${prefix}_link" />
       <child link="${prefix}_right_rgb_frame" />
     </joint>
@@ -82,7 +82,7 @@
     <link name="${prefix}_right_rgb_frame"/>
 
     <joint name="${prefix}_rgb_right_optical_joint" type="fixed">
-      <origin xyz="0.0 -0.06 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <origin xyz="0.0 0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
       <parent link="${prefix}_right_rgb_frame" />
       <child link="${prefix}_right_rgb_optical_frame" />
     </joint>
