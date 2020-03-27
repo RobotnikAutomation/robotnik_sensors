@@ -108,4 +108,7 @@
 
   <!-- Rubedos Viper -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rubedos_viper.urdf.xacro" />
+
+  <!-- RoboSense RS-Lidar -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar.urdf.xacro" />
 </robot>
