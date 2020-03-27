@@ -12,7 +12,7 @@
   <xacro:property name="ce30d_depth_pz" value="0.0"/>
 
 
-  <xacro:macro name="sensor_benewake_ce30" params="prefix parent *origin range_min range_max hfov vfov fps gpu">
+  <xacro:macro name="sensor_benewake_ce30" params="prefix parent prefix_topic *origin range_min range_max hfov vfov fps gpu">
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1"/>
     </material>
@@ -89,7 +89,7 @@
               </vertical>
             </scan>
             <range>
-              <min>0.4</min>
+              <min>${range_min}</min>
               <max>${range_max}</max>
               <resolution>0.01</resolution>
             </range>
@@ -98,8 +98,8 @@
             </noise>
           </ray>
           <plugin name="${prefix}_controller" filename="${plugin_lib}">
-            <topicName>${prefix}/points</topicName>
-            <frameName>${prefix}_link</frameName>
+            <topicName>${prefix_topic}/points</topicName>
+            <frameName>/${prefix}_link</frameName>
             <gaussianNoise>0.008</gaussianNoise>
           </plugin>
         </sensor>
@@ -107,20 +107,20 @@
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_benewake_ce30a" params="prefix parent *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
+  <xacro:macro name="sensor_benewake_ce30a" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
 
-  <xacro:macro name="sensor_benewake_ce30c" params="prefix parent *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
+  <xacro:macro name="sensor_benewake_ce30c" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
 
-  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
+  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
