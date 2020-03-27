@@ -4,7 +4,7 @@
   <xacro:property name="mast_height" value="0.5" />
   <xacro:property name="mast_radius" value="0.010" />
 
-  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin">
+  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|0.0 gps_longitude:=^|0.0">
 
 	  <!-- MAST OF THE ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">
@@ -86,9 +86,9 @@
         <bodyName>${prefix}_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
         <frameId>${prefix}_link</frameId>   <!-- which frame_id would be on the published message -->
         <topicName>fix</topicName>
-        <!-- Robotnik position at Fuente del Jarro -->
-        <referenceLatitude>39.5080331</referenceLatitude>
-        <referenceLongitude>-0.4619816</referenceLongitude>
+        <!-- GPS coordinates -->
+        <referenceLatitude>${gps_latitude}</referenceLatitude>
+        <referenceLongitude>${gps_longitude}</referenceLongitude>
         <!-- To set heading in ENU orientation (degrees) -->
         <referenceHeading>90</referenceHeading>
         <velocityTopicName>fix_velocity</velocityTopicName>

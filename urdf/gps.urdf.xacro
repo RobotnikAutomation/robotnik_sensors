@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_gps" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_gps" params="prefix parent *origin">
+  <xacro:macro name="sensor_gps" params="prefix parent *origin gps_latitude:=^|0.0 gps_longitude:=^|0.0">
 
 	  <!-- ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">
@@ -46,9 +46,9 @@
         <bodyName>${prefix}_base_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
         <frameId>${prefix}_base_link</frameId>
         <topicName>gps/fix</topicName>
-        <!-- Robotnik position at Fuente del Jarro -->
-        <referenceLatitude>39.5080331</referenceLatitude>
-        <referenceLongitude>-0.4619816</referenceLongitude>
+        <!-- GPS coordinates -->
+        <referenceLatitude>${gps_latitude}</referenceLatitude>
+        <referenceLongitude>${gps_longitude}</referenceLongitude>
         <!-- To set heading in ENU orientation (degrees) -->
         <referenceHeading>90</referenceHeading>
         <velocityTopicName>gps/fix_velocity</velocityTopicName>
