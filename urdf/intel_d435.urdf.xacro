@@ -6,7 +6,8 @@ Copyright(c) 2017 Intel Corporation. All Rights Reserved
 Copyright(c) 2020 Robotnik Automation. All Rights Reserved
 -->
 
-<robot name="sensor_intel_d435" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="sensor_intel_d435"
+  xmlns:xacro="http://wiki.ros.org/xacro">
   <!-- Includes -->
   
   <xacro:macro name="sensor_intel_d435" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=false">
