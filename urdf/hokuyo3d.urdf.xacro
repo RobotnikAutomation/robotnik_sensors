@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo3d" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_hokuyo3d" params="prefix parent *origin gpu:=false">
+  <xacro:macro name="sensor_hokuyo3d" params="prefix parent *origin gpu:=^|true">
 
     <joint name="${prefix}_fix_joint" type="fixed">
       <xacro:insert_block name="origin" />

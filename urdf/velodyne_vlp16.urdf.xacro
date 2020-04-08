@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_velodyne_vlp16" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin gpu:=false">
+  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />

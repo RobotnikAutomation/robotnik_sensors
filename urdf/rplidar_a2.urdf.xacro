@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_rplidar_a2" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14159 max_angle:=3.14159">
+  <xacro:macro name="sensor_rplidar_a2" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14159 max_angle:=3.14159 gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -49,7 +49,15 @@
 
   <xacro:macro name="sensor_rplidar_a2_gazebo">
     <gazebo reference="${prefix}_link">
-			<sensor type="gpu_ray" name="${prefix}_rplidar_a2_sensor">
+			<xacro:if value="${gpu}">
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
+      </xacro:unless>
+			<sensor type="${ray_type}" name="${prefix}_rplidar_a2_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>10</update_rate>
@@ -73,7 +81,7 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="libgazebo_ros_gpu_laser.so">
+				<plugin name="${prefix}_controller" filename="${plugin_lib}">
 					<topicName>${prefix_topic}/scan</topicName>
 					<frameName>/${prefix}_link</frameName>
 				</plugin>

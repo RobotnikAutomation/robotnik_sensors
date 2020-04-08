@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_sick_tim571" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.36 max_angle:=2.36">
+  <xacro:macro name="sensor_sick_tim571" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.36 max_angle:=2.36 gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -49,8 +49,16 @@
 
 
   <xacro:macro name="sensor_sick_tim571_gazebo">
-	<gazebo reference="${prefix}_link">
-			<sensor type="gpu_ray" name="${prefix}_sensor">
+	  <gazebo reference="${prefix}_link">
+			<xacro:if value="${gpu}">
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
+      </xacro:unless>
+			<sensor type="${ray_type}" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>15</update_rate>
@@ -74,12 +82,12 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="libgazebo_ros_gpu_laser.so">
+				<plugin name="${prefix}_controller" filename="${plugin_lib}">
 					<topicName>${prefix_topic}/scan</topicName>
 					<frameName>/${prefix}_link</frameName>
 				</plugin>
 			</sensor>
-	</gazebo>
+	  </gazebo>
   </xacro:macro>
 
 </robot>

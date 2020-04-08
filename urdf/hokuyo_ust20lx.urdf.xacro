@@ -2,7 +2,7 @@
 <robot name="sensor_hokuyo_ust20lx" xmlns:xacro="http://wiki.ros.org/xacro">
 
 
-  <xacro:macro name="sensor_hokuyo_ust20lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562">
+  <xacro:macro name="sensor_hokuyo_ust20lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
 			<!--arg name="namespace" value="$(arg namespace)"/-->
 
     <joint name="${prefix}_base_joint" type="fixed">
@@ -50,7 +50,15 @@
 
   <xacro:macro name="sensor_hokuyo_ust20_gazebo">
     <gazebo reference="${prefix}_link">
-			<sensor type="gpu_ray" name="${prefix}_sensor">
+			<xacro:if value="${gpu}">
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
+      </xacro:unless>
+			<sensor type="${ray_type}" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>40</update_rate>
@@ -76,7 +84,7 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="libgazebo_ros_gpu_laser.so">
+				<plugin name="${prefix}_controller" filename="${plugin_lib}">
 					<topicName>${prefix_topic}/scan</topicName>
 					<frameName>/${prefix}_link</frameName>
 				</plugin>
