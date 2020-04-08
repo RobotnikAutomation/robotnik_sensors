@@ -1,53 +1,71 @@
 <?xml version="1.0"?>
-<robot name="sensor_r430" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:property name="M_PI" value="3.1415926535897931" />
+<!--
+License: Apache 2.0. See LICENSE file in root directory.
+Copyright(c) 2017 Intel Corporation. All Rights Reserved
+Copyright(c) 2020 Robotnik Automation. All Rights Reserved
+-->
 
-  <!-- The following values are approximate, and the camera node
-   publishing TF values with actual calibrated camera extrinsic values -->
-  <xacro:property name="r430_cam_depth_to_left_ir_offset" value="-0.021"/>
-  <xacro:property name="r430_cam_depth_to_right_ir_offset" value="0.029"/>
-  <xacro:property name="r430_cam_depth_to_fisheye_offset" value="0.044"/>
+<robot name="sensor_intel_d435"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <!-- Includes -->
+  
+  <xacro:macro name="sensor_intel_d435" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=false">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+    <!-- The following values are approximate, and the camera node
+     publishing TF values with actual calibrated camera extrinsic values -->
+    <xacro:property name="d435_cam_depth_to_infra1_offset" value="0.0"/>
+    <xacro:property name="d435_cam_depth_to_infra2_offset" value="-0.050"/>
+    <xacro:property name="d435_cam_depth_to_color_offset" value="0.015"/>
 
-  <!-- The following values model the aluminum peripherial case for the
-    R430 camera, with the camera joint represented by the actual
+    <!-- The following values model the aluminum peripherial case for the
+    D435 camera, with the camera joint represented by the actual
     peripherial camera tripod mount -->
-  <xacro:property name="r430_cam_width" value="0.100"/>
-  <xacro:property name="r430_cam_depth" value="0.025"/>
-  <xacro:property name="r430_cam_height" value="0.025"/>
-  <xacro:property name="r430_cam_mount_from_center_offset" value="0.0"/>
+    <xacro:property name="d435_cam_width" value="0.090"/>
+    <xacro:property name="d435_cam_height" value="0.025"/>
+    <xacro:property name="d435_cam_depth" value="0.02505"/>
+    <xacro:property name="d435_cam_mount_from_center_offset" value="0.0149"/>
 
-  <!-- The following offset is relative the the physical R430 camera peripherial
+    <!-- The following offset is relative the the physical D435 camera peripherial
     camera tripod mount -->
-  <xacro:property name="r430_cam_depth_px" value="0.00"/>
-  <xacro:property name="r430_cam_depth_py" value="-0.0115"/>
-  <xacro:property name="r430_cam_depth_pz" value="0.0"/>
+    <xacro:property name="d435_cam_depth_px" value="${d435_cam_mount_from_center_offset}"/>
+    <xacro:property name="d435_cam_depth_py" value="0.0175"/>
+    <xacro:property name="d435_cam_depth_pz" value="${d435_cam_height/2}"/>
 
-  <xacro:macro name="sensor_r430" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
-
-    <!-- camera body, with origin at bottom screw mount -->
-    <joint name="${prefix}_camera_joint" type="fixed">
-      <xacro:insert_block name="origin" />
+    <joint name="${prefix}_base_joint" type="fixed">
       <parent link="${parent}"/>
-      <child link="${prefix}_camera_link" />
+      <child link="${prefix}_base_link" />
     </joint>
 
-    <link name="${prefix}_camera_link">
+    <link name="${prefix}_base_link" />
+
+    <!-- camera body, with origin at bottom screw mount -->
+    <joint name="${prefix}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_bottom_screw_frame" />
+    </joint>
+    <link name="${prefix}_bottom_screw_frame"/>
+
+    <joint name="${prefix}_link_joint" type="fixed">
+      <origin xyz="0 ${d435_cam_depth_py} ${d435_cam_depth_pz}" rpy="0 0 0"/>
+      <parent link="${prefix}_bottom_screw_frame"/>
+      <child link="${prefix}_link" />
+    </joint>
+
+    <link name="${prefix}_link">
       <visual>
-      <!-- origin xyz="0 ${-r430_cam_mount_from_center_offset} ${r430_cam_height/2}" rpy="${M_PI/2} 0 ${M_PI/2}"/ -->
-      <origin xyz="0 ${-r430_cam_mount_from_center_offset} 0" rpy="0 0 0"/>
+        <origin xyz="${d435_cam_mount_from_center_offset} ${-d435_cam_depth_py} 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
         <geometry>
-          <!-- box size="${r430_cam_width} ${r430_cam_height} ${r430_cam_depth}"/ -->
-          <mesh filename="package://robotnik_sensors/meshes/intel_realsense_depth_camera_d435.dae" />
+          <!-- <box size="${d435_cam_width} ${d435_cam_height} ${d435_cam_depth}"/> -->
+          <mesh filename="package://realsense2_description/meshes/d435.dae" />
         </geometry>
-        <material name="aluminum">
-          <color rgba="0.5 0.5 0.5 1"/>
-        </material>
       </visual>
       <collision>
-        <origin xyz="${-r430_cam_depth/2} 0.0 0.0" rpy="0 0 0"/>
+        <origin xyz="0 ${-d435_cam_depth_py} 0" rpy="0 0 0"/>
         <geometry>
-        <box size="${r430_cam_depth} ${r430_cam_width} ${r430_cam_height}"/>
+          <box size="${d435_cam_depth} ${d435_cam_width} ${d435_cam_height}"/>
         </geometry>
       </collision>
       <inertial>
@@ -58,112 +76,202 @@
       </inertial>
     </link>
 
-    <!-- camera depth joints and links -->
-    <joint name="${prefix}_camera_depth_joint" type="fixed">
-      <origin xyz="${r430_cam_depth_px} ${r430_cam_depth_py} ${r430_cam_depth_pz}" rpy="0 0 0"/>
-      <parent link="${prefix}_camera_link"/>
-      <child link="${prefix}_camera_depth_frame" />
-    </joint>
-    <link name="${prefix}_camera_depth_frame"/>
+    <!-- Use the nominal extrinsics between camera frames if the calibrated extrinsics aren't being published. e.g. running the device in simulation  -->
+    <xacro:if value="${use_nominal_extrinsics}">
+      <!-- camera depth joints and links -->
+      <joint name="${prefix}_depth_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="${prefix}_link"/>
+        <child link="${prefix}_depth_frame" />
+      </joint>
+      <link name="${prefix}_depth_frame"/>
 
-    <joint name="${prefix}_camera_depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_camera_depth_frame" />
-      <child link="${prefix}_camera_depth_optical_frame" />
-    </joint>
-    <link name="${prefix}_camera_depth_optical_frame"/>
+      <joint name="${prefix}_depth_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+        <parent link="${prefix}_depth_frame" />
+        <child link="${prefix}_depth_optical_frame" />
+      </joint>
+      <link name="${prefix}_depth_optical_frame"/>
 
-    <!-- camera left IR joints and links -->
-    <joint name="${prefix}_camera_left_ir_joint" type="fixed">
-      <origin xyz="0 ${r430_cam_depth_to_left_ir_offset} 0" rpy="0 0 0" />
-      <parent link="${prefix}_camera_depth_frame" />
-      <child link="${prefix}_camera_left_ir_frame" />
-    </joint>
-    <link name="${prefix}_camera_left_ir_frame"/>
+      <!-- camera left IR joints and links -->
+      <joint name="${prefix}_infra1_joint" type="fixed">
+        <origin xyz="0 ${d435_cam_depth_to_infra1_offset} 0" rpy="0 0 0" />
+        <parent link="${prefix}_link" />
+        <child link="${prefix}_infra1_frame" />
+      </joint>
+      <link name="${prefix}_infra1_frame"/>
 
-    <joint name="${prefix}_camera_left_ir_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_camera_left_ir_frame" />
-      <child link="${prefix}_camera_left_ir_optical_frame" />
-    </joint>
-    <link name="${prefix}_camera_left_ir_optical_frame"/>
+      <joint name="${prefix}_infra1_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+        <parent link="${prefix}_infra1_frame" />
+        <child link="${prefix}_infra1_optical_frame" />
+      </joint>
+      <link name="${prefix}_infra1_optical_frame"/>
 
-    <!-- camera right IR joints and links -->
-    <joint name="${prefix}_camera_right_ir_joint" type="fixed">
-      <origin xyz="0 ${r430_cam_depth_to_right_ir_offset} 0" rpy="0 0 0" />
-      <parent link="${prefix}_camera_depth_frame" />
-      <child link="${prefix}_camera_right_ir_frame" />
-    </joint>
-    <link name="${prefix}_camera_right_ir_frame"/>
+      <!-- camera right IR joints and links -->
+      <joint name="${prefix}_infra2_joint" type="fixed">
+        <origin xyz="0 ${d435_cam_depth_to_infra2_offset} 0" rpy="0 0 0" />
+        <parent link="${prefix}_link" />
+        <child link="${prefix}_infra2_frame" />
+      </joint>
+      <link name="${prefix}_infra2_frame"/>
 
-    <joint name="${prefix}_camera_right_ir_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_camera_right_ir_frame" />
-      <child link="${prefix}_camera_right_ir_optical_frame" />
-    </joint>
-    <link name="${prefix}_camera_right_ir_optical_frame"/>
+      <joint name="${prefix}_infra2_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+        <parent link="${prefix}_infra2_frame" />
+        <child link="${prefix}_infra2_optical_frame" />
+      </joint>
+      <link name="${prefix}_infra2_optical_frame"/>
 
-    <!-- camera fisheye joints and links -->
-    <joint name="${prefix}_camera_fisheye_joint" type="fixed">
-      <origin xyz="0 ${r430_cam_depth_to_fisheye_offset} 0" rpy="0 0 0" />
-      <parent link="${prefix}_camera_depth_frame" />
-      <child link="${prefix}_camera_fisheye_frame" />
-    </joint>
-    <link name="${prefix}_camera_fisheye_frame"/>
+      <!-- camera color joints and links -->
+      <joint name="${prefix}_color_joint" type="fixed">
+        <origin xyz="0 ${d435_cam_depth_to_color_offset} 0" rpy="0 0 0" />
+        <parent link="${prefix}_link" />
+        <child link="${prefix}_color_frame" />
+      </joint>
+      <link name="${prefix}_color_frame"/>
 
-    <joint name="${prefix}_camera_fisheye_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_camera_fisheye_frame" />
-      <child link="${prefix}_camera_fisheye_optical_frame" />
-    </joint>
-    <link name="${prefix}_camera_fisheye_optical_frame"/>
+      <joint name="${prefix}_color_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+        <parent link="${prefix}_color_frame" />
+        <child link="${prefix}_color_optical_frame" />
+      </joint>
+      <link name="${prefix}_color_optical_frame"/>
+    </xacro:if>
 
-
-  <!-- RGBD sensor for simulation, same as Kinect -->
-  <sensor_r430_gazebo/>
-
+    <xacro:gazebo_d435 camera_name="${prefix}" reference_link="${prefix}_link" topics_ns="${prefix_topic}" depth_optical_frame="${prefix}_depth_optical_frame" color_optical_frame="${prefix}_color_optical_frame" infrared1_optical_frame="${prefix}_left_ir_optical_frame" infrared2_optical_frame="${prefix}_right_ir_optical_frame"/>
   </xacro:macro>
 
-   <xacro:macro name="sensor_r430_gazebo">
+  <xacro:macro name="gazebo_d435" params="camera_name reference_link topics_ns depth_optical_frame color_optical_frame infrared1_optical_frame infrared2_optical_frame" >
+   <!-- Load parameters to model's main link-->
+   <xacro:property name="deg_to_rad" value="0.01745329251994329577" />
+   <gazebo reference="${reference_link}">
+     <self_collide>0</self_collide>
+     <enable_wind>0</enable_wind>
+     <kinematic>0</kinematic>
+     <gravity>1</gravity>
+     <!--<mu>1</mu>-->
+     <mu2>1</mu2>
+     <fdir1>0 0 0</fdir1>
+     <!--<slip1>0</slip1>
+     <slip2>0</slip2>-->
+     <kp>1e+13</kp>
+     <kd>1</kd>
+     <!--<max_vel>0.01</max_vel>
+     <min_depth>0</min_depth>-->
+     <sensor name="${camera_name}color" type="camera">
+       <camera name="${camera_name}">
+         <horizontal_fov>${69.4*deg_to_rad}</horizontal_fov>
+         <image>
+           <width>1920</width>
+           <height>1080</height>
+           <format>RGB_INT8</format>
+         </image>
+         <clip>
+           <near>0.1</near>
+           <far>100</far>
+         </clip>
+         <noise>
+           <type>gaussian</type>
+           <mean>0.0</mean>
+           <stddev>0.007</stddev>
+         </noise>
+       </camera>
+       <always_on>1</always_on>
+       <update_rate>30</update_rate>
+       <visualize>1</visualize>
+     </sensor>
+     <sensor name="${camera_name}ired1" type="camera">
+       <camera name="${camera_name}">
+         <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
+         <image>
+           <width>1280</width>
+           <height>720</height>
+           <format>L_INT8</format>
+         </image>
+         <clip>
+           <near>0.1</near>
+           <far>100</far>
+         </clip>
+         <noise>
+           <type>gaussian</type>
+           <mean>0.0</mean>
+           <stddev>0.05</stddev>
+         </noise>
+       </camera>
+       <always_on>1</always_on>
+       <update_rate>90</update_rate>
+       <visualize>0</visualize>
+     </sensor>
+     <sensor name="${camera_name}ired2" type="camera">
+       <camera name="${camera_name}">
+         <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
+         <image>
+           <width>1280</width>
+           <height>720</height>
+           <format>L_INT8</format>
+         </image>
+         <clip>
+           <near>0.1</near>
+           <far>100</far>
+         </clip>
+         <noise>
+           <type>gaussian</type>
+           <mean>0.0</mean>
+           <stddev>0.05</stddev>
+         </noise>
+       </camera>
+       <always_on>1</always_on>
+       <update_rate>90</update_rate>
+       <visualize>0</visualize>
+     </sensor>
+     <sensor name="${camera_name}depth" type="depth">
+       <camera name="${camera_name}">
+         <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
+         <image>
+           <width>1280</width>
+           <height>720</height>
+         </image>
+         <clip>
+           <near>0.1</near>
+           <far>100</far>
+         </clip>
+         <noise>
+           <type>gaussian</type>
+           <mean>0.0</mean>
+           <stddev>0.100</stddev>
+         </noise>
+       </camera>
+       <always_on>1</always_on>
+       <update_rate>90</update_rate>
+       <visualize>0</visualize>
+     </sensor>
+   </gazebo>
 
-    <!-- gazebo reference="${prefix}_rgb_base_link" -->
-    <gazebo reference="${prefix}_camera_link">
-      <sensor type="depth" name="${prefix}_depth_sensor">
-        <always_on>true</always_on>
-        <update_rate>15.0</update_rate>
-        <camera>
-          <horizontal_fov>${91.2*M_PI/180.0}</horizontal_fov>
-          <image>
-            <format>R8G8B8</format>
-            <width>640</width>
-            <height>480</height>
-          </image>
-          <clip>
-            <near>0.3</near>
-            <far>10.0</far>
-          </clip>
-        </camera>
-        <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
-          <cameraName>${prefix_topic}</cameraName>
-          <alwaysOn>true</alwaysOn>
-          <updateRate>10</updateRate>
-          <imageTopicName>rgb/image_raw</imageTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
-          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>/${prefix}_camera_depth_optical_frame</frameName>
-          <baseline>0.1</baseline>
-          <distortion_k1>0.0</distortion_k1>
-          <distortion_k2>0.0</distortion_k2>
-          <distortion_k3>0.0</distortion_k3>
-          <distortion_t1>0.0</distortion_t1>
-          <distortion_t2>0.0</distortion_t2>
-          <pointCloudCutoff>0.4</pointCloudCutoff>
-        </plugin>
-      </sensor>
-    </gazebo>
+   <gazebo>
+     <plugin name="${topics_ns}" filename="librealsense_gazebo_plugin.so">
+       <prefix>${camera_name}</prefix>
+       <depthUpdateRate>60.0</depthUpdateRate>
+       <colorUpdateRate>60.0</colorUpdateRate>
+       <infraredUpdateRate>60.0</infraredUpdateRate>
+       <depthTopicName>depth/image_raw</depthTopicName>
+       <depthCameraInfoTopicName>depth/camera_info</depthCameraInfoTopicName>
+       <colorTopicName>color/image_raw</colorTopicName>
+       <colorCameraInfoTopicName>color/camera_info</colorCameraInfoTopicName>
+       <infrared1TopicName>infra1/image_raw</infrared1TopicName>
+       <infrared1CameraInfoTopicName>infra1/camera_info</infrared1CameraInfoTopicName>
+       <infrared2TopicName>infra2/image_raw</infrared2TopicName>
+       <infrared2CameraInfoTopicName>infra2/camera_info</infrared2CameraInfoTopicName>
+       <colorOpticalframeName>${color_optical_frame}</colorOpticalframeName>
+       <depthOpticalframeName>${depth_optical_frame}</depthOpticalframeName>
+       <infrared1OpticalframeName>${infrared1_optical_frame}</infrared1OpticalframeName>
+       <infrared2OpticalframeName>${infrared2_optical_frame}</infrared2OpticalframeName>
+       <rangeMinDepth>0.2</rangeMinDepth>
+       <rangeMaxDepth>10.0</rangeMaxDepth>
+       <pointCloud>false</pointCloud>
+       <pointCloudTopicName>depth/points</pointCloudTopicName>
+       <pointCloudCutoff>0.5</pointCloudCutoff>
+     </plugin>
+   </gazebo>
   </xacro:macro>
-
-
 </robot>
