@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <robot name="sensor_gps" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_gps" params="prefix parent *origin gps_latitude:=^|0.0 gps_longitude:=^|0.0">
+  <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
+  <xacro:macro name="sensor_gps" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816">
 
 	  <!-- ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">

@@ -4,7 +4,8 @@
   <xacro:property name="mast_height" value="0.5" />
   <xacro:property name="mast_radius" value="0.010" />
 
-  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|0.0 gps_longitude:=^|0.0">
+  <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
+  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816">
 
 	  <!-- MAST OF THE ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">
