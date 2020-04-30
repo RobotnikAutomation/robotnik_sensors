@@ -34,6 +34,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
     <xacro:property name="d435_cam_depth_pz" value="${d435_cam_height/2}"/>
 
     <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}_base_link" />
     </joint>
@@ -42,19 +43,13 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
 
     <!-- camera body, with origin at bottom screw mount -->
     <joint name="${prefix}_joint" type="fixed">
-      <xacro:insert_block name="origin" />
       <parent link="${prefix}_base_link" />
-      <child link="${prefix}_bottom_screw_frame" />
-    </joint>
-    <link name="${prefix}_bottom_screw_frame"/>
-
-    <joint name="${prefix}_link_joint" type="fixed">
-      <origin xyz="0 ${d435_cam_depth_py} ${d435_cam_depth_pz}" rpy="0 0 0"/>
-      <parent link="${prefix}_bottom_screw_frame"/>
+      <child link="${prefix}_link" />
+      <origin xyz="0.01 0.02 0" rpy="0 0 0"/>
       <child link="${prefix}_link" />
     </joint>
 
-    <link name="${prefix}_link">
+    <link name="${prefix}_link"> <!-- camera link is aligned with the infrared sensor 1 that is "in the middle of the camera", not the one in the edge -->
       <visual>
         <origin xyz="${d435_cam_mount_from_center_offset} ${-d435_cam_depth_py} 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
         <geometry>
