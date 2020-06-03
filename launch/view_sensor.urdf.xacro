@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="pallet_truck"
+<robot name="view_sensor"
   xmlns:xacro="http://wiki.ros.org/xacro">
 
   <!-- ***************** -->
