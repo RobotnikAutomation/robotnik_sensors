@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_velodyne_vlp16" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin gpu:=^|true">
+  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin range_min range_max gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -41,11 +41,11 @@
     </link>
 
     <!-- Velodyne sensor for simulation -->
-    <sensor_velodyne_vlp16_gazebo gpu="${gpu}" />
+    <sensor_velodyne_vlp16_gazebo range_min="${range_min}" range_max="${range_max}" gpu="${gpu}" />
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_velodyne_vlp16_gazebo" params="gpu">
+  <xacro:macro name="sensor_velodyne_vlp16_gazebo" params="range_min range_max gpu">
     <gazebo reference="${prefix}_link">
 
       <xacro:if value="${gpu}">
@@ -78,8 +78,8 @@
                   </vertical>
               </scan>
               <range>
-                  <min>0.10</min>
-                  <max>30.0</max>
+              <min>${range_min}</min>
+              <max>${range_max}</max>
                   <resolution>0.01</resolution>
               </range>
               <noise>
