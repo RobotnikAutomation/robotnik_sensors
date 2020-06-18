@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<robot name="sensor_asus_xtion_pro" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  
+<robot name="sensor_asus_xtion_pro" xmlns:xacro="http://wiki.ros.org/xacro">
+
   <!-- Xacro properties -->
   <!-- xacro:property name="M_SCALE" value="0.001"/ -->
   <xacro:property name="M_SCALE" value="1.0"/>
@@ -12,7 +12,7 @@
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="sensor_asus_xtion_pro" params="prefix parent *origin">
-    
+
     <joint name="${prefix}_rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
@@ -32,10 +32,10 @@
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
       <parent link="${prefix}_rgb_base_link" />
-      <child link="${prefix}_rgb_optical_link" />
+      <child link="${prefix}_rgb_optical_frame" />
     </joint>
 
-    <link name="${prefix}_rgb_optical_link">
+    <link name="${prefix}_rgb_optical_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -46,7 +46,7 @@
     </link>
 
     <joint name="${prefix}_joint" type="fixed">
-      <origin xyz="0 ${asus_xtion_pro_rgb_rel_rgb_py} 0" 
+      <origin xyz="0 ${asus_xtion_pro_rgb_rel_rgb_py} 0"
               rpy="0 0 0"/>
       <parent link="${prefix}_rgb_link"/>
       <child link="${prefix}_link"/>
@@ -92,10 +92,10 @@
     <joint name="${prefix}_depth_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
       <parent link="${prefix}_depth_link" />
-      <child link="${prefix}_depth_optical_link" />
+      <child link="${prefix}_depth_optical_frame" />
     </joint>
 
-    <link name="${prefix}_depth_optical_link">
+    <link name="${prefix}_depth_optical_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -107,12 +107,12 @@
 
   <!-- RGBD sensor for simulation, same as Kinect -->
   <sensor_xtion_pro_gazebo/>
-  
+
   </xacro:macro>
-  
+
    <xacro:macro name="sensor_xtion_pro_gazebo">
-  
-    <gazebo reference="${prefix}_depth_link">  
+
+    <gazebo reference="${prefix}_depth_link">
       <sensor type="depth" name="${prefix}_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
@@ -137,7 +137,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${prefix}_depth_optical_link</frameName>
+          <frameName>${prefix}_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

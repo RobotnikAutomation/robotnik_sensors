@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="sensor_imu" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor_imu" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="sensor_imu_hector" params="prefix parent *origin">
 
@@ -10,7 +10,7 @@
 	      <parent link="${parent}"/>
 	      <child link="${prefix}_link"/>
 	  </joint>
-	
+
 	  <link name="${prefix}_link">
 	      <inertial>
 	        <mass value="0.001"/>
@@ -30,7 +30,7 @@
 	        </geometry>
 	      </collision>
 	  </link>
-       
+
 	  <gazebo>
 	    <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_imu.so">
 	       <alwaysOn>true</alwaysOn>
@@ -38,33 +38,25 @@
 		   <serviceName>${prefix}imu/service</serviceName>
 		   <bodyName>${prefix}_link</bodyName>
 		   <frameId>${prefix}_link</frameId>
-	       <updateRate>50.0</updateRate> 
+	       <updateRate>50.0</updateRate>
 
-	       <gaussianNoise>0.005</gaussianNoise>		
-	       <!-- orientation parameters -->
+	       <gaussianNoise>0.00</gaussianNoise>
            <yawOffset>0.0</yawOffset>
-           <!--<yawOffset>0.0</yawOffset>-->
-           <yawDrift>0.02</yawDrift>
-           <!--<yawDrift>0.0</yawDrift>-->
-           <yawGaussianNoise>0.01</yawGaussianNoise>
-           <!--<yawGaussianNoise>0.0004</yawGaussianNoise>-->
+           <yawDrift>0.0</yawDrift>
+           <yawGaussianNoise>0.0</yawGaussianNoise>
 
            <!-- angular velocities parameters -->
            <rateOffset>0.0 0.0 0.0</rateOffset>
-           <rateDrift>0.002 0.002 0.002</rateDrift>
-           <!--<rateDrift>0.0 0.0 0.0</rateDrift>-->
-           <rateGaussianNoise>0.001 0.001 0.001</rateGaussianNoise>
-           <!--<rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>-->
+           <rateDrift>0.0 0.0 0.0</rateDrift>
+           <rateGaussianNoise>0.0 0.0 0.0</rateGaussianNoise>
 
            <!-- linear accelerations parameters -->
            <accelOffset>0.0 0.0 0.0</accelOffset>
-           <accelDrift>0.005 0.005 0.005</accelDrift>
-           <!--<accelDrift>0.0 0.0 0.0</accelDrift>-->
-           <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-           <!--<accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>-->
+           <accelDrift>0.0 0.0 0.0</accelDrift>
+           <accelGaussianNoise>0.0 0.0 0.0</accelGaussianNoise>
 	    </plugin>
 	  </gazebo>
-    
+
   </xacro:macro>
 
 </robot>

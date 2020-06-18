@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="stereo_camera"
     params="prefix fps baseline hfov width height format near far">
@@ -87,7 +87,7 @@
       </inertial>
     </link>
 
-    <link name="${prefix}_optical_link">
+    <link name="${prefix}_optical_frame">
       <inertial>
         <mass value="1E-5" />
         <inertia
@@ -100,12 +100,12 @@
     <joint name="${frame}_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
       <parent link="${prefix}_base_link" />
-      <child link="${prefix}_optical_link" />
+      <child link="${prefix}_optical_frame" />
     </joint>
 
     <xacro:if value="${high_res}">
       <xacro:stereo_camera
-        frame="${prefix}_optical_link"
+        frame="${prefix}_optical_frame"
         name="${prefix}"
         hfov="${hfov}"
         baseline="0.120"
@@ -119,7 +119,7 @@
 
     <xacro:unless value="${high_res}">
       <xacro:stereo_camera
-        frame="${prefix}_optical_link"
+        frame="${prefix}_optical_frame"
         name="${prefix}"
         hfov="${hfov}"
         baseline="0.120"

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sensor_axis_m5013">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_axis_m5013">
   <xacro:property name="ptz_joint_effort_limit" value="100.0"/>
   <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>
   <xacro:property name="ptz_joint_friction" value="0.1"/>
   <xacro:property name="ptz_joint_damping" value="0.1"/>
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
   <xacro:property name="PI" value="3.14159265359"/>
-  
-  <xacro:macro name="sensor_axis_m5013" params="prefix parent *origin">
+
+  <xacro:macro name="sensor_axis_m5013" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
     <joint name="${prefix}_joint" type="fixed">
       <axis xyz="0 1 0"/>
       <xacro:insert_block name="origin"/>
@@ -38,7 +38,7 @@
         </geometry>
       </collision>
     </link>
-   
+
     <joint name="${prefix}_pan_joint" type="revolute">
       <axis xyz="1 0 0"/>
       <origin xyz="0.04 0.0 0.0" rpy="0 0 0"/>
@@ -140,8 +140,8 @@
 						<height>480</height>
 					</image>
 					<clip>
-						<near>0.05</near>
-						<far>8.0</far>
+						<near>${near}</near>
+						<far>${far}</far>
 					</clip>
 				</camera>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_camera.so">

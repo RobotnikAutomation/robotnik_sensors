@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<robot name="sensor_gps_with_mast" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="sensor_gps_with_mast" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:property name="mast_height" value="0.5" /> 
+  <xacro:property name="mast_height" value="0.5" />
   <xacro:property name="mast_radius" value="0.010" />
-		
-  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin">
-	      
+
+  <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
+  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816">
+
 	  <!-- MAST OF THE ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">
 	    <axis xyz="0 1 0"/>
@@ -13,7 +14,7 @@
 	    <parent link="${parent}"/>
 	    <child link="${prefix}_mast_base_link"/>
 	  </joint>
-	  
+
 	  <link name="${prefix}_mast_base_link">
 	    <inertial>
 	      <mass value="0.001"/>
@@ -23,7 +24,7 @@
 	    <visual>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <material name="mast_color">
-            <color rgba="0.1 0.1 0.1 1"/>          
+            <color rgba="0.1 0.1 0.1 1"/>
           </material>
 	      <geometry>
 	        <cylinder length="${mast_height}" radius="${mast_radius}" />
@@ -41,7 +42,7 @@
 	    <axis xyz="0 1 0"/>
 	    <parent link="${prefix}_mast_base_link"/>
 	    <child link="${prefix}_link"/>
-	    <origin xyz="0 0 ${mast_height/2.0}" rpy="0 0 0" />  
+	    <origin xyz="0 0 ${mast_height/2.0}" rpy="0 0 0" />
 	  </joint>
 
 	  <gazebo reference="${prefix}_mast_base_link">
@@ -72,13 +73,13 @@
 	      </geometry>
 	    </collision>
 	  </link>
-    
-    
+
+
 	  <gazebo reference="${prefix}_link">
 	    <material>Gazebo/White</material>
 	    <gravity>true</gravity>
 	  </gazebo>
-  
+
     <gazebo>
       <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_gps.so">
         <alwaysOn>1</alwaysOn>
@@ -86,9 +87,9 @@
         <bodyName>${prefix}_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
         <frameId>${prefix}_link</frameId>   <!-- which frame_id would be on the published message -->
         <topicName>fix</topicName>
-        <!-- Robotnik position at Fuente del Jarro -->
-        <referenceLatitude>39.5080331</referenceLatitude>
-        <referenceLongitude>-0.4619816</referenceLongitude>
+        <!-- GPS coordinates -->
+        <referenceLatitude>${gps_latitude}</referenceLatitude>
+        <referenceLongitude>${gps_longitude}</referenceLongitude>
         <!-- To set heading in ENU orientation (degrees) -->
         <referenceHeading>90</referenceHeading>
         <velocityTopicName>fix_velocity</velocityTopicName>
@@ -101,9 +102,9 @@
         <!--<velocityGaussianNoise>0.1 0.1 0.1</velocityGaussianNoise>-->
         <velocityGaussianNoise>0.00001 0.00001 0.00001</velocityGaussianNoise>
         <ignoreTfPrefix>1</ignoreTfPrefix>
-      </plugin>	
+      </plugin>
 	</gazebo>
-    
+
   </xacro:macro>
 
 </robot>
