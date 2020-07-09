@@ -2,7 +2,7 @@
 <robot name="sensor_gps" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
-  <xacro:macro name="sensor_gps" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816">
+  <xacro:macro name="sensor_gps" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816 update_rate:=^|5">
 
 	  <!-- ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">
@@ -43,7 +43,7 @@
     <gazebo>
       <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_gps.so">
         <alwaysOn>1</alwaysOn>
-        <updateRate>5</updateRate>
+        <updateRate>${update_rate}</updateRate>
         <bodyName>${prefix}_base_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
         <frameId>${prefix}_base_link</frameId>
         <topicName>gps/fix</topicName>
