@@ -41,6 +41,7 @@
     <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link" />
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
     </joint>
     <link name="${prefix}_link"/>
 
@@ -61,7 +62,7 @@
       </xacro:unless>
         <sensor type="${ray_type}" name="${prefix}_sensor">
           <pose>0 0 0 0 0 0.0</pose>
-          <visualize>false</visualize>
+          <visualize>true</visualize>
           <update_rate>${fps}</update_rate>
           <ray>
             <scan>
@@ -73,8 +74,8 @@
               </horizontal>
               <vertical>
                 <samples>${vfov/vres}</samples>
-                <min_angle>-${vfov/2.0*M_PI/180.0}</min_angle>
-                <max_angle>${vfov/2.0*M_PI/180.0}</max_angle>
+                <min_angle>0</min_angle>
+                <max_angle>90</max_angle>
               </vertical>
             </scan>
             <range>
