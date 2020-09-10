@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_rs_bpearl_lidar" params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu:=^|true">
+  <xacro:macro name="sensor_rs_bpearl_lidar" params="prefix parent prefix_topic *origin range_min range_max hfov samples vfov lasers fps gpu:=^|true">
 
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1"/>
@@ -41,15 +41,15 @@
     <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link" />
-      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+      <origin xyz="0 0 0.06" rpy="0 ${5*M_PI/180.0} 0"/>
     </joint>
     <link name="${prefix}_link"/>
 
-  <sensor_rs_bpearl_lidar_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hres="${hres}" vfov="${vfov}" vres="${vres}" fps="${fps}" gpu="${gpu}"/>
+  <sensor_rs_bpearl_lidar_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" samples="${samples}" vfov="${vfov}" lasers="${lasers}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_rs_bpearl_lidar_gazebo" params="range_min range_max hfov hres vfov vres fps gpu">
+  <xacro:macro name="sensor_rs_bpearl_lidar_gazebo" params="range_min range_max hfov samples vfov lasers fps gpu">
     <gazebo reference="${prefix}_link">
       <xacro:if value="${gpu}">
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
@@ -68,14 +68,14 @@
             <scan>
               <horizontal>
 				<!-- for a high quality simulation -->
-                <samples>${hfov/hres}</samples>
-                <min_angle>-${hfov/2.0*M_PI/180.0}</min_angle>
-                <max_angle>${hfov/2.0*M_PI/180.0}</max_angle>
+                <samples>${samples}</samples>
+                <min_angle>-${hfov/2*M_PI/180.0}</min_angle>
+                <max_angle>${hfov/2*M_PI/180.0}</max_angle>
               </horizontal>
               <vertical>
-                <samples>${vfov/vres}</samples>
-                <min_angle>0</min_angle>
-                <max_angle>90</max_angle>
+                <samples>${lasers}</samples>
+                <min_angle>-${5*M_PI/180.0}</min_angle>  <!-- bpearl has 90 degrees of vertival field of view-->
+                <max_angle> ${(vfov-5)*M_PI/180.0}</max_angle>  
               </vertical>
             </scan>
             <range>
