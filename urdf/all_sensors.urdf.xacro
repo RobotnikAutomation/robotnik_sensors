@@ -114,4 +114,8 @@
 
   <!-- RoboSense RS-Lidar -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar.urdf.xacro" />
+
+  <!-- Ouster 1 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ouster1.urdf.xacro" />
+
 </robot>
