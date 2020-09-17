@@ -20,7 +20,6 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <!-- TODO Modify stl (actually it is a benewake) -->
           <mesh filename="package://robotnik_sensors/meshes/rslidar_mems.stl" />
           <!--box size="${sensor_length} ${sensor_width} ${sensor_height}"/-->
         </geometry>
@@ -35,8 +34,7 @@
 		</link>
 
     <joint name="${prefix}_joint" type="fixed">
-      <!-- TODO Add laser_base to laser origin -->
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link" />
     </joint>
