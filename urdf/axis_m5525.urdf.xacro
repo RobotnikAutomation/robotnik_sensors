@@ -7,7 +7,7 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
   <xacro:property name="PI" value="3.14159265359"/>
 
-  <xacro:macro name="sensor_axis_m5525" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
+  <xacro:macro name="sensor_axis_m5525" params="prefix parent *origin far:=^|8.0 near:=^|0.05 prefix_topic:=^ptz_camera">
     <joint name="${prefix}_joint" type="fixed">
       <axis xyz="0 1 0"/>
       <!--
@@ -133,7 +133,7 @@
 		<gazebo reference="${prefix}_frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
 			<sensor type="camera" name="${prefix}_sensor">
 				<update_rate>30.0</update_rate>
-				<camera name="${prefix}">
+				<camera name="${prefix_topic}">
 					<horizontal_fov>${60.0*M_PI/180.0}</horizontal_fov>
 					<image>
 						<format>R8G8B8</format>
@@ -146,10 +146,9 @@
 					</clip>
 				</camera>
 				<plugin name="${prefix}_controller" filename="libgazebo_ros_camera.so">
-				    <cameraName>${prefix}</cameraName>
 					<alwaysOn>true</alwaysOn>
 					<updateRate>0.0</updateRate>
-					<cameraName>${prefix}</cameraName>
+					<cameraName>${prefix_topic}</cameraName>
 					<imageTopicName>image_raw</imageTopicName>
 					<cameraInfoTopicName>camera_info</cameraInfoTopicName>
 					<frameName>${prefix}_optical_frame_link</frameName>
