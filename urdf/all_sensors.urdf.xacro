@@ -112,6 +112,9 @@
   <!-- Benewake CE-30 (all, includes a, c and d) -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30.urdf.xacro" />
 
+  <!-- RoboSense RS-Lidar MEMS (includes M100) -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar_mems.urdf.xacro" />
+
   <!-- Rubedos Viper -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rubedos_viper.urdf.xacro" />
 
