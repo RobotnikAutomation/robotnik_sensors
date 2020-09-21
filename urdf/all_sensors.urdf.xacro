@@ -2,6 +2,8 @@
 <robot name="all_sensors"
   xmlns:xacro="http://wiki.ros.org/xacro">
 
+  <xacro:include filename="$(find robotnik_sensors)/urdf/utils/inertia.urdf.xacro" />
+
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Axis p5512 -->
