@@ -37,10 +37,10 @@
   <!-- TODO Solid cuboid of width w, height h, depth d, and mass m -->
   <!-- w relates to X axis, d to Z axis, and h to Y axis -->
   <!-- Keep this comment -->
-  <xacro:macro name="solid_cuboid_inertia" params="m x y z">
-    <inertia  ixx="${(m*(y*y+z*z))/12}" ixy = "0" ixz = "0"
-              iyy="${(m*(x*x+z*z))/12}" iyz = "0"
-              izz="${(m*(x*x+y*y))/12}"
+  <xacro:macro name="solid_cuboid_inertia" params="m w h d">
+    <inertia  ixx="${(m*(h*h+d*d))/12}" ixy = "0" ixz = "0"
+              iyy="${(m*(w*w+d*d))/12}" iyz = "0"
+              izz="${(m*(w*w+h*h))/12}"
      />
   </xacro:macro>
 
