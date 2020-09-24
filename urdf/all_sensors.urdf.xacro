@@ -21,6 +21,7 @@
 
   <!-- GPS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps_with_mast.urdf.xacro" />
 
   <!-- Hokuyo urg04lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_urg04lx.urdf.xacro" />
