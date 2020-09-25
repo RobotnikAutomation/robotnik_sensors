@@ -2,8 +2,6 @@
 <robot name="all_sensors"
   xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/utils/inertia.urdf.xacro" />
-
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Axis p5512 -->
@@ -15,11 +13,15 @@
   <!-- Axis m5525 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_m5525.urdf.xacro" />
 
+  <!-- Axis q8641 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis_q8641.urdf.xacro" />
+
   <!-- Fotonic E Series -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/fotonic_e.urdf.xacro" />
 
   <!-- GPS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps_with_mast.urdf.xacro" />
 
   <!-- Hokuyo urg04lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_urg04lx.urdf.xacro" />
@@ -111,13 +113,19 @@
   <!-- Benewake CE-30 (all, includes a, c and d) -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30.urdf.xacro" />
 
+  <!-- RoboSense RS-Lidar MEMS (includes M100) -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar_mems.urdf.xacro" />
+
   <!-- Rubedos Viper -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rubedos_viper.urdf.xacro" />
 
   <!-- RoboSense RS-Lidar -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar.urdf.xacro" />
 
-    <!-- RoboSense RS-BPearl -->
+  <!-- RoboSense RS-BPearl -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rs_bpearl.urdf.xacro" />
-    
+
+  <!-- Ouster 1 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ouster1.urdf.xacro" />
+
 </robot>
