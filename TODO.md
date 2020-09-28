@@ -26,7 +26,7 @@
 - rs_bpearl.urdf.xacro
 - rslidar.urdf.xacro
 - rubedos_viper.urdf.xacro
-- sick_microscan3.urdf.xacro
+- ~~sick_microscan3.urdf.xacro~~
 - ~~sick_s3000.urdf.xacro~~
 - ~~sick_s300.urdf.xacro~~
 - ~~sick_tim551.urdf.xacro~~
