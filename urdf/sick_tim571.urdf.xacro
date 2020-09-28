@@ -27,7 +27,7 @@
 
       <inertial>
         <mass value="0.25" />
-        <origin xyz="0 0 0.042875" rpy="0 0 0"/>
+        <origin xyz="-0.0017 0 0.042875" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="0.25" w="0.061" h="0.06" d="0.08575" />
       </inertial>
     </link>
