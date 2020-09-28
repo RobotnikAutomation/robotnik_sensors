@@ -29,7 +29,7 @@
 - sick_microscan3.urdf.xacro
 - sick_s3000.urdf.xacro
 - sick_s300.urdf.xacro
-- sick_tim551.urdf.xacro
+- ~~sick_tim551.urdf.xacro~~
 - ~~sick_tim571.urdf.xacro~~
 - ~~teraranger_tr_duo.urdf.xacro~~
 - ~~ueye_cp_gige.urdf.xacro~~
