@@ -25,9 +25,9 @@
         </visual>
 
         <inertial>
-            <mass value="1e-5" />
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            <mass value="0.830" />
+            <origin xyz="0 0 0.03555" rpy="0 0 0"/>
+            <xacro:solid_cuboid_inertia m="0.830" w="0.1033" h="0.1033" d="0.0711" />
         </inertial>
     </link>
 

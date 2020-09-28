@@ -33,6 +33,6 @@
 - ~~sick_tim571.urdf.xacro~~
 - ~~teraranger_tr_duo.urdf.xacro~~
 - ~~ueye_cp_gige.urdf.xacro~~
-- velodyne_vlp16.urdf.xacro
+- ~~velodyne_vlp16.urdf.xacro~~
 - ~~ydlidar_4f.urdf.xacro~~
 - ~~zed.urdf.xacro~~
