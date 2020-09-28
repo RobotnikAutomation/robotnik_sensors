@@ -23,7 +23,7 @@
 - roboteq_mgs.urdf.xacro
 - rplidar_a2.urdf.xacro
 - rplidar.urdf.xacro
-- rs_bpearl.urdf.xacro
+- ~~rs_bpearl.urdf.xacro~~
 - ~~rslidar.urdf.xacro~~
 - rubedos_viper.urdf.xacro
 - ~~sick_microscan3.urdf.xacro~~
