@@ -125,4 +125,8 @@
   <!-- Ouster 1 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/ouster1.urdf.xacro" />
 
+  <!-- RoboSense RS-BPearl -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rs_bpearl.urdf.xacro" />
+
+
 </robot>
