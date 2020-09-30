@@ -7,7 +7,7 @@
 - fotonic_e.urdf.xacro
 - gps.urdf.xacro
 - gps_with_mast.urdf.xacro
-- hokuyo3d.urdf.xacro
+- ~~hokuyo3d.urdf.xacro~~
 - hokuyo_urg04lx.urdf.xacro
 - hokuyo_ust10lx.urdf.xacro
 - hokuyo_ust20lx.urdf.xacro
