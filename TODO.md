@@ -1,7 +1,7 @@
 # Update sensor inertias
 - ~~asus_xtion_pro.urdf.xacro~~
-- axis_m5013.urdf.xacro
-- axis_m5525.urdf.xacro
+- ~~axis_m5013.urdf.xacro~~
+- ~~axis_m5525.urdf.xacro~~
 - axis.urdf.xacro
 - benewake_ce30.urdf.xacro
 - fotonic_e.urdf.xacro
