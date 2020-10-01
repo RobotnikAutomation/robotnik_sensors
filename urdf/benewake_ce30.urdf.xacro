@@ -41,9 +41,9 @@
       </collision>
       <inertial>
         <!-- The following are not reliable values, and should not be used for modeling -->
-        <mass value="0.564" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+        <mass value="0.219" />
+        <origin xyz="0 0 0.025" />
+        <xacro:solid_cuboid_inertia m="0.219" w="0.047" h="0.079" d="0.05" />
       </inertial>
     </link>
 
