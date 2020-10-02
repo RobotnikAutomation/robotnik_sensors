@@ -1,18 +1,9 @@
 <?xml version="1.0"?>
-<robot name="sensor_benewake_ce30" xmlns:xacro="http://wiki.ros.org/xacro">
+<robot name="sensor_benewake_ce30d" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:property name="ce30d_width" value="0.079"/>
-  <xacro:property name="ce30d_length" value="0.050"/>
-  <xacro:property name="ce30d_height" value="0.047"/>
-
-  <xacro:property name="ce30d_depth_px" value="0.00"/>
-  <xacro:property name="ce30d_depth_py" value="-0.0115"/>
-  <xacro:property name="ce30d_depth_pz" value="0.0"/>
-
-
-  <xacro:macro name="sensor_benewake_ce30" params="prefix parent prefix_topic *origin range_min range_max hfov vfov fps gpu:=^|true">
+  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent prefix_topic *origin range_min range_max hfov vfov fps gpu:=^|true">
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1"/>
     </material>
@@ -54,11 +45,11 @@
     </joint>
     <link name="${prefix}_link"/>
 
-  <sensor_benewake_ce30_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}" gpu="${gpu}"/>
+  <sensor_benewake_ce30d_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_benewake_ce30_gazebo" params="range_min range_max hfov vfov fps gpu">
+  <xacro:macro name="sensor_benewake_ce30d_gazebo" params="range_min range_max hfov vfov fps gpu">
     <gazebo reference="${prefix}_link">
       <xacro:if value="${gpu}">
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
@@ -107,21 +98,4 @@
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_benewake_ce30a" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
-      <xacro:insert_block name="origin" />
-    </sensor_benewake_ce30>
-  </xacro:macro>
-
-  <xacro:macro name="sensor_benewake_ce30c" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.1" range_max="4.0" hfov="132.0" vfov="9.0" fps="20.0" gpu="${gpu}" >
-      <xacro:insert_block name="origin" />
-    </sensor_benewake_ce30>
-  </xacro:macro>
-
-  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
-      <xacro:insert_block name="origin" />
-    </sensor_benewake_ce30>
-  </xacro:macro>
 </robot>
