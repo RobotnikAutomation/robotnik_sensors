@@ -108,8 +108,11 @@
   <!-- Roboteq MGS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/roboteq_mgs.urdf.xacro" />
 
-  <!-- Benewake CE-30 (all, includes a, c and d) -->
+  <!-- Benewake CE-30 (includes a and c) -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30.urdf.xacro" />
+
+  <!-- Benewake CE-30D -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30d.urdf.xacro" />
 
   <!-- Rubedos Viper -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rubedos_viper.urdf.xacro" />
