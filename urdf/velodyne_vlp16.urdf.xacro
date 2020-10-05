@@ -41,7 +41,7 @@
     </link>
 
     <!-- Velodyne sensor for simulation -->
-    <sensor_velodyne_vlp16_gazebo range_min="${range_min}" range_max="${range_max}" gpu="${gpu}" />
+    <xacro:sensor_velodyne_vlp16_gazebo range_min="${range_min}" range_max="${range_max}" gpu="${gpu}" />
 
   </xacro:macro>
 

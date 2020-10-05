@@ -71,7 +71,7 @@
 
 
 		<!-- Fotonic sensor for simulation -->
-		<sensor_fotonic_gazebo/>
+		<xacro:sensor_fotonic_gazebo/>
 
   </xacro:macro>
 

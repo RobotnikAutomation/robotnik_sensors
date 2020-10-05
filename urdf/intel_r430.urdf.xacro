@@ -120,7 +120,7 @@
 
 
   <!-- RGBD sensor for simulation, same as Kinect -->
-  <sensor_r430_gazebo/>
+  <xacro:sensor_r430_gazebo/>
 
   </xacro:macro>
 

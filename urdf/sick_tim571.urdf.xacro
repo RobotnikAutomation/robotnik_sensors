@@ -43,7 +43,7 @@
     </link>
 
 
-    <sensor_sick_tim571_gazebo/>
+    <xacro:sensor_sick_tim571_gazebo/>
 
   </xacro:macro>
 

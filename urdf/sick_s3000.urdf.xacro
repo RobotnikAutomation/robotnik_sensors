@@ -35,7 +35,7 @@
 
 
 	<!-- Sick sensor sensor for simulation -->
-	<sensor_sick_s3000_gazebo/>
+	<xacro:sensor_sick_s3000_gazebo/>
 
   </xacro:macro>
 
