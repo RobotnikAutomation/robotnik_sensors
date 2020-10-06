@@ -120,7 +120,7 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_benewake_ce30d" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="20.0" fps="30.0" gpu="${gpu}" >
+    <sensor_benewake_ce30 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="28.0" hfov="60.0" vfov="4.0" fps="30.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </sensor_benewake_ce30>
   </xacro:macro>
