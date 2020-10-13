@@ -2,7 +2,7 @@
 - ~~asus_xtion_pro.urdf.xacro~~
 - ~~axis_m5013.urdf.xacro~~
 - ~~axis_m5525.urdf.xacro~~
-- axis.urdf.xacro
+- axis_p5514.urdf.xacro
 - ~~benewake_ce30.urdf.xacro~~
 - fotonic_e.urdf.xacro
 - gps.urdf.xacro
