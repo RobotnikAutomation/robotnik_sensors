@@ -5,6 +5,7 @@
   <xacro:property name="ptz_joint_friction" value="0.1"/>
   <xacro:property name="ptz_joint_damping" value="0.1"/>
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
+
   <xacro:macro name="sensor_axis" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
     <joint name="${prefix}_joint" type="fixed">
       <axis xyz="0 1 0"/>
@@ -26,14 +27,14 @@
           <color rgba="0.1 0.1 0.1 1"/>
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/camera_axis_p5514.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_p5514.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <!-- because the origin of the mesh file is not at the "center" of the model-->
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/camera_axis_p5514.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_p5514.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </collision>
     </link>
