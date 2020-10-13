@@ -7,7 +7,7 @@
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Axis p5512 -->
-  <xacro:include filename="$(find robotnik_sensors)/urdf/axis.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis_p5514.urdf.xacro" />
 
   <!-- Axis m5013 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_m5013.urdf.xacro" />
