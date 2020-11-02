@@ -9,13 +9,13 @@
       <color rgba="0.9 0.9 0.9 1"/>
     </material>
 
-    <joint name="${prefix}bpearl_base_joint" type="fixed">
+    <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}bpearl_base_link" />
+      <child link="${prefix}_base_link" />
     </joint>
 
-    <link name="${prefix}bpearl_base_link">
+    <link name="${prefix}_base_link">
       <visual>
       <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -38,12 +38,12 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}bpearl_joint" type="fixed">
-      <parent link="${prefix}bpearl_base_link"/>
-      <child link="${prefix}bpearl_link" />
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link" />
       <origin xyz="0 0 0.06" rpy="0 0 0"/>
     </joint>
-    <link name="${prefix}bpearl_link"/>
+    <link name="${prefix}_link"/>
 
   <sensor_rs_bpearl_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" samples="${samples}" vfov="${vfov}" lasers="${lasers}" fps="${fps}" gpu="${gpu}"/>
 

@@ -2,6 +2,7 @@
 - ~~asus_xtion_pro.urdf.xacro~~
 - ~~axis_m5013.urdf.xacro~~
 - ~~axis_m5525.urdf.xacro~~
+- axis_q8641.urdf.xacro
 - axis.urdf.xacro
 - ~~benewake_ce30.urdf.xacro~~
 - fotonic_e.urdf.xacro
@@ -19,11 +20,13 @@
 - kinect.urdf.xacro
 - kinectv2.urdf.xacro
 - ~~orbbec_astra.urdf.xacro~~
+- ouster1.urdf.xacro
 - pointgrey_bumblebee2.urdf.xacro
 - ~~roboteq_mgs.urdf.xacro~~
 - ~~rplidar_a2.urdf.xacro~~
 - ~~rplidar.urdf.xacro~~
 - ~~rs_bpearl.urdf.xacro~~
+- rslidar_mems.urdf.xacro
 - ~~rslidar.urdf.xacro~~
 - rubedos_viper.urdf.xacro
 - ~~sick_microscan3.urdf.xacro~~
