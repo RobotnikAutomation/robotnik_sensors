@@ -79,14 +79,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="${rubedos_viper_depth} ${rubedos_viper_height} ${rubedos_viper_width}"/>
-          <!--<mesh filename="package://pointgrey_camera_description/meshes/rubedos_viper.dae"/>-->
+          <!--box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/--> 
+          <mesh filename="package://robotnik_sensors/meshes/viper.dae"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="${rubedos_viper_depth} ${rubedos_viper_height} ${rubedos_viper_width}"/>
+          <box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/>
         </geometry>
       </collision>
       <inertial>
@@ -99,8 +99,8 @@
     </link>
 
     <joint name="${prefix}_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
-      <!--<origin xyz="0 0 0" rpy="0 0 0" />-->
+      <!--origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" /-->
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <parent link="${prefix}_base_link" />
       <child link="${prefix}_optical_frame" />
     </joint>
