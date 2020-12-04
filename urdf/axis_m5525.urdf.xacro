@@ -105,6 +105,18 @@
         <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
       </inertial>
     </link>
+    <joint name="${prefix}_frame_simulation_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${M_PI} 0 0"/>
+      <parent link="${prefix}_tilt_link"/>
+      <child link="${prefix}_frame_simulation_link"/>
+    </joint>
+    <link name="${prefix}_frame_simulation_link">
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+      </inertial>
+    </link>
     <!-- Optical frame -->
     <joint name="${prefix}_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
@@ -118,8 +130,21 @@
         <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
       </inertial>
     </link>
-    <gazebo reference="${prefix}_base_link">
-      <material>Gazebo/FlatBlack</material>
+    <!-- For simulation, the link has to be inverted -->
+    <joint name="${prefix}_optical_simulation_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+      <parent link="${prefix}_frame_simulation_link"/>
+      <child link="${prefix}_optical_frame_simulation_link"/>
+    </joint>
+    <link name="${prefix}_optical_frame_simulation_link">
+      <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+      </inertial>
+    </link>
+    <gazebo reference="${prefix}_base_simulation_link">
+      <material>Gazebo/DarkGrey</material>
     </gazebo>
 
     <!-- Axis sensor for simulation -->
@@ -130,7 +155,7 @@
 
 	<xacro:macro name="sensor_axis_m5525_gazebo">
 
-		<gazebo reference="${prefix}_frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
+		<gazebo reference="${prefix}_frame_simulation_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
 			<sensor type="camera" name="${prefix}_sensor">
 				<update_rate>30.0</update_rate>
 				<camera name="${prefix}">
@@ -152,7 +177,7 @@
 					<cameraName>${prefix}</cameraName>
 					<imageTopicName>image_raw</imageTopicName>
 					<cameraInfoTopicName>camera_info</cameraInfoTopicName>
-					<frameName>${prefix}_optical_frame_link</frameName>
+					<frameName>${prefix}_optical_frame_simulation_link</frameName>
 					<!-- this is just which name the Image msg will have, it does not affect the simulation.
 					     However must be set to the optical_frame,  -->
 					<hackBaseline>0.07</hackBaseline>
