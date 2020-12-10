@@ -41,6 +41,7 @@
     <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link" />
+      <origin xyz="0.0 0 0.038" rpy="0 0 0"/>
     </joint>
     <link name="${prefix}_link"/>
 
