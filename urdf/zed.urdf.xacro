@@ -71,7 +71,17 @@
   </xacro:macro>
 
   <xacro:macro name="stereolabs_zed"
-    params="prefix:=zed parent *origin format:=R8G8B8 near:=0.05 far:=2500">
+    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.05 far:=2500">
+
+    <xacro:if value="${model == 'zed'}">
+        <xacro:property name="baseline" value="0.12" />
+    </xacro:if>
+    <xacro:if value="${model == 'zedm'}">
+        <xacro:property name="baseline" value="0.06" />
+    </xacro:if>
+    <xacro:if value="${model == 'zed2'}">
+        <xacro:property name="baseline" value="0.12" />
+    </xacro:if>
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -83,7 +93,7 @@
        <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/zed.stl"/>
+          <mesh filename="package://robotnik_sensors/meshes/${model}.stl"/>
         </geometry>
         <material name="light_zed_grey">
           <color rgba="0.35 0.35 0.35 1"/>
@@ -92,7 +102,7 @@
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/zed.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/${model}.stl" />
         </geometry>
       </collision>
       <inertial>
@@ -139,7 +149,7 @@
       <xacro:stereo_camera
         prefix="${prefix}"
         hfov="1.2217"
-        baseline="0.12"
+        baseline="${baseline}"
         fps="40"
         width="640"
         height="480"
@@ -148,8 +158,8 @@
         far="${far}"/>
   </xacro:macro>
 
-  <xacro:macro name="sensor_zed" params="prefix:=myzed parent *origin" >
-    <stereolabs_zed prefix="${prefix}" parent="${parent}">
+  <xacro:macro name="sensor_zed" params="prefix:=myzed parent *origin model:=zed" >
+    <stereolabs_zed prefix="${prefix}" parent="${parent}" model="${model}">
       <xacro:insert_block name="origin" />
     </stereolabs_zed>
   </xacro:macro>
