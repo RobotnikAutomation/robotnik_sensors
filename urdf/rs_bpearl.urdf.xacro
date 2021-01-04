@@ -5,9 +5,6 @@
 
   <xacro:macro name="sensor_rs_bpearl" params="prefix parent prefix_topic *origin range_min range_max hfov samples vfov lasers fps gpu:=^|true">
 
-    <material name="black_alu">
-      <color rgba="0.9 0.9 0.9 1"/>
-    </material>
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -22,7 +19,11 @@
         <geometry>
           <mesh filename="package://robotnik_sensors/meshes/rs_bpearl.stl" />
         </geometry>
-        <material name="black_alu"/>
+        
+        <material name="blackgray_color">
+          <color rgba="0.25 0.25 0.25 1"/>     
+        </material>
+
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -50,7 +51,29 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_rs_bpearl_gazebo" params="range_min range_max hfov samples vfov lasers fps gpu">
+
+    <gazebo reference="${prefix}_base_link">
+      <visual>  
+        <material>  
+          <ambient>0.5 0.5 0.5 1.0</ambient>  
+          <diffuse>0.250754 0.250754 0.250754 1.0</diffuse>  
+          <specular>0.2508273 0.2508273 0.2508273 1.0</specular>  
+          <emissive>0.0 0.0 0.0 0.0</emissive>  
+        </material>  
+      </visual>  
+    </gazebo>
+
     <gazebo reference="${prefix}_link">
+
+      <visual>  
+        <material>  
+          <ambient>1.2 0.2 0.2 1.0</ambient>  
+          <diffuse>0.250754 0.250754 0.250754 1.0</diffuse>  
+          <specular>0.2508273 0.2508273 0.2508273 1.0</specular>  
+          <emissive>0.0 0.0 0.0 0.0</emissive>  
+        </material>  
+      </visual>  
+
       <xacro:if value="${gpu}">
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
         <xacro:property name="ray_type" value="gpu_ray" />

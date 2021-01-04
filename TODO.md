@@ -4,6 +4,7 @@
 - ~~axis_m5525.urdf.xacro~~
 - axis_q8641.urdf.xacro
 - axis.urdf.xacro
+- ~~benewake_ce30d.urdf.xacro~~
 - ~~benewake_ce30.urdf.xacro~~
 - fotonic_e.urdf.xacro
 - gps.urdf.xacro
@@ -30,6 +31,7 @@
 - ~~rslidar.urdf.xacro~~
 - rubedos_viper.urdf.xacro
 - ~~sick_microscan3.urdf.xacro~~
+- sick_outdoorscan3.urdf.xacro
 - ~~sick_s3000.urdf.xacro~~
 - ~~sick_s300.urdf.xacro~~
 - ~~sick_tim551.urdf.xacro~~
