@@ -2,6 +2,8 @@
 <robot name="all_sensors"
   xmlns:xacro="http://wiki.ros.org/xacro">
 
+  <xacro:include filename="$(find robotnik_sensors)/urdf/utils/inertia.urdf.xacro" />
+  
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Axis p5512 -->
@@ -113,9 +115,11 @@
   <!-- Roboteq MGS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/roboteq_mgs.urdf.xacro" />
 
-  <!-- Benewake CE-30 (all, includes a, c and d) -->
+  <!-- Benewake CE-30 (includes a and c) -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30.urdf.xacro" />
 
+  <!-- Benewake CE-30D -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30d.urdf.xacro" />
   <!-- RoboSense RS-Lidar MEMS (includes M100) -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar_mems.urdf.xacro" />
 
@@ -128,6 +132,9 @@
   <!-- RoboSense RS-BPearl -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rs_bpearl.urdf.xacro" />
 
+  <!-- Ydlidar -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ydlidar_4f.urdf.xacro" />
+    
   <!-- Ouster 1 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/ouster1.urdf.xacro" />
 

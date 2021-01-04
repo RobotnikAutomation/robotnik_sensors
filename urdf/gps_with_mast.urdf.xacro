@@ -16,11 +16,11 @@
 	  </joint>
 
 	  <link name="${prefix}_mast_base_link">
-	    <inertial>
-	      <mass value="0.001"/>
-	      <origin rpy="0 0 0" xyz="0 0 0"/>
-	      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
-	    </inertial>
+		<inertial>
+			<origin xyz="0.0 0 0.0" rpy="0 0 0" />
+			<mass value="1.0" />
+			<xacro:solid_cuboid_inertia m="1.0" w="${mast_radius}" h="${mast_radius}" d="${mast_height}" />
+		</inertial>
 	    <visual>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <material name="mast_color">
@@ -53,10 +53,10 @@
       <!-- ANTENNA GPS -->
 	  <link name="${prefix}_link">
 	    <inertial>
-	      <mass value="0.001"/>
-	      <origin rpy="0 0 0" xyz="0 0 0"/>
-	      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
-	    </inertial>
+			<origin xyz="0.0 0 0.015" rpy="0 0 0" />
+			<mass value="0.2" />
+			<xacro:solid_cuboid_inertia m="0.2" w="0.081" h="0.081" d="0.03" />
+      	</inertial>
 	    <visual>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <material name="gps_color">
