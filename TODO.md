@@ -17,7 +17,7 @@
 - ~~imu_hector_plugin.urdf.xacro~~
 - ~~imu.urdf.xacro~~
 - ~~intel_d435.urdf.xacro~~
-- intel_r430.urdf.xacro
+- ~~intel_r430.urdf.xacro~~
 - kinect.urdf.xacro
 - kinectv2.urdf.xacro
 - ~~orbbec_astra.urdf.xacro~~
