@@ -12,7 +12,7 @@
 - ~~hokuyo3d.urdf.xacro~~
 - ~~hokuyo_urg04lx.urdf.xacro~~
 - ~~hokuyo_ust10lx.urdf.xacro~~
-- hokuyo_ust20lx.urdf.xacro
+- ~~hokuyo_ust20lx.urdf.xacro~~
 - hokuyo_utm30lx.urdf.xacro
 - imu_hector_plugin.urdf.xacro
 - imu.urdf.xacro

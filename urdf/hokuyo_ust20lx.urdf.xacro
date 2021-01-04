@@ -14,23 +14,23 @@
 
     <link name="${prefix}_base_link">
       <collision>
-        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
           <box size="0.010 0.010 0.010"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
             <mesh filename="package://robotnik_sensors/meshes/hokuyo_ust_20lx.dae"/>
         </geometry>
       </visual>
 
       <inertial>
-        <mass value="1e-5" />
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+        <origin xyz="0.0 0 0.035" rpy="0 0 0" />
+        <mass value="0.130" />
+        <xacro:solid_cuboid_inertia m="0.130" w="0.05" h="0.05" d="0.07" />
       </inertial>
     </link>
 
@@ -39,7 +39,7 @@
     <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link"/>
-      <origin xyz="0.00 0 0.0" rpy="0 0 0"/>
+      <origin xyz="0.00 0.0 0.0474" rpy="0 0 0"/>
 	</joint>
 
     <!-- Hokuyo sensor for simulation -->
