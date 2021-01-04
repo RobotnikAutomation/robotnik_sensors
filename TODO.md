@@ -19,7 +19,7 @@
 - ~~intel_d435.urdf.xacro~~
 - ~~intel_r430.urdf.xacro~~
 - ~~kinect.urdf.xacro~~
-- kinectv2.urdf.xacro
+- ~~kinectv2.urdf.xacro~~
 - ~~orbbec_astra.urdf.xacro~~
 - ouster1.urdf.xacro
 - pointgrey_bumblebee2.urdf.xacro
