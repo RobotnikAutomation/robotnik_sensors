@@ -22,7 +22,7 @@
 - ~~kinectv2.urdf.xacro~~
 - ~~orbbec_astra.urdf.xacro~~
 - ~~ouster1.urdf.xacro~~
-- pointgrey_bumblebee2.urdf.xacro
+- ~~pointgrey_bumblebee2.urdf.xacro~~
 - ~~roboteq_mgs.urdf.xacro~~
 - ~~rplidar_a2.urdf.xacro~~
 - ~~rplidar.urdf.xacro~~
