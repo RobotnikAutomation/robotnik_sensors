@@ -13,10 +13,10 @@
 
 	  <link name="${prefix}_link">
 	      <inertial>
-	        <mass value="0.001"/>
-	        <origin rpy="0 0 0" xyz="0 0 0"/>
-	        <inertia ixx="0.00000000167" ixy="0" ixz="0" iyy="0.00000000167" iyz="0" izz="0.00000000167"/>
-	      </inertial>
+			<origin xyz="0.0 0 0.01" rpy="0 0 0" />
+			<mass value="0.005" />
+			<xacro:solid_cuboid_inertia m="0.005" w="0.001" h="0.001" d="0.001" />
+		  </inertial>
 	      <visual>
 	        <origin rpy="0 0 0" xyz="0 0 0"/>
 	        <geometry>
