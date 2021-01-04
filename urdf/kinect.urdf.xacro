@@ -17,13 +17,6 @@
       <child link="${prefix}_rgb_base_link" />
     </joint>
     <link name="${prefix}_rgb_base_link">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-                 iyy="0.0001" iyz="0.0"
-                 izz="0.0001" />
-      </inertial>
     </link>
 
 
@@ -33,13 +26,6 @@
       <child link="${prefix}_rgb_optical_frame" />
     </joint>
     <link name="${prefix}_rgb_optical_frame">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-                 iyy="0.0001" iyz="0.0"
-                 izz="0.0001" />
-      </inertial>
     </link>
 
   <joint name="${prefix}_joint" type="fixed">
@@ -61,11 +47,9 @@
 	    </geometry>
 	  </collision>
     <inertial>
-      <mass value="0.001" />
-      <origin xyz="0 0 0" />
-      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-               iyy="0.0001" iyz="0.0"
-               izz="0.0001" />
+      <origin xyz="-0.0 0.0 0.015" rpy="0 0 0" />
+      <mass value="0.2" />
+      <xacro:solid_cuboid_inertia m="0.2" w="0.06" h="0.24" d="0.04" />
     </inertial>
   </link>
 
@@ -78,13 +62,6 @@
 	  <child link="${prefix}_depth_link" />
 	</joint>
 	<link name="${prefix}_depth_link">
-    <inertial>
-      <mass value="0.001" />
-      <origin xyz="0 0 0" />
-      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-               iyy="0.0001" iyz="0.0"
-               izz="0.0001" />
-    </inertial>
 	</link>
 	<joint name="${prefix}_depth_optical_joint" type="fixed">
 	  <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
@@ -92,13 +69,6 @@
 	  <child link="${prefix}_depth_optical_frame" />
 	</joint>
 	<link name="${prefix}_depth_optical_frame">
-    <inertial>
-      <mass value="0.001" />
-      <origin xyz="0 0 0" />
-      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-               iyy="0.0001" iyz="0.0"
-               izz="0.0001" />
-    </inertial>
 	</link>
 
 		<!-- Kinect sensor for simulation -->
