@@ -58,7 +58,7 @@
       </xacro:if>
       <xacro:unless value="${gpu}">
         <xacro:property name="ray_type" value="ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_block_laser.so" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_laser.so" />
       </xacro:unless>
         <sensor type="${ray_type}" name="${prefix}_sensor">
           <pose>0 0 0 0 0 0.0</pose>
