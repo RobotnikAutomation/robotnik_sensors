@@ -30,10 +30,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.380" />
-        <origin xyz="0 0 0" />
-        <!-- The following are not reliable values, and should not be used for modeling -->
-        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+        <origin xyz="-0.0 0.0 0.029" rpy="0 0 0" />
+        <mass value="3.5" />
+        <xacro:solid_cuboid_inertia m="3.5" w="0.06" h="0.06" d="0.058" />
       </inertial>
     </link>
 
