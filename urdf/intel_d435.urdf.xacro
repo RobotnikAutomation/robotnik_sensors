@@ -54,7 +54,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
         <origin xyz="${d435_cam_mount_from_center_offset} ${-d435_cam_depth_py} 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
         <geometry>
           <!-- <box size="${d435_cam_width} ${d435_cam_height} ${d435_cam_depth}"/> -->
-	  <mesh filename="package://robotnik_sensors/meshes/intel_d435.dae" />
+          <mesh filename="package://robotnik_sensors/meshes/intel_d435.dae" />
         </geometry>
       </visual>
       <collision>
@@ -64,10 +64,9 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
         </geometry>
       </collision>
       <inertial>
-        <!-- The following are not reliable values, and should not be used for modeling -->
-        <mass value="0.564" />
-        <origin xyz="-0.01 -0.02 0" />
-        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+        <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
+        <mass value="0.1" />
+        <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
       </inertial>
     </link>
 
