@@ -3,7 +3,7 @@
 - ~~axis_m5013.urdf.xacro~~
 - ~~axis_m5525.urdf.xacro~~
 - ~~axis_q8641.urdf.xacro~~
-- axis.urdf.xacro
+- ~~axis.urdf.xacro~~
 - ~~benewake_ce30d.urdf.xacro~~
 - ~~benewake_ce30.urdf.xacro~~
 - fotonic_e.urdf.xacro
