@@ -7,7 +7,7 @@
 - ~~benewake_ce30d.urdf.xacro~~
 - ~~benewake_ce30.urdf.xacro~~
 - ~~fotonic_e.urdf.xacro~~
-- gps.urdf.xacro
+- ~~gps.urdf.xacro~~
 - gps_with_mast.urdf.xacro
 - ~~hokuyo3d.urdf.xacro~~
 - hokuyo_urg04lx.urdf.xacro
