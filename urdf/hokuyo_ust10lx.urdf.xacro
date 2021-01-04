@@ -2,20 +2,11 @@
 <robot name="sensor_hokuyo_ust10lx" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="sensor_hokuyo_ust10lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
-
-    <link name="${prefix}_link">
-	</link>
-    <joint name="${prefix}_joint" type="fixed">
-      <parent link="${parent}"/>
-      <child link="${prefix}_link"/>
-      <xacro:insert_block name="origin" />
-	</joint>
-
+    
     <joint name="${prefix}_base_joint" type="fixed">
-      <origin xyz="0.00 0 -0.05" rpy="0 0 0"/>
-      <parent link="${prefix}_link"/>
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
-
     </joint>
 
     <link name="${prefix}_base_link">
@@ -34,13 +25,20 @@
       </visual>
 
       <inertial>
-        <mass value="1e-5" />
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+        <origin xyz="0.0 0 0.035" rpy="0 0 0" />
+        <mass value="0.130" />
+        <xacro:solid_cuboid_inertia m="0.130" w="0.05" h="0.05" d="0.07" />
       </inertial>
     </link>
 
+    <joint name="${prefix}_joint" type="fixed">
+      <origin xyz="0 0 0.0474" rpy="0 0 0"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
+    </joint>
 
+    <link name="${prefix}_link">
+    </link>
 
     <!-- Hokuyo sensor for simulation -->
     <xacro:sensor_hokuyo_ust10_gazebo/>
