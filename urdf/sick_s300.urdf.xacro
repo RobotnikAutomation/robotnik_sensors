@@ -3,11 +3,10 @@
 
   <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
 
-    <joint name="${prefix}_base_joint" type="revolute">
+    <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
-      <limit effort="100" velocity="100" lower="0.0" upper="0.0"/>
 	</joint>
 
 
@@ -48,17 +47,6 @@
 	</joint>
 
 	<link name="${prefix}_link" />
-
-	<transmission name="${prefix}_base_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}_base_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="sick_motor">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
-      </actuator>
-    </transmission>
 
 	<!-- Sick sensor sensor for simulation -->
 	<sensor_sick_s300_gazebo />
