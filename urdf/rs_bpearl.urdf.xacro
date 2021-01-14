@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_rs_bpearl" params="prefix parent prefix_topic *origin range_min range_max hfov samples vfov lasers fps gpu:=^|true">
+  <xacro:macro name="sensor_rs_bpearl" params="prefix parent prefix_topic *origin range_min range_max hfov samples vfov lasers fps gpu:=true">
 
 
     <joint name="${prefix}_base_joint" type="fixed">
