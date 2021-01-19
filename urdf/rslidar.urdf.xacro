@@ -87,7 +87,7 @@
             </noise>
           </ray>
           <plugin name="${prefix}_controller" filename="${plugin_lib}">
-            <topicName>${prefix_topic}/points</topicName>
+            <topicName>${prefix_topic}/point_cloud</topicName>
             <frameName>/${prefix}_link</frameName>
             <gaussianNoise>0.008</gaussianNoise>
           </plugin>
