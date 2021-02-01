@@ -1,30 +1,40 @@
 <?xml version="1.0"?>
-<robot name="sensor_orbbec_astra" xmlns:xacro="http://wiki.ros.org/xacro">
-
-  <!-- Xacro properties -->
-  <!--xacro:property name="orbbec_astra_scale" value="0.015"/-->
-  <xacro:property name="orbbec_astra_scale" value="1.0"/>
-
-  <!-- RGB sensor - cam -->
-  <xacro:property name="orbbec_astra_rel_rgb_px"   value="0.0" />
-  <xacro:property name="orbbec_astra_rel_rgb_py"   value="-0.0125" />
-  <xacro:property name="orbbec_astra_rel_rgb_pz"   value="-0.0150" />
-  <!-- IR sensor - depth -->
-  <xacro:property name="orbbec_astra_depth_rel_rgb_px" value="0.0" />
-  <xacro:property name="orbbec_astra_depth_rel_rgb_py" value="0.0250" />
-  <xacro:property name="orbbec_astra_depth_rel_rgb_pz" value="0.0" />
-
-  <xacro:property name="M_PI" value="3.1415926535897931" />
+<robot name="sensor_orbbec_astra" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
 
   <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
 
-    <joint name="${prefix}_rgb_joint" type="fixed">
-	  <xacro:insert_block name="origin" />
+    <joint name="${prefix}_joint" type="fixed">
+    	<xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_rgb_base_link" />
+      <child link="${prefix}_link"/>
     </joint>
 
-    <link name="${prefix}_rgb_base_link">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0.0 0.0 0.0" />
+        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_rgb_joint" type="fixed">
+      <origin xyz="0.0 0.0125 0.0150" rpy="0.0 0.0 0.0"/>
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_rgb_frame" />
+    </joint>
+
+    <link name="${prefix}_rgb_frame">
       <inertial>
         <mass value="0.297" />
         <origin xyz="-0.02 -0.0125 0.0" />
@@ -34,7 +44,7 @@
 
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_rgb_base_link" />
+      <parent link="${prefix}_rgb_frame" />
       <child link="${prefix}_rgb_optical_frame" />
     </joint>
 
@@ -46,36 +56,9 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}_joint" type="fixed">
-      <origin xyz="${orbbec_astra_rel_rgb_px} ${orbbec_astra_rel_rgb_py} ${orbbec_astra_rel_rgb_pz}"
-              rpy="0.0 0 0"/>
-      <parent link="${prefix}_rgb_base_link"/>
-      <child link="${prefix}_link"/>
-    </joint>
-
-    <link name="${prefix}_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${orbbec_astra_scale} ${orbbec_astra_scale} ${orbbec_astra_scale}"/>
-        </geometry>
-      </visual>
-      <collision>
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae" scale="${orbbec_astra_scale} ${orbbec_astra_scale} ${orbbec_astra_scale}"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-
-       </inertial>
-    </link>
-
     <joint name="${prefix}_depth_joint" type="fixed">
-      <origin xyz="${orbbec_astra_depth_rel_rgb_px} ${orbbec_astra_depth_rel_rgb_py} ${orbbec_astra_depth_rel_rgb_pz}" rpy="0 0 0" />
-      <parent link="${prefix}_rgb_base_link" />
+      <origin xyz="0.0 0.0375 0.0150" rpy="0 0 0" />
+      <parent link="${prefix}_link" />
       <child link="${prefix}_depth_frame" />
     </joint>
 
@@ -102,7 +85,7 @@
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->
-  <!--sensor_orbbec_astra_gazebo/-->
+  <sensor_orbbec_astra_gazebo/>
 
   </xacro:macro>
 
