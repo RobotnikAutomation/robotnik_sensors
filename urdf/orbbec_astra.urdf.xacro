@@ -91,7 +91,7 @@
 
    <xacro:macro name="sensor_orbbec_astra_gazebo">
 
-    <gazebo reference="${prefix}_rgb_base_link">
+    <gazebo reference="${prefix}_link">
       <sensor type="depth" name="${prefix}_depth_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
