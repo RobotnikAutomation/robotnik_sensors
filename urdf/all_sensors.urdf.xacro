@@ -128,5 +128,8 @@
   <!-- RoboSense RS-BPearl -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rs_bpearl.urdf.xacro" />
 
+  <!-- FLIR PTU-5 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/flir_ptu_5.urdf.xacro" />
+
 
 </robot>
