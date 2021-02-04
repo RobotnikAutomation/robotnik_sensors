@@ -16,6 +16,9 @@
           <mesh filename="package://robotnik_sensors/meshes/orbbec_astra_embedded_s.stl"/>
           <!--box size="0.0148 0.0686 0.02235"/-->
         </geometry>
+        <material name="dark_grey">
+          <color rgba="0.4 0.4 0.4 1.0"/>
+        </material>
       </visual>
       <collision>
         <geometry>
@@ -73,7 +76,7 @@
 
    <xacro:macro name="sensor_astra_embedded_s_gazebo">
 
-    <gazebo reference="${prefix}_rgb_optical_frame">
+    <gazebo reference="${prefix}_link">
       <sensor type="depth" name="${prefix}_depth_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
@@ -85,7 +88,7 @@
             <height>480</height>
           </image>
           <clip>
-            <near>0.05</near>
+            <near>0.1</near>
             <far>3.5</far>
           </clip>
         </camera>
