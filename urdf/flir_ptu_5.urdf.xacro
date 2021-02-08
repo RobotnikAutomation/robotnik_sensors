@@ -47,7 +47,7 @@
         <joint name="${prefix}_pan_joint" type="revolute">
             <limit lower="-2.93197861" upper="2.93215" effort="10.0" velocity="1.4"/>
             <axis xyz="0 0 -1"/>
-            <origin xyz="0 0 0.0232" rpy="0.0 0.0 0.0" /> 
+            <origin xyz="0 0 0.0251" rpy="0.0 0.0 0.0" /> 
             <parent link="${prefix}_base_link"/>
             <child link="${prefix}_body_link" />
         </joint>
@@ -97,7 +97,7 @@
         <joint name="${prefix}_tilt_joint" type="revolute">
             <limit lower="-1.5706218" upper="0.523599" effort="10.0" velocity="1.2"/>
             <axis xyz="0 -1 0"/>
-            <origin xyz="0.005 0 0.0753" rpy="0.0 0.0 0.0" /> 
+            <origin xyz="0.00725 0 0.0725" rpy="0.0 0.0 0.0" /> 
             <parent link="${prefix}_body_link"/>
             <child link="${prefix}_stand_link" />
         </joint>
@@ -121,7 +121,7 @@
             </inertial>
 
             <visual>
-                <origin xyz="0.0 -0.0625 0.0" rpy="0 0 ${M_PI}" />
+                <origin xyz="0.0 -0.0555 0.0" rpy="0 0 ${M_PI}" />
                 <geometry>
                     <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
                 </geometry>
@@ -131,14 +131,14 @@
             </visual>
 
             <collision>
-                <origin xyz="0.0 -0.0625 0" rpy="0 0 ${M_PI}" />
+                <origin xyz="0.0 -0.0555 0" rpy="0 0 ${M_PI}" />
                 <geometry>
                     <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
                 </geometry>
             </collision>
 
             <visual>
-                <origin xyz="0.0 0.0625 0.0" rpy="0 0 0" />
+                <origin xyz="0.0 0.0555 0.0" rpy="0 0 0" />
                 <geometry>
                     <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
                 </geometry>
@@ -148,7 +148,7 @@
             </visual>
 
             <collision>
-                <origin xyz="0.0 0.0625 0" rpy="0 0 0" />
+                <origin xyz="0.0 0.0555 0" rpy="0 0 0" />
                 <geometry>
                     <mesh filename="package://robotnik_sensors/meshes/flir_ptu_5_stand.stl" scale="1 1 1"/>
                 </geometry>
