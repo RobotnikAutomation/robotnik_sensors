@@ -138,4 +138,7 @@
   <!-- Ouster 1 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/ouster1.urdf.xacro" />
 
+  <!-- Yujin YRL -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/yujin_yrl.urdf.xacro" />
+
 </robot>
