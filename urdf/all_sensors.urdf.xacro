@@ -120,6 +120,7 @@
 
   <!-- Benewake CE-30D -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/benewake_ce30d.urdf.xacro" />
+
   <!-- RoboSense RS-Lidar MEMS (includes M100) -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rslidar_mems.urdf.xacro" />
 
@@ -140,5 +141,7 @@
 
   <!-- Yujin YRL -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/yujin_yrl.urdf.xacro" />
+  <!-- Orbbec Embedded S -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/embedded_s.urdf.xacro" />
 
 </robot>
