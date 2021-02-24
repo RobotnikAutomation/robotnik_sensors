@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <robot name="sensor_velodyne_vlp16" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin range_min range_max gpu:=^|true">
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin range_min range_max fps:=15 hsamples:=300 vsamples:=100 hfov:=360.0 vfov:=30.0 gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -61,20 +63,20 @@
       <sensor type="${ray_type}" name="${prefix}_sensor">
           <pose>0 0 0 0 0 0</pose>
           <visualize>false</visualize>
-          <update_rate>15</update_rate>
+          <update_rate>${fps}</update_rate>
           <ray>
               <scan>
                   <horizontal>
-                      <samples>300</samples>
+                      <samples>${hsamples}</samples>
                       <resolution>1.0</resolution>
-                      <min_angle>-1.83591184</min_angle>
-                      <max_angle>1.83591184</max_angle>
+                      <min_angle>-${hfov/2.0*M_PI/180.0}</min_angle>
+                      <max_angle>${hfov/2.0*M_PI/180.0}</max_angle>
                   </horizontal>
                   <vertical>
-                      <samples>100</samples>
+                      <samples>${vsamples}</samples>
                       <resolution>1.0</resolution>
-                      <min_angle>-0.610865238</min_angle>
-                      <max_angle>1.83591184</max_angle>
+                      <min_angle>-${vfov/2.0*M_PI/180.0}</min_angle>
+                      <max_angle>${vfov/2.0*M_PI/180.0}</max_angle>
                   </vertical>
               </scan>
               <range>
