@@ -63,7 +63,10 @@
 
   <!-- Sick microscan3 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sick_microscan3.urdf.xacro" />
-  
+
+  <!-- Sick nanoscan3 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_nanoscan3.urdf.xacro" />
+
   <!-- Sick outdoorscan3 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sick_outdoorscan3.urdf.xacro" />
 
