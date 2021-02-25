@@ -73,9 +73,9 @@
 						</horizontal>
 					</scan>
 					<range>
-						<min>0.10</min> <!-- TODO -->
-						<max>30.0</max> <!-- TODO -->
-						<resolution>0.03</resolution> <!-- TODO -->
+						<min>0.065</min>
+						<max>40.0</max> <!-- 3m protective, 10 warning, 40 measurement -->
+						<resolution>0.07</resolution> <!-- Resolution is configurable 20 mm 30 mm 40 mm 50 mm 60 mm 70 mm 150 mm 200 mm, reglamentary resolution is 70 mm -->
 					</range>
 					<noise>
 						<type>gaussian</type>
