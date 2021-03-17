@@ -1,95 +1,111 @@
 <?xml version="1.0"?>
 <robot name="sensor_zed" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <!-- Xacro properties -->
-  <xacro:property name="M_PI" value="3.1415926535897931" />
+	<!-- Xacro properties -->
+	<xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_zed" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
 
-    <joint name="${prefix}_rgb_joint" type="fixed">
-	    <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${prefix}_rgb_base_link" />
+  <xacro:macro name="sensor_zed" params="prefix parent prefix_topic:='front_rgbd_camera' *origin camera_model:='zed'">
+
+	<xacro:if value="${camera_model == 'zed'}">
+        <xacro:property name="baseline" value="0.12" />
+    </xacro:if>
+    <xacro:if value="${camera_model == 'zedm'}">
+		<xacro:property name="baseline" value="0.06" />
+    </xacro:if>
+	<xacro:if value="${camera_model == 'zed2'}">
+		<xacro:property name="baseline" value="0.12" />
+	</xacro:if>
+
+    <joint name="${prefix}_camera_center_joint" type="fixed">
+        <parent link="${parent}"/>
+        <child link="${prefix}_camera_center"/>
+        <xacro:insert_block name="origin" />
     </joint>
 
-    <link name="${prefix}_rgb_base_link">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-          iyy="0.0001" iyz="0.0"
-          izz="0.0001" />
-      </inertial>
-    </link>
-
-    <!-- Camera center -->
-    <joint name="${prefix}_joint" type="fixed">
-      <origin xyz="0.0 0.0 0.0"
-              rpy="0.0 0.0 0.0"/>
-      <parent link="${prefix}_rgb_base_link"/>
-      <child link="${prefix}_link"/>
-    </joint>
-
-    <link name="${prefix}_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/zed.stl"/>
-        </geometry>
-        <material name="light_grey">
-          <color rgba="0.8 0.8 0.8 0.8"/>
-        </material>
-      </visual>
-      <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/zed.stl" />
-        </geometry>
+    <link name="${prefix}_camera_center">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://robotnik_sensors/meshes/${camera_model}.stl"/>
+            </geometry>
+        </visual>
+        <collision>
+			<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+			<geometry>
+			  <mesh filename="package://robotnik_sensors/meshes/${camera_model}.stl"/>
+			</geometry>
       </collision>
-      <inertial>
-        <mass value="0.564" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0"
-                  iyy="0.000498940" iyz="0.0"
-                  izz="0.003879257" />
-      </inertial>
     </link>
 
-    <!-- Left camera -->
-    <joint name="${prefix}_rgb_left_joint" type="fixed">
-      <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0" />
-      <parent link="${prefix}_link" />
-      <child link="${prefix}_left_rgb_frame" />
+	<!-- Left Camera -->
+    <joint name="${prefix}_left_camera_joint" type="fixed">
+        <parent link="${prefix}_camera_center"/>
+        <child link="${prefix}_left_camera_frame"/>
+        <origin xyz="0 ${baseline/2} 0" rpy="0 0 0" />
     </joint>
 
-    <link name="${prefix}_left_rgb_frame"/>
+    <link name="${prefix}_left_camera_frame" />
 
-    <joint name="${prefix}_rgb_left_optical_joint" type="fixed">
-      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-      <parent link="${prefix}_left_rgb_frame" />
-      <child link="${prefix}_left_rgb_optical_frame" />
+    <joint name="${prefix}_left_camera_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}"/>
+        <parent link="${prefix}_left_camera_frame"/>
+        <child link="${prefix}_left_camera_optical_frame"/>
     </joint>
 
-    <link name="${prefix}_left_rgb_optical_frame"/>
+    <link name="${prefix}_left_camera_optical_frame"/>
 
-    <!-- Right camera-->
-    <joint name="${prefix}_rgb_right_joint" type="fixed">
-      <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0" />
-      <parent link="${prefix}_link" />
-      <child link="${prefix}_right_rgb_frame" />
+	<!-- Right Camera -->
+    <joint name="${prefix}_right_camera_joint" type="fixed">
+        <parent link="${prefix}_camera_center"/>
+        <child link="${prefix}_right_camera_frame"/>
+        <origin xyz="0 -${baseline/2} 0" rpy="0 0 0" />
     </joint>
 
-    <link name="${prefix}_right_rgb_frame"/>
+    <link name="${prefix}_right_camera_frame" />
 
-    <joint name="${prefix}_rgb_right_optical_joint" type="fixed">
-      <origin xyz="0.0 0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-      <parent link="${prefix}_right_rgb_frame" />
-      <child link="${prefix}_right_rgb_optical_frame" />
+    <joint name="${prefix}_right_camera_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}"/>
+        <parent link="${prefix}_right_camera_frame"/>
+        <child link="${prefix}_right_camera_optical_frame"/>
     </joint>
 
-    <link name="${prefix}_right_rgb_optical_frame"/>
+    <link name="${prefix}_right_camera_optical_frame"/>
 
-  <!-- TODO: simulation -->
+	<!-- ZED2 Sensors -->
+    <xacro:if value="${camera_model == 'zed2'}">
+        <joint name="${prefix}_mag_joint" type="fixed">
+            <parent link="${prefix}_camera_center"/>
+            <child link="${prefix}_mag_link"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${prefix}_mag_link" />
+
+        <joint name="${prefix}_baro_joint" type="fixed">
+            <parent link="${prefix}_camera_center"/>
+            <child link="${prefix}_baro_link"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${prefix}_baro_link" />
+
+        <joint name="${prefix}_temp_left_joint" type="fixed">
+            <parent link="${prefix}_left_camera_frame"/>
+            <child link="${prefix}_temp_left_link"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${prefix}_temp_left_link" />
+
+        <joint name="${prefix}_temp_right_joint" type="fixed">
+            <parent link="${prefix}_right_camera_frame"/>
+            <child link="${prefix}_temp_right_link"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${prefix}_temp_right_link" />
+    </xacro:if>
 
   </xacro:macro>
 </robot>
