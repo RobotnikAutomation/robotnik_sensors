@@ -61,7 +61,7 @@
                izz="0.0001" />
     </inertial>
     </link>
-    <sensor_ueye_cp_gige_gazebo />
+    <xacro:sensor_ueye_cp_gige_gazebo />
   </xacro:macro>
 
   <xacro:macro name="sensor_ueye_cp_gige_gazebo">

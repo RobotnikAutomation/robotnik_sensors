@@ -44,7 +44,7 @@
     </joint>
     <link name="${prefix}_link"/>
 
-  <sensor_rslidar_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hres="${hres}" vfov="${vfov}" vres="${vres}" fps="${fps}" gpu="${gpu}"/>
+  <xacro:sensor_rslidar_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hres="${hres}" vfov="${vfov}" vres="${vres}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 
@@ -97,20 +97,20 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_rslidar_16" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.1" vfov="30.0" vres="2.0" fps="20.0" gpu="${gpu}" >
+    <xacro:sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.1" vfov="30.0" vres="2.0" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
-    </sensor_rslidar>
+    </xacro:sensor_rslidar>
   </xacro:macro>
 
   <xacro:macro name="sensor_rslidar_32" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="200.0" hfov="360.0" hres="0.1" vfov="40.0" vres="0.33" fps="20.0" gpu="${gpu}" >
+    <xacro:sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="200.0" hfov="360.0" hres="0.1" vfov="40.0" vres="0.33" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
-    </sensor_rslidar>
+    </xacro:sensor_rslidar>
   </xacro:macro>
 
   <xacro:macro name="sensor_rslidar_ruby" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="250.0" hfov="360.0" hres="0.1" vfov="40.0" vres="0.1" fps="20.0" gpu="${gpu}" >
+    <xacro:sensor_rslidar prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="250.0" hfov="360.0" hres="0.1" vfov="40.0" vres="0.1" fps="20.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
-    </sensor_rslidar>
+    </xacro:sensor_rslidar>
   </xacro:macro>
 </robot>

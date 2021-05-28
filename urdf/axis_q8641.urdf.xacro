@@ -151,7 +151,7 @@
       <material>Gazebo/FlatBlack</material>
     </gazebo>
     <!-- Axis sensor for simulation -->
-    <sensor_axis_q8641_gazebo/>
+    <xacro:sensor_axis_q8641_gazebo/>
   </xacro:macro>
 
 

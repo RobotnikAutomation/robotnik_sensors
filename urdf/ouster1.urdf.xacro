@@ -45,7 +45,7 @@
 
     <link name="${prefix}_link"/>
 
-    <sensor_ouster1_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hsamples="${hsamples}" vfov="${vfov}" vsamples="${vsamples}" fps="${fps}" gpu="${gpu}"/>
+    <xacro:sensor_ouster1_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hsamples="${hsamples}" vfov="${vfov}" vsamples="${vsamples}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 
@@ -98,15 +98,15 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_ouster1_16" params="prefix parent prefix_topic:='ouster' *origin hsamples fps gpu:=true">
-    <sensor_ouster1 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.5" range_max="120.0" hfov="360.0" hsamples="${hsamples}" vfov="32.2" vsamples="16" fps="${fps}" gpu="${gpu}" >
+    <xacro:sensor_ouster1 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.5" range_max="120.0" hfov="360.0" hsamples="${hsamples}" vfov="32.2" vsamples="16" fps="${fps}" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
-    </sensor_ouster1>
+    </xacro:sensor_ouster1>
   </xacro:macro>
 
   <xacro:macro name="sensor_ouster1_64" params="prefix parent prefix_topic:='ouster' *origin hsamples fps gpu:=true">
-    <sensor_ouster1 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.5" range_max="120.0" hfov="360.0" hsamples="${hsamples}" vfov="32.2" vsamples="64" fps="${fps}" gpu="${gpu}" >
+    <xacro:sensor_ouster1 prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.5" range_max="120.0" hfov="360.0" hsamples="${hsamples}" vfov="32.2" vsamples="64" fps="${fps}" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
-    </sensor_ouster1>
+    </xacro:sensor_ouster1>
   </xacro:macro>
 
 </robot>

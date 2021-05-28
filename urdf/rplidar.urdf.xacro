@@ -43,7 +43,7 @@
     </link>
 
 
-    <sensor_rplidar_gazebo/>
+    <xacro:sensor_rplidar_gazebo/>
 
   </xacro:macro>
 
