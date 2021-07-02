@@ -9,9 +9,9 @@
 	    <axis xyz="0 1 0"/>
 	    <xacro:insert_block name="origin"/>
 	    <parent link="${parent}"/>
-	    <child link="${prefix}_base_link"/>
+	    <child link="${prefix}_link"/>
 	  </joint>
-	  <link name="${prefix}_base_link">
+	  <link name="${prefix}_link">
 		<inertial>
 			<origin xyz="0.0 0 0.015" rpy="0 0 0" />
 			<mass value="0.2" />
@@ -35,7 +35,7 @@
 	  </link>
 
 
-	  <gazebo reference="${prefix}_base_link">
+	  <gazebo reference="${prefix}_link">
 	    <material>Gazebo/White</material>
 	    <gravity>true</gravity>
 	  </gazebo>
@@ -44,8 +44,8 @@
       <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_gps.so">
         <alwaysOn>1</alwaysOn>
         <updateRate>${update_rate}</updateRate>
-        <bodyName>${prefix}_base_link</bodyName> <!-- must be the link of the gps device, not the base_link or base_footprint -->
-        <frameId>${prefix}_base_link</frameId>
+        <bodyName>${prefix}_link</bodyName>
+        <frameId>${prefix}_link</frameId>
         <topicName>gps/fix</topicName>
         <!-- GPS coordinates -->
         <referenceLatitude>${gps_latitude}</referenceLatitude>
