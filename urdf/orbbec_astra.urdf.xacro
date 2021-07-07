@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_orbbec_astra" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
 
-  <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
+  <xacro:macro name="sensor_orbbec_astra" params="prefix parent prefix_topic:='front_rgbd_camera' *origin depth_offset_x:=0 depth_offset_y:=0 depth_offset_z:=0">
 
     <joint name="${prefix}_joint" type="fixed">
     	<xacro:insert_block name="origin" />
@@ -71,7 +71,7 @@
     </link>
 
     <joint name="${prefix}_depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <origin xyz="${depth_offset_x} ${depth_offset_y} ${depth_offset_z}" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
       <parent link="${prefix}_depth_frame" />
       <child link="${prefix}_depth_optical_frame" />
     </joint>
