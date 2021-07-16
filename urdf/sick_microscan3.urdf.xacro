@@ -12,11 +12,11 @@
 
 		<link name="${prefix}_base_link">
 			<collision>
-				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<origin xyz="0 0 0.075" rpy="0 0 0"/>
 				<geometry>
-					<!--<box size="0.106 0.094 0.152"/>-->
+					<box size="0.106 0.094 0.152"/>
 					<!--<cylinder radius="0.058" length="0.152"/>-->
-					<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>
+					<!--<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>-->
 				</geometry>
 			</collision>
 
