@@ -85,6 +85,9 @@
   <!-- Zed -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/zed.urdf.xacro" />
 
+  <!-- Zed2 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/zed2.urdf.xacro" />
+
   <!-- Rplidar -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rplidar.urdf.xacro" />
 
