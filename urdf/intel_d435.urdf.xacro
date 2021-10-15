@@ -178,7 +178,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <plugin name="${prefix}kortex_vision_controller" filename="libgazebo_ros_camera.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>30.0</updateRate>
-          <cameraName>${prefix}/color</cameraName>
+          <cameraName>${prefix_topic}/color</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
           <frameName>/${prefix}_color_frame</frameName>
