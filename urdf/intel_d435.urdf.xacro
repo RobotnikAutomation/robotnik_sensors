@@ -181,7 +181,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
           <cameraName>${prefix_topic}/color</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>/${prefix}_color_frame</frameName>
+          <frameName>/${prefix}_color_optical_frame</frameName>
           <!-- this is just which name the Image msg will have, it does not affect the simulation.
                 However must be set to the optical_frame,  -->
           <hackBaseline>0.07</hackBaseline>
