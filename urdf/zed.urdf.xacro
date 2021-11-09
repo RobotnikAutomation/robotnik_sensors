@@ -111,40 +111,49 @@
         <xacro:solid_cuboid_inertia m="0.135" w="0.033" h="0.175" d="0.03" />
       </inertial>
     </link>
+   <!-- Center camera -->
+   <joint name="${prefix}_camera_center_joint" type="fixed">
+        <parent link="${prefix}_base_link"/>
+        <child link="${prefix}_camera_center"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    </joint>
+
+   <link name="${prefix}_camera_center"/>
+
 
    <!-- Left camera -->
-    <joint name="${prefix}_rgb_left_joint" type="fixed">
-      <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0" />
-      <parent link="${prefix}_base_link" />
-      <child link="${prefix}_left_rgb_frame" />
+    <joint name="${prefix}_camera_left_joint" type="fixed">
+        <origin xyz="0 ${baseline/2} 0" rpy="0 0 0" />
+      <parent link="${prefix}_camera_center" />
+      <child link="${prefix}_left_camera_frame" />
     </joint>
 
-    <link name="${prefix}_left_rgb_frame"/>
+    <link name="${prefix}_left_camera_frame"/>
 
-    <joint name="${prefix}_rgb_left_optical_joint" type="fixed">
+    <joint name="${prefix}_camera_left_optical_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-      <parent link="${prefix}_left_rgb_frame" />
-      <child link="${prefix}_left_rgb_optical_frame" />
+      <parent link="${prefix}_left_camera_frame" />
+      <child link="${prefix}_left_camera_optical_frame" />
     </joint>
 
-    <link name="${prefix}_left_rgb_optical_frame"/>
+    <link name="${prefix}_left_camera_optical_frame"/>
 
     <!-- Right camera-->
-    <joint name="${prefix}_rgb_right_joint" type="fixed">
-      <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0" />
-      <parent link="${prefix}_base_link" />
-      <child link="${prefix}_right_rgb_frame" />
+    <joint name="${prefix}_camera_right_joint" type="fixed">
+      <origin xyz="0 -${baseline/2} 0" rpy="0 0 0" />
+      <parent link="${prefix}_camera_center" />
+      <child link="${prefix}_right_camera_frame" />
     </joint>
 
-    <link name="${prefix}_right_rgb_frame"/>
+    <link name="${prefix}_right_camera_frame"/>
 
-    <joint name="${prefix}_rgb_right_optical_joint" type="fixed">
+    <joint name="${prefix}_camera_right_optical_joint" type="fixed">
       <origin xyz="0.0 0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-      <parent link="${prefix}_right_rgb_frame" />
-      <child link="${prefix}_right_rgb_optical_frame" />
+      <parent link="${prefix}_right_camera_frame" />
+      <child link="${prefix}_right_camera_optical_frame" />
     </joint>
 
-    <link name="${prefix}_right_rgb_optical_frame"/>
+    <link name="${prefix}_right_camera_optical_frame"/>
 
       <xacro:stereo_camera
         prefix="${prefix}"
