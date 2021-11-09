@@ -52,7 +52,7 @@
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${prefix}_optical_frame</frameName>
+          <frameName>/${prefix}_optical_frame</frameName>
           <hackBaseline>${baseline}</hackBaseline>
           <!-- NOTE: Distortion is currently unused -->
           <distortionK1>0.0</distortionK1>
@@ -97,7 +97,7 @@
     </link>
 
     <joint name="${prefix}_optical_joint" type="fixed">
-      <!--origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" /-->
+      <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
       <origin xyz="0 0 0" rpy="0 0 0" />
       <parent link="${prefix}_base_link" />
       <child link="${prefix}_optical_frame" />
@@ -117,9 +117,9 @@
         prefix="${prefix}"
         hfov="1.2217"
         baseline="0.20"
-        fps="40"
-        width="640"
-        height="480"
+        fps="60"
+        width="2304"
+        height="1535"
         format="${format}"
         near="${near}"
         far="${far}"/>
