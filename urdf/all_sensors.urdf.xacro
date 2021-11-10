@@ -6,6 +6,9 @@
   
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
+  <!-- Pantilt -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/pantilt.urdf.xacro" />
+
   <!-- Axis p5512 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis.urdf.xacro" />
 
