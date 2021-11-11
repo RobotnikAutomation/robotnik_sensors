@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="depth_camera"
-    params="prefix fps baseline hfov width height format near far">
+    params="prefix fps baseline hfov width height format near far  prefix_topic:='zed_node'">
 
     <gazebo reference="${prefix}_base_link">
       <visual>  
@@ -38,12 +38,12 @@
           <!-- Keep this zero, update_rate in the parent <sensor> tag
             will control the frame rate. -->
           <updateRate>0.0</updateRate>
-          <cameraName>${prefix}</cameraName>
-          <imageTopicName>zed_node/rgb/image_raw</imageTopicName>
-          <cameraInfoTopicName>zed_node/rgb/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>zed_node/depth/image_raw</depthImageTopicName>
-          <depthImageCameraInfoTopicName>zed_node/depth/camera_info</depthImageCameraInfoTopicName>
-          <pointCloudTopicName>zed_node/depth/points</pointCloudTopicName>
+          <cameraName>${prefix_topic}</cameraName>
+          <imageTopicName> rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
           <frameName>/${prefix}_depth_optical_frame</frameName>
           <pointCloudCutoff>${near}</pointCloudCutoff>
           <pointCloudCutoffMax>${far}</pointCloudCutoffMax>
@@ -63,7 +63,7 @@
   </xacro:macro>
 
   <xacro:macro name="stereolabs_zed2"
-    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.5 far:=30">
+    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.5 far:=30  prefix_topic:=zed_node">
 
     <xacro:if value="${model == 'zed'}">
         <xacro:property name="baseline" value="0.12" />
@@ -164,11 +164,13 @@
         height="720"
         format="${format}"
         near="${near}"
-        far="${far}"/>
+        far="${far}"
+        prefix_topic="${prefix_topic}"
+        />
   </xacro:macro>
 
-  <xacro:macro name="sensor_zed2" params="prefix:=zed2 parent *origin model:=zed2" >
-    <stereolabs_zed2 prefix="${prefix}" parent="${parent}" model="${model}">
+  <xacro:macro name="sensor_zed2" params="prefix:=zed2 parent *origin model:=zed2  prefix_topic:=zed_node" >
+    <stereolabs_zed2 prefix="${prefix}" parent="${parent}" model="${model}" prefix_topic="${prefix_topic}">
       <xacro:insert_block name="origin" />
     </stereolabs_zed2>
   </xacro:macro>
