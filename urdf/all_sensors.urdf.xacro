@@ -153,4 +153,8 @@
   <!-- Orbbec Embedded S -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/embedded_s.urdf.xacro" />
 
+  <!-- Sick MLS -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_mls.urdf.xacro" />
+
+
 </robot>
