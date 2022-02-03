@@ -157,8 +157,8 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <camera name="${camera_name}">
          <horizontal_fov>${69.4*deg_to_rad}</horizontal_fov>
          <image>
-           <width>1920</width>
-           <height>1080</height>
+           <width>640</width>
+           <height>480</height>
            <format>RGB_INT8</format>
          </image>
          <clip>
@@ -242,8 +242,8 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <camera name="${camera_name}">
          <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
          <image>
-           <width>1280</width>
-           <height>720</height>
+           <width>640</width>
+           <height>480</height>
          </image>
          <clip>
            <near>0.1</near>
@@ -281,7 +281,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <infrared2OpticalframeName>${infrared2_optical_frame}</infrared2OpticalframeName>
        <rangeMinDepth>0.2</rangeMinDepth>
        <rangeMaxDepth>10.0</rangeMaxDepth>
-       <pointCloud>false</pointCloud>
+       <pointCloud>true</pointCloud>
        <pointCloudTopicName>depth/points</pointCloudTopicName>
        <pointCloudCutoff>0.5</pointCloudCutoff>
      </plugin>
