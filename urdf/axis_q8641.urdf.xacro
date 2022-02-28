@@ -13,10 +13,14 @@
       <child link="${prefix}_base_link"/>
     </joint>
     <link name="${prefix}_base_link">
-      <inertial>
+      <!--inertial>
         <mass value="2"/>
         <origin xyz="0 0 0.06" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="2" w="0.175" h="0.175" d="0.12" />
+      </inertial-->
+      <inertial>
+        <mass value="0.001"/>
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
       </inertial>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
@@ -46,10 +50,14 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_pan_link">
-      <inertial>
+      <!--inertial>
         <mass value="5.0"/>
         <origin xyz="0 0 0.12" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="5.0" w="0.175" h="0.175" d="0.24" />
+      </inertial-->
+      <inertial>
+        <mass value="0.001"/>
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
       </inertial>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
@@ -88,10 +96,14 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_tilt_link">
-      <inertial>
+      <!--inertial>
         <mass value="5.0"/>
         <origin xyz="0.04875 0 0.11" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="5.0" w="0.24" h="0.09" d="0.09" />
+      </inertial-->
+      <inertial>
+        <mass value="0.001"/>
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
       </inertial>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
