@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot name="sensor_flir_ax8" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_flir_ax8" params="prefix parent *origin">
+
+    <joint name="${prefix}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+    </joint>
+
+    <link name="${prefix}_link">
+      <inertial>
+        <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+        <mass value="0.79" />
+        <xacro:solid_cuboid_inertia m="0.125" w="0.025" h="0.054" d="0.079" />
+      </inertial>
+      <visual>
+        <origin xyz="0.0125 0 0" rpy="0 0 0" /> <!-- to center the .dae model -->
+        <material name="fotonic_color">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+        <geometry>
+          <box size="0.025 0.054 0.079"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0125 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.025 0.054 0.079"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_optical_joint" type="fixed">
+      <origin xyz="0.025 0 0.0115" rpy="0 0 0" />
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_optical_link"/>
+    </joint>
+
+    <link name="${prefix}_optical_link"/>
+
+    <joint name="${prefix}_thermal_joint" type="fixed">
+      <origin xyz="0.025 0 0.0235" rpy="0 0 0" />
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_thermal_link"/>
+    </joint>
+
+    <link name="${prefix}_thermal_link"/>
+
+  </xacro:macro>
+
+</robot>

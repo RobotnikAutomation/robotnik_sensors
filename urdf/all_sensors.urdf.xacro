@@ -21,6 +21,10 @@
   <!-- Axis q8641 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_q8641.urdf.xacro" />
 
+
+  <!-- Flir AX8 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/flir_ax8.urdf.xacro" />
+
   <!-- Fotonic E Series -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/fotonic_e.urdf.xacro" />
 
