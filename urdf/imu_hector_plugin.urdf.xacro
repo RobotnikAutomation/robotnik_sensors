@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_imu" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_imu_hector" params="prefix parent *origin">
+  <xacro:macro name="sensor_imu_hector" params="prefix topic:='imu/data' parent *origin">
 
 	  <joint name="${prefix}_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
@@ -34,7 +34,7 @@
 	  <gazebo>
 	    <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_imu.so">
 	       <alwaysOn>true</alwaysOn>
-	       <topicName>imu/data</topicName>
+	       <topicName>${topic}</topicName>
 		   <serviceName>${prefix}imu/service</serviceName>
 		   <bodyName>${prefix}_link</bodyName>
 		   <frameId>${prefix}_link</frameId>

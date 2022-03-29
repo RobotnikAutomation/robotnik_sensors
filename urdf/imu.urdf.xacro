@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_imu" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_imu" params="prefix ns:='' parent *origin">
+  <xacro:macro name="sensor_imu" params="prefix ns:='' topic:='imu/data' parent *origin">
 
 	  <joint name="${prefix}_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
@@ -49,7 +49,7 @@
       <visualize>true</visualize>
       <topic>__default_topic__</topic>
       <plugin filename="libgazebo_ros_imu_sensor.so" name="${prefix}_imu_plugin">
-        <topicName>imu/data</topicName>
+        <topicName>${topic}</topicName>
 		<bodyName>${prefix}_link</bodyName>
         <updateRateHZ>100.0</updateRateHZ>
         <gaussianNoise>0.0</gaussianNoise>
