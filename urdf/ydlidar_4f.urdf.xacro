@@ -62,7 +62,7 @@
       </inertial>
     </link>
 	  
-    <sensor_ydlidar_4f_gazebo />
+    <xacro:sensor_ydlidar_4f_gazebo />
 
   </xacro:macro>
 

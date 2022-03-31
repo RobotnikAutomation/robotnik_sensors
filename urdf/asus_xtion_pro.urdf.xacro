@@ -96,7 +96,7 @@
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->
-  <sensor_xtion_pro_gazebo/>
+  <xacro:sensor_xtion_pro_gazebo/>
 
   </xacro:macro>
 

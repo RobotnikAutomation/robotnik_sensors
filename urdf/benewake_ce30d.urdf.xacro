@@ -45,7 +45,7 @@
     </joint>
     <link name="${prefix}_link"/>
 
-  <sensor_benewake_ce30d_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}" gpu="${gpu}"/>
+  <xacro:sensor_benewake_ce30d_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" vfov="${vfov}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 

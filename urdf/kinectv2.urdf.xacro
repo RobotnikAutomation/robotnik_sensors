@@ -94,7 +94,7 @@
     </link>
 
         <!-- Kinect sensor for simulation -->
-      <sensor_kinectv2_gazebo cloudCutoffMax="${cloudCutoffMax}" far="${far}"/>
+      <xacro:sensor_kinectv2_gazebo cloudCutoffMax="${cloudCutoffMax}" far="${far}"/>
 
   </xacro:macro>
 
