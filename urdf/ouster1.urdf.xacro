@@ -44,7 +44,7 @@
 
     <link name="${prefix}_link"/>
 
-    <sensor_ouster1_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hsamples="${hsamples}" vfov="${vfov}" vsamples="${vsamples}" fps="${fps}" gpu="${gpu}"/>
+    <xacro:sensor_ouster1_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hsamples="${hsamples}" vfov="${vfov}" vsamples="${vsamples}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 

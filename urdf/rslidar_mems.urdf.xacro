@@ -45,7 +45,7 @@
     <link name="${prefix}_link"/>
 
     <!-- sensor for simulation -->
-    <sensor_rslidar_mems_gazebo range_min="1" range_max="180" gpu="false" />
+    <xacro:sensor_rslidar_mems_gazebo range_min="1" range_max="180" gpu="false" />
 
   </xacro:macro>
 

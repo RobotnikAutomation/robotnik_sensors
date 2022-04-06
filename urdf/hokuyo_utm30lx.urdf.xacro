@@ -39,7 +39,7 @@
 	</joint>
 
     <!-- Hokuyo sensor for simulation -->
-    <sensor_hokuyo_utm_gazebo/>
+    <xacro:sensor_hokuyo_utm_gazebo/>
 
   </xacro:macro>
 

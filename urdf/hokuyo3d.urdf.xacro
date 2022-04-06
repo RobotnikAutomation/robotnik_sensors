@@ -42,7 +42,7 @@
 
 
     <!-- Hokuyo sensor for simulation -->
-    <sensor_hokuyo3d_gazebo gpu="${gpu}"/>
+    <xacro:sensor_hokuyo3d_gazebo gpu="${gpu}"/>
 
   </xacro:macro>
 

@@ -70,7 +70,7 @@
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->
-  <sensor_astra_embedded_s_gazebo/>
+  <xacro:sensor_astra_embedded_s_gazebo/>
 
   </xacro:macro>
 

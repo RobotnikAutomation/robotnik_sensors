@@ -65,7 +65,7 @@
     </link>
 
     <!-- RGBD sensor for simulation, same as Kinect -->
-    <sensor_azure_kinect_gazebo/>
+    <xacro:sensor_azure_kinect_gazebo/>
 
   </xacro:macro>
 
