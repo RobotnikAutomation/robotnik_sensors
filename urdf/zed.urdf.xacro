@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="stereo_camera"
-    params="prefix fps baseline hfov width height format near far">
+  <xacro:macro name="stereo_camera_zed"
+    params="prefix fps baseline hfov width height format near far prefix_topic:='zed_node'">
 
     <gazebo reference="${prefix}_base_link">
       <visual>  
@@ -13,7 +13,7 @@
           <emissive>0.0 0.0 0.0 0.0</emissive>  
         </material>  
       </visual>  
-      <sensor type="multicamera" name="stereo_camera">
+      <sensor type="multicamera" name="stereo_camera_zed">
         <update_rate>${fps}</update_rate>
         <camera name="left">
           <pose>0 0 0 0 0 0 </pose>
@@ -51,9 +51,9 @@
             <stddev>0.007</stddev>
           </noise>
         </camera>
-        <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+        <plugin name="stereo_camera_controller_zed" filename="libgazebo_ros_multicamera.so">
           <alwaysOn>true</alwaysOn>
-          <cameraName>${prefix}</cameraName>
+          <cameraName>${prefix_topic}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
           <frameName>${prefix}_base_link</frameName>
@@ -70,8 +70,69 @@
     </gazebo>
   </xacro:macro>
 
+  <xacro:macro name="depth_camera_zed"
+    params="prefix fps baseline hfov width height format near far  prefix_topic:='zed_node' point_cloud_topic:=point_cloud/cloud_registered">
+
+    <gazebo reference="${prefix}_base_link">
+      <visual>  
+        <material>  
+          <ambient>0.35 0.35 0.35 1.0</ambient>  
+          <diffuse>0.350754 0.350754 0.350754 1.0</diffuse>  
+          <specular>0.308273 0.3508273 0.3508273 1.0</specular>  
+          <emissive>0.0 0.0 0.0 0.0</emissive>  
+        </material>  
+      </visual>  
+      <sensor type="depth" name="depth_camera">
+        <update_rate>${fps}</update_rate>
+        <camera>
+          <horizontal_fov>${hfov}</horizontal_fov>
+          <image>
+            <width>${width}</width>
+            <height>${height}</height>
+            <format>${format}</format>
+          </image>
+          <clip>
+            <near>${near}</near>
+            <far>${far}</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>${baseline}</baseline>
+          <alwaysOn>true</alwaysOn>
+          <!-- Keep this zero, update_rate in the parent <sensor> tag
+            will control the frame rate. -->
+          <updateRate>0.0</updateRate>
+          <cameraName>${prefix_topic}</cameraName>
+          <imageTopicName> rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>${point_cloud_topic}</pointCloudTopicName>
+          <frameName>/${prefix}_depth_optical_frame</frameName>
+          <pointCloudCutoff>${near}</pointCloudCutoff>
+          <pointCloudCutoffMax>${far}</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
   <xacro:macro name="stereolabs_zed"
-    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.05 far:=2500">
+    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.05 far:=2500 prefix_topic:=zed_node point_cloud_topic:=point_cloud/cloud_registered">
 
     <xacro:if value="${model == 'zed'}">
         <xacro:property name="baseline" value="0.12" />
@@ -155,7 +216,24 @@
 
     <link name="${prefix}_right_camera_optical_frame"/>
 
-      <xacro:stereo_camera
+    <!-- Depth image-->
+    <joint name="${prefix}_depth_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_depth_frame" />
+    </joint>
+
+    <link name="${prefix}_depth_frame"/>
+
+    <joint name="${prefix}_depth_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <parent link="${prefix}_depth_frame" />
+      <child link="${prefix}_depth_optical_frame" />
+    </joint>
+
+    <link name="${prefix}_depth_optical_frame"/>
+
+      <xacro:stereo_camera_zed
         prefix="${prefix}"
         hfov="1.2217"
         baseline="${baseline}"
@@ -164,11 +242,28 @@
         height="480"
         format="${format}"
         near="${near}"
-        far="${far}"/>
-  </xacro:macro>
+        far="${far}"
+        prefix_topic="${prefix_topic}"
+        />
 
-  <xacro:macro name="sensor_zed" params="prefix:=myzed parent *origin model:=zed" >
-    <stereolabs_zed prefix="${prefix}" parent="${parent}" model="${model}">
+        <xacro:depth_camera_zed
+        prefix="${prefix}"
+        hfov="1.2217"
+        baseline="${baseline}"
+        fps="30"
+        width="1280"
+        height="720"
+        format="${format}"
+        near="${near}"
+        far="${far}"
+        prefix_topic="${prefix_topic}"
+        point_cloud_topic="${point_cloud_topic}"
+        />
+  </xacro:macro>
+  
+
+  <xacro:macro name="sensor_zed" params="prefix:=myzed parent *origin model:=zed prefix_topic:=zed_node point_cloud_topic:=point_cloud/cloud_registered">
+    <stereolabs_zed prefix="${prefix}" parent="${parent}" model="${model}"  prefix_topic="${prefix_topic}" point_cloud_topic="${point_cloud_topic}">
       <xacro:insert_block name="origin" />
     </stereolabs_zed>
   </xacro:macro>
