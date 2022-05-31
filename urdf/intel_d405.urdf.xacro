@@ -16,8 +16,8 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
     <!-- The following values are approximate, and the camera node
      publishing TF values with actual calibrated camera extrinsic values -->
     <xacro:property name="d405_cam_depth_to_infra1_offset" value="0.0"/>
-    <xacro:property name="d405_cam_depth_to_infra2_offset" value="-0.050"/>
-    <xacro:property name="d405_cam_depth_to_color_offset" value="0.015"/>
+    <xacro:property name="d405_cam_depth_to_infra2_offset" value="0.0"/>
+    <xacro:property name="d405_cam_depth_to_color_offset" value="0.0"/>
 
     <!-- The following values model the aluminum peripherial case for the
     D405 camera, with the camera joint represented by the actual
@@ -25,7 +25,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
     <xacro:property name="d405_cam_width" value="0.042"/>
     <xacro:property name="d405_cam_height" value="0.042"/>
     <xacro:property name="d405_cam_depth" value="0.023"/>
-    <xacro:property name="d405_cam_mount_from_center_offset" value="0.0149"/>
+    <xacro:property name="d405_cam_mount_from_center_offset" value="0.0"/>
 
     <!-- The following offset is relative the the physical D405 camera peripherial
     camera tripod mount -->
@@ -45,7 +45,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
     <joint name="${prefix}_joint" type="fixed">
       <parent link="${prefix}_base_link" />
       <child link="${prefix}_link" />
-      <origin xyz="0.01 0.02 0" rpy="0 0 0"/>
+      <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
       <child link="${prefix}_link" />
     </joint>
 
