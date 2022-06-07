@@ -166,5 +166,7 @@
   <!-- Lidar mast -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/lidar_mast.urdf.xacro" />
 
+  <!-- Ublox -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/ublox.urdf.xacro" />
 
 </robot>
