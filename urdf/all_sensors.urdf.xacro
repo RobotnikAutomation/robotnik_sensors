@@ -169,4 +169,7 @@
   <!-- Ublox -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/ublox.urdf.xacro" />
 
+  <!-- Vectornav -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/vectornav.urdf.xacro" />
+
 </robot>
