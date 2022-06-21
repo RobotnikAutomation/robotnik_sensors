@@ -20,7 +20,6 @@
       <origin xyz="0 0 0" rpy="1.5708 0 1.5708"/>
         <geometry>
           <mesh filename="package://robotnik_sensors/meshes/benewake_ce30d.stl" />
-          <!--box size="${ce30d_length} ${ce30d_width} ${ce30d_height}"/-->
         </geometry>
         <material name="black_alu"/>
       </visual>
