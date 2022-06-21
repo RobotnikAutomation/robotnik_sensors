@@ -4,9 +4,6 @@
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="sensor_benewake_ce30" params="prefix parent prefix_topic *origin range_min range_max hfov vfov fps gpu:=^|true">
-    <material name="black_alu">
-      <color rgba="0.9 0.9 0.9 1"/>
-    </material>
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />

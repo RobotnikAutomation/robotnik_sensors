@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:macro name="black_alu_material">
+        <material name="black_alu">
+          <color rgba="0.9 0.9 0.9 1"/>
+        </material>
+    </xacro:macro>
+</robot>

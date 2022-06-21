@@ -5,10 +5,6 @@
 
   <xacro:macro name="sensor_rslidar" params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu:=^|true">
 
-    <material name="black_alu">
-      <color rgba="0.9 0.9 0.9 1"/>
-    </material>
-
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
