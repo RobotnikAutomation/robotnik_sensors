@@ -23,7 +23,7 @@
               <color rgba="1 0 0 1"/>
             </material>
             <geometry>
-                <mesh filename="package://robotnik_sensors/meshes/vectornav_vn100.stl"/>
+                <mesh filename="file://$(find robotnik_sensors)/meshes/vectornav_vn100.stl"/>
             </geometry>
 	      </visual>
 	      <collision>
@@ -49,31 +49,91 @@
         <material>Gazebo/Red</material>
       </gazebo>
 
-	  <gazebo>
-	    <plugin name="${prefix}_controller" filename="libhector_gazebo_ros_imu.so">
-	       <alwaysOn>true</alwaysOn>
-	       <topicName>${topic}</topicName>
-		   <serviceName>${prefix}imu/service</serviceName>
-		   <bodyName>${prefix}_link</bodyName>
-		   <frameId>${prefix}_link</frameId>
-	       <updateRate>50.0</updateRate>
+	<gazebo reference="${prefix}_link">
 
-	       <gaussianNoise>0.00</gaussianNoise>
-           <yawOffset>0.0</yawOffset>
-           <yawDrift>0.0</yawDrift>
-           <yawGaussianNoise>0.0</yawGaussianNoise>
+    	<gravity>true</gravity>
+		<sensor name="${prefix}_sensor" type="imu">
 
-           <!-- angular velocities parameters -->
-           <rateOffset>0.0 0.0 0.0</rateOffset>
-           <rateDrift>0.0 0.0 0.0</rateDrift>
-           <rateGaussianNoise>0.0 0.0 0.0</rateGaussianNoise>
+			<always_on>true</always_on>
 
-           <!-- linear accelerations parameters -->
-           <accelOffset>0.0 0.0 0.0</accelOffset>
-           <accelDrift>0.0 0.0 0.0</accelDrift>
-           <accelGaussianNoise>0.0 0.0 0.0</accelGaussianNoise>
-	    </plugin>
-	  </gazebo>
+			<update_rate>50</update_rate>
+			<visualize>true</visualize>
+
+			<imu>
+				<orientation>
+				<x>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>2e-3</stddev>
+					</noise>
+				</x>
+				<y>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>2e-3</stddev>
+					</noise>
+				</y>
+				<z>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>2e-3</stddev>
+					</noise>
+				</z>
+				</orientation>
+				<angular_velocity>
+				<x>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>2e-4</stddev>
+					</noise>
+				</x>
+				<y>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>2e-4</stddev>
+					</noise>
+				</y>
+				<z>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>2e-4</stddev>
+					</noise>
+				</z>
+				</angular_velocity>
+				<linear_acceleration>
+				<x>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>1.7e-2</stddev>
+					</noise>
+				</x>
+				<y>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>1.7e-2</stddev>
+					</noise>
+				</y>
+				<z>
+					<noise type="gaussian">
+					<mean>0.0</mean>
+					<stddev>1.7e-2</stddev>
+					</noise>
+				</z>
+				</linear_acceleration>
+
+			</imu>
+
+			<plugin name="${prefix}_controller" filename="libgazebo_ros_imu_sensor.so">
+				<initial_orientation_as_reference>false</initial_orientation_as_reference>
+				<frame_name>imu_link</frame_name>
+				<ros>
+					<remapping>~/out:=imu/data</remapping>
+				</ros>
+			</plugin>
+
+		</sensor>
+
+	</gazebo>
 
   </xacro:macro>
 
