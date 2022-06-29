@@ -1,27 +1,32 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>robotnik_sensors</name>
-  <version>1.12.0</version>
+  <version>0.0.0</version>
   <description>Robotnik standard sensors description. URDF and meshses.</description>
   <license>BSD</license>
 
-  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
-  <author email="rnavarro@robotnik.es">Román Navarro</author>
-  
-  <buildtool_depend>catkin</buildtool_depend>
-    
   <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
   <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
-  <maintainer email="dredo@robotnik.es">David Redó</maintainer>
   <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
   <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
+  <maintainer email="rvasquez@robotnik.es">Robert Vasquez Zavaleta</maintainer>
 
-  <build_depend>urdf</build_depend>
-  <build_depend>xacro</build_depend>
-  <run_depend>urdf</run_depend>
-  <run_depend>xacro</run_depend>
-  <run_depend>hector_gazebo_plugins</run_depend>
-  <run_depend>gazebo_plugins</run_depend>
-  
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+  <depend>gazebo_plugins</depend>
+
+  <!-- Not available from ROS2 repository -->
+  <!-- <depend>hector_gazebo_plugins</depend> -->
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
 </package>
