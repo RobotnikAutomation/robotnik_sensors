@@ -23,7 +23,7 @@
       <visual>
         <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
-            <mesh filename="package://robotnik_sensors/meshes/hokuyo_ust_20lx.dae"/>
+            <mesh filename="file://$(find robotnik_sensors)/meshes/hokuyo_ust_20lx.dae"/>
         </geometry>
       </visual>
 
@@ -52,11 +52,9 @@
     <gazebo reference="${prefix}_link">
 			<xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
       </xacro:if>
       <xacro:unless value="${gpu}">
         <xacro:property name="ray_type" value="ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
       </xacro:unless>
 			<sensor type="${ray_type}" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
@@ -84,9 +82,12 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="${plugin_lib}">
-					<topicName>${prefix_topic}/scan</topicName>
-					<frameName>/${prefix}_link</frameName>
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <remapping>~/out:=${prefix_topic}/scan</remapping>
+          </ros>
+          <output_type>sensor_msgs/LaserScan</output_type>
+          <frame_name>${prefix}_link</frame_name>
 				</plugin>
 			</sensor>
 	</gazebo>
