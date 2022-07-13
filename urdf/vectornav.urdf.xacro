@@ -3,15 +3,15 @@
 
   <xacro:macro name="sensor_vectornav" params="prefix topic:='imu/data' parent *origin">
 
-	  <joint name="${prefix}_base_joint" type="fixed">
+	  <joint name="${prefix}imu_base_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
 	      <!--origin xyz="0 0 0.2825"/-->
 	      <xacro:insert_block name="origin"/>
 	      <parent link="${parent}"/>
-	      <child link="${prefix}_base_link"/>
+	      <child link="${prefix}imu_base_link"/>
 	  </joint>
 
-	  <link name="${prefix}_base_link">
+	  <link name="${prefix}imu_base_link">
 	      <inertial>
 			<origin xyz="0.0 0 0.01" rpy="0 0 0" />
 			<mass value="0.05" />
@@ -34,25 +34,25 @@
 	      </collision>
 	  </link>
 
-	  <joint name="${prefix}_joint" type="fixed">
+	  <joint name="${prefix}joint" type="fixed">
 	      <axis xyz="1 0 0"/>
 	      <origin xyz="-0.00745 0.0 0.0088"/>
-	      <parent link="${prefix}_base_link"/>
-	      <child link="${prefix}_link"/>
+	      <parent link="${prefix}imu_base_link"/>
+	      <child link="${prefix}imu_link"/>
 	  </joint>
 
-	  <link name="${prefix}_link">
+	  <link name="${prefix}imu_link">
 	  </link>
 
 
-      <gazebo reference="${prefix}_base_link">
+      <gazebo reference="${prefix}imu_base_link">
         <material>Gazebo/Red</material>
       </gazebo>
 
-	<gazebo reference="${prefix}_link">
+	<gazebo reference="${prefix}imu_link">
 
     	<gravity>true</gravity>
-		<sensor name="${prefix}_sensor" type="imu">
+		<sensor name="${prefix}imu_sensor" type="imu">
 
 			<always_on>true</always_on>
 
@@ -123,9 +123,9 @@
 
 			</imu>
 
-			<plugin name="${prefix}_controller" filename="libgazebo_ros_imu_sensor.so">
+			<plugin name="${prefix}imu_controller" filename="libgazebo_ros_imu_sensor.so">
 				<initial_orientation_as_reference>false</initial_orientation_as_reference>
-				<frame_name>imu_link</frame_name>
+				<frame_name>${prefix}imu_link</frame_name>
 				<ros>
 					<remapping>~/out:=imu/data</remapping>
 				</ros>
