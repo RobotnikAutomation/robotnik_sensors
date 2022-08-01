@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot name="sensor_onrobot_eyes" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
+
+  <xacro:macro name="sensor_onrobot_eyes" params="prefix parent *origin">
+
+    <joint name="${prefix}_joint" type="fixed">
+    	<xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link"/>
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/onrobot_eyes_mount.stl"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/onrobot_eyes_mount.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0.0 0.0 0.0" />
+        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_eyes_joint" type="fixed">
+      <origin xyz="0.02795 0.0 0.105" rpy="0.0 0.0 0.0"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_eyes_link" />
+    </joint>
+
+    <link name="${prefix}_eyes_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/onrobot_eyes_light.stl"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/onrobot_eyes_light.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0.0 0.0 0.0" />
+        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+      </inertial>
+    </link>
+
+  </xacro:macro>
+
+</robot>
