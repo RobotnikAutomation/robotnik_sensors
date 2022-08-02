@@ -2,7 +2,7 @@
 <robot name="sensor_ublox" xmlns:xacro="http://wiki.ros.org/xacro">
 
   <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
-  <xacro:macro name="sensor_ublox" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816 update_rate:=^|5">
+  <xacro:macro name="sensor_ublox" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816 update_rate:=^|5 use_mast:=^|false">
 
 	  <!-- ANTENNA GPS -->
 	  <joint name="${prefix}_base_joint" type="fixed">
@@ -22,15 +22,30 @@
 		  <material name="ublox_gps_color">
            <color rgba="0.5 0.5 0.5 1"/>
           </material>
-	      <geometry>
-	        <mesh filename="package://robotnik_sensors/meshes/antenna_ANN_MB.stl" scale="1.0 1.0 1.0"/>
-	      </geometry>
+		  <xacro:if value="${use_mast}">
+			<geometry>
+				<mesh filename="package://robotnik_sensors/meshes/antenna_ANN_MB_mast.stl" scale="1.0 1.0 1.0"/>
+			</geometry>
+		  </xacro:if>
+		  <xacro:unless value="${use_mast}">
+			<geometry>
+				<mesh filename="package://robotnik_sensors/meshes/antenna_ANN_MB.stl" scale="1.0 1.0 1.0"/>
+			</geometry>
+		  </xacro:unless>
 	    </visual>
 	    <collision>
-	      <origin rpy="0 0 0" xyz="0 0 0.01125"/>
-	        <geometry>
-	          <box size="0.0607 0.083 0.0225"/>
-	        </geometry>
+		  <xacro:if value="${use_mast}">
+		    <origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<mesh filename="package://robotnik_sensors/meshes/antenna_ANN_MB_mast.stl" scale="1.0 1.0 1.0"/>
+			</geometry>
+		  </xacro:if>
+		  <xacro:unless value="${use_mast}">
+		    <origin rpy="0 0 0" xyz="0 0 0.01125"/>
+			<geometry>
+				<box size="0.0607 0.083 0.0225"/>
+			</geometry>
+		  </xacro:unless>
 	    </collision>
 	  </link>
 
