@@ -30,7 +30,7 @@
 			<inertial>
 				<mass value="0.67" />
 				<origin xyz="0 0 0.04" rpy="0 0 0"/> 
-				<xacro:solid_cuboid_inertia m="0.67" w="0.1006" h="0.1006" d="0.08" /> <!-- Datasheet dimensional drawing: 100.6 mm x 100.6 mm x 80 mm without connectors --> 
+				<xacro:solid_cuboid_inertia m="0.67" w="0.1006" h="0.1006" d="0.08" />
 			</inertial>
 		</link>
 
