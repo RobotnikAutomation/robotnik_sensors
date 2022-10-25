@@ -3,7 +3,6 @@
 
 
   <xacro:macro name="sensor_hokuyo_ust20lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
-			<!--arg name="namespace" value="$(arg namespace)"/-->
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
