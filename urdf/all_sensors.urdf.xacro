@@ -173,4 +173,7 @@
   <!-- Onrobot Eyes -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/onrobot_eyes.urdf.xacro" />
 
+  <!-- PILZ psen -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/pilz_psen_scan.urdf.xacro" />
+
 </robot>
