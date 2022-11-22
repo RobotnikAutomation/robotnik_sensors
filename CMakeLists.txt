@@ -34,6 +34,6 @@ endif()
 ament_package()
 
 install(
-  DIRECTORY meshes urdf
+  DIRECTORY models meshes urdf
   DESTINATION share/${PROJECT_NAME}/
 )

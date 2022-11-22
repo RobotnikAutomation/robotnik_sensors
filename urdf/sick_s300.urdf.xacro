@@ -1,7 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_s300" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
+  <xacro:macro name="sensor_sick_s300" 
+               params="prefix 
+			           parent 
+					   prefix_topic:='front_laser' 
+					   *origin 
+					   min_angle:=-2.3562 
+					   max_angle:=2.3562 
+					   gpu:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -22,23 +29,16 @@
 		</collision>
 
 		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="${-M_PI/2} 0 0"/>
 			<geometry>
-	     		<mesh filename="package://robotnik_sensors/meshes/sick_s300.dae"/>
+	     		<mesh filename="package://robotnik_sensors/meshes/sick_s300_color.dae"/>
 			</geometry>
 		</visual>
-
-		<!--inertial>
-			<mass value="1e-5" />
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-		</inertial-->
 
 		<inertial>
 			<mass value="1.2" />
 			<origin xyz="0 0.0 0.0751" rpy="0 0 0"/>
             <xacro:solid_cuboid_inertia m="1.2" w="0.102" h="0.106" d="0.152" />
-			<!--inertia ixx="0.0002708333" ixy="0" ixz="0" iyy="0.0002708333" iyz="0" izz="0.00009434" /-->
 		</inertial>
 	</link>
 
@@ -50,10 +50,8 @@
 
 	<link name="${prefix}_link" />
 
-
 	<!-- Sick sensor sensor for simulation -->
 	<xacro:sensor_sick_s300_gazebo />
-
   </xacro:macro>
 
   <xacro:macro name="sensor_sick_s300_gazebo">
@@ -90,9 +88,13 @@
 					<stddev>0.03</stddev>
 				</noise>
 			</ray>
-			<plugin name="${prefix}_controller" filename="${plugin_lib}">
-				<topicName>${prefix_topic}/scan</topicName>
-				<frameName>/${prefix}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
+			<plugin name="${prefix}_controller" filename="libgazebo_ros_ray_sensor.so">
+				<ros>
+				  <remapping>~/out:=${prefix_topic}/scan</remapping>
+				</ros>
+				<!-- when leaving away frame_name it defaults to base_footprint instead-->
+				<frame_name>${prefix}_link</frame_name>
+				<output_type>sensor_msgs/LaserScan</output_type>
 			</plugin>
 		</sensor>
 	</gazebo>
