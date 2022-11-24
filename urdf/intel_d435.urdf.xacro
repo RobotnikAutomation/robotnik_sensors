@@ -54,7 +54,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
         <origin xyz="${d435_cam_mount_from_center_offset} ${-d435_cam_depth_py} 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
         <geometry>
           <!-- <box size="${d435_cam_width} ${d435_cam_height} ${d435_cam_depth}"/> -->
-          <mesh filename="package://robotnik_sensors/meshes/intel_d435.dae" />
+          <mesh filename="package://robotnik_sensors/meshes/intel_d435_color.dae" />
         </geometry>
       </visual>
       <collision>
@@ -133,7 +133,13 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
       <link name="${prefix}_color_optical_frame"/>
     </xacro:if>
 
-    <xacro:gazebo_d435 camera_name="${prefix}" reference_link="${prefix}_link" topics_ns="${prefix_topic}" depth_optical_frame="${prefix}_depth_optical_frame" color_optical_frame="${prefix}_color_optical_frame" infrared1_optical_frame="${prefix}_left_ir_optical_frame" infrared2_optical_frame="${prefix}_right_ir_optical_frame"/>
+    <xacro:gazebo_d435 camera_name="${prefix}" 
+                       reference_link="${prefix}_link" 
+                       topics_ns="${prefix_topic}" 
+                       depth_optical_frame="${prefix}_depth_optical_frame" 
+                       color_optical_frame="${prefix}_color_optical_frame" 
+                       infrared1_optical_frame="${prefix}_left_ir_optical_frame" 
+                       infrared2_optical_frame="${prefix}_right_ir_optical_frame"/>
   </xacro:macro>
 
   <xacro:macro name="gazebo_d435" params="camera_name reference_link topics_ns depth_optical_frame color_optical_frame infrared1_optical_frame infrared2_optical_frame" >
@@ -173,26 +179,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        </camera>
        <always_on>1</always_on>
        <update_rate>30</update_rate>
-       <visualize>1</visualize>
-
-       <plugin name="${prefix}kortex_vision_controller" filename="libgazebo_ros_camera.so">
-          <alwaysOn>true</alwaysOn>
-          <updateRate>30.0</updateRate>
-          <cameraName>${prefix_topic}/color</cameraName>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>/${prefix}_color_optical_frame</frameName>
-          <!-- this is just which name the Image msg will have, it does not affect the simulation.
-                However must be set to the optical_frame,  -->
-          <hackBaseline>0.07</hackBaseline>
-          <distortionK1>0.0</distortionK1>
-          <distortionK2>0.0</distortionK2>
-          <distortionK3>0.0</distortionK3>
-          <distortionT1>0.0</distortionT1>
-          <distortionT2>0.0</distortionT2>
-          <ignoreTfPrefix>1</ignoreTfPrefix>
-        </plugin>
-
+       <visualize>false</visualize>
      </sensor>
      <sensor name="${camera_name}ired1" type="camera">
        <camera name="${camera_name}">
@@ -214,7 +201,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        </camera>
        <always_on>1</always_on>
        <update_rate>90</update_rate>
-       <visualize>0</visualize>
+       <visualize>false</visualize>
      </sensor>
      <sensor name="${camera_name}ired2" type="camera">
        <camera name="${camera_name}">
@@ -236,7 +223,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        </camera>
        <always_on>1</always_on>
        <update_rate>90</update_rate>
-       <visualize>0</visualize>
+       <visualize>false</visualize>
      </sensor>
      <sensor name="${camera_name}depth" type="depth">
        <camera name="${camera_name}">
@@ -257,7 +244,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        </camera>
        <always_on>1</always_on>
        <update_rate>90</update_rate>
-       <visualize>0</visualize>
+       <visualize>false</visualize>
      </sensor>
    </gazebo>
 
@@ -267,14 +254,14 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <depthUpdateRate>60.0</depthUpdateRate>
        <colorUpdateRate>60.0</colorUpdateRate>
        <infraredUpdateRate>60.0</infraredUpdateRate>
-       <depthTopicName>depth/image_raw</depthTopicName>
-       <depthCameraInfoTopicName>depth/camera_info</depthCameraInfoTopicName>
-       <colorTopicName>color/image_raw</colorTopicName>
-       <colorCameraInfoTopicName>color/camera_info</colorCameraInfoTopicName>
-       <infrared1TopicName>infra1/image_raw</infrared1TopicName>
-       <infrared1CameraInfoTopicName>infra1/camera_info</infrared1CameraInfoTopicName>
-       <infrared2TopicName>infra2/image_raw</infrared2TopicName>
-       <infrared2CameraInfoTopicName>infra2/camera_info</infrared2CameraInfoTopicName>
+       <depthTopicName>${prefix_topic}/depth/image_raw</depthTopicName>
+       <depthCameraInfoTopicName>${prefix_topic}/depth/camera_info</depthCameraInfoTopicName>
+       <colorTopicName>${prefix_topic}/color/image_raw</colorTopicName>
+       <colorCameraInfoTopicName>${prefix_topic}/color/camera_info</colorCameraInfoTopicName>
+       <infrared1TopicName>${prefix_topic}/infra1/image_rect_raw</infrared1TopicName>
+       <infrared1CameraInfoTopicName>${prefix_topic}/infra1/camera_info</infrared1CameraInfoTopicName>
+       <infrared2TopicName>${prefix_topic}/infra2/image_rect_raw</infrared2TopicName>
+       <infrared2CameraInfoTopicName>${prefix_topic}/infra2/camera_info</infrared2CameraInfoTopicName>
        <colorOpticalframeName>${color_optical_frame}</colorOpticalframeName>
        <depthOpticalframeName>${depth_optical_frame}</depthOpticalframeName>
        <infrared1OpticalframeName>${infrared1_optical_frame}</infrared1OpticalframeName>
@@ -282,7 +269,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <rangeMinDepth>0.2</rangeMinDepth>
        <rangeMaxDepth>10.0</rangeMaxDepth>
        <pointCloud>false</pointCloud>
-       <pointCloudTopicName>depth/points</pointCloudTopicName>
+       <pointCloudTopicName>${prefix_topic}/depth/color/points</pointCloudTopicName>
        <pointCloudCutoff>0.5</pointCloudCutoff>
      </plugin>
    </gazebo>
