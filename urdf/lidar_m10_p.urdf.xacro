@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_lidar_m10_p" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=3.14159 max_angle:=-3.14159 gpu:=^|false">
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link"/>
+    </joint>
+
+
+    <link name="${prefix}_base_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+         <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.dae"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+
+      <inertial>
+        <mass value="0.190" />
+        <origin xyz="0.01 0 0.028" rpy="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="0.190" w="0.09674" h="0.056" d="0.056" />
+      </inertial>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <origin xyz="0 0 0.0461" rpy="0 0 0"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
+    </joint>
+
+
+    <link name="${prefix}_link">
+    </link>
+
+
+    
+
+  </xacro:macro>
+
+
+
+
+</robot>
