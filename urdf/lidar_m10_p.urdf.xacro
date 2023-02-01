@@ -14,26 +14,26 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-         <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.dae"/>
+         <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.STL"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-            <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.dae" scale="0.001 0.001 0.001"/>
+            <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.STL" />
         </geometry>
       </visual>
 
       <inertial>
         <mass value="0.190" />
-        <origin xyz="0.01 0 0.028" rpy="0 0 0"/>
+        <origin xyz="0.01 0 0.028" rpy="0 0 0"/> 
         <xacro:solid_cuboid_inertia m="0.190" w="0.09674" h="0.056" d="0.056" />
       </inertial>
     </link>
 
     <joint name="${prefix}_joint" type="fixed">
-      <origin xyz="0 0 0.0461" rpy="0 0 0"/>
+      <origin xyz="0 0 0.02305" rpy="0 0 0"/>
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_link"/>
     </joint>
