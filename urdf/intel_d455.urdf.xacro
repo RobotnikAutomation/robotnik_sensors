@@ -8,9 +8,6 @@ aluminum peripherial evaluation case.
 -->
 
 <robot name="sensor_intel_d455" xmlns:xacro="http://ros.org/wiki/xacro">
-  <!-- Includes -->
-  <xacro:include filename="$(find realsense2_description)/urdf/_materials.urdf.xacro" />
-  <xacro:include filename="$(find realsense2_description)/urdf/_usb_plug.urdf.xacro" />
 
   <xacro:macro name="sensor_intel_d455" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7">
     <xacro:property name="M_PI" value="3.1415926535897931" />
