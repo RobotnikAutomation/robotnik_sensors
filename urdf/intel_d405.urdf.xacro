@@ -280,11 +280,11 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <depthOpticalframeName>${depth_optical_frame}</depthOpticalframeName>
        <infrared1OpticalframeName>${infrared1_optical_frame}</infrared1OpticalframeName>
        <infrared2OpticalframeName>${infrared2_optical_frame}</infrared2OpticalframeName>
-       <rangeMinDepth>0.2</rangeMinDepth>
+       <rangeMinDepth>0.07</rangeMinDepth>
        <rangeMaxDepth>10.0</rangeMaxDepth>
        <pointCloud>true</pointCloud>
        <pointCloudTopicName>depth/points</pointCloudTopicName>
-       <pointCloudCutoff>0.5</pointCloudCutoff>
+       <pointCloudCutoff>0.07</pointCloudCutoff>
      </plugin>
    </gazebo>
   </xacro:macro>
