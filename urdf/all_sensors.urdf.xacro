@@ -187,5 +187,7 @@
 
   <!-- PILZ psen -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/pilz_psen_scan.urdf.xacro" />
-
+  
+  <!-- Teltonika antenna combo-->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/teltonika_antenna_combo.urdf.xacro" />
 </robot>
