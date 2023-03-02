@@ -58,12 +58,12 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
           <!--<mesh filename="package://robotnik_sensors/meshes/intel_d435.dae" />-->
         </geometry>
       </visual>
-      <!--<collision>-->
-        <!--<origin xyz="0 ${-d405_cam_depth_py} 0" rpy="0 0 0"/>-->
-        <!--<geometry>-->
-          <!--<box size="${d405_cam_depth} ${d405_cam_width} ${d405_cam_height}"/>-->
-        <!--</geometry>-->
-      <!--</collision>-->
+      <collision>
+        <origin xyz="${d405_cam_width/2.0} ${d405_cam_height/2.0} ${d405_cam_depth/2.0}" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+        <geometry>
+          <box size="${d405_cam_width} ${d405_cam_height} ${d405_cam_depth}"/> 
+        </geometry>
+      </collision>
       <inertial>
         <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
         <mass value="0.1" />
