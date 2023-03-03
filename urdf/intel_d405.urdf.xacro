@@ -65,9 +65,9 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
-        <mass value="0.1" />
-        <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
+        <origin xyz="${d405_cam_width/2.0} ${d405_cam_height/2.0} ${d405_cam_depth/2.0}" rpy="${M_PI/2} 0 ${M_PI/2}" />
+        <mass value="0.01" />
+        <xacro:solid_cuboid_inertia m="0.01" w="${d405_cam_height}" h="${d405_cam_depth}" d="${d405_cam_width}" />
       </inertial>
     </link>
 
