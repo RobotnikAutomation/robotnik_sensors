@@ -133,7 +133,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
       <link name="${prefix}_color_optical_frame"/>
     </xacro:if>
 
-    <xacro:gazebo_d435 update_rate="${update_rate}" camera_name="${prefix}" reference_link="${prefix}_link" topics_ns="${prefix_topic}" depth_optical_frame="${prefix}_depth_optical_frame" color_optical_frame="${prefix}_color_optical_frame" infrared1_optical_frame="${prefix}_left_ir_optical_frame" infrared2_optical_frame="${prefix}_right_ir_optical_frame"/>
+    <xacro:gazebo_d435 update_rate="${update_rate}" camera_name="robot" reference_link="${prefix}_link" topics_ns="${prefix_topic}" depth_optical_frame="${prefix}_depth_optical_frame" color_optical_frame="${prefix}_color_optical_frame" infrared1_optical_frame="${prefix}_left_ir_optical_frame" infrared2_optical_frame="${prefix}_right_ir_optical_frame"/>
   </xacro:macro>
 
   <xacro:macro name="gazebo_d435" params="camera_name reference_link topics_ns depth_optical_frame color_optical_frame infrared1_optical_frame infrared2_optical_frame update_rate" >
@@ -179,8 +179,8 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
           <cameraName>${camera_name}_color</cameraName>
-          <imageTopicName>${prefix_topic}/color/image_raw</imageTopicName>
-          <cameraInfoTopicName>${prefix_topic}/camera_info</cameraInfoTopicName>
+          <imageTopicName>/${camera_name}/${prefix_topic}/rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>/${camera_name}/${prefix_topic}/rgb/camera_info</cameraInfoTopicName>
           <frameName>/${prefix}_color_optical_frame</frameName>
           <!-- this is just which name the Image msg will have, it does not affect the simulation.
                 However must be set to the optical_frame,  -->
@@ -267,14 +267,14 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <depthUpdateRate>${update_rate}</depthUpdateRate>
        <colorUpdateRate>${update_rate}</colorUpdateRate>
        <infraredUpdateRate>${update_rate}</infraredUpdateRate>
-       <depthTopicName>${prefix_topic}/depth/image_raw</depthTopicName>
-       <depthCameraInfoTopicName>${prefix_topic}/depth/camera_info</depthCameraInfoTopicName>
-       <colorTopicName>${prefix_topic}/color/image_raw</colorTopicName>
-       <colorCameraInfoTopicName>${prefix_topic}/color/camera_info</colorCameraInfoTopicName>
-       <infrared1TopicName>${prefix_topic}/infra1/image_raw</infrared1TopicName>
-       <infrared1CameraInfoTopicName>${prefix_topic}/infra1/camera_info</infrared1CameraInfoTopicName>
-       <infrared2TopicName>${prefix_topic}/infra2/image_raw</infrared2TopicName>
-       <infrared2CameraInfoTopicName>${prefix_topic}/infra2/camera_info</infrared2CameraInfoTopicName>
+       <depthTopicName>/${camera_name}/${prefix_topic}/depth/image_raw</depthTopicName>
+       <depthCameraInfoTopicName>/${camera_name}/${prefix_topic}/depth/camera_info</depthCameraInfoTopicName>
+       <colorTopicName>/${camera_name}/${prefix_topic}/color/image_raw</colorTopicName>
+       <colorCameraInfoTopicName>/${camera_name}/${prefix_topic}/color/camera_info</colorCameraInfoTopicName>
+       <infrared1TopicName>/${camera_name}/${prefix_topic}/infra1/image_raw</infrared1TopicName>
+       <infrared1CameraInfoTopicName>/${camera_name}/${prefix_topic}/infra1/camera_info</infrared1CameraInfoTopicName>
+       <infrared2TopicName>/${camera_name}/${prefix_topic}/infra2/image_raw</infrared2TopicName>
+       <infrared2CameraInfoTopicName>/${camera_name}/${prefix_topic}/infra2/camera_info</infrared2CameraInfoTopicName>
        <colorOpticalframeName>${color_optical_frame}</colorOpticalframeName>
        <depthOpticalframeName>${depth_optical_frame}</depthOpticalframeName>
        <infrared1OpticalframeName>${infrared1_optical_frame}</infrared1OpticalframeName>
@@ -282,7 +282,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <rangeMinDepth>0.105</rangeMinDepth>
        <rangeMaxDepth>10.0</rangeMaxDepth>
        <pointCloud>true</pointCloud>
-       <pointCloudTopicName>${prefix_topic}/depth/points</pointCloudTopicName>
+       <pointCloudTopicName>/${camera_name}/${prefix_topic}/depth/points</pointCloudTopicName>
        <pointCloudCutoff>0.105</pointCloudCutoff>
      </plugin>
    </gazebo>
