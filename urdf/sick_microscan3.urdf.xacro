@@ -43,7 +43,7 @@
 		<link name="${prefix}_link" />
 
 		<!-- Sick sensor sensor for simulation -->
-		<sensor_sick_microscan3_gazebo />
+		<xacro:sensor_sick_microscan3_gazebo />
 
 	</xacro:macro>
 
