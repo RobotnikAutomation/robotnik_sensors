@@ -93,7 +93,7 @@
        <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/${model}.stl"/>
+          <mesh filename="file://$(find robotnik_sensors)/meshes/${model}.stl"/>
         </geometry>
         <material name="light_zed_grey">
           <color rgba="0.35 0.35 0.35 1"/>
@@ -102,7 +102,7 @@
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/${model}.stl" />
+          <mesh filename="file://$(find robotnik_sensors)/meshes/${model}.stl" />
         </geometry>
       </collision>
       <inertial>

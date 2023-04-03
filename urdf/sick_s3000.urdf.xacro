@@ -16,7 +16,7 @@
 			<!--origin xyz="-0.093 0 -0.0625" rpy="0 0 0"/-->
 			<origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
 			<geometry>
-	     		<mesh filename="package://robotnik_sensors/meshes/sick_s3000.dae"/>
+	     		<mesh filename="file://$(find robotnik_sensors)/meshes/sick_s3000.dae"/>
 			</geometry>
 		</collision>
 
@@ -24,7 +24,7 @@
 			<origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
 			<!--origin xyz="-0.093 0 -0.0625" rpy="0 0 0"/-->
 			<geometry>
-	     		<mesh filename="package://robotnik_sensors/meshes/sick_s3000.dae"/>
+	     		<mesh filename="file://$(find robotnik_sensors)/meshes/sick_s3000.dae"/>
 			</geometry>
 		</visual>
 

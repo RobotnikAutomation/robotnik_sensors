@@ -63,13 +63,13 @@
            <color rgba="1 1 1 1"/>
         </material>
 	      <geometry>
-	        <mesh filename="package://robotnik_sensors/meshes/antenna_3GO16.stl" scale="1.0 1.0 1.0"/>
+	        <mesh filename="file://$(find robotnik_sensors)/meshes/antenna_3GO16.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </visual>
 	    <collision>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <geometry>
-	        <mesh filename="package://robotnik_sensors/meshes/antenna_3GO16.stl" scale="1.0 1.0 1.0"/>
+	        <mesh filename="file://$(find robotnik_sensors)/meshes/antenna_3GO16.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </collision>
 	  </link>

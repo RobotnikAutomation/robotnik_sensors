@@ -21,13 +21,13 @@
           <color rgba="0.1 0.1 0.1 1"/>
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/ueye_cp_gige.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="file://$(find robotnik_sensors)/meshes/ueye_cp_gige.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0.00 0.0 0.0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/ueye_cp_gige.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="file://$(find robotnik_sensors)/meshes/ueye_cp_gige.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </collision>
     </link>

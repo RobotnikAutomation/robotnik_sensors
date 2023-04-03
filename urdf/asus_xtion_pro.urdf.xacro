@@ -51,7 +51,7 @@
       <visual>
         <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/asus_xtion_pro_live.dae" scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}"/>
+          <mesh filename="file://$(find robotnik_sensors)/meshes/asus_xtion_pro_live.dae" scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}"/>
         </geometry>
       </visual>
       <collision>
