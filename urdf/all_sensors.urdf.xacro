@@ -190,4 +190,7 @@
   
   <!-- Teltonika antenna combo-->
   <xacro:include filename="$(find robotnik_sensors)/urdf/teltonika_antenna_combo.urdf.xacro" />
+
+  <!-- Link 750 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/link_750_nh.urdf.xacro" />
 </robot>
