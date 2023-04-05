@@ -15,14 +15,15 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/ouster1.STL"/>
+	  <mesh filename="package://robotnik_sensors/meshes/lidar3d_os1.stl"/>
+          <!--mesh filename="package://robotnik_sensors/meshes/ouster1.STL"/-->
         </geometry>
         <material name="black_alu"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/ouster1.STL"/>
+          <mesh filename="package://robotnik_sensors/meshes/lidar3d_os1.stl"/>
         </geometry>
       </collision>
       <inertial>
