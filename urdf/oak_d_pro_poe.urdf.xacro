@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<!--
+License: Apache 2.0. See LICENSE file in root directory.
+Copyright(c) 2017 Intel Corporation. All Rights Reserved
+Copyright(c) 2020 Robotnik Automation. All Rights Reserved
+-->
+
+<robot name="sensor_oak_d_pro_poe" xmlns:xacro="http://wiki.ros.org/xacro">
+  <!-- Includes -->
+
+  <material name="grey">
+    <color rgba="0.75 0.75 0.75 1"/>
+  </material>
+  
+  <xacro:macro name="sensor_oak_d_pro_poe" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7">
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+    <!-- The following values are approximate, and the camera node
+     publishing TF values with actual calibrated camera extrinsic values -->
+    <xacro:property name="oak_cam_depth_to_left_offset" value="0.0375"/>
+    <xacro:property name="oak_cam_depth_to_right_offset" value="-0.0375"/>
+    <xacro:property name="oak_cam_depth_to_color_offset" value="0.03"/>
+
+    <!-- The following values model the aluminum peripherial case for the
+    OAK-D camera -->
+    <xacro:property name="oak_cam_width" value="0.111"/>
+    <xacro:property name="oak_cam_height" value="0.04"/>
+    <xacro:property name="oak_cam_depth" value="0.0313"/>
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link" />
+
+    <!-- device centre -->
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_link" />
+      <origin xyz="0.0313 0 0" rpy="0 0 0"/> <!--Check-->
+      <child link="${prefix}_link" />
+    </joint>
+
+    <link name="${prefix}_link"> <!-- camera link is aligned with the infrared sensor 1 that is "in the middle of the camera", not the one in the edge -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/> <!--Check-->
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/oak_d_pro_poe.stl" />
+        </geometry>
+        <material name="grey"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${oak_cam_depth} ${oak_cam_width} ${oak_cam_height}"/> <!--Check-->
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
+        <mass value="0.1" />
+        <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
+      </inertial>
+    </link>
+
+    <!-- RGB Camera joints and links -->
+    <joint name="${prefix}_rgb_camera_joint" type="fixed">
+      <origin xyz="0 0 ${oak_cam_depth_to_color_offset}" rpy="0 0 0" /> <!--Check-->
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_rgb_camera_frame" />
+    </joint>
+    <link name="${prefix}_rgb_camera_frame"/>
+
+    <joint name="${prefix}_rgb_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${prefix}_rgb_camera_frame" />
+      <child link="${prefix}_rgb_optical_frame" />
+    </joint>
+    <link name="${prefix}_rgb_optical_frame"/>
+
+    <!-- Left camera joints and links -->
+    <joint name="${prefix}_left_camera_joint" type="fixed">
+      <origin xyz="0 ${oak_cam_depth_to_left_offset} ${oak_cam_depth_to_color_offset}" rpy="0 0 0" />
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_left_camera_frame" />
+    </joint>
+    <link name="${prefix}_left_camera_frame"/>
+
+    <joint name="${prefix}_left_camera_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${prefix}_left_camera_frame" />
+      <child link="${prefix}_left_camera_optical_frame" />
+    </joint>
+    <link name="${prefix}_left_camera_optical_frame"/>
+
+    <!-- Right camera joints and links -->
+    <joint name="${prefix}_right_camera_joint" type="fixed">
+      <origin xyz="0 ${oak_cam_depth_to_right_offset} ${oak_cam_depth_to_color_offset}" rpy="0 0 0" />
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_right_camera_frame" />
+    </joint>
+    <link name="${prefix}_right_camera_frame"/>
+
+    <joint name="${prefix}_right_camera_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${prefix}_right_camera_frame" />
+      <child link="${prefix}_right_camera_optical_frame" />
+    </joint>
+    <link name="${prefix}_right_camera_optical_frame"/>
+
+    <!-- Depth image-->
+    <joint name="${prefix}_depth_joint" type="fixed">
+      <origin xyz="0 0 ${oak_cam_depth_to_color_offset}" rpy="0 0 0" />
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_depth_frame" />
+    </joint>
+    <link name="${prefix}_depth_frame"/>
+
+    <joint name="${prefix}_depth_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+      <parent link="${prefix}_depth_frame" />
+      <child link="${prefix}_depth_optical_frame" />
+    </joint>
+    <link name="${prefix}_depth_optical_frame"/>
+
+    <gazebo reference="${prefix}_link">
+      <material>Gazebo/White</material>
+      <sensor type="depth" name="depth_camera">
+        <update_rate>30.0</update_rate>
+        <camera name="head">
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise is sampled independently per pixel on each frame.
+                That pixel's noise value is added to each of its color
+                channels, which at that point lie in the range [0,1]. -->
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <!-- Keep this zero, update_rate in the parent <sensor> tag
+            will control the frame rate. -->
+          <updateRate>0.0</updateRate>
+          <cameraName>${prefix_topic}</cameraName>
+          <imageTopicName> rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <frameName>/${prefix}_depth_optical_frame</frameName>
+          <pointCloudCutoff>0.02</pointCloudCutoff>
+          <pointCloudCutoffMax>300</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>       
+      </sensor>
+    </gazebo>
+  </xacro:macro> 
+</robot>

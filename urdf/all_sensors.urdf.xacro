@@ -193,4 +193,7 @@
 
   <!-- Link 750 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/link_750_nh.urdf.xacro" />
+  
+  <!-- Oak-d Pro PoE -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/oak_d_pro_poe.urdf.xacro" />
 </robot>
