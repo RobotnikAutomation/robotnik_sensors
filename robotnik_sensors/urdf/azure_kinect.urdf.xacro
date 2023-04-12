@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot name="sensor_azure_kinect" xmlns:xacro="http://wiki.ros.org/xacro">
+  
+  <xacro:macro name="sensor_azure_kinect" params="prefix parent prefix_topic:='front_rgbd_camera' *origin depth_offset_x:=0 depth_offset_y:=0 depth_offset_z:=0">
+
+    <material name="${prefix}_black">
+      <color rgba="0. 0. 0. 1" />
+    </material>
+    <material name="${prefix}_dark_grey">
+      <color rgba="0.1 0.1 0.1 1" />
+    </material>
+    <material name="${prefix}_grey">
+      <color rgba="0.6 0.6 0.6 1" />
+    </material>
+    <material name="${prefix}_white">
+      <color rgba="0.9 0.9 0.9 1" />
+    </material>
+
+    <joint name="${prefix}_joint" type="fixed">
+    	<xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+    </joint>
+
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="-0.013 0. 0." />
+        <geometry>
+          <box size="0.026 0.103 0.039" />
+        </geometry>
+        <material name="${prefix}_grey" />
+      </visual>
+    </link>
+
+    <joint name="${prefix}_camera_base_to_body" type="fixed">
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_camera_body" />
+      <origin xyz="-0.0757 0. 0.008" rpy="0. 0. 0." />
+    </joint>
+
+    <link name="${prefix}_camera_body">
+      <visual>
+        <origin xyz="0. 0. 0." />
+        <geometry>
+          <box size="0.0994 0.0996 0.023" />
+        </geometry>
+        <material name="${prefix}_white" />
+      </visual>
+    </link>
+
+    <joint name="${prefix}_camera_base_to_visor" type="fixed">
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_camera_visor" />
+      <origin xyz="0. 0. 0." rpy="0. 0. 0." />
+    </joint>
+
+    <link name="${prefix}_camera_visor">
+      <visual>
+        <origin xyz="-0.0128 0. 0." />
+        <geometry>
+          <box size="0.026 0.101 0.037" />
+        </geometry>
+        <material name="${prefix}_black" />
+      </visual>
+    </link>
+
+    <!-- RGBD sensor for simulation, same as Kinect -->
+    <xacro:sensor_azure_kinect_gazebo/>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_azure_kinect_gazebo">
+
+  <gazebo reference="${prefix}_link">
+    <sensor type="depth" name="${prefix}_depth_sensor">
+      <always_on>true</always_on>
+      <update_rate>20.0</update_rate>
+      <camera>
+        <horizontal_fov>${60.0*M_PI/180.0}</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>3.5</far>
+        </clip>
+      </camera>
+      <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
+        <cameraName>${prefix_topic}</cameraName>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <imageTopicName>rgb/image_raw</imageTopicName>
+        <depthImageTopicName>depth/image_raw</depthImageTopicName>
+        <pointCloudTopicName>depth/points</pointCloudTopicName>
+        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+        <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+        <frameName>/${prefix}_depth_optical_frame</frameName>
+        <baseline>0.1</baseline>
+        <distortion_k1>0.0</distortion_k1>
+        <distortion_k2>0.0</distortion_k2>
+        <distortion_k3>0.0</distortion_k3>
+        <distortion_t1>0.0</distortion_t1>
+        <distortion_t2>0.0</distortion_t2>
+        <pointCloudCutoff>0.4</pointCloudCutoff>
+      </plugin>
+    </sensor>
+  </gazebo>
+</xacro:macro>
+
+
+</robot>
