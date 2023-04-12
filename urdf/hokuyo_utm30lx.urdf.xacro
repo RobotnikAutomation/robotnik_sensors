@@ -19,7 +19,7 @@
       <visual>
         <origin xyz="0 0 0.055" rpy="0 0 0"/>
         <geometry>
-            <mesh filename="file://$(find robotnik_sensors)/meshes/hokuyo_utm_30lx.dae"/>
+            <mesh filename="package://robotnik_sensors/meshes/hokuyo_utm_30lx.dae"/>
         </geometry>
       </visual>
 

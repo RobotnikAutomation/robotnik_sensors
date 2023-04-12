@@ -13,7 +13,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/orbbec_astra_embedded_s.stl"/>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra_embedded_s.stl"/>
           <!--box size="0.0148 0.0686 0.02235"/-->
         </geometry>
         <material name="dark_grey">
@@ -22,7 +22,7 @@
       </visual>
       <collision>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/orbbec_astra_embedded_s.stl"/>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra_embedded_s.stl"/>
           <!--box size="0.0148 0.0686 0.02235"/-->
         </geometry>
       </collision>

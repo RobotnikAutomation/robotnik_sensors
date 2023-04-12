@@ -14,14 +14,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-         <mesh filename="file://$(find robotnik_sensors)/meshes/rplidar.dae"/>
+         <mesh filename="package://robotnik_sensors/meshes/rplidar.dae"/>
         </geometry>
       </collision>
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-            <mesh filename="file://$(find robotnik_sensors)/meshes/rplidar.dae"/>
+            <mesh filename="package://robotnik_sensors/meshes/rplidar.dae"/>
         </geometry>
       </visual>
 

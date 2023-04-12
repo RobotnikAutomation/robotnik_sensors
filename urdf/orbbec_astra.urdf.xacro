@@ -10,7 +10,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/orbbec_astra.dae"/>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae"/>
         </geometry>
       </visual>
       <collision>

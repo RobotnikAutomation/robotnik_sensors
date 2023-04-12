@@ -19,7 +19,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/rslidar_mems.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/rslidar_mems.stl" />
           <!--box size="${sensor_length} ${sensor_width} ${sensor_height}"/-->
         </geometry>
         <material name="black_alu"/>
@@ -27,7 +27,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/rslidar_mems.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/rslidar_mems.stl" />
         </geometry>
       </collision>
       <inertial>

@@ -16,7 +16,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/hokuyo_ust_20lx.dae"/>
+          <mesh filename="package://robotnik_sensors/meshes/hokuyo_ust_20lx.dae"/>
         </geometry>
       </visual>
       <inertial>

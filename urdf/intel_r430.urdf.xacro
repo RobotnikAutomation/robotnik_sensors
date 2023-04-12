@@ -38,7 +38,7 @@
       <origin xyz="0 ${-r430_cam_mount_from_center_offset} 0" rpy="0 0 0"/>
         <geometry>
           <!-- box size="${r430_cam_width} ${r430_cam_height} ${r430_cam_depth}"/ -->
-          <mesh filename="file://$(find robotnik_sensors)/meshes/intel_r430.dae" />
+          <mesh filename="package://robotnik_sensors/meshes/intel_r430.dae" />
         </geometry>
         <material name="aluminum">
           <color rgba="0.5 0.5 0.5 1"/>

@@ -23,7 +23,7 @@
            <color rgba="0.5 0.5 0.5 1"/>
           </material>
 	      <geometry>
-	        <mesh filename="file://$(find robotnik_sensors)/meshes/antenna_ANN_MB.stl" scale="1.0 1.0 1.0"/>
+	        <mesh filename="package://robotnik_sensors/meshes/antenna_ANN_MB.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </visual>
 	    <collision>

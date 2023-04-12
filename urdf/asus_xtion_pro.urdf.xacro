@@ -23,7 +23,7 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="-0.0175 0 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" />
       </inertial>
     </link>
 
@@ -37,7 +37,7 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.180" h="0.035" d="0.05" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.180" h="0.035" d="0.05" />
       </inertial>
     </link>
 
@@ -51,7 +51,7 @@
       <visual>
         <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/asus_xtion_pro_live.dae" scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}"/>
+          <mesh filename="package://robotnik_sensors/meshes/asus_xtion_pro_live.dae" scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}"/>
         </geometry>
       </visual>
       <collision>
@@ -63,7 +63,7 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="-0.0175 0.0025 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" />
       </inertial>
     </link>
 
@@ -77,7 +77,7 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="-0.0175 -${asus_xtion_pro_depth_rel_rgb_py} 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" />
       </inertial>
     </link>
 
@@ -91,7 +91,7 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="${asus_xtion_pro_depth_rel_rgb_py} 0 -0.0175" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.18" h="0.05" d="0.035" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.18" h="0.05" d="0.035" />
       </inertial>
     </link>
 

@@ -22,7 +22,7 @@
           <color rgba="1 0 0 1"/>
         </material>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/vectornav_vn100.stl"/>
+          <mesh filename="package://robotnik_sensors/meshes/vectornav_vn100.stl"/>
         </geometry>
       </visual>
       <collision>

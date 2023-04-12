@@ -26,14 +26,14 @@
           <color rgba="0.1 0.1 0.1 1"/>
         </material>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/axis_p5514.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_p5514.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <!-- because the origin of the mesh file is not at the "center" of the model-->
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/axis_p5514.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_p5514.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </collision>
     </link>

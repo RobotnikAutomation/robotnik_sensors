@@ -10,13 +10,13 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-         <mesh filename="file://$(find robotnik_sensors)/meshes/sick_tim571.dae"/>
+         <mesh filename="package://robotnik_sensors/meshes/sick_tim571.dae"/>
         </geometry>
       </collision>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-            <mesh filename="file://$(find robotnik_sensors)/meshes/sick_tim571.dae"/>
+            <mesh filename="package://robotnik_sensors/meshes/sick_tim571.dae"/>
         </geometry>
       </visual>
       <inertial>

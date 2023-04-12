@@ -16,14 +16,14 @@
 				<geometry>
 					<box size="0.106 0.094 0.152"/>
 					<!--<cylinder radius="0.058" length="0.152"/>-->
-					<!--<mesh filename="file://$(find robotnik_sensors)/meshes/sick_microscan3.dae"/>-->
+					<!--<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>-->
 				</geometry>
 			</collision>
 
 			<visual>
 				<origin xyz="0 0 0" rpy="0 0 0"/>
 				<geometry>
-					<mesh filename="file://$(find robotnik_sensors)/meshes/sick_microscan3.dae"/>
+					<mesh filename="package://robotnik_sensors/meshes/sick_microscan3.dae"/>
 				</geometry>
 			</visual>
 

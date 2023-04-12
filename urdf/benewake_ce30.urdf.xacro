@@ -19,14 +19,14 @@
       <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
       <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/benewake_ce30.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/benewake_ce30.stl" />
         </geometry>
         <material name="black_alu"/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find robotnik_sensors)/meshes/benewake_ce30.stl" />
+          <mesh filename="package://robotnik_sensors/meshes/benewake_ce30.stl" />
         </geometry>
       </collision>
       <inertial>

@@ -13,14 +13,14 @@
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
-	     		<mesh filename="file://$(find robotnik_sensors)/meshes/teraranger_tr_duo.dae"/>
+	     		<mesh filename="package://robotnik_sensors/meshes/teraranger_tr_duo.dae"/>
 			</geometry>
 		</collision>
 
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
-	     		<mesh filename="file://$(find robotnik_sensors)/meshes/teraranger_tr_duo.dae"/>
+	     		<mesh filename="package://robotnik_sensors/meshes/teraranger_tr_duo.dae"/>
 			</geometry>
 		</visual>
 
