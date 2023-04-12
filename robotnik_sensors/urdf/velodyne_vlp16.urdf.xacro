@@ -72,7 +72,7 @@
           </noise>
         </ray>
         <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_laser.so">
-          <topicName>${ns}/point_cloud</topicName>
+          <topicName>${ns}/${prefix}/point_cloud</topicName>
           <frameName>${ns}/${prefix}_link</frameName>
           <min_range>${range_min}</min_range>
           <max_range>${range_max}</max_range>
@@ -81,5 +81,4 @@
       </sensor>
     </gazebo>
   </xacro:macro>
-
 </robot>
