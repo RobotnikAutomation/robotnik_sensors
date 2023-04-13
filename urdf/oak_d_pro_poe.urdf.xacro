@@ -76,9 +76,9 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
       <parent link="${prefix}_rgb_camera_frame" />
-      <child link="${prefix}_rgb_optical_frame" />
+      <child link="${prefix}_rgb_camera_optical_frame" />
     </joint>
-    <link name="${prefix}_rgb_optical_frame"/>
+    <link name="${prefix}_rgb_camera_optical_frame"/>
 
     <!-- Left camera joints and links -->
     <joint name="${prefix}_left_camera_joint" type="fixed">
