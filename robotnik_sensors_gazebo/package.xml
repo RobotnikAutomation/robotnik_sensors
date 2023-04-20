@@ -24,7 +24,6 @@
   <exec_depend>gazebo_ros_pkgs</exec_depend>
   <exec_depend>gazebo_ros2_control</exec_depend>
   <exec_depend>velodyne_gazebo_plugins</exec_depend>
-  <exec_depend>realsense_gazebo_plugin</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
