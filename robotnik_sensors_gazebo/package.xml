@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>robotnik_sensors_gazebo</name>
+  <version>1.1.2</version>
+  <description>
+    Meta package to group gazebo plugins dependencies used in robotnik_sensors.
+  </description>
+
+  <maintainer email="rmartin@robotnik.es">Rafael Martin</maintainer>
+
+  <license>BSD</license>
+  <author email="rmartin@robotnik.es">Rafael Martin</author>
+
+  <!-- BASE DEPENDENCIES -->
+  <exec_depend>robotnik_sensors</exec_depend>
+
+  <!-- GAZEBO DEPENDENCIES -->
+  <exec_depend>gazebo_msgs</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+
+  <!-- GAZEBO PLUGINS -->
+  <exec_depend>gazebo_ros_pkgs</exec_depend>
+  <exec_depend>gazebo_ros2_control</exec_depend>
+  <exec_depend>velodyne_gazebo_plugins</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

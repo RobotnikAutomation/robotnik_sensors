@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="lidar_mast"
+    params="prefix:=lidar_mast parent *origin">
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+       <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/lidar_mast.STL"/>
+        </geometry>
+        <material name="light_zed_grey">
+          <color rgba="0.35 0.35 0.35 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="-0.03 -0.015 0.30" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.1" length="0.6"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+</robot>

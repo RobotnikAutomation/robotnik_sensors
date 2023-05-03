@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<robot name="sensor_orbbec_astra" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
+  <xacro:macro name="sensor_orbbec_astra" params="ns prefix parent *origin">
+    <joint name="${prefix}_joint" type="fixed">
+    	<xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+    </joint>
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.02 0 0.015" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.042 0.155 0.03"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.3" />
+        <origin xyz="0.0 0.0 0.0" />
+        <xacro:solid_cuboid_inertia m="0.3" w="0.04" h="0.165" d="0.03" />
+      </inertial>
+    </link>
+    <joint name="${prefix}_rgb_joint" type="fixed">
+      <origin xyz="0.0 0.0125 0.0150" rpy="0.0 0.0 0.0"/>
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_rgb_frame" />
+    </joint>
+    <link name="${prefix}_rgb_frame"/>
+    <joint name="${prefix}_rgb_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${prefix}_rgb_frame" />
+      <child link="${prefix}_rgb_optical_frame" />
+    </joint>
+    <link name="${prefix}_rgb_optical_frame"/>
+    <joint name="${prefix}_depth_joint" type="fixed">
+      <origin xyz="0.0 0.0375 0.0150" rpy="0 0 0" />
+      <parent link="${prefix}_link" />
+      <child link="${prefix}_depth_frame" />
+    </joint>
+    <link name="${prefix}_depth_frame"/>
+    <joint name="${prefix}_depth_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${prefix}_depth_frame" />
+      <child link="${prefix}_depth_optical_frame" />
+    </joint>
+    <link name="${prefix}_depth_optical_frame"/>
+    <xacro:sensor_orbbec_astra_gazebo ns="${ns}" prefix="${prefix}"/>
+  </xacro:macro>
+  <xacro:macro name="sensor_orbbec_astra_gazebo" params="ns prefix">
+    <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+    <gazebo reference="${prefix}_link">
+      <sensor name="${prefix}" type="depth">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1,04719755</horizontal_fov>
+          <vertical_fov>0.86393798</vertical_fov>
+          <image>
+            <format>B8G8R8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>100.0</far>
+          </clip>
+        </camera>
+        <plugin name="${prefix}" filename="libgazebo_ros_camera.so">
+          <ros>
+            <namespace>${ns}</namespace>
+          </ros>
+          <frame_name>${ns}/${prefix}_rgb_optical_frame</frame_name>
+          <min_depth>0.4</min_depth>
+          <max_depth>6.5</max_depth>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

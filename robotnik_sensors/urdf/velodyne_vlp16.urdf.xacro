@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<robot name="sensor_velodyne_vlp16" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_velodyne_vlp16" params="ns prefix parent *origin range_min:=0.1 range_max:=20.0 gpu:=false">
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link"/>
+    </joint>
+    <link name="${prefix}_base_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/velodyne_vlp16.dae"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/velodyne_vlp16.dae"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.830" />
+        <origin xyz="0 0 0.03555" rpy="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="0.830" w="0.1033" h="0.1033" d="0.0711" />
+      </inertial>
+    </link>
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0.0 0 0.035" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}_link"/>
+    <xacro:sensor_velodyne_vlp16_gazebo ns="${ns}" prefix="${prefix}" range_min="${range_min}" range_max="${range_max}" gpu="${gpu}"/>
+  </xacro:macro>
+  <xacro:macro name="sensor_velodyne_vlp16_gazebo" params="ns prefix range_min range_max gpu">
+    <xacro:if value="${gpu}">
+      <xacro:property name="ray_type" value="gpu_ray" />
+    </xacro:if>
+    <xacro:unless value="${gpu}">
+      <xacro:property name="ray_type" value="ray" />
+    </xacro:unless>
+    <gazebo reference="${prefix}_link">
+      <sensor type="${ray_type}" name="${prefix}_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>300</samples>
+              <resolution>1.0</resolution>
+              <min_angle>-1.83591184</min_angle>
+              <max_angle>1.83591184</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>100</samples>
+              <resolution>1.0</resolution>
+              <min_angle>-0.610865238</min_angle>
+              <max_angle>1.83591184</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${range_min}</min>
+            <max>${range_max}</max>
+            <resolution>0.001</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.00</stddev>
+          </noise>
+        </ray>
+        <plugin name="${prefix}" filename="libgazebo_ros_velodyne_laser.so">
+          <ros>
+            <namespace>${ns}</namespace>
+          </ros>
+          <topicName>${ns}/${prefix}/point_cloud</topicName>
+          <frameName>${ns}/${prefix}_link</frameName>
+          <min_range>${range_min}</min_range>
+          <max_range>${range_max}</max_range>
+          <gaussianNoise>0.01</gaussianNoise>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>
