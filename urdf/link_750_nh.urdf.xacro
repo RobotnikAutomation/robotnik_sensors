@@ -22,18 +22,18 @@
         <xacro:solid_cuboid_inertia m="0.8" w="0.165" h="0.165" d="0.132" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="-0.07 -0.07 -0.045" rpy="0 0 0"/>
         <material name="grey_color">
           <color rgba="0.1 0.1 0.1 1"/>
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/link_750_base.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/link_750_base.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0.0 0.0 0" rpy="0 0 0"/>
+        <origin xyz="-0.07 -0.07 -0.045" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/link_750_base.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/link_750_base.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
     </link>
