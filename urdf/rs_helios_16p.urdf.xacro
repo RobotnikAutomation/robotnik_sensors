@@ -95,7 +95,7 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_rs_helios_16p" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.2" range_max="150.0" hfov="360.0" hres="0.2" vfov="32.0" vres="0.5" fps="20.0" gpu="${gpu}" >
+    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.2" vfov="32.0" vres="2" fps="10.0" gpu="${gpu}" >
       <xacro:insert_block name="origin" />
     </xacro:sensor_rs_helios>
   </xacro:macro>
