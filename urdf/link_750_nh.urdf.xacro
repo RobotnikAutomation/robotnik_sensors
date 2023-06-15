@@ -135,7 +135,7 @@
     </link>
     <!-- Optical frame -->
     <joint name="${prefix}_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+      <origin xyz="0.02 0 0" rpy="0 0 0"/>
       <parent link="${prefix}_frame_link"/>
       <child link="${prefix}_optical_frame_link"/>
     </joint>
@@ -158,7 +158,7 @@
 
   <xacro:macro name="sensor_link_750_nh_gazebo">
 
-    <gazebo reference="${prefix}_frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
+    <gazebo reference="${prefix}_optical_frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
       <sensor type="camera" name="${prefix}_sensor">
         <update_rate>30.0</update_rate>
         <camera name="${prefix_topic}">
