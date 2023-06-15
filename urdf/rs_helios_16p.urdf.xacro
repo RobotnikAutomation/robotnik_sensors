@@ -85,6 +85,8 @@
           <plugin name="${prefix}_controller" filename="${plugin_lib}">
             <topicName>${prefix_topic}/points</topicName>
             <frameName>/${prefix}_link</frameName>
+            <min_range>${range_min}</min_range>
+            <max_range>${range_max}</max_range>
             <gaussianNoise>0.008</gaussianNoise>
           </plugin>
         </sensor>
