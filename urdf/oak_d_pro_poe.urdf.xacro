@@ -9,9 +9,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
 <robot name="sensor_oak_d_pro_poe" xmlns:xacro="http://wiki.ros.org/xacro">
   <!-- Includes -->
 
-  <material name="grey">
-    <color rgba="0.75 0.75 0.75 1"/>
-  </material>
+  
   
   <xacro:macro name="sensor_oak_d_pro_poe" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7">
     <xacro:property name="M_PI" value="3.1415926535897931" />
@@ -50,7 +48,9 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
         <geometry>
           <mesh filename="package://robotnik_sensors/meshes/oak_d_pro_poe.stl" />
         </geometry>
-        <material name="grey"/>
+        <material name="grey">
+          <color rgba="0.75 0.75 0.75 1"/>
+        </material>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
