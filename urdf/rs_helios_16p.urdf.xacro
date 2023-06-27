@@ -18,7 +18,7 @@
         <geometry>
           <mesh filename="package://robotnik_sensors/meshes/rs_helios_16p.stl" />
         </geometry>
-        <material name="black_alu"/>
+        <xacro:black_alu_material/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
