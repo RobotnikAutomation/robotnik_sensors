@@ -128,9 +128,9 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_rubedos_viper" params="prefix:=myviper parent *origin" >
-    <rubedos_viper prefix="${prefix}" parent="${parent}">
+    <xacro:rubedos_viper prefix="${prefix}" parent="${parent}">
       <xacro:insert_block name="origin" />
-    </rubedos_viper>
+    </xacro:rubedos_viper>
   </xacro:macro>
 
 </robot>
