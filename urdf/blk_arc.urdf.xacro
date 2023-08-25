@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot name="sensor_blk_arc" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="sensor_blk_arc" params="prefix parent *origin">
+
+    <joint name="${prefix}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_link"/>
+    </joint>
+
+    <link name="${prefix}_link">
+      <inertial>
+        <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+        <mass value="0.79" />
+        <xacro:solid_cuboid_inertia m="0.125" w="0.025" h="0.054" d="0.079" />
+      </inertial>
+      <visual>
+        <origin xyz="0.0 0 0" rpy="0 0 0" /> <!-- to center the .dae model -->
+        <material name="fotonic_color">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+        <geometry>
+          <cylinder radius="0.04" length="0.12"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.12"/>
+        </geometry>
+      </collision>
+    </link>
+
+  </xacro:macro>
+
+</robot>
