@@ -1,0 +1,14 @@
+---
+name: Standard issue template
+about: This template is intended to be used in both, features and bugs issues
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+## What do we want to achieve?
+
+## How do we plan to do it?
+
+## How can it be tested?
