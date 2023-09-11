@@ -1,0 +1,14 @@
+---
+repositories:
+  robotnik_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_common.git
+    version: main
+  velodyne_simulator:
+    type: git
+    url: https://github.com/ToyotaResearchInstitute/velodyne_simulator.git
+    version: dashing-devel
+  realsense_gazebo_plugin:
+    type: git
+    url: https://github.com/pal-robotics/realsense_gazebo_plugin.git
+    version: foxy-devel
