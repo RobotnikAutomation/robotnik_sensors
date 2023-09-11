@@ -37,6 +37,7 @@ jobs:
         run: |
           test_workspace.sh
       - name: Generate artifacts
+        if: false
         run: |
           echo ::group::Generate artifacts
           generate_debs.sh
