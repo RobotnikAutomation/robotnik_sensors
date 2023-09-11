@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot name="sensor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="sensor_type" default="orbbec_astra" />
+  <xacro:arg name="sensor_name" default="front" />
+  <xacro:arg name="sensor_ns" default="" />
+
+  <link name="world"/>
+  <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+  <xacro:call
+      macro="sensor_$(arg sensor_type)"
+      frame_prefix="$(arg sensor_name)_"
+      parent="world"
+      simulation="true"
+      node_namespace="$(arg sensor_ns)"
+      node_name="$(arg sensor_name)"
+      topic_prefix="~/">
+    <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
+  </xacro:call>
+</robot>

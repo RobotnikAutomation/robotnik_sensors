@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot name="sensor_stereolabs_zed2" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_stereolabs_zed2"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_namespace:=stereolabs_zed2
+                       node_name:=stereolabs_zed2
+                       topic_prefix:=~/">
+
+    <xacro:sensor_stereolabs_generic frame_prefix="${frame_prefix}"
+                                     parent="${parent}"
+                                     model="zed2"
+                                     simulation="${simulation}"
+                                     node_namespace="${node_namespace}"
+                                     node_name="${node_name}"
+                                     topic_prefix="${topic_prefix}"
+                                     horizontal_fov="110"
+                                     vertical_fov="70"
+                                     video_width="1920"
+                                     video_height="1080"
+                                     video_fps="30"
+                                     min_depth="0.2"
+                                     max_depth="20.0">
+      <xacro:insert_block name="origin" />
+    </xacro:sensor_stereolabs_generic>
+  </xacro:macro>
+</robot>

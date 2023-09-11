@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<robot name="sensor_stereolabs_generic" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_stereolabs_generic"
+               params="frame_prefix
+                       parent
+                       *origin
+                       model:=zed2
+                       simulation:=false
+                       node_name:=stereolabs_generic
+                       node_namespace:=${None}
+                       topic_prefix:=~/
+                       horizontal_fov:=80
+                       vertical_fov:=60
+                       video_width:=1280
+                       video_height:=720
+                       video_fps:=30
+                       min_depth:=0.4
+                       max_depth:=6.5">
+    <!-- node_namespace is used from node_name if not set -->
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
+
+    <xacro:if value="${model == 'zed'}">
+        <xacro:property name="baseline" value="0.12" />
+    </xacro:if>
+    <xacro:if value="${model == 'zedm'}">
+        <xacro:property name="baseline" value="0.06" />
+    </xacro:if>
+    <xacro:if value="${model == 'zed2'}">
+        <xacro:property name="baseline" value="0.12" />
+    </xacro:if>
+
+    <joint name="${frame_prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${frame_prefix}base_link" />
+    </joint>
+    <link name="${frame_prefix}base_link">
+       <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+        </geometry>
+        <material name="light_zed_grey">
+          <color rgba="0.35 0.35 0.35 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.135" />
+        <origin xyz="0 0 0" />
+        <xacro:solid_cuboid_inertia m="0.135" w="0.033" h="0.175" d="0.03" />
+      </inertial>
+    </link>
+
+   <!-- Left camera -->
+    <joint name="${frame_prefix}color_left_joint" type="fixed">
+      <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0" />
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}left_camera_frame" />
+    </joint>
+    <link name="${frame_prefix}left_camera_frame"/>
+
+    <joint name="${frame_prefix}color_left_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0.0 ${-pi/2}" />
+      <parent link="${frame_prefix}left_camera_frame" />
+      <child link="${frame_prefix}left_camera_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}left_camera_optical_frame"/>
+
+    <!-- Right camera-->
+    <joint name="${frame_prefix}color_right_joint" type="fixed">
+      <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0" />
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}right_camera_frame" />
+    </joint>
+    <link name="${frame_prefix}right_camera_frame"/>
+
+    <joint name="${frame_prefix}color_right_optical_joint" type="fixed">
+      <origin xyz="0.0 0 0.0" rpy="${-pi/2} 0.0 ${-pi/2}" />
+      <parent link="${frame_prefix}right_camera_frame" />
+      <child link="${frame_prefix}right_camera_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}right_camera_optical_frame"/>
+
+    <!-- Depth image-->
+    <joint name="${frame_prefix}depth_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}depth_frame" />
+    </joint>
+    <link name="${frame_prefix}depth_frame"/>
+
+    <joint name="${frame_prefix}depth_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0.0 ${-pi/2}" />
+      <parent link="${frame_prefix}depth_frame" />
+      <child link="${frame_prefix}depth_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}depth_optical_frame"/>
+
+    <xacro:if value="${simulation}">
+      <gazebo reference="${frame_prefix}right_camera_frame">
+        <sensor name="${frame_prefix}right_sensor" type="camera">
+          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>30</update_rate>
+          <camera>
+            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
+            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
+            <image>
+              <width>${video_width}</width>
+              <height>${video_height}</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.10</near>
+              <far>100.0</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="${node_name}_right" filename="libgazebo_ros_camera.so">
+            <ros>
+              <namespace>${node_namespace}/${node_name}</namespace>
+              <remapping>right/image_raw:=right/image_raw_color</remapping>
+              <remapping>right/camera_info:=right/camera_info</remapping>
+            </ros>
+            <camera_name>right</camera_name>
+            <frame_name>${node_namespace}/${frame_prefix}right_camera_optical_frame</frame_name>
+          </plugin>
+        </sensor>
+      </gazebo>
+      <gazebo reference="${frame_prefix}left_camera_frame">
+        <sensor name="${frame_prefix}left_sensor" type="camera">
+          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>30</update_rate>
+          <camera>
+            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
+            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
+            <image>
+              <width>${video_width}</width>
+              <height>${video_height}</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.10</near>
+              <far>100.0</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="${node_name}_left" filename="libgazebo_ros_camera.so">
+            <ros>
+              <namespace>${node_namespace}/${node_name}</namespace>
+              <remapping>left/image_raw:=left/image_raw_color</remapping>
+              <remapping>left/camera_info:=left/camera_info</remapping>
+            </ros>
+            <camera_name>left</camera_name>
+            <frame_name>${node_namespace}/${frame_prefix}left_camera_optical_frame</frame_name>
+          </plugin>
+        </sensor>
+      </gazebo>
+      <gazebo reference="${frame_prefix}depth_frame">
+        <sensor name="${frame_prefix}sensor" type="depth">
+          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>30</update_rate>
+          <camera>
+            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
+            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
+            <image>
+              <width>${video_width}</width>
+              <height>${video_height}</height>
+              <format>B8G8R8</format>
+            </image>
+            <clip>
+              <near>0.05</near>
+              <far>100.0</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="${node_name}" filename="libgazebo_ros_camera.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+              <remapping>~/image_raw:=${topic_prefix}rgb/image_raw_color</remapping>
+              <remapping>~/camera_info:=${topic_prefix}rgb/camera_info</remapping>
+              <remapping>~/points:=${topic_prefix}point_cloud/cloud_registered</remapping>
+              <remapping>~/depth/camera_info:=${topic_prefix}depth/camera_info</remapping>
+              <remapping>~/depth/image_raw:=${topic_prefix}depth/depth_registered</remapping>
+            </ros>
+            <camera_name>${node_name}</camera_name>
+            <frame_name>${node_namespace}/${frame_prefix}depth_optical_frame</frame_name>
+            <min_depth>${min_depth}</min_depth>
+            <max_depth>${max_depth}</max_depth>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>

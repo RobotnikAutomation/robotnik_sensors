@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<robot name="sensor_orbbec_astra" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_orbbec_astra"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_namespace:=${None}
+                       node_name:=intel_d435
+                       topic_prefix:=~/">
+    <!-- node_namespace is used from node_name if not set -->
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
+
+    <joint name="${frame_prefix}joint" type="fixed">
+    	<xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${frame_prefix}link"/>
+    </joint>
+    <link name="${frame_prefix}link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/depth/orbbec_astra/orbbec_astra.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="-0.02 0 0.015" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.042 0.155 0.03"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.3" />
+        <origin xyz="0.0 0.0 0.0" />
+        <xacro:solid_cuboid_inertia m="0.3" w="0.04" h="0.165" d="0.03" />
+      </inertial>
+    </link>
+    <joint name="${frame_prefix}rgb_joint" type="fixed">
+      <origin xyz="0.0 0.0125 0.0150" rpy="0.0 0.0 0.0"/>
+      <parent link="${frame_prefix}link"/>
+      <child link="${frame_prefix}rgb_frame" />
+    </joint>
+    <link name="${frame_prefix}rgb_frame"/>
+    <joint name="${frame_prefix}rgb_optical_joint" type="fixed">
+      <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0 ${-pi/2}" />
+      <parent link="${frame_prefix}rgb_frame" />
+      <child link="${frame_prefix}rgb_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}rgb_optical_frame"/>
+    <joint name="${frame_prefix}depth_joint" type="fixed">
+      <origin xyz="0.0 0.0375 0.0150" rpy="0 0 0" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}depth_frame" />
+    </joint>
+    <link name="${frame_prefix}depth_frame"/>
+    <joint name="${frame_prefix}depth_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+      <parent link="${frame_prefix}depth_frame" />
+      <child link="${frame_prefix}depth_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}depth_optical_frame"/>
+
+    <xacro:if value="${simulation}">
+      <gazebo reference="${frame_prefix}link">
+        <sensor name="${frame_prefix}sensor" type="depth">
+          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>30</update_rate>
+          <camera>
+            <horizontal_fov>${radians(60)}</horizontal_fov>
+            <vertical_fov>${radians(49.5)}</vertical_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>B8G8R8</format>
+            </image>
+            <clip>
+              <near>0.05</near>
+              <far>100.0</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.75</stddev>
+            </noise>
+          </camera>
+          <plugin name="${node_name}" filename="libgazebo_ros_camera.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+              <remapping>~/image_raw:=${topic_prefix}rgb/image_raw</remapping>
+              <remapping>~/camera_info:=${topic_prefix}rgb/camera_info</remapping>
+              <remapping>~/points:=${topic_prefix}depth_registered/points</remapping>
+              <remapping>~/depth/camera_info:=${topic_prefix}depth/camera_info</remapping>
+              <remapping>~/depth/image_raw:=${topic_prefix}depth/image_raw</remapping>
+            </ros>
+            <camera_name>${node_name}</camera_name>
+            <frame_name>${node_namespace}/${frame_prefix}rgb_optical_frame</frame_name>
+            <min_depth>0.4</min_depth>
+            <max_depth>6.5</max_depth>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>
