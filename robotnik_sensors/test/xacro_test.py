@@ -135,6 +135,16 @@ def test_xacro_sick_tim571():
     check_xacro_file("sick_tim571")
 
 
+def test_xacro_robosense_bpearl():
+    """Test xacro default."""
+    check_xacro_file("robosense_bpearl")
+
+
+def test_xacro_velodyne_vlp16():
+    """Test xacro default."""
+    check_xacro_file("velodyne_vlp16")
+
+
 if __name__ == "__main__":
     test_xacro_intel_realsense_d435()
     test_xacro_orbbec_astra()
