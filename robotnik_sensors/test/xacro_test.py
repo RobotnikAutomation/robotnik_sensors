@@ -150,11 +150,18 @@ def test_xacro_vectornav():
     check_xacro_file("vectornav")
 
 
+def test_xacro_gps():
+    """Test xacro default."""
+    check_xacro_file("gps")
+
+
 if __name__ == "__main__":
+    # Run depth camera tests
     test_xacro_intel_realsense_d435()
     test_xacro_orbbec_astra()
     test_xacro_stereolabs_zed2()
 
+    # Run 2d lidar tests
     test_xacro_sick_microscan3()
     test_xacro_sick_nanoscan3()
     test_xacro_sick_outdoorscan3()
@@ -163,5 +170,12 @@ if __name__ == "__main__":
     test_xacro_sick_tim551()
     test_xacro_sick_tim571()
 
+    # Run 3d lidar tests
     test_xacro_robosense_bpearl()
     test_xacro_velodyne_vlp16()
+
+    # Run imu tests
+    test_xacro_vectornav()
+
+    # Run gps tests
+    test_xacro_gps()

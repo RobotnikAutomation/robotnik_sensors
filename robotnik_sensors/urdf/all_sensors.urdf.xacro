@@ -20,4 +20,14 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim551.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim571.urdf.xacro" />
 
+  <!-- 3D Lidars -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/velodyne_vlp16.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_bpearl.urdf.xacro" />
+
+  <!-- IMUs -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/vectornav.urdf.xacro" />
+
+  <!-- GPS -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps.urdf.xacro" />
+
 </robot>
