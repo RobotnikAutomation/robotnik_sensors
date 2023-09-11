@@ -15,6 +15,10 @@ jobs:
           path: src/repo
       - name: Prepare workspace
         run: |
+          echo ::group::Download dependencies
+          mkdir -p ./src/deps
+          vcs import --input ./src/repo/tools/common.repos ./src/deps
+          echo ::endgroup::
           echo ::group::Install dependencies
           local_deps.sh
           rosdep update --include-eol-distros
