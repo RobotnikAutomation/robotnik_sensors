@@ -1,0 +1,21 @@
+---
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DISPLAY: ${DISPLAY}
+      NVIDIA_DRIVER_CAPABILITIES: all
+      NVIDIA_VISIBLE_DEVICES: all
+    runtime: nvidia
+    volumes:
+      - source: ../
+        target: /home/robot/robot_ws/src/repo/
+        type: bind
+      - source: /dev
+        target: /dev
+        type: bind
+    privileged: true
+    network_mode: host
+    user: robot

@@ -1,0 +1,19 @@
+{
+    "name": "Robotnik sensors",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "workspace",
+    "workspaceFolder": "/home/robot/robot_ws",
+    "postCreateCommand": "./src/repo/.devcontainer/postcreate.sh",
+    "shutdownAction": "stopCompose",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "GitHub.copilot",
+                "eamodio.gitlens",
+                "ms-python.python",
+                "redhat.vscode-xml"
+            ]
+        }
+    }
+}
