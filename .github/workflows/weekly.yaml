@@ -1,0 +1,58 @@
+---
+name: build
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      matrix:
+        rosdistro:
+          - humble
+        branch:
+          - ros2
+          - ros2-devel
+    runs-on: ubuntu-latest
+    container:
+      image: robotnik/ros:${{ matrix.rosdistro }}-builder
+      options: --user root
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: src/repo
+          ref: ${{ matrix.branch }}
+      - name: Prepare workspace
+        run: |
+          echo ::group::Download dependencies
+          mkdir -p ./src/deps
+          vcs import --input ./src/repo/tools/common.repos ./src/deps
+          echo ::endgroup::
+          echo ::group::Install dependencies
+          local_deps.sh
+          rosdep update --include-eol-distros
+          apt-get update
+          rosdep install --from-paths src --ignore-src -r -y -t build -t test
+          echo ::endgroup::
+          echo ::group::Generate whitelist
+          generate_whitelist.sh -p src/repo
+          echo ::endgroup::
+      - name: Build
+        run: |
+          echo ::group::Build
+          compile_workspace.sh
+          echo ::endgroup::
+      - name: Test
+        run: |
+          test_workspace.sh
+      - name: Generate artifacts
+        if: false
+        run: |
+          echo ::group::Generate artifacts
+          generate_debs.sh
+          echo ::endgroup::
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: |
+            debs/*.deb
+            log/**/*
