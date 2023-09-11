@@ -100,5 +100,50 @@ def test_xacro_stereolabs_zed2():
     check_xacro_file("stereolabs_zed2")
 
 
+def test_xacro_sick_microscan3():
+    """Test xacro default."""
+    check_xacro_file("sick_microscan3")
+
+
+def test_xacro_sick_nanoscan3():
+    """Test xacro default."""
+    check_xacro_file("sick_nanoscan3")
+
+
+def test_xacro_sick_outdoorscan3():
+    """Test xacro default."""
+    check_xacro_file("sick_outdoorscan3")
+
+
+def test_xacro_sick_s300():
+    """Test xacro default."""
+    check_xacro_file("sick_s300")
+
+
+def test_xacro_sick_s3000():
+    """Test xacro default."""
+    check_xacro_file("sick_s3000")
+
+
+def test_xacro_sick_tim551():
+    """Test xacro default."""
+    check_xacro_file("sick_tim551")
+
+
+def test_xacro_sick_tim571():
+    """Test xacro default."""
+    check_xacro_file("sick_tim571")
+
+
 if __name__ == "__main__":
     test_xacro_intel_realsense_d435()
+    test_xacro_orbbec_astra()
+    test_xacro_stereolabs_zed2()
+
+    test_xacro_sick_microscan3()
+    test_xacro_sick_nanoscan3()
+    test_xacro_sick_outdoorscan3()
+    test_xacro_sick_s300()
+    test_xacro_sick_s3000()
+    test_xacro_sick_tim551()
+    test_xacro_sick_tim571()

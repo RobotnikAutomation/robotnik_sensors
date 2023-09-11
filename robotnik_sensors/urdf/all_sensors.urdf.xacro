@@ -11,4 +11,13 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_generic.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed2.urdf.xacro" />
 
+  <!-- 2D Lidars -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_microscan3.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_nanoscan3.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_outdoorscan3.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_s300.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_s3000.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim551.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim571.urdf.xacro" />
+
 </robot>

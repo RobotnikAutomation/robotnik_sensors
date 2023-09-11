@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot name="sensor_sick_nanoscan3" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_sick_nanoscan3"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_name:=sick_tim571
+                       node_namespace:=${None}
+                       topic_prefix:=~/
+                       gpu:=true">
+    <!-- node_namespace is used from node_name if not set -->
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
+
+    <joint name="${frame_prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${frame_prefix}base_link"/>
+    </joint>
+    <link name="${frame_prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+		  <mesh filename="package://robotnik_sensors/meshes/2d_lidar/sick/nanoscan3.stl"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+		  <mesh filename="package://robotnik_sensors/meshes/2d_lidar/sick/nanoscan3.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.67" />
+        <origin xyz="0 0 0.04" rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia m="0.67" w="0.1006" h="0.1006" d="0.08" />
+	  </inertial>
+    </link>
+    <joint name="${frame_prefix}joint" type="fixed">
+      <origin xyz="0.0 0 0.0505" rpy="0 0 0"/>
+      <parent link="${frame_prefix}base_link"/>
+      <child link="${frame_prefix}link"/>
+    </joint>
+    <link name="${frame_prefix}link"/>
+    <xacro:if value="${simulation}">
+      <xacro:if value="${gpu}">
+        <xacro:property name="ray_type" value="gpu_ray" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+      </xacro:unless>
+      <gazebo reference="${frame_prefix}link">
+        <sensor type="${ray_type}" name="${frame_prefix}sensor">
+          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <visualize>false</visualize>
+		  <update_rate>12.5</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>1600</samples>
+                <resolution>1</resolution>
+                <min_angle>${-radians(135)}</min_angle>
+                <max_angle>${radians(135)}</max_angle>
+              </horizontal>
+            </scan>
+            <range>
+              <min>0.05</min>
+              <max>40.0</max>
+              <resolution>0.00575</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </ray>
+          <plugin name="${node_name}" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+              <remapping>~/out:=~/scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>

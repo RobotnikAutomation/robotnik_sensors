@@ -106,7 +106,7 @@
   </library_effects>
   <library_images>
     <image id="sick_s300" name="sick_s300">
-      <init_from>sick_s300.png</init_from>
+      <init_from>s300.png</init_from>
     </image>
   </library_images>
   <library_materials>
