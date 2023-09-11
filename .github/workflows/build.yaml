@@ -5,6 +5,12 @@ on:
   push:
 jobs:
   build:
+    strategy:
+      matrix:
+        rosdistro:
+          - humble
+          - iron
+          - rolling
     runs-on: ubuntu-latest
     container:
       image: robotnik/ros:humble-builder
