@@ -145,6 +145,11 @@ def test_xacro_velodyne_vlp16():
     check_xacro_file("velodyne_vlp16")
 
 
+def test_xacro_vectornav():
+    """Test xacro default."""
+    check_xacro_file("vectornav")
+
+
 if __name__ == "__main__":
     test_xacro_intel_realsense_d435()
     test_xacro_orbbec_astra()
@@ -157,3 +162,6 @@ if __name__ == "__main__":
     test_xacro_sick_s3000()
     test_xacro_sick_tim551()
     test_xacro_sick_tim571()
+
+    test_xacro_robosense_bpearl()
+    test_xacro_velodyne_vlp16()
