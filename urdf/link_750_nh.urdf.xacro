@@ -176,7 +176,7 @@
         <plugin name="${prefix}_controller" filename="libgazebo_ros_camera.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
-          <cameraName>${prefix_topic}</cameraName>
+          <cameraName>top_rgb_${prefix_topic}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
           <frameName>${prefix}_optical_frame_link</frameName>
@@ -189,6 +189,30 @@
           <distortionT1>0.0</distortionT1>
           <distortionT2>0.0</distortionT2>
           <ignoreTfPrefix>1</ignoreTfPrefix>
+        </plugin>
+      </sensor>
+      <sensor type="camera" name="thermal_${prefix}_sensor">
+        <update_rate>30.0</update_rate>
+        <camera>
+          <horizontal_fov>${60.0*M_PI/180.0}</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>${near}</near>
+            <far>${far}</far>
+          </clip>
+        </camera>
+        
+        <plugin name="thermal_camera_controller" filename="libgazebo_ros_thermal_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10</updateRate>
+          <cameraName>top_thermal_${prefix_topic}</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>/${prefix}_optical_link</frameName>
         </plugin>
       </sensor>
     </gazebo>
