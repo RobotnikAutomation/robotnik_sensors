@@ -212,7 +212,7 @@
           <cameraName>top_thermal_${prefix_topic}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>/${prefix}_optical_link</frameName>
+          <frameName>${prefix}_optical_frame_link</frameName>
         </plugin>
       </sensor>
     </gazebo>
