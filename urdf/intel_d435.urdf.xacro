@@ -173,7 +173,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        </camera>
        <always_on>1</always_on>
        <update_rate>${update_rate}</update_rate>
-       <visualize>1</visualize>
+       <visualize>0</visualize>
 
        <plugin name="${prefix}kortex_vision_controller" filename="libgazebo_ros_camera.so">
           <alwaysOn>true</alwaysOn>
@@ -255,7 +255,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
            <stddev>0.100</stddev>
          </noise>
        </camera>
-       <always_on>1</always_on>
+       <always_on></always_on>
        <update_rate>${update_rate}</update_rate>
        <visualize>0</visualize>
      </sensor>
