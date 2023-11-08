@@ -98,7 +98,7 @@
               <vertical>
                 <samples>${lasers}</samples>
                 <min_angle>-${5*M_PI/180.0}</min_angle>  <!-- bpearl has 90 degrees of vertical field of view-->
-                <max_angle> ${(vfov-5)*M_PI/180.0}</max_angle>  
+                <max_angle> ${(vfov-10)*M_PI/180.0}</max_angle>
               </vertical>
             </scan>
             <range>
