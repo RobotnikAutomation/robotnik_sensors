@@ -8,7 +8,7 @@
 
   <xacro:macro name="sensor_axis" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
     <joint name="${prefix}_joint" type="fixed">
-      <axis xyz="0 1 0"/>
+      <axis xyz="0 0 1"/>
       <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
@@ -65,7 +65,6 @@
     </transmission>
     <joint name="${prefix}_tilt_joint" type="revolute">
       <axis xyz="0 0 1"/>
-      <!--origin xyz="0.0 0.0 0.0"/-->
       <origin xyz="0.0 0.0 0.0" rpy="${-PI/2} 0 0"/>
       <parent link="${prefix}_pan_link"/>
       <child link="${prefix}_tilt_link"/>
