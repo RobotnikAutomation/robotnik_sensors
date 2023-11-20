@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot name="sensor_robosense_helios" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_robosense_helios"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_name:=robosense_helios
+                       node_namespace:=${None}
+                       topic_prefix:=~/
+                       gpu:=true">
+
+    <joint name="${frame_prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${frame_prefix}base_link"/>
+    </joint>
+    <link name="${frame_prefix}base_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/robotsense/helios_16p.stl"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/robotsense/helios_16p.stl"/>
+        </geometry>
+        <material name="blackgray_color">
+          <color rgba="0.25 0.25 0.25 1"/>
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.840" />
+        <origin xyz="0 0 0.04135" />
+		<xacro:solid_cuboid_inertia m="0.840" w="0.109" h="0.109" d="0.0827" />
+      </inertial>
+    </link>
+    <joint name="${frame_prefix}joint" type="fixed">
+      <parent link="${frame_prefix}base_link"/>
+      <child link="${frame_prefix}link"/>
+      <origin xyz="0.0 0 0.0635" rpy="0 0 0"/>
+    </joint>
+    <link name="${frame_prefix}link"/>
+    <xacro:if value="${simulation}">
+      <xacro:if value="${gpu}">
+        <xacro:property name="ray_type" value="gpu_ray" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+      </xacro:unless>
+      <gazebo reference="${frame_prefix}link">
+        <sensor type="${ray_type}" name="${frame_prefix}sensor">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <update_rate>10</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>1200</samples>
+                <resolution>1.0</resolution>
+                <min_angle>${-radians(180)}</min_angle>
+                <max_angle>${radians(180)}</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>32</samples>
+                <resolution>1.0</resolution>
+                <min_angle>0.0</min_angle>
+                <max_angle>${radians(85)}</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.10</min>
+              <max>50</max>
+              <resolution>0.001</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.00</stddev>
+            </noise>
+          </ray>
+          <plugin name="${node_name}" filename="libgazebo_ros_velodyne_laser.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+            </ros>
+            <topicName>~/point_cloud</topicName>
+            <frameName>${node_namespace}/${frame_prefix}link</frameName>
+            <min_range>0.05</min_range>
+            <max_range>100.0</max_range>
+            <gaussianNoise>0.01</gaussianNoise>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>
