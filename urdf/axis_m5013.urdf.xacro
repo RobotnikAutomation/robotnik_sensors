@@ -9,7 +9,7 @@
 
   <xacro:macro name="sensor_axis_m5013" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
     <joint name="${prefix}_joint" type="fixed">
-      <axis xyz="0 1 0"/>
+      <axis xyz="0 0 1"/>
       <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
@@ -39,8 +39,8 @@
     </link>
 
     <joint name="${prefix}_pan_joint" type="revolute">
-      <axis xyz="1 0 0"/>
-      <origin xyz="0.04 0.0 0.0" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <origin xyz="1 0.0 0.04" rpy="0 0 0"/>
       <!-- check the displacement -->
       <parent link="${prefix}_base_link"/>
       <child link="${prefix}_pan_link"/>
@@ -66,8 +66,8 @@
     </transmission>
 
     <joint name="${prefix}_tilt_joint" type="revolute">
-      <axis xyz="0 -1 0"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0 ${-PI/2} 0"/>
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 0.0" rpy="${-PI/2} 0 0"/>
       <parent link="${prefix}_pan_link"/>
       <child link="${prefix}_tilt_link"/>
       <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-1.5708" upper="1.5708"/>
