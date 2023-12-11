@@ -53,6 +53,9 @@
   <!-- Hokuyo ust30lx -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/hokuyo_ust30lx.urdf.xacro" />
   
+  <!-- Ultrasonic sensor A21 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/a21_ultrasonic_sensor.urdf.xacro" />
+
   <!-- Imu -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/imu.urdf.xacro" />
 
@@ -98,7 +101,7 @@
   <!-- Orbbec Astra -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra.urdf.xacro" />
   
-   <!-- Orbbec Astra Pro-->
+ <!-- Orbbec Astra Pro-->
   <xacro:include filename="$(find robotnik_sensors)/urdf/orbbec_astra_pro.urdf.xacro" />
 
   <!-- Zed -->
