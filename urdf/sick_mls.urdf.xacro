@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sick_mls" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sick_mls" params="prefix parent *origin">
+  <xacro:macro name="sick_mls" params="prefix parent *origin include_inertial:=^|true">
 
 		<joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -10,11 +10,13 @@
     </joint>
 
     <link name="${prefix}_base_link">
-      <inertial>
-        <mass value="0.5" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.5" />
+          <origin xyz="0 0 0" />
+          <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+        </inertial>
+      </xacro:if>
     </link>
 
   </xacro:macro>

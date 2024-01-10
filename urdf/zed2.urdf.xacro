@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="depth_camera"
-    params="prefix fps baseline hfov width height format near far  prefix_topic:='zed_node'">
+    params="prefix fps baseline hfov width height format near far  prefix_topic:='zed_node' include_inertial:=^|true">
 
     <gazebo reference="${prefix}_base_link">
       <visual>  
@@ -97,11 +97,13 @@
           <mesh filename="package://robotnik_sensors/meshes/${model}.stl" />
         </geometry>
       </collision>
-      <inertial>
-        <mass value="0.135" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.135" w="0.033" h="0.175" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.135" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.135" w="0.033" h="0.175" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
    <!-- Left camera -->
@@ -169,8 +171,8 @@
         />
   </xacro:macro>
 
-  <xacro:macro name="sensor_zed2" params="prefix:=zed2 parent *origin model:=zed2  prefix_topic:=zed_node" >
-    <stereolabs_zed2 prefix="${prefix}" parent="${parent}" model="${model}" prefix_topic="${prefix_topic}">
+  <xacro:macro name="sensor_zed2" params="prefix:=zed2 parent *origin model:=zed2  prefix_topic:=zed_node include_inertial:=^|true" >
+    <stereolabs_zed2 prefix="${prefix}" parent="${parent}" model="${model}" prefix_topic="${prefix_topic}" include_inertial="${include_inertial}">
       <xacro:insert_block name="origin" />
     </stereolabs_zed2>
   </xacro:macro>

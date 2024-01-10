@@ -2,7 +2,7 @@
 <robot name="sensor_pilz_psen_scan"
   xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_pilz_psen_scan" params="prefix parent prefix_topic:='front_laser' *origin max_angle:=2.3562 min_angle:=-2.3562 gpu:=^|true">
+  <xacro:macro name="sensor_pilz_psen_scan" params="prefix parent prefix_topic:='front_laser' *origin max_angle:=2.3562 min_angle:=-2.3562 gpu:=^|true include_inertial:=^|true">
     <xacro:property name="mass" value="1.53" /> <!-- src datasheet p 96 -->
     <xacro:property name="radius" value="0.051" /> <!-- src datasheet p 96 -->
     <xacro:property name="height" value="0.152" /> <!-- src datasheet p 96 -->
@@ -41,13 +41,15 @@
           <!--cylinder radius="${radius}" length="${height}" /-->
         </geometry>
       </collision>
-      <inertial>
-        <mass value="${mass}" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="${1 / 12 * mass * (3 * radius * radius + height * height)}" ixy="0.0" ixz="0.0"
-          iyy="${1 / 12 * mass * (3 * radius * radius + height * height)}" iyz="0.0"
-          izz="${.5 * mass * (radius * radius)}" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="${mass}" />
+          <origin xyz="0 0 0" />
+          <inertia ixx="${1 / 12 * mass * (3 * radius * radius + height * height)}" ixy="0.0" ixz="0.0"
+            iyy="${1 / 12 * mass * (3 * radius * radius + height * height)}" iyz="0.0"
+            izz="${.5 * mass * (radius * radius)}" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_scan_joint" type="fixed">

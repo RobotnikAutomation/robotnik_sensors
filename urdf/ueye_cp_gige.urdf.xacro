@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_ueye_cp_gige" params="prefix parent *origin">
+  <xacro:macro name="sensor_ueye_cp_gige" params="prefix parent *origin include_inertial:=^|true">
     <joint name="${prefix}_joint" type="fixed">
       <insert_block name="origin"/>
       <parent link="${parent}"/>
       <child link="${prefix}_base_link"/>
     </joint>
     <link name="${prefix}_base_link">
-      <inertial>
-        <mass value="0.0088"/>
-        <origin xyz="0.007 0 0.0145" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.0088" w="0.0604" h="0.029" d="0.029" />
-        <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.0088"/>
+          <origin xyz="0.007 0 0.0145" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.0088" w="0.0604" h="0.029" d="0.029" />
+          <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0.0 0.0 0." rpy="0 0 0"/>
         <!-- to center the axis model -->
@@ -38,11 +40,13 @@
       <child link="${prefix}_rgb_frame_link"/>
     </joint>
     <link name="${prefix}_rgb_frame_link">
-      <inertial>
-        <mass value="0.0001" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.0001" w="0.0604" h="0.029" d="0.029" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.0001" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.0001" w="0.0604" h="0.029" d="0.029" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
@@ -51,11 +55,13 @@
       <child link="${prefix}_rgb_optical_frame_link"/>
     </joint>
     <link name="${prefix}_rgb_optical_frame_link">
-    <inertial>
-      <mass value="0.0001" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.0001" w="0.0604" h="0.029" d="0.029" />
-    </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+        <mass value="0.0001" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.0001" w="0.0604" h="0.029" d="0.029" />
+        </inertial>
+      </xacro:if>
     </link>
     <sensor_ueye_cp_gige_gazebo />
   </xacro:macro>

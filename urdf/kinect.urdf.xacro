@@ -9,7 +9,7 @@
 	<xacro:property name="cam_op" value="0" />
 	<xacro:property name="cam_oy" value="0" />
 
-  <xacro:macro name="sensor_kinect" params="prefix parent *origin">
+  <xacro:macro name="sensor_kinect" params="prefix parent *origin include_inertial:=^|true">
 
     <joint name="${prefix}_rgb_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -46,11 +46,13 @@
 	      <box size="0.07271 0.27794 0.073"/>
 	    </geometry>
 	  </collision>
-    <inertial>
-      <origin xyz="-0.0 0.0 0.015" rpy="0 0 0" />
-      <mass value="0.2" />
-      <xacro:solid_cuboid_inertia m="0.2" w="0.06" h="0.24" d="0.04" />
-    </inertial>
+    <xacro:if value="$(include_inertial)">
+      <inertial>
+        <origin xyz="-0.0 0.0 0.015" rpy="0 0 0" />
+        <mass value="0.2" />
+        <xacro:solid_cuboid_inertia m="0.2" w="0.06" h="0.24" d="0.04" />
+      </inertial>
+    </xacro:if>
   </link>
 
   <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch

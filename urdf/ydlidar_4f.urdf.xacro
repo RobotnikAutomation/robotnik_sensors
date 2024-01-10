@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_ydlidar_4f" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_ydlidar_4f" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14 max_angle:=3.14 gpu:=^true">
+  <xacro:macro name="sensor_ydlidar_4f" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14 max_angle:=3.14 gpu:=^true include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -11,18 +11,20 @@
 
 
     <link name="${prefix}_base_link">
-      <inertial>
-        <origin xyz="-0.0 0.0 0.0205" rpy="0 0 0" />
-        <mass value="0.188" />
-        <xacro:solid_cuboid_inertia m="0.189" w="0.071" h="0.071" d="0.041" />
-        <!--inertia
-          ixx="6.7885E-05"
-          ixy="-1.3987E-07"
-          ixz="-8.1554E-07"
-          iyy="0.00013173"
-          iyz="-9.0932E-08"
-          izz="7.1972E-05" /-->
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="-0.0 0.0 0.0205" rpy="0 0 0" />
+          <mass value="0.188" />
+          <xacro:solid_cuboid_inertia m="0.189" w="0.071" h="0.071" d="0.041" />
+          <!--inertia
+            ixx="6.7885E-05"
+            ixy="-1.3987E-07"
+            ixz="-8.1554E-07"
+            iyy="0.00013173"
+            iyz="-9.0932E-08"
+            izz="7.1972E-05" /-->
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -48,18 +50,20 @@
 	  </joint>
 
     <link name="${prefix}_link">
-      <inertial>
-        <origin xyz="-0.0 0.0 -0.0107" rpy="0 0 0" />
-        <mass value="0.001" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.071" h="0.071" d="0.041" />
-        <!--inertia
-          ixx="8.9194E-05"
-          ixy="1.8116E-07"
-          ixz="3.6435E-08"
-          iyy="0.00018279"
-          iyz="2.423E-07"
-          izz="0.00011103" /-->
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="-0.0 0.0 -0.0107" rpy="0 0 0" />
+          <mass value="0.001" />
+          <xacro:solid_cuboid_inertia m="0.001" w="0.071" h="0.071" d="0.041" />
+          <!--inertia
+            ixx="8.9194E-05"
+            ixy="1.8116E-07"
+            ixz="3.6435E-08"
+            iyy="0.00018279"
+            iyz="2.423E-07"
+            izz="0.00011103" /-->
+        </inertial>
+      </xacro:if>
     </link>
 	  
     <xacro:sensor_ydlidar_4f_gazebo />

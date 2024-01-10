@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_orbbec_astra_pro" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
 
-  <xacro:macro name="sensor_orbbec_astra_pro" params="prefix parent prefix_topic:='front_rgbd_camera' *origin depth_offset_x:=0 depth_offset_y:=0 depth_offset_z:=0">
+  <xacro:macro name="sensor_orbbec_astra_pro" params="prefix parent prefix_topic:='front_rgbd_camera' *origin depth_offset_x:=0 depth_offset_y:=0 depth_offset_z:=0 include_inertial:=^|true">
 
     <joint name="${prefix}_joint" type="fixed">
     	<xacro:insert_block name="origin" />
@@ -21,11 +21,13 @@
           <mesh filename="package://robotnik_sensors/meshes/orbbec_astra.dae"/>
         </geometry>
       </collision>
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.001" />
+          <origin xyz="0.0 0.0 0.0" />
+          <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_color_joint" type="fixed">
@@ -35,11 +37,13 @@
     </joint>
 
     <link name="${prefix}_color_frame">
-      <inertial>
-        <mass value="0.297" />
-        <origin xyz="-0.02 -0.0125 0.0" />
-        <xacro:solid_cuboid_inertia m="0.297" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.297" />
+          <origin xyz="-0.02 -0.0125 0.0" />
+          <xacro:solid_cuboid_inertia m="0.297" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_color_optical_joint" type="fixed">
@@ -49,11 +53,13 @@
     </joint>
 
     <link name="${prefix}_color_optical_frame">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.001" />
+          <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+          <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_depth_joint" type="fixed">
@@ -63,11 +69,13 @@
     </joint>
 
     <link name="${prefix}_depth_frame">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.001" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_depth_optical_joint" type="fixed">
@@ -77,11 +85,13 @@
     </joint>
 
     <link name="${prefix}_depth_optical_frame">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.001" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->

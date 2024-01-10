@@ -2,7 +2,7 @@
 <robot name="sensor_sick_outdoorscan3"
 	xmlns:xacro="http://wiki.ros.org/xacro">
 
-	<xacro:macro name="sensor_sick_outdoorscan3" params="prefix parent prefix_topic:='front_laser' *origin max_angle:=2.3562 min_angle:=-2.3562 gpu:=^|true">
+	<xacro:macro name="sensor_sick_outdoorscan3" params="prefix parent prefix_topic:='front_laser' *origin max_angle:=2.3562 min_angle:=-2.3562 gpu:=^|true include_inertial:=^|true">
 
 		<joint name="${prefix}_base_joint" type="fixed">
 			<xacro:insert_block name="origin" />
@@ -26,12 +26,13 @@
 					<mesh filename="package://robotnik_sensors/meshes/sick_outdoorscan3.dae"/>
 				</geometry>
 			</visual>
-
-			<inertial>
-				<mass value="1.15" />
-				<origin xyz="0 0 0.075" rpy="0 0 0"/>
-				<xacro:solid_cuboid_inertia m="1.15" w="0.112" h="0.111" d="0.15" />
-			</inertial>
+			<xacro:if value="$(include_inertial)">
+				<inertial>
+					<mass value="1.15" />
+					<origin xyz="0 0 0.075" rpy="0 0 0"/>
+					<xacro:solid_cuboid_inertia m="1.15" w="0.112" h="0.111" d="0.15" />
+				</inertial>
+			</xacro:if>
 		</link>
 
 		<joint name="${prefix}_joint" type="fixed">

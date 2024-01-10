@@ -7,7 +7,7 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
   <xacro:property name="PI" value="3.14159265359"/>
 
-  <xacro:macro name="sensor_axis_m5013" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
+  <xacro:macro name="sensor_axis_m5013" params="prefix parent *origin far:=^|8.0 near:=^|0.05 include_inertial:=^|true">
     <joint name="${prefix}_joint" type="fixed">
       <axis xyz="0 0 1"/>
       <xacro:insert_block name="origin"/>
@@ -15,11 +15,13 @@
       <child link="${prefix}_base_link"/>
     </joint>
     <link name="${prefix}_base_link">
-      <inertial>
-        <origin xyz="0.0175 0 0" rpy="0 ${M_PI/2} 0"/>
-        <mass value="0.3"/>
-        <xacro:solid_cuboid_inertia m="0.3" w="0.130" h="0.130" d="0.035" /> <!-- Data from axis M5013 datasheet -->
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <origin xyz="0.0175 0 0" rpy="0 ${M_PI/2} 0"/>
+          <mass value="0.3"/>
+          <xacro:solid_cuboid_inertia m="0.3" w="0.130" h="0.130" d="0.035" /> <!-- Data from axis M5013 datasheet -->
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0"/>
         <!-- to center the axis model -->
@@ -48,11 +50,13 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_pan_link">
-      <inertial>
-        <mass value="0.01"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.03" h="0.06" d="0.06" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.01" w="0.03" h="0.06" d="0.06" /> 
+        </inertial>
+      </xacro:if>
     </link>
     <transmission name="${prefix}_pan_trans">
       <type>transmission_interface/SimpleTransmission</type>
@@ -74,11 +78,13 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_tilt_link">
-      <inertial>
-        <mass value="0.01"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
+        </inertial>
+      </xacro:if>
     </link>
     <transmission name="${prefix}_tilt_trans">
       <type>transmission_interface/SimpleTransmission</type>
@@ -97,11 +103,13 @@
       <child link="${prefix}_frame_link"/>
     </joint>
     <link name="${prefix}_frame_link">
-      <inertial>
-        <mass value="0.01"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
+        </inertial>
+      </xacro:if>
     </link>
     <!-- Optical frame -->
     <joint name="${prefix}_optical_joint" type="fixed">
@@ -110,11 +118,13 @@
       <child link="${prefix}_optical_frame_link"/>
     </joint>
     <link name="${prefix}_optical_frame_link">
-      <inertial>
-        <mass value="0.01"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.03" d="0.06" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.03" d="0.06" /> 
+        </inertial>
+      </xacro:if>
     </link>
     <gazebo reference="${prefix}_base_link">
       <material>Gazebo/DarkGrey</material>

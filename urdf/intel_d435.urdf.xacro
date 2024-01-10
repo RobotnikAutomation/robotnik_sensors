@@ -10,7 +10,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
   xmlns:xacro="http://wiki.ros.org/xacro">
   <!-- Includes -->
   
-  <xacro:macro name="sensor_intel_d435" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7">
+  <xacro:macro name="sensor_intel_d435" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7 include_inertial:=^|true">
     <xacro:property name="M_PI" value="3.1415926535897931" />
   
     <!-- The following values are approximate, and the camera node
@@ -63,11 +63,13 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
           <box size="${d435_cam_depth} ${d435_cam_width} ${d435_cam_height}"/>
         </geometry>
       </collision>
-      <inertial>
-        <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
-        <mass value="0.1" />
-        <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
+          <mass value="0.1" />
+          <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <!-- Use the nominal extrinsics between camera frames if the calibrated extrinsics aren't being published. e.g. running the device in simulation  -->

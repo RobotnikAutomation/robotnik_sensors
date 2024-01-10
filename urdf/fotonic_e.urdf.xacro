@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_fotonic" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_fotonic" params="prefix parent *origin">
+  <xacro:macro name="sensor_fotonic" params="prefix parent *origin include_inertial:=^|true">
 
     <joint name="${prefix}_joint" type="fixed">
       <xacro:insert_block name="origin"/>
@@ -10,11 +10,13 @@
     </joint>
 
     <link name="${prefix}_base_link">
-      <inertial>
-        <origin xyz="0.0 0 0.0" rpy="0 0 0" />
-        <mass value="0.79" />
-        <xacro:solid_cuboid_inertia m="0.79" w="0.08" h="0.0863" d="0.08" />
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+          <mass value="0.79" />
+          <xacro:solid_cuboid_inertia m="0.79" w="0.08" h="0.0863" d="0.08" />
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0.0 0.0 -0.04" rpy="0 0 0" /> <!-- to center the .dae model -->
         <material name="fotonic_color">
@@ -39,11 +41,13 @@
     </joint>
 
     <link name="${prefix}_depth_frame_link">
-      <inertial>
-        <origin xyz="-0.0375 0 0.0" rpy="0 0 0" />
-        <mass value="0.01" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.08" h="0.0863" d="0.08" />
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <origin xyz="-0.0375 0 0.0" rpy="0 0 0" />
+          <mass value="0.01" />
+          <xacro:solid_cuboid_inertia m="0.01" w="0.08" h="0.0863" d="0.08" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_depth_optical_joint" type="fixed">

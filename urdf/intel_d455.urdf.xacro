@@ -9,7 +9,7 @@ aluminum peripherial evaluation case.
 
 <robot name="sensor_intel_d455" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="sensor_intel_d455" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7">
+  <xacro:macro name="sensor_intel_d455" params="prefix parent *origin prefix_topic:='front_rgbd_camera' use_nominal_extrinsics:=true update_rate:=7 include_inertial:=^|true">
     <xacro:property name="M_PI" value="3.1415926535897931" />
 
     <!-- The following values are approximate, and the camera node
@@ -71,12 +71,14 @@ aluminum peripherial evaluation case.
           <box size="${d455_cam_depth} ${d455_cam_width} ${d455_cam_height}"/>
         </geometry>
       </collision>
-      <inertial>
-        <!-- The following are not reliable values, and should not be used for modeling -->
-        <mass value="0.072" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <!-- The following are not reliable values, and should not be used for modeling -->
+          <mass value="0.072" />
+          <origin xyz="0 0 0" />
+          <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <!-- Use the nominal extrinsics between camera frames if the calibrated extrinsics aren't being published. e.g. running the device in simulation  -->

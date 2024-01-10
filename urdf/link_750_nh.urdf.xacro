@@ -7,7 +7,7 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>  
   <xacro:property name="PI" value="3.14159265359"/>
 
-  <xacro:macro name="sensor_link_750_nh" params="prefix parent *origin far:=^|8.0 near:=^|0.05 prefix_topic:=^ptz_camera">
+  <xacro:macro name="sensor_link_750_nh" params="prefix parent *origin far:=^|8.0 near:=^|0.05 prefix_topic:=^ptz_camera include_inertial:=^|true">
     
     <joint name="${prefix}_joint" type="fixed">
       <axis xyz="0 1 0"/>
@@ -16,11 +16,13 @@
       <child link="${prefix}_base_link"/>
     </joint>
     <link name="${prefix}_base_link">
-      <inertial>
-        <origin xyz="0.066 0 0" rpy="0 0 0"/>
-        <mass value="0.8"/>
-        <xacro:solid_cuboid_inertia m="0.8" w="0.165" h="0.165" d="0.132" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="0.066 0 0" rpy="0 0 0"/>
+          <mass value="0.8"/>
+          <xacro:solid_cuboid_inertia m="0.8" w="0.165" h="0.165" d="0.132" />
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="-0.07 -0.07 -0.045" rpy="0 0 0"/>
         <material name="grey_color">
@@ -48,11 +50,13 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_pan_link">
-      <inertial>
-        <mass value="0.1"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.1" h="0.11" d="0.11" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.1"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.1" w="0.1" h="0.11" d="0.11" />
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="grey_color">
@@ -89,11 +93,13 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_tilt_link">
-      <inertial>
-        <mass value="0.1"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.1"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="grey_color">
@@ -127,11 +133,13 @@
       <child link="${prefix}_frame_link"/>
     </joint>
     <link name="${prefix}_frame_link">
-      <inertial>
-        <mass value="0.1"/>
-        <origin xyz="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.1"/>
+          <origin xyz="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        </inertial>
+      </xacro:if>
     </link>
     <!-- Optical frame -->
     <joint name="${prefix}_optical_joint" type="fixed">
@@ -140,11 +148,13 @@
       <child link="${prefix}_optical_frame_link"/>
     </joint>
     <link name="${prefix}_optical_frame_link">
-      <inertial>
-        <mass value="0.1"/>
-        <origin xyz="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.1"/>
+          <origin xyz="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        </inertial>
+      </xacro:if>
     </link>
     <gazebo reference="${prefix}_base_link">
       <material>Gazebo/DarkGrey</material>

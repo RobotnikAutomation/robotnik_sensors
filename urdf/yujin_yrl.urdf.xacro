@@ -2,7 +2,7 @@
 <robot name="sensor_yujin_yrl" xmlns:xacro="http://wiki.ros.org/xacro">
 
 
-  <xacro:macro name="sensor_yujin_yrl" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
+  <xacro:macro name="sensor_yujin_yrl" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true include_inertial:=^|true">
     <!--arg name="namespace" value="$(arg namespace)"/-->
 
     <joint name="${prefix}_base_joint" type="fixed">
@@ -26,12 +26,13 @@
             <mesh filename="package://robotnik_sensors/meshes/yujin_yrl.stl"/>
         </geometry>
       </visual>
-
-      <inertial>
-        <origin xyz="0.0 0 0.035" rpy="0 0 0" />
-        <mass value="0.400" />
-        <xacro:solid_cuboid_inertia m="0.400" w="0.05" h="0.05" d="0.07" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="0.0 0 0.035" rpy="0 0 0" />
+          <mass value="0.400" />
+          <xacro:solid_cuboid_inertia m="0.400" w="0.05" h="0.05" d="0.07" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <link name="${prefix}_link">

@@ -23,7 +23,7 @@
   <xacro:property name="r430_cam_depth_py" value="-0.0115"/>
   <xacro:property name="r430_cam_depth_pz" value="0.0"/>
 
-  <xacro:macro name="sensor_r430" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
+  <xacro:macro name="sensor_r430" params="prefix parent prefix_topic:='front_rgbd_camera' *origin include_inertial:=^|true">
 
     <!-- camera body, with origin at bottom screw mount -->
     <joint name="${prefix}_camera_joint" type="fixed">
@@ -50,11 +50,13 @@
         <box size="${r430_cam_depth} ${r430_cam_width} ${r430_cam_height}"/>
         </geometry>
       </collision>
-      <inertial>
-        <origin xyz="-0.0125 0.0 0.0" rpy="0 0 0" />
-        <mass value="0.1" />
-        <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="-0.0125 0.0 0.0" rpy="0 0 0" />
+          <mass value="0.1" />
+          <xacro:solid_cuboid_inertia m="0.1" w="0.025" h="0.09" d="0.025" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <!-- camera depth joints and links -->

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_flir_ax8" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_flir_ax8" params="prefix parent *origin">
+  <xacro:macro name="sensor_flir_ax8" params="prefix parent *origin include_inertial:=^|true">
 
     <joint name="${prefix}_joint" type="fixed">
       <xacro:insert_block name="origin"/>
@@ -10,11 +10,13 @@
     </joint>
 
     <link name="${prefix}_link">
-      <inertial>
-        <origin xyz="0.0 0 0.0" rpy="0 0 0" />
-        <mass value="0.79" />
-        <xacro:solid_cuboid_inertia m="0.125" w="0.025" h="0.054" d="0.079" />
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+          <mass value="0.79" />
+          <xacro:solid_cuboid_inertia m="0.125" w="0.025" h="0.054" d="0.079" />
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0.0125 0 0" rpy="0 0 0" /> <!-- to center the .dae model -->
         <material name="fotonic_color">

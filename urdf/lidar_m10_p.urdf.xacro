@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_lidar_m10_p" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=3.14159 max_angle:=-3.14159 gpu:=^|false">
+  <xacro:macro name="sensor_lidar_m10_p" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=3.14159 max_angle:=-3.14159 gpu:=^|false include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -24,12 +24,13 @@
             <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.STL" />
         </geometry>
       </visual>
-
-      <inertial>
-        <mass value="0.190" />
-        <origin xyz="0.01 0 0.028" rpy="0 0 0"/> 
-        <xacro:solid_cuboid_inertia m="0.190" w="0.09674" h="0.056" d="0.056" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.190" />
+          <origin xyz="0.01 0 0.028" rpy="0 0 0"/> 
+          <xacro:solid_cuboid_inertia m="0.190" w="0.09674" h="0.056" d="0.056" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_joint" type="fixed">

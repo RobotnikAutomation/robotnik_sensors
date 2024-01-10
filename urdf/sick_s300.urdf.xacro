@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_s300" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
+  <xacro:macro name="sensor_sick_s300" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -33,13 +33,14 @@
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
 		</inertial-->
-
-		<inertial>
-			<mass value="1.2" />
-			<origin xyz="0 0.0 0.0751" rpy="0 0 0"/>
-            <xacro:solid_cuboid_inertia m="1.2" w="0.102" h="0.106" d="0.152" />
-			<!--inertia ixx="0.0002708333" ixy="0" ixz="0" iyy="0.0002708333" iyz="0" izz="0.00009434" /-->
-		</inertial>
+		<xacro:if value="$(include_inertial)">
+			<inertial>
+				<mass value="1.2" />
+				<origin xyz="0 0.0 0.0751" rpy="0 0 0"/>
+        	    <xacro:solid_cuboid_inertia m="1.2" w="0.102" h="0.106" d="0.152" />
+				<!--inertia ixx="0.0002708333" ixy="0" ixz="0" iyy="0.0002708333" iyz="0" izz="0.00009434" /-->
+			</inertial>
+		</xacro:if>
 	</link>
 
     <joint name="${prefix}_joint" type="fixed">

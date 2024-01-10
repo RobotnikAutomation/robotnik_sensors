@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
   <xacro:macro name="stereo_camera"
-    params="prefix fps baseline hfov width height format near far">
+    params="prefix fps baseline hfov width height format near far include_inertial:=^|true">
 
     <gazebo reference="${prefix}_base_link">
       <visual>  
@@ -105,11 +105,13 @@
           <mesh filename="package://robotnik_sensors/meshes/${model}.stl" />
         </geometry>
       </collision>
-      <inertial>
-        <mass value="0.135" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.135" w="0.033" h="0.175" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.135" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.135" w="0.033" h="0.175" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
    <!-- Center camera -->
    <joint name="${prefix}_camera_center_joint" type="fixed">
@@ -167,8 +169,8 @@
         far="${far}"/>
   </xacro:macro>
 
-  <xacro:macro name="sensor_zed" params="prefix:=myzed parent *origin model:=zed" >
-    <xacro:stereolabs_zed prefix="${prefix}" parent="${parent}" model="${model}">
+  <xacro:macro name="sensor_zed" params="prefix:=myzed parent *origin model:=zed include_inertial:=^|true" >
+    <xacro:stereolabs_zed prefix="${prefix}" parent="${parent}" model="${model}" include_inertial="${include_inertial}">
       <xacro:insert_block name="origin" />
     </xacro:stereolabs_zed>
   </xacro:macro>

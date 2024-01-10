@@ -2,7 +2,7 @@
 <robot name="sensor_sick_s3000" xmlns:xacro="http://wiki.ros.org/xacro">
 
 
-  <xacro:macro name="sensor_sick_s3000" params="prefix parent ns='' prefix_topic:='front_laser' *origin gpu:=^|true">
+  <xacro:macro name="sensor_sick_s3000" params="prefix parent ns='' prefix_topic:='front_laser' *origin gpu:=^|true include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -27,12 +27,13 @@
 	     		<mesh filename="package://robotnik_sensors/meshes/sick_s3000.dae"/>
 			</geometry>
 		</visual>
-
-		<inertial>
-			<mass value="3.3" />
-            <origin xyz="0.08 0 0.0925" rpy="0 0 0"/>
-            <xacro:solid_cuboid_inertia m="3.3" w="0.16" h="0.160" d="0.185" />
-		</inertial>
+		<xacro:if value="$(include_inertial)">
+			<inertial>
+				<mass value="3.3" />
+        	    <origin xyz="0.08 0 0.0925" rpy="0 0 0"/>
+        	    <xacro:solid_cuboid_inertia m="3.3" w="0.16" h="0.160" d="0.185" />
+			</inertial>
+		</xacro:if>
 	</link>
 
     <joint name="${prefix}_joint" type="fixed">

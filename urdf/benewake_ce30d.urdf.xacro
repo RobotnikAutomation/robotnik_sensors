@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent prefix_topic:='lidar_3d' *origin range_min:=0.4 range_max:=28.0 hfov:=60.0 vfov:=4.0 fps:=30.0 gpu:=^|true">
+  <xacro:macro name="sensor_benewake_ce30d" params="prefix parent prefix_topic:='lidar_3d' *origin range_min:=0.4 range_max:=28.0 hfov:=60.0 vfov:=4.0 fps:=30.0 gpu:=^|true include_inertial:=^|true">
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
@@ -25,12 +25,14 @@
           <mesh filename="package://robotnik_sensors/meshes/benewake_ce30d.stl" />
         </geometry>
       </collision>
-      <inertial>
-        <!-- The following are not reliable values, and should not be used for modeling -->
-        <mass value="0.336" />
-        <origin xyz="0 0 0.027" rpy="0 0 ${M_PI/2}" />
-        <xacro:solid_cuboid_inertia m="0.336" w="0.057" h="0.083" d="0.054" />
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <!-- The following are not reliable values, and should not be used for modeling -->
+          <mass value="0.336" />
+          <origin xyz="0 0 0.027" rpy="0 0 ${M_PI/2}" />
+          <xacro:solid_cuboid_inertia m="0.336" w="0.057" h="0.083" d="0.054" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_joint" type="fixed">

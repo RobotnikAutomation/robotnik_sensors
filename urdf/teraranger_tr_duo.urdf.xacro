@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_teraranger_duo" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_teraranger_duo" params="prefix parent prefix_topic:='teraranger_duo' *origin min_angle:=-0.02618 max_angle:=0.02618">
+  <xacro:macro name="sensor_teraranger_duo" params="prefix parent prefix_topic:='teraranger_duo' *origin min_angle:=-0.02618 max_angle:=0.02618 include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -23,12 +23,13 @@
 	     		<mesh filename="package://robotnik_sensors/meshes/teraranger_tr_duo.dae"/>
 			</geometry>
 		</visual>
-
-		<inertial>
-			<mass value="0.016" />
-			<origin xyz="0.01 0 0" rpy="0 0 0"/>
-	        <xacro:solid_cuboid_inertia m="0.016" w="0.02" h="0.03" d="0.053" />
-		</inertial>
+		<xacro:if value="$(include_inertial)">
+			<inertial>
+				<mass value="0.016" />
+				<origin xyz="0.01 0 0" rpy="0 0 0"/>
+	    	    <xacro:solid_cuboid_inertia m="0.016" w="0.02" h="0.03" d="0.053" />
+			</inertial>
+		</xacro:if>
 	</link>
 
     <joint name="${prefix}_sonar_joint" type="fixed">

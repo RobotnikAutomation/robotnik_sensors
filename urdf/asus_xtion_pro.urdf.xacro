@@ -11,7 +11,7 @@
   <xacro:property name="asus_xtion_pro_rgb_rel_rgb_py"   value="-0.0220" />
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_asus_xtion_pro" params="prefix parent *origin">
+  <xacro:macro name="sensor_asus_xtion_pro" params="prefix parent *origin include_inertial:=^|true">
 
     <joint name="${prefix}rgb_joint" type="fixed">
 	  <xacro:insert_block name="origin" />
@@ -20,11 +20,13 @@
     </joint>
 
     <link name="${prefix}rgb_base_link">
-      <inertial>
-        <mass value="0.01" />
-        <origin xyz="-0.0175 0 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01" />
+          <origin xyz="-0.0175 0 0" />
+          <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}rgb_optical_joint" type="fixed">
@@ -34,11 +36,13 @@
     </joint>
 
     <link name="${prefix}rgb_optical_frame">
-      <inertial>
-        <mass value="0.01" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.180" h="0.035" d="0.05" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01" />
+          <origin xyz="0 0 0" />
+          <xacro:solid_cuboid_inertia m="0.01" w="0.180" h="0.035" d="0.05" /> 
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}joint" type="fixed">
@@ -60,11 +64,13 @@
         <box size="0.0730 .2760 0.0720"/>
       </geometry>
       </collision>
-      <inertial>
-        <mass value="0.01" />
-        <origin xyz="-0.0175 0.0025 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01" />
+          <origin xyz="-0.0175 0.0025 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}depth_joint" type="fixed">
@@ -74,11 +80,13 @@
     </joint>
 
     <link name="${prefix}depth_link">
-      <inertial>
-        <mass value="0.01" />
-        <origin xyz="-0.0175 -${asus_xtion_pro_depth_rel_rgb_py} 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01" />
+          <origin xyz="-0.0175 -${asus_xtion_pro_depth_rel_rgb_py} 0" />
+          <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" /> 
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}depth_optical_joint" type="fixed">
@@ -88,11 +96,13 @@
     </joint>
 
     <link name="${prefix}depth_optical_frame">
-      <inertial>
-        <mass value="0.01" />
-        <origin xyz="${asus_xtion_pro_depth_rel_rgb_py} 0 -0.0175" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.18" h="0.05" d="0.035" /> 
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.01" />
+          <origin xyz="${asus_xtion_pro_depth_rel_rgb_py} 0 -0.0175" />
+          <xacro:solid_cuboid_inertia m="0.01" w="0.18" h="0.05" d="0.035" /> 
+        </inertial>
+      </xacro:if>
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->

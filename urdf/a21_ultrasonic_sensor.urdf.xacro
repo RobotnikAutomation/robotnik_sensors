@@ -2,7 +2,7 @@
 <robot name="sensor_ultrasonic_a21" xmlns:xacro="http://wiki.ros.org/xacro">
 
 
-  <xacro:macro name="sensor_ultrasonic_a21" params="prefix parent prefix_topic:='front_ultrasonic' *origin gpu:=^|true">
+  <xacro:macro name="sensor_ultrasonic_a21" params="prefix parent prefix_topic:='front_ultrasonic' *origin gpu:=^|true include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -26,13 +26,14 @@
         </geometry>
       </visual>
 
-      <inertial>
-        <origin xyz="0.0 0 0.035" rpy="0 0 0" />
-        <mass value="0.130" />
-        <xacro:solid_cuboid_inertia m="0.130" w="0.05" h="0.05" d="0.07" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="0.0 0 0.035" rpy="0 0 0" />
+          <mass value="0.130" />
+          <xacro:solid_cuboid_inertia m="0.130" w="0.05" h="0.05" d="0.07" />
+        </inertial>
+      </xacro:if>
     </link>
-
     <link name="${prefix}_link">
 	</link>
     <joint name="${prefix}_joint" type="fixed">

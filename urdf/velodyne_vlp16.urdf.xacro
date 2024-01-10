@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_velodyne_vlp16" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin range_min range_max gpu:=^|true">
+  <xacro:macro name="sensor_velodyne_vlp16" params="prefix parent prefix_topic:='velodyne' *origin range_min range_max gpu:=^|true include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -23,12 +23,13 @@
                 <mesh filename="package://robotnik_sensors/meshes/velodyne_vlp16.dae"/>
             </geometry>
         </visual>
-
-        <inertial>
-            <mass value="0.830" />
-            <origin xyz="0 0 0.03555" rpy="0 0 0"/>
-            <xacro:solid_cuboid_inertia m="0.830" w="0.1033" h="0.1033" d="0.0711" />
-        </inertial>
+        <xacro:if value="$(include_inertial)">
+          <inertial>
+              <mass value="0.830" />
+              <origin xyz="0 0 0.03555" rpy="0 0 0"/>
+              <xacro:solid_cuboid_inertia m="0.830" w="0.1033" h="0.1033" d="0.0711" />
+          </inertial>
+        </xacro:if>
     </link>
 
     <joint name="${prefix}_joint" type="fixed">

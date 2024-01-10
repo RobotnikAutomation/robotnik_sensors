@@ -5,7 +5,7 @@
   <xacro:property name="mast_radius" value="0.010" />
 
   <!-- if no latitude/longitud is specified, then use Fuente del Jarro as default -->
-  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816 update_rate:=^|5">
+  <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin gps_latitude:=^|39.5080331 gps_longitude:=^|-0.4619816 update_rate:=^|5 include_inertial:=^|true">
 
 	  <!-- MAST OF THE ANTENNA GPS -->
 	  <joint name="${prefix}_joint" type="fixed">
@@ -16,11 +16,13 @@
 	  </joint>
 
 	  <link name="${prefix}_mast_base_link">
-		<inertial>
-			<origin xyz="0.0 0 0.0" rpy="0 0 0" />
-			<mass value="1.0" />
-			<xacro:solid_cuboid_inertia m="1.0" w="${mast_radius}" h="${mast_radius}" d="${mast_height}" />
-		</inertial>
+		<xacro:if value="$(include_inertial)">
+			<inertial>
+				<origin xyz="0.0 0 0.0" rpy="0 0 0" />
+				<mass value="1.0" />
+				<xacro:solid_cuboid_inertia m="1.0" w="${mast_radius}" h="${mast_radius}" d="${mast_height}" />
+			</inertial>
+	  	</xacro:if>	
 	    <visual>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <material name="mast_color">
@@ -52,11 +54,13 @@
 
       <!-- ANTENNA GPS -->
 	  <link name="${prefix}_base_link">
-	    <inertial>
-			<origin xyz="0.0 0 0.015" rpy="0 0 0" />
-			<mass value="0.2" />
-			<xacro:solid_cuboid_inertia m="0.2" w="0.081" h="0.081" d="0.03" />
-      	</inertial>
+		<xacro:if value="$(include_inertial)">
+	    	<inertial>
+				<origin xyz="0.0 0 0.015" rpy="0 0 0" />
+				<mass value="0.2" />
+				<xacro:solid_cuboid_inertia m="0.2" w="0.081" h="0.081" d="0.03" />
+      		</inertial>
+		</xacro:if>		
 	    <visual>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <material name="gps_color">

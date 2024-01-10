@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_imu" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_imu" params="prefix ns:='' topic:='imu/data' parent *origin">
+  <xacro:macro name="sensor_imu" params="prefix ns:='' topic:='imu/data' parent *origin include_inertial:=^|true">
 
 	  <joint name="${prefix}_joint" type="fixed">
 	      <axis xyz="1 0 0"/>
@@ -12,11 +12,13 @@
 	  </joint>
 
 	  <link name="${prefix}_link">
-	      <inertial>
-			<origin xyz="0.0 0 0.01" rpy="0 0 0" />
-			<mass value="0.005" />
-			<xacro:solid_cuboid_inertia m="0.005" w="0.001" h="0.001" d="0.001" />
-		  </inertial>
+		  <xacro:if value="$(include_inertial)">
+	      	<inertial>
+				<origin xyz="0.0 0 0.01" rpy="0 0 0" />
+				<mass value="0.005" />
+				<xacro:solid_cuboid_inertia m="0.005" w="0.001" h="0.001" d="0.001" />
+		  	</inertial>
+		  </xacro:if>	
 	      <visual>
 	        <origin rpy="0 0 0" xyz="0 0 0"/>
 	        <geometry>

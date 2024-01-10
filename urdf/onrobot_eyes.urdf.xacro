@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_onrobot_eyes" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
 
-  <xacro:macro name="sensor_onrobot_eyes" params="prefix parent *origin">
+  <xacro:macro name="sensor_onrobot_eyes" params="prefix parent *origin include_inertial:=^|true">
 
     <joint name="${prefix}_joint" type="fixed">
     	<xacro:insert_block name="origin" />
@@ -21,11 +21,13 @@
           <mesh filename="package://robotnik_sensors/meshes/onrobot_eyes_mount.stl"/>
         </geometry>
       </collision>
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.001" />
+          <origin xyz="0.0 0.0 0.0" />
+          <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_eyes_joint" type="fixed">
@@ -46,11 +48,13 @@
           <mesh filename="package://robotnik_sensors/meshes/onrobot_eyes_light.stl"/>
         </geometry>
       </collision>
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <mass value="0.001" />
+          <origin xyz="0.0 0.0 0.0" />
+          <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        </inertial>
+      </xacro:if>
     </link>
 
   </xacro:macro>

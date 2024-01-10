@@ -6,7 +6,7 @@
   <xacro:property name="rubedos_viper_depth" value="0.09"/>
 
   <xacro:macro name="stereo_camera"
-    params="prefix fps baseline hfov width height format near far">
+    params="prefix fps baseline hfov width height format near far include_inertial:=^|true">
 
     <gazebo reference="${prefix}_base_link">
       <sensor type="multicamera" name="stereo_camera">
@@ -89,11 +89,13 @@
           <box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/>
         </geometry>
       </collision>
-      <inertial>
-        <origin xyz="-0.0 0.0 0.0" rpy="0 0 0" />
-        <mass value="0.8" />
-        <xacro:solid_cuboid_inertia m="0.8" w="0.0574" h="0.187" d="0.036" />
-      </inertial>
+      <xacro:if value="$(include_inertial)">
+        <inertial>
+          <origin xyz="-0.0 0.0 0.0" rpy="0 0 0" />
+          <mass value="0.8" />
+          <xacro:solid_cuboid_inertia m="0.8" w="0.0574" h="0.187" d="0.036" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_optical_joint" type="fixed">
@@ -125,8 +127,8 @@
         far="${far}"/>
   </xacro:macro>
 
-  <xacro:macro name="sensor_rubedos_viper" params="prefix:=myviper parent *origin" >
-    <rubedos_viper prefix="${prefix}" parent="${parent}">
+  <xacro:macro name="sensor_rubedos_viper" params="prefix:=myviper parent *origin include_inertial:=^|true" >
+    <rubedos_viper prefix="${prefix}" parent="${parent}" include_inertial="${include_inertial}" >
       <xacro:insert_block name="origin" />
     </rubedos_viper>
   </xacro:macro>

@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_rs_helios" params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu:=^|true">
+  <xacro:macro name="sensor_rs_helios" params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu:=^|true include_inertial">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -26,11 +26,13 @@
           <mesh filename="package://robotnik_sensors/meshes/rs_helios_16p.stl" />
         </geometry>
       </collision>
-      <inertial>
-        <mass value="0.840" />
-        <origin xyz="0 0 0.04135" />
-				<xacro:solid_cuboid_inertia m="0.840" w="0.109" h="0.109" d="0.0827" />
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="100.840" />
+          <origin xyz="0 0 0.04135" />
+			  	<xacro:solid_cuboid_inertia m="0.840" w="0.109" h="0.109" d="0.0827" />
+        </inertial>
+      </xacro:if>
     </link>
 
     <joint name="${prefix}_joint" type="fixed">
@@ -94,8 +96,8 @@
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_rs_helios_16p" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false">
-    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.2" vfov="32.0" vres="2" fps="10.0" gpu="${gpu}" >
+  <xacro:macro name="sensor_rs_helios_16p" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false include_inertial:=^|true">
+    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.2" vfov="32.0" vres="2" fps="10.0" gpu="${gpu}" include_inertial="${include_inertial}">
       <xacro:insert_block name="origin" />
     </xacro:sensor_rs_helios>
   </xacro:macro>

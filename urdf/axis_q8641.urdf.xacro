@@ -5,7 +5,7 @@
   <xacro:property name="ptz_joint_friction" value="0.1"/>
   <xacro:property name="ptz_joint_damping" value="0.1"/>
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
-  <xacro:macro name="sensor_axis_q8641" params="prefix parent *origin far:=^|8.0 near:=^|0.05">
+  <xacro:macro name="sensor_axis_q8641" params="prefix parent *origin far:=^|8.0 near:=^|0.05 include_inertial:=^|true">
     <joint name="${prefix}_joint" type="fixed">
       <axis xyz="0 1 0"/>
       <xacro:insert_block name="origin"/>
@@ -18,10 +18,12 @@
         <origin xyz="0 0 0.06" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="2" w="0.175" h="0.175" d="0.12" />
       </inertial-->
-      <inertial>
-        <mass value="0.001"/>
-        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.001"/>
+          <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <!-- because the origin of the mesh file is not at the "center" of the model-->
@@ -55,10 +57,12 @@
         <origin xyz="0 0 0.12" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="5.0" w="0.175" h="0.175" d="0.24" />
       </inertial-->
-      <inertial>
-        <mass value="0.001"/>
-        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
-      </inertial>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.001"/>
+          <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <!-- because the origin of the mesh file is not at the "center" of the model-->
@@ -101,10 +105,12 @@
         <origin xyz="0.04875 0 0.11" rpy="0 0 0"/>
         <xacro:solid_cuboid_inertia m="5.0" w="0.24" h="0.09" d="0.09" />
       </inertial-->
-      <inertial>
-        <mass value="0.001"/>
-        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
-      </inertial>
+      <xacro:if value="${include_inertial}">
+       <inertial>
+         <mass value="0.001"/>
+         <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+       </inertial>
+      </xacro:if>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <!-- because the origin of the mesh file is not at the "center" of the model-->
