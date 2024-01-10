@@ -26,7 +26,7 @@
           <mesh filename="package://robotnik_sensors/meshes/rslidar.stl" />
         </geometry>
       </collision>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.840" />
           <origin xyz="0 0 0.04135" />

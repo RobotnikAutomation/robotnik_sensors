@@ -16,7 +16,7 @@
       <child link="${prefix}_base_link"/>
     </joint>
     <link name="${prefix}_base_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <origin xyz="0.066 0 0" rpy="0 0 0"/>
           <mass value="0.8"/>
@@ -50,7 +50,7 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_pan_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.1"/>
           <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -93,7 +93,7 @@
       <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
     </joint>
     <link name="${prefix}_tilt_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.1"/>
           <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -133,7 +133,7 @@
       <child link="${prefix}_frame_link"/>
     </joint>
     <link name="${prefix}_frame_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.1"/>
           <origin xyz="0 0 0"/>
@@ -148,7 +148,7 @@
       <child link="${prefix}_optical_frame_link"/>
     </joint>
     <link name="${prefix}_optical_frame_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.1"/>
           <origin xyz="0 0 0"/>

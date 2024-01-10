@@ -24,7 +24,7 @@
             <mesh filename="package://robotnik_sensors/meshes/lidar_m10_p.STL" />
         </geometry>
       </visual>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.190" />
           <origin xyz="0.01 0 0.028" rpy="0 0 0"/> 

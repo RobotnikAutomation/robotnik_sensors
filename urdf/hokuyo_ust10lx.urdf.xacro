@@ -23,7 +23,7 @@
             <mesh filename="package://robotnik_sensors/meshes/hokuyo_ust_10lx.dae"/>
         </geometry>
       </visual>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <origin xyz="0.0 0 0.035" rpy="0 0 0" />
           <mass value="0.130" />

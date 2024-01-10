@@ -46,7 +46,7 @@
 	      <box size="0.07271 0.27794 0.073"/>
 	    </geometry>
 	  </collision>
-    <xacro:if value="$(include_inertial)">
+    <xacro:if value="${include_inertial}">
       <inertial>
         <origin xyz="-0.0 0.0 0.015" rpy="0 0 0" />
         <mass value="0.2" />

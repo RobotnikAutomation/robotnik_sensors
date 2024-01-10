@@ -8,7 +8,7 @@
       <child link="${prefix}_base_link"/>
     </joint>
     <link name="${prefix}_base_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.0088"/>
           <origin xyz="0.007 0 0.0145" rpy="0 0 0"/>
@@ -40,7 +40,7 @@
       <child link="${prefix}_rgb_frame_link"/>
     </joint>
     <link name="${prefix}_rgb_frame_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.0001" />
           <origin xyz="0 0 0" />
@@ -55,7 +55,7 @@
       <child link="${prefix}_rgb_optical_frame_link"/>
     </joint>
     <link name="${prefix}_rgb_optical_frame_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
         <mass value="0.0001" />
           <origin xyz="0 0 0" />

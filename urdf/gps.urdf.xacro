@@ -12,7 +12,7 @@
 	    <child link="${prefix}_base_link"/>
 	  </joint>
 	  <link name="${prefix}_base_link">
-		<xacro:if value="$(include_inertial)">
+		<xacro:if value="${include_inertial}">
 			<inertial>
 				<origin xyz="0.0 0 0.015" rpy="0 0 0" />
 				<mass value="0.2" />

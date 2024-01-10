@@ -24,7 +24,7 @@
             <mesh filename="package://robotnik_sensors/meshes/sick_tim551.dae"/>
         </geometry>
       </visual>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.25" />
           <origin xyz="-0.0017 0 0.042875" rpy="0 0 0"/>

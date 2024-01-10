@@ -50,7 +50,7 @@
         <box size="${r430_cam_depth} ${r430_cam_width} ${r430_cam_height}"/>
         </geometry>
       </collision>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <origin xyz="-0.0125 0.0 0.0" rpy="0 0 0" />
           <mass value="0.1" />

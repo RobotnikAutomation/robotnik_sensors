@@ -89,7 +89,7 @@
           <box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/>
         </geometry>
       </collision>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <origin xyz="-0.0 0.0 0.0" rpy="0 0 0" />
           <mass value="0.8" />

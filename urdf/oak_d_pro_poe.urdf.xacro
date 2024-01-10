@@ -58,7 +58,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
           <box size="${oak_cam_depth} ${oak_cam_width} ${oak_cam_height}"/> <!--Check-->
         </geometry>
       </collision>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <origin xyz="0.0025 -0.015 0.0" rpy="0 0 0" />
           <mass value="0.1" />

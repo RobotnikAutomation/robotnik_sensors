@@ -15,7 +15,7 @@
     </joint>
     
     <link name="${prefix}_base_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
           <mass value="0.1"/>
@@ -51,7 +51,7 @@
     </joint>
     
     <link name="pan_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.1"/>
           <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -81,7 +81,7 @@
     </joint>
     
     <link name="tilt_link">
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="0.1"/>
           <origin xyz="0 0 0" rpy="0 0 0"/>

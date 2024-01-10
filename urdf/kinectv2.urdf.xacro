@@ -68,7 +68,7 @@
         </geometry>
       </xacro:unless>
     </collision>
-    <xacro:if value="$(include_inertial)">
+    <xacro:if value="${include_inertial}">
       <inertial>
         <origin xyz="-0.0 0.0 0.025" rpy="0 0 0" />
         <mass value="0.2" />

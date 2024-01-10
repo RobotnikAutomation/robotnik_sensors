@@ -31,7 +31,7 @@
           <mesh filename="package://robotnik_sensors/meshes/rs_bpearl.stl" />
         </geometry>
       </collision>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <!-- The following are not reliable values, and should not be used for modeling -->
           <mass value="0.92" />

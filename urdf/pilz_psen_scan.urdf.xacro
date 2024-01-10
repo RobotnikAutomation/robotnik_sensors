@@ -41,7 +41,7 @@
           <!--cylinder radius="${radius}" length="${height}" /-->
         </geometry>
       </collision>
-      <xacro:if value="$(include_inertial)">
+      <xacro:if value="${include_inertial}">
         <inertial>
           <mass value="${mass}" />
           <origin xyz="0 0 0" />

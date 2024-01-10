@@ -27,7 +27,7 @@
 	     		<mesh filename="package://robotnik_sensors/meshes/sick_s3000.dae"/>
 			</geometry>
 		</visual>
-		<xacro:if value="$(include_inertial)">
+		<xacro:if value="${include_inertial}">
 			<inertial>
 				<mass value="3.3" />
         	    <origin xyz="0.08 0 0.0925" rpy="0 0 0"/>
