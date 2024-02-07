@@ -71,7 +71,7 @@
   </xacro:macro>
 
   <xacro:macro name="stereolabs_zed"
-    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.05 far:=2500">
+    params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.05 far:=2500 include_inertial:=^|true">
 
     <xacro:if value="${model == 'zed'}">
         <xacro:property name="baseline" value="0.12" />
