@@ -71,7 +71,7 @@
 
     <joint name="${prefix}_tilt_joint" type="revolute">
       <axis xyz="0 0 1"/>
-      <origin xyz="0.0 0.0 0.0" rpy="${-PI/2} 0 0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="${PI/2} 0 0"/>
       <parent link="${prefix}_pan_link"/>
       <child link="${prefix}_tilt_link"/>
       <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-1.5708" upper="1.5708"/>
@@ -97,6 +97,37 @@
         <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
       </actuator>
     </transmission>
+    
+
+    <joint name="${prefix}_zoom_joint" type="prismatic">
+      <axis xyz="1 0 0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="${-PI/2} 0 0"/>
+      <parent link="${prefix}_tilt_link"/>
+      <child link="${prefix}_zoom_link"/>
+      <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-1.5708" upper="1.5708"/>
+      <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
+    </joint>
+    <link name="${prefix}_zoom_link">
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="0.1"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        </inertial>
+      </xacro:if>
+    </link>
+    <transmission name="${prefix}_zoom_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}_zoom_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}zoom_motor">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+
     <joint name="${prefix}_frame_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${prefix}_tilt_link"/>
