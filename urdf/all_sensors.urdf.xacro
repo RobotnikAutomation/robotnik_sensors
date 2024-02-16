@@ -19,6 +19,9 @@
   <!-- Axis m5525 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_m5525.urdf.xacro" />
 
+  <!-- Axis p5676 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis_p5676.urdf.xacro" />
+
   <!-- Axis q8641 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_q8641.urdf.xacro" />
   
