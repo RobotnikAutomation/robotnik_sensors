@@ -1,0 +1,5 @@
+rosPipeline(
+  rosdistro: getDistroFromBranch(),
+  upstreamProjects: '',
+  upload: needUpload(),
+)
