@@ -181,8 +181,8 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
           <cameraName>${camera_name}_color</cameraName>
-          <imageTopicName>/${camera_name}/${prefix_topic}/rgb/image_raw</imageTopicName>
-          <cameraInfoTopicName>/${camera_name}/${prefix_topic}/rgb/camera_info</cameraInfoTopicName>
+          <imageTopicName>/${camera_name}/${prefix_topic}/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/${camera_name}/${prefix_topic}/color/camera_info</cameraInfoTopicName>
           <frameName>/${prefix}_color_optical_frame</frameName>
           <!-- this is just which name the Image msg will have, it does not affect the simulation.
                 However must be set to the optical_frame,  -->
