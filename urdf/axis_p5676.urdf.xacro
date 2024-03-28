@@ -29,7 +29,7 @@
           <color rgba="0.1 0.1 0.1 1"/>
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/axis_p5676.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_p5676.dae" scale="1.0 1.0 1.0"/>
         </geometry>
       </visual>
       <collision>

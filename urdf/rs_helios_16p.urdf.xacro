@@ -21,10 +21,10 @@
         <xacro:black_alu_material/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/rs_helios_16p.stl" />
-        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.05"/>
+	      <geometry>
+	        <cylinder radius="0.05" length="0.1"/>
+	      </geometry>
       </collision>
       <xacro:if value="${include_inertial}">
         <inertial>
@@ -97,7 +97,7 @@
   </xacro:macro>
 
   <xacro:macro name="sensor_rs_helios_16p" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false include_inertial:=^|true">
-    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.4" range_max="150.0" hfov="360.0" hres="0.2" vfov="32.0" vres="2" fps="10.0" gpu="${gpu}" include_inertial="${include_inertial}">
+    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.2" range_max="150.0" hfov="360.0" hres="0.2" vfov="30.0" vres="2" fps="10.0" gpu="${gpu}" include_inertial="${include_inertial}">
       <xacro:insert_block name="origin" />
     </xacro:sensor_rs_helios>
   </xacro:macro>
