@@ -21,10 +21,10 @@
         <xacro:black_alu_material/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/rs_helios_16p.stl" />
-        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.05"/>
+	      <geometry>
+	        <cylinder radius="0.05" length="0.1"/>
+	      </geometry>
       </collision>
       <xacro:if value="${include_inertial}">
         <inertial>
