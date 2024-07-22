@@ -210,4 +210,11 @@
   
   <!-- Oak-d Pro PoE -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/oak_d_pro_poe.urdf.xacro" />
+
+  <!-- accupoint_ap8 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/accupoint_ap8_pt.urdf.xacro" />
+
+  <!-- sensia_raismart -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart_pt.urdf.xacro" />
 </robot>

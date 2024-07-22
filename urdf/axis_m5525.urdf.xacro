@@ -185,8 +185,8 @@
 					<alwaysOn>true</alwaysOn>
 					<updateRate>0.0</updateRate>
 					<cameraName>${prefix_topic}</cameraName>
-					<imageTopicName>image_raw</imageTopicName>
-					<cameraInfoTopicName>camera_info</cameraInfoTopicName>
+					<imageTopicName>color/image_raw</imageTopicName>
+					<cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
 					<frameName>${prefix}_optical_frame_link</frameName>
 					<!-- this is just which name the Image msg will have, it does not affect the simulation.
 					     However must be set to the optical_frame,  -->

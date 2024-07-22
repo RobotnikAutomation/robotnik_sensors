@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensia_raismart_pt">
+  <xacro:property name="ptz_joint_effort_limit" value="10000.0"/>
+  <xacro:property name="ptz_joint_velocity_limit" value="1.0"/>
+  <xacro:property name="ptz_joint_friction" value="0.1"/>
+  <xacro:property name="ptz_joint_damping" value="0.1"/>
+  <xacro:property name="ptz_mechanical_reduction" value="1.0"/>  
+  <xacro:property name="PI" value="3.14159265359"/>
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/accupoint_ap8_pt.urdf.xacro"/>
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart.urdf.xacro"/>
+
+  <xacro:macro name="sensia_raismart_pt" params="prefix parent *origin far:=^|8.0 near:=^|0.05 prefix_topic:=^ptz_camera include_inertial:=^|true fps:=^|30.0">
+    
+      <xacro:sensor_accupoint_ap8 prefix="${prefix}" parent="${parent}">
+    	  <xacro:insert_block name="origin"/>
+    	</xacro:sensor_accupoint_ap8>
+    	<xacro:sensor_sensia_raismart prefix="${prefix}" parent="${prefix}_top_link" prefix_topic="${prefix_topic}">
+    	  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    	</xacro:sensor_sensia_raismart>
+
+  </xacro:macro>
+
+
+</robot>
