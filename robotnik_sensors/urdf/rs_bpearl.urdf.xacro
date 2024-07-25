@@ -46,11 +46,11 @@
     </joint>
     <link name="${prefix}_link"/>
 
-  <xacro:sensor_rs_bpearl_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" samples="${samples}" vfov="${vfov}" lasers="${lasers}" fps="${fps}" gpu="${gpu}"/>
+    <xacro:sensor_rs_bpearl_gazebo prefix="${prefix}" range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" samples="${samples}" vfov="${vfov}" lasers="${lasers}" fps="${fps}" gpu="${gpu}"/>
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_rs_bpearl_gazebo" params="range_min range_max hfov samples vfov lasers fps gpu">
+  <xacro:macro name="sensor_rs_bpearl_gazebo" params="prefix range_min range_max hfov samples vfov lasers fps gpu">
 
     <gazebo reference="${prefix}_base_link">
       <visual>  
@@ -89,7 +89,7 @@
           <ray>
             <scan>
               <horizontal>
-				<!-- for a high quality simulation -->
+		<!-- for a high quality simulation -->
                 <samples>${samples}</samples>
                 <min_angle>-${hfov/2*M_PI/180.0}</min_angle>
                 <max_angle>${hfov/2*M_PI/180.0}</max_angle>
@@ -111,8 +111,11 @@
           </ray>
           <plugin name="${prefix}_controller" filename="${plugin_lib}">
             <topicName>${prefix_topic}/points</topicName>
-            <frameName>/${prefix}_link</frameName>
-            <gaussianNoise>0.008</gaussianNoise>
+            <gaussian_noise>0.008</gaussian_noise>
+            <organize_cloud>0</organize_cloud>
+            <frame_name>${prefix}_base_link</frame_name>
+            <min_range>${range_min}</min_range>
+            <max_range>${range_max}</max_range>
           </plugin>
         </sensor>
     </gazebo>
