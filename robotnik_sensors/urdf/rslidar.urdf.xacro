@@ -87,9 +87,9 @@
             </noise>
           </ray>
           <plugin name="${prefix}_controller" filename="${plugin_lib}">
-            <topicName>${prefix_topic}/points</topicName>
-            <frameName>/${prefix}_link</frameName>
-            <gaussianNoise>0.008</gaussianNoise>
+            <topic_name>${prefix_topic}/points</topic_name>
+            <frame_name>/${prefix}_link</frame_name>
+            <gaussian_noise>0.008</gaussian_noise>
           </plugin>
         </sensor>
     </gazebo>
