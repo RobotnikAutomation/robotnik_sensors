@@ -82,7 +82,7 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="${plugin}">
+				<plugin name="${prefix}_controller" filename="libgazebo_ros_ray_sensor.so">
           <ros>
             <remapping>~/out:=${prefix_topic}/scan</remapping>
           </ros>
