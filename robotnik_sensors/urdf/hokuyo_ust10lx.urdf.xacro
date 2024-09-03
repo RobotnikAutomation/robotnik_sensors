@@ -54,7 +54,7 @@
       </xacro:if>
       <xacro:unless value="${gpu}">
         <xacro:property name="ray_type" value="ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_ray_laser.so" />
       </xacro:unless>
 			<sensor type="${ray_type}" name="${prefix}_sensor">
 				<pose>0 0 0 0 0 0</pose>
@@ -82,9 +82,13 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="${plugin_lib}">
-					<topicName>${prefix_topic}/scan</topicName>
-					<frameName>/${prefix}_link</frameName>
+				<plugin name="${prefix}_controller" filename="${plugin}">
+          <ros>
+            <remapping>~/out:=${prefix_topic}/scan</remapping>
+          </ros>
+          <!-- when leaving away frame_name it defaults to base_footprint instead-->
+          <frame_name>${prefix}_link</frame_name>
+          <output_type>sensor_msgs/LaserScan</output_type>
 				</plugin>
 			</sensor>
 	</gazebo>
