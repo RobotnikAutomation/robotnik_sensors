@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_rs_helios" params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu:=^|true include_inertial">
+  <xacro:macro name="sensor_rs_helios" params="prefix parent prefix_topic suffix_topic:='' *origin range_min range_max hfov hres vfov vres fps gpu:=^|true include_inertial">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -85,7 +85,7 @@
             </noise>
           </ray>
           <plugin name="${prefix}_controller" filename="${plugin_lib}">
-            <topicName>${prefix_topic}/points</topicName>
+            <topicName>${prefix_topic}/points${suffix_topic}</topicName>
             <frameName>/${prefix}_link</frameName>
             <min_range>${range_min}</min_range>
             <max_range>${range_max}</max_range>
@@ -96,8 +96,8 @@
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_rs_helios_16p" params="prefix parent prefix_topic:='lidar_3d' *origin gpu:=false include_inertial:=^|true">
-    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" range_min="0.2" range_max="150.0" hfov="360.0" hres="0.2" vfov="30.0" vres="2" fps="10.0" gpu="${gpu}" include_inertial="${include_inertial}">
+  <xacro:macro name="sensor_rs_helios_16p" params="prefix parent prefix_topic:='lidar_3d' suffix_topic:='' *origin gpu:=false include_inertial:=^|true">
+    <xacro:sensor_rs_helios prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" suffix_topic="${suffix_topic}" range_min="0.2" range_max="150.0" hfov="360.0" hres="0.2" vfov="30.0" vres="2" fps="10.0" gpu="${gpu}" include_inertial="${include_inertial}">
       <xacro:insert_block name="origin" />
     </xacro:sensor_rs_helios>
   </xacro:macro>
