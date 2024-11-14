@@ -257,7 +257,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
            <stddev>0.100</stddev>
          </noise>
        </camera>
-       <always_on></always_on>
+       <always_on>1</always_on>
        <update_rate>${update_rate}</update_rate>
        <visualize>0</visualize>
      </sensor>
