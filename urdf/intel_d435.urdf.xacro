@@ -155,7 +155,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
      <kd>1</kd>
      <!--<max_vel>0.01</max_vel>
      <min_depth>0</min_depth>-->
-     <sensor name="${camera_name}color" type="camera">
+     <sensor name="${prefix}color" type="camera">
        <camera name="${camera_name}">
          <horizontal_fov>${69.4*deg_to_rad}</horizontal_fov>
          <image>
@@ -196,7 +196,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
         </plugin>
 
      </sensor>
-     <sensor name="${camera_name}ired1" type="camera">
+     <sensor name="${prefix}ired1" type="camera">
        <camera name="${camera_name}">
          <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
          <image>
@@ -218,7 +218,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <update_rate>${update_rate}</update_rate>
        <visualize>0</visualize>
      </sensor>
-     <sensor name="${camera_name}ired2" type="camera">
+     <sensor name="${prefix}ired2" type="camera">
        <camera name="${camera_name}">
          <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
          <image>
@@ -240,7 +240,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
        <update_rate>${update_rate}</update_rate>
        <visualize>0</visualize>
      </sensor>
-     <sensor name="${camera_name}depth" type="depth">
+     <sensor name="${prefix}depth" type="depth">
        <camera name="${camera_name}">
          <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
          <image>
@@ -265,7 +265,7 @@ Copyright(c) 2020 Robotnik Automation. All Rights Reserved
 
    <gazebo>
      <plugin name="${camera_name}_controller" filename="librealsense_gazebo_plugin.so">
-       <prefix>${camera_name}</prefix>
+       <prefix>${prefix}</prefix>
        <depthUpdateRate>${update_rate}</depthUpdateRate>
        <colorUpdateRate>${update_rate}</colorUpdateRate>
        <infraredUpdateRate>${update_rate}</infraredUpdateRate>
