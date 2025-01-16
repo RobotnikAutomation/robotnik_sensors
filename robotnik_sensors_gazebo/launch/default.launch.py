@@ -55,11 +55,11 @@ def generate_launch_description():
 
     add_to_launcher.add_arg(
         ExtendedArgument(
-            name="robot_id",
+            name="namespace",
             description="ID of the robot",
-            default_value="",
+            default_value="robot",
             use_env=True,
-            environment="ROBOT_ID",
+            environment="NAMESPACE",
         )
     )
 
@@ -101,7 +101,7 @@ def generate_launch_description():
             " sensor_name:=",
             params["sensor_name"],
             " sensor_ns:=",
-            params["robot_id"],
+            params["namespace"],
         ]
     )
     robot_description_content = ParameterValue(
@@ -120,7 +120,7 @@ def generate_launch_description():
                 )
             ),
             launch_arguments={
-                "verbose": "true",
+                "verbose": "false",
                 "init": "true",
                 "factory": "true",
                 "force_system": "true",
@@ -139,14 +139,14 @@ def generate_launch_description():
                     ]
                 )
             ),
-            launch_arguments={"verbose": "true"}.items(),
+            launch_arguments={"verbose": "false"}.items(),
         ),
     )
 
     ret_ld.add_action(
         GroupAction(
             [
-                PushRosNamespace(params["robot_id"]),
+                PushRosNamespace(params["namespace"]),
                 Node(
                     package="robot_state_publisher",
                     executable="robot_state_publisher",
@@ -157,7 +157,7 @@ def generate_launch_description():
                             "use_sim_time": True,
                             "robot_description": robot_description_content,
                             "publish_frequency": 100.0,
-                            "frame_prefix": [params["robot_id"], "/"],
+                            "frame_prefix": [params["namespace"], "/"],
                             "ignore_timestamp": False,
                         }
                     ],
