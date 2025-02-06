@@ -82,6 +82,13 @@ def generate_launch_description():
             environment="SENSOR_NAME",
         )
     )
+    
+    arg = ExtendedArgument(
+        name='world_path',
+        description='world path in gazebo classic',
+        default_value=[FindPackageShare('robotnik_gazebo_classic'), '/worlds/maze.world'],
+    )
+    add_to_launcher.add_arg(arg)
 
     params = add_to_launcher.process_arg()
 
@@ -120,10 +127,14 @@ def generate_launch_description():
                 )
             ),
             launch_arguments={
-                "verbose": "false",
+                "verbose": "true",
                 "init": "true",
                 "factory": "true",
                 "force_system": "true",
+                'physics': 'ode',
+                'publish_rate': '1000.0',
+                'world': 'empty',
+                'paused': 'false',
             }.items(),
         ),
     )
@@ -139,7 +150,7 @@ def generate_launch_description():
                     ]
                 )
             ),
-            launch_arguments={"verbose": "false"}.items(),
+            launch_arguments={"verbose": "true"}.items(),
         ),
     )
 
@@ -184,6 +195,16 @@ def generate_launch_description():
                                 "default.rviz",
                             ]
                         ),
+                    ],
+                ),
+                Node(
+                    package="joint_state_publisher_gui",
+                    executable="joint_state_publisher_gui",
+                    parameters=[
+                        {
+                            "use_sim_time": True,
+                            "namespace": "robot"
+                        }
                     ],
                 ),
                 # Node(

@@ -2,27 +2,37 @@
 <robot name="sensor_hokuyo_urg04lx" xmlns:xacro="http://wiki.ros.org/xacro">
 
 
-  <xacro:macro name="sensor_hokuyo_urg04lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.0943 max_angle:=2.0943  gpu:=^|true">
+  <xacro:macro name="sensor_hokuyo_urg04lx"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_name:=hokuyo_urg04lx
+                       node_namespace:=${None}
+                       topic_prefix:=~/
+                       gpu:=false">
+    <!-- node_namespace is used from node_name if not set -->
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
 
-    <joint name="${prefix}_base_joint" type="fixed">
+    <joint name="${frame_prefix}base_joint" type="fixed">
       <!-- FRONT MOUNT  -->
       <!--origin xyz="0.29 0 0.1" -->
       <!-- TOP MOUNT -->
       <!-- origin xyz="0.0 0.0 0.325"-->
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_base_link"/>
+      <child link="${frame_prefix}base_link"/>
     </joint>
 
-
-    <link name="${prefix}_base_link">
+    <link name="${frame_prefix}base_link">
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
         <geometry>
             <mesh filename="package://robotnik_sensors/meshes/hokuyo_urg_04lx.dae"/>
         </geometry>
       </visual>
-
       <inertial>
         <origin xyz="0.0 0 0.035" rpy="0 0 0" />
         <mass value="0.160" />
@@ -30,31 +40,31 @@
       </inertial>
     </link>
 
-    <link name="${prefix}_link">
-  </link>
-    <joint name="${prefix}_joint" type="fixed">
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_link"/>
+    <joint name="${frame_prefix}joint" type="fixed">
+      <parent link="${frame_prefix}base_link"/>
+      <child link="${frame_prefix}link"/>
       <origin xyz="0.00 0 0.05315" rpy="0 0 0"/>
-  </joint>
+    </joint>
+    <link name="${frame_prefix}link">
+    </link>
 
     <!-- Hokuyo sensor for simulation -->
-    <xacro:sensor_hokuyo_urg04lx_gazebo/>
+    <xacro:if value="${simulation}">
+      <xacro:sensor_hokuyo_urg04lx_gazebo/>
+    </xacro:if>
 
   </xacro:macro>
 
 
   <xacro:macro name="sensor_hokuyo_urg04lx_gazebo">
-    <gazebo reference="${prefix}_link">
+    <gazebo reference="${frame_prefix}link">
       <xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
       </xacro:if>
       <xacro:unless value="${gpu}">
         <xacro:property name="ray_type" value="ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
       </xacro:unless>
-      <sensor type="${ray_type}" name="${prefix}_sensor">
+      <sensor type="${ray_type}" name="${frame_prefix}sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
         <update_rate>10</update_rate>
@@ -63,8 +73,8 @@
             <horizontal>
               <samples>640</samples>
               <resolution>1</resolution>
-              <min_angle>${min_angle}</min_angle>
-              <max_angle>${max_angle}</max_angle>
+              <min_angle>-2.0943</min_angle>
+              <max_angle>2.0943</max_angle>
             </horizontal>
           </scan>
           <range>
@@ -78,10 +88,13 @@
             <stddev>0.01</stddev>
           </noise>
         </ray>
-        <plugin name="${prefix}_controller" filename="${plugin_lib}">
-          <topicName>${prefix_topic}/scan</topicName>
-          <frameName>${prefix}_link</frameName>
-          <ignoreTfPrefix>1</ignoreTfPrefix>
+        <plugin name="${node_name}" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+              <remapping>~/out:=~/scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
         </plugin>
       </sensor>
   </gazebo>

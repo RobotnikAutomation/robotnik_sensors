@@ -6,7 +6,7 @@
                        *origin
                        simulation:=false
                        node_namespace:=${None}
-                       node_name:=intel_d435
+                       node_name:=orbbec_astra
                        topic_prefix:=~/">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
@@ -78,7 +78,7 @@
             </image>
             <clip>
               <near>0.05</near>
-              <far>100.0</far>
+              <far>8.0</far>
             </clip>
             <noise>
               <type>gaussian</type>
@@ -98,7 +98,7 @@
             <camera_name>${node_name}</camera_name>
             <frame_name>${node_namespace}/${frame_prefix}rgb_optical_frame</frame_name>
             <min_depth>0.4</min_depth>
-            <max_depth>6.5</max_depth>
+            <max_depth>8.0</max_depth>
           </plugin>
         </sensor>
       </gazebo>

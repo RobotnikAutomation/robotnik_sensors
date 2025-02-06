@@ -1,15 +1,27 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo_ust10lx" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_hokuyo_ust10lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
-    
-    <joint name="${prefix}_base_joint" type="fixed">
+  <xacro:macro name="sensor_hokuyo_ust10lx"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_name:=hokuyo_ust10lx
+                       node_namespace:=${None}
+                       topic_prefix:=~/
+                       gpu:=false">
+    <!-- node_namespace is used from node_name if not set -->
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
+
+    <joint name="${frame_prefix}base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
-      <child link="${prefix}_base_link"/>
+      <child link="${frame_prefix}base_link"/>
     </joint>
 
-    <link name="${prefix}_base_link">
+    <link name="${frame_prefix}base_link">
       <collision>
         <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
@@ -31,32 +43,32 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}_joint" type="fixed">
+    <joint name="${frame_prefix}joint" type="fixed">
       <origin xyz="0 0 0.0474" rpy="0 0 0"/>
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_link"/>
+      <parent link="${frame_prefix}base_link"/>
+      <child link="${frame_prefix}link"/>
     </joint>
 
-    <link name="${prefix}_link">
+    <link name="${frame_prefix}link">
     </link>
 
     <!-- Hokuyo sensor for simulation -->
-    <xacro:sensor_hokuyo_ust10_gazebo/>
+    <xacro:if value="${simulation}">
+      <xacro:sensor_hokuyo_ust10_gazebo/>
+    </xacro:if>
 
   </xacro:macro>
 
 
   <xacro:macro name="sensor_hokuyo_ust10_gazebo">
-    <gazebo reference="${prefix}_link">
+    <gazebo reference="${frame_prefix}link">
 			<xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
       </xacro:if>
       <xacro:unless value="${gpu}">
         <xacro:property name="ray_type" value="ray" />
-        <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
       </xacro:unless>
-			<sensor type="${ray_type}" name="${prefix}_sensor">
+			<sensor type="${ray_type}" name="${frame_prefix}sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
 				<update_rate>40</update_rate>
@@ -65,8 +77,8 @@
 						<horizontal>
 							<samples>1081</samples>
 							<resolution>1</resolution>
-							<min_angle>${min_angle}</min_angle>
-							<max_angle>${max_angle}</max_angle>
+							<min_angle>-2.3562 </min_angle>
+							<max_angle>2.3562 </max_angle>
 						</horizontal>
 					</scan>
 					<range>
@@ -82,9 +94,13 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="${prefix}_controller" filename="${plugin_lib}">
-					<topicName>${prefix_topic}/scan</topicName>
-					<frameName>/${prefix}_link</frameName>
+				<plugin name="${node_name}" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+              <remapping>~/out:=~/scan</remapping>
+            </ros>
+            <output_type>sensor_msgs/LaserScan</output_type>
+            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
 				</plugin>
 			</sensor>
 	</gazebo>

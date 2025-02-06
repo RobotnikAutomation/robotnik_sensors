@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_robosense_helios" xmlns:xacro="http://wiki.ros.org/xacro">
-  <xacro:macro name="sensor_robosense_helios"
+  <xacro:macro name="sensor_robosense_helios_16p"
                params="frame_prefix
                        parent
                        *origin
                        simulation:=false
-                       node_name:=robosense_helios
+                       node_name:=robosense_helios_16p
                        node_namespace:=${None}
                        topic_prefix:=~/
-                       gpu:=true">
+                       gpu:=false">
 
     <joint name="${frame_prefix}base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -84,12 +84,13 @@
           <plugin name="${node_name}" filename="libgazebo_ros_velodyne_laser.so">
             <ros>
               <namespace>${node_namespace}</namespace>
+              <remapping>~/out:=${topic_prefix}point_cloud</remapping>
             </ros>
-            <topicName>~/point_cloud</topicName>
-            <frameName>${node_namespace}/${frame_prefix}link</frameName>
+            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
             <min_range>0.05</min_range>
             <max_range>100.0</max_range>
-            <gaussianNoise>0.01</gaussianNoise>
+            <gaussian_noise>0.01</gaussian_noise>
+            <organize_cloud>0</organize_cloud>
           </plugin>
         </sensor>
       </gazebo>

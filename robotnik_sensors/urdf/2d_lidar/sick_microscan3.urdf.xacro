@@ -8,7 +8,7 @@
                        node_name:=sick_tim571
                        node_namespace:=${None}
                        topic_prefix:=~/
-                       gpu:=true">
+                       gpu:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property name="node_namespace" value="${node_name}"/>
@@ -61,8 +61,8 @@
               <horizontal>
                 <samples>700</samples>
                 <resolution>1</resolution>
-                <min_angle>${-radians(135)}</min_angle>
-                <max_angle>${radians(135)}</max_angle>
+                <min_angle>-2.35</min_angle>
+                <max_angle>2.35</max_angle>
               </horizontal>
             </scan>
             <range>
@@ -76,6 +76,7 @@
               <stddev>0.01</stddev>
             </noise>
           </ray>
+          <always_on>true</always_on>
           <plugin name="${node_name}" filename="libgazebo_ros_ray_sensor.so">
             <ros>
               <namespace>${node_namespace}</namespace>

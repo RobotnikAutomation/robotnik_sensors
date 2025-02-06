@@ -10,6 +10,7 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/orbbec_astra.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_generic.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed2.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/azure_kinect.urdf.xacro" />
 
   <!-- 2D Lidars -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_microscan3.urdf.xacro" />
@@ -19,6 +20,10 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_s3000.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim551.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim571.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_urg04lx.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_ust10lx.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_ust20lx.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_utm30lx.urdf.xacro" />
 
   <!-- 3D Lidars -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/velodyne_vlp16.urdf.xacro" />
@@ -30,5 +35,9 @@
 
   <!-- GPS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps.urdf.xacro" />
+
+  <!-- Camera -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/camera/axis_m5013.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf//intel_d435.urdf.xacro" />
 
 </robot>

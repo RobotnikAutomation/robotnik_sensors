@@ -8,7 +8,7 @@
                        node_name:=sick_tim571
                        node_namespace:=${None}
                        topic_prefix:=~/
-                       gpu:=true">
+                       gpu:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property name="node_namespace" value="${node_name}"/>
@@ -61,8 +61,8 @@
               <horizontal>
                 <samples>380</samples>
                 <resolution>1</resolution>
-                <min_angle>${-radians(95)}</min_angle>
-                <max_angle>${radians(95)}</max_angle>
+                <min_angle>${-radians(93)}</min_angle>
+                <max_angle>${radians(93)}</max_angle>
               </horizontal>
             </scan>
             <range>

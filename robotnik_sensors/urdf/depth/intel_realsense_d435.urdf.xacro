@@ -132,12 +132,7 @@
 
       <gazebo reference="${frame_prefix}color_frame">
         <sensor name="${node_namespace}color" type="camera">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>30.0</update_rate>
-          <always_on>true</always_on>
           <camera name="${frame_prefix}camera">
-            <vertical_fov>${radians(42.0)}</vertical_fov>
             <horizontal_fov>${radians(69.4)}</horizontal_fov>
             <image>
               <width>1920</width>
@@ -145,7 +140,7 @@
               <format>RGB_INT8</format>
             </image>
             <clip>
-              <near>0.015</near>
+              <near>0.1</near>
               <far>100</far>
             </clip>
             <noise>
@@ -154,16 +149,14 @@
               <stddev>0.007</stddev>
             </noise>
           </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </gazebo>
       <gazebo reference="${frame_prefix}infra1_frame">
         <sensor name="${node_namespace}ired1" type="camera">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>90.0</update_rate>
-          <always_on>true</always_on>
           <camera name="${frame_prefix}camera">
-            <vertical_fov>${radians(58.0)}</vertical_fov>
             <horizontal_fov>${radians(85.2)}</horizontal_fov>
             <image>
               <width>1280</width>
@@ -171,7 +164,7 @@
               <format>L_INT8</format>
             </image>
             <clip>
-              <near>0.015</near>
+              <near>0.1</near>
               <far>100</far>
             </clip>
             <noise>
@@ -180,16 +173,14 @@
               <stddev>0.05</stddev>
             </noise>
           </camera>
+          <always_on>1</always_on>
+          <update_rate>90</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </gazebo>
       <gazebo reference="${frame_prefix}link">
         <sensor name="${node_namespace}ired2" type="camera">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>90.0</update_rate>
-          <always_on>true</always_on>
           <camera name="${frame_prefix}camera">
-            <vertical_fov>${radians(58.0)}</vertical_fov>
             <horizontal_fov>${radians(85.2)}</horizontal_fov>
             <image>
               <width>1280</width>
@@ -197,7 +188,7 @@
               <format>L_INT8</format>
             </image>
             <clip>
-              <near>0.015</near>
+              <near>0.1</near>
               <far>100</far>
             </clip>
             <noise>
@@ -206,21 +197,19 @@
               <stddev>0.05</stddev>
             </noise>
           </camera>
+          <always_on>1</always_on>
+          <update_rate>90</update_rate>
+          <visualize>false</visualize>
         </sensor>
         <sensor name="${node_namespace}depth" type="depth">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>90.0</update_rate>
-          <always_on>true</always_on>
           <camera name="${frame_prefix}camera">
-            <vertical_fov>${radians(58.0)}</vertical_fov>
             <horizontal_fov>${radians(85.2)}</horizontal_fov>
             <image>
               <width>1280</width>
               <height>720</height>
             </image>
             <clip>
-              <near>0.015</near>
+              <near>0.1</near>
               <far>100</far>
             </clip>
             <noise>
@@ -229,17 +218,17 @@
               <stddev>0.100</stddev>
             </noise>
           </camera>
+          <always_on>1</always_on>
+          <update_rate>90</update_rate>
+          <visualize>false</visualize>
         </sensor>
       </gazebo>
       <gazebo>
         <plugin name="${node_name}" filename="librealsense_gazebo_plugin.so">
-          <ros>
-            <namespace>${node_namespace}</namespace>
-          </ros>
           <prefix>${node_namespace}</prefix>
-          <depthUpdateRate>30.0</depthUpdateRate>
-          <colorUpdateRate>30.0</colorUpdateRate>
-          <infraredUpdateRate>1.0</infraredUpdateRate>
+          <depthUpdateRate>60.0</depthUpdateRate>
+          <colorUpdateRate>60.0</colorUpdateRate>
+          <infraredUpdateRate>60.0</infraredUpdateRate>
           <depthTopicName>${topic_prefix}depth/image_rect_raw</depthTopicName>
           <depthCameraInfoTopicName>${topic_prefix}depth/camera_info</depthCameraInfoTopicName>
           <colorTopicName>${topic_prefix}color/image_raw</colorTopicName>
@@ -252,11 +241,11 @@
           <depthOpticalframeName>${node_namespace}/${frame_prefix}depth_optical_frame</depthOpticalframeName>
           <infrared1OpticalframeName>${node_namespace}/${frame_prefix}infra1_optical_frame</infrared1OpticalframeName>
           <infrared2OpticalframeName>${node_namespace}/${frame_prefix}infra2_optical_frame</infrared2OpticalframeName>
-          <rangeMinDepth>0.3</rangeMinDepth>
-          <rangeMaxDepth>5.0</rangeMaxDepth>
+          <rangeMinDepth>0.2</rangeMinDepth>
+          <rangeMaxDepth>10.0</rangeMaxDepth>
           <pointCloud>true</pointCloud>
           <pointCloudTopicName>${topic_prefix}depth/color/points</pointCloudTopicName>
-          <pointCloudCutoff>0.3</pointCloudCutoff>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
         </plugin>
       </gazebo>
     </xacro:if>
