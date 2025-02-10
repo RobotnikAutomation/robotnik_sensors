@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<robot name="sensor_intel_realsense_d435" xmlns:xacro="http://wiki.ros.org/xacro">
-  <xacro:macro name="sensor_intel_realsense_d435"
+<robot name="sensor_intel_realsense_d435i" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_intel_realsense_d435i"
                params="frame_prefix
                        parent
                        *origin
                        simulation:=false
-                       node_name:=realsense_d435
+                       node_name:=realsense_d435i
                        node_namespace:=${None}
                        topic_prefix:=~/">
     <!-- node_namespace is used from node_name if not set -->
@@ -130,6 +130,14 @@
       </joint>
       <link name="${frame_prefix}color_optical_frame"/>
 
+      <!-- Imu frame -->
+      <joint name="${frame_prefix}imu_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${frame_prefix}link" />
+        <child link="${frame_prefix}imu_frame" />
+      </joint>
+      <link name="${frame_prefix}imu_frame"/>
+
       <gazebo reference="${frame_prefix}color_frame">
         <sensor name="${node_namespace}color" type="camera">
           <camera name="${frame_prefix}camera">
@@ -248,6 +256,87 @@
           <pointCloudCutoff>0.5</pointCloudCutoff>
         </plugin>
       </gazebo>
+
+      <!-- Imu -->
+      <gazebo reference="${frame_prefix}imu_frame">
+      <gravity>true</gravity>
+      <sensor name="${frame_prefix}imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>200</update_rate>
+        <visualize>true</visualize>
+
+        <imu>
+          <orientation>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-3</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-3</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-3</stddev>
+              </noise>
+            </z>
+          </orientation>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-4</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-4</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>2e-3</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>1.7e-2</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+        <plugin name="${node_name}_imu" filename="libgazebo_ros_imu_sensor.so">
+          <ros>
+            <namespace>${node_namespace}</namespace>
+            <remapping>~/out:=${topic_prefix}data</remapping>
+          </ros>
+          <initial_orientation_as_reference>false</initial_orientation_as_reference>
+          <frame_name>${frame_prefix}imu_frame</frame_name>
+        </plugin>
+      </sensor>
+    </gazebo>
     </xacro:if>
   </xacro:macro>
 </robot>

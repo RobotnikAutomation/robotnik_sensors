@@ -10,7 +10,7 @@
                        node_name:=hokuyo_urg04lx
                        node_namespace:=${None}
                        topic_prefix:=~/
-                       gpu:=false">
+                        :=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property name="node_namespace" value="${node_name}"/>
@@ -45,6 +45,7 @@
       <child link="${frame_prefix}link"/>
       <origin xyz="0.00 0 0.05315" rpy="0 0 0"/>
     </joint>
+
     <link name="${frame_prefix}link">
     </link>
 
@@ -94,7 +95,7 @@
               <remapping>~/out:=~/scan</remapping>
             </ros>
             <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+            <frame_name>${frame_prefix}link</frame_name>
         </plugin>
       </sensor>
   </gazebo>

@@ -82,13 +82,6 @@ def generate_launch_description():
             environment="SENSOR_NAME",
         )
     )
-    
-    arg = ExtendedArgument(
-        name='world_path',
-        description='world path in gazebo classic',
-        default_value=[FindPackageShare('robotnik_gazebo_classic'), '/worlds/maze.world'],
-    )
-    add_to_launcher.add_arg(arg)
 
     params = add_to_launcher.process_arg()
 
@@ -197,16 +190,16 @@ def generate_launch_description():
                         ),
                     ],
                 ),
-                Node(
-                    package="joint_state_publisher_gui",
-                    executable="joint_state_publisher_gui",
-                    parameters=[
-                        {
-                            "use_sim_time": True,
-                            "namespace": "robot"
-                        }
-                    ],
-                ),
+                # Node(
+                #     package="joint_state_publisher_gui",
+                #     executable="joint_state_publisher_gui",
+                #     parameters=[
+                #         {
+                #             "use_sim_time": True,
+                #             "namespace": "robot"
+                #         }
+                #     ],
+                # ),
                 # Node(
                 #     package="rqt_tf_tree",
                 #     executable="rqt_tf_tree",

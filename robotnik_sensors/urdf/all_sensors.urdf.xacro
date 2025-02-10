@@ -7,9 +7,11 @@
 
   <!-- Depth sensors -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/intel_realsense_d435.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/intel_realsense_d435i.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/orbbec_astra.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_generic.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed2.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed2i.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/depth/azure_kinect.urdf.xacro" />
 
   <!-- 2D Lidars -->
@@ -29,15 +31,23 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/velodyne_vlp16.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_bpearl.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_helios_16p.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/ouster.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/livox_mid_360.urdf.xacro" />
 
   <!-- IMUs -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/imu/vectornav.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/myahrs.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/pixhawk.urdf.xacro" />
 
   <!-- GPS -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps_with_mast.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/ublox.urdf.xacro" />
 
   <!-- Camera -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/camera/axis_m5013.urdf.xacro" />
-  <xacro:include filename="$(find robotnik_sensors)/urdf//intel_d435.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/camera/axis_m5074.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/camera/axis_m5525.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/camera/axis_m5526.urdf.xacro" />
 
 </robot>

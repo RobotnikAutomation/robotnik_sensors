@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo_utm30lx" xmlns:xacro="http://wiki.ros.org/xacro">
 
-
   <xacro:macro name="sensor_hokuyo_utm30lx"
                params="frame_prefix
                        parent
                        *origin
                        simulation:=false
-                       node_name:=hokuyo_urg04lx
+                       node_name:=hokuyo_utm30lx
                        node_namespace:=${None}
                        topic_prefix:=~/
                        gpu:=false">
@@ -42,13 +41,14 @@
       </inertial>
     </link>
 
-	<link name="${frame_prefix}link">
-	</link>
     <joint name="${frame_prefix}joint" type="fixed">
       <parent link="${frame_prefix}base_link"/>
       <child link="${frame_prefix}link"/>
       <origin xyz="0.00 0 0.055" rpy="0 0 0"/>
-	</joint>
+	  </joint>
+
+    <link name="${frame_prefix}link">
+    </link>
 
     <!-- Hokuyo sensor for simulation -->
     <xacro:if value="${simulation}">
@@ -96,7 +96,7 @@
               <remapping>~/out:=~/scan</remapping>
             </ros>
             <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+            <frame_name>${frame_prefix}link</frame_name>
 				</plugin>
 			</sensor>
 		</gazebo>

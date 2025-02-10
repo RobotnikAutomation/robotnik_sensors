@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<robot name="sensor_vectornav" xmlns:xacro="http://wiki.ros.org/xacro">
-  <xacro:macro name="sensor_vectornav"
+<robot name="sensor_myahrs" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_myahrs"
                params="frame_prefix
                        parent
                        *origin
@@ -23,11 +23,11 @@
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <material name="vectornav_imu_color">
+        <material name="myahrs_imu_color">
           <color rgba="1 0 0 1"/>
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/imu/vectornav_vn100.stl"/>
+          <box size="0.01 0.01 0.01"/>
         </geometry>
       </visual>
       <collision>
@@ -64,22 +64,19 @@
               <x>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>2e-3</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </x>
               <y>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>2e-3</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </y>
               <z>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>2e-3</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </z>
             </orientation>
@@ -87,22 +84,19 @@
               <x>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>2e-4</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>2e-4</stddev>
                 </noise>
               </x>
               <y>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>2e-4</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>2e-4</stddev>
                 </noise>
               </y>
               <z>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>2e-3</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </z>
             </angular_velocity>
@@ -110,22 +104,19 @@
               <x>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>1.7e-2</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>1.7e-2</stddev>
                 </noise>
               </x>
               <y>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>1.7e-2</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>1.7e-2</stddev>
                 </noise>
               </y>
               <z>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <!-- <stddev>1.7e-2</stddev> -->
-                  <stddev>0.01</stddev>
+                  <stddev>1.7e-2</stddev>
                 </noise>
               </z>
             </linear_acceleration>
@@ -140,6 +131,7 @@
           </plugin>
         </sensor>
       </gazebo>
+
     </xacro:if>
   </xacro:macro>
 </robot>

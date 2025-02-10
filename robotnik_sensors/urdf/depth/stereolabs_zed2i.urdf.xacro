@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot name="sensor_stereolabs_zed2i" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="sensor_stereolabs_zed2i"
+               params="frame_prefix
+                       parent
+                       *origin
+                       simulation:=false
+                       node_namespace:=stereolabs_zed2i
+                       node_name:=stereolabs_zed2i
+                       topic_prefix:=~/">
+
+    <xacro:sensor_stereolabs_generic frame_prefix="${frame_prefix}"
+                                     parent="${parent}"
+                                     model="zed2"
+                                     simulation="${simulation}"
+                                     node_namespace="${node_namespace}"
+                                     node_name="${node_name}"
+                                     topic_prefix="${topic_prefix}"
+                                     horizontal_fov="110"
+                                     vertical_fov="70"
+                                     video_width="1920"
+                                     video_height="1080"
+                                     video_fps="30"
+                                     min_depth="0.2"
+                                     max_depth="20.0">
+      <xacro:insert_block name="origin" />
+    </xacro:sensor_stereolabs_generic>
+
+    <!-- Imu frame -->
+    <joint name="${frame_prefix}imu_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}imu_frame" />
+    </joint>
+    <link name="${frame_prefix}imu_frame"/>
+
+    <!-- Imu -->
+    <xacro:if value="${simulation}">
+      <gazebo reference="${frame_prefix}imu_frame">
+        <gravity>true</gravity>
+        <sensor name="${frame_prefix}imu_sensor" type="imu">
+          <always_on>true</always_on>
+          <update_rate>200</update_rate>
+          <visualize>true</visualize>
+
+          <imu>
+            <orientation>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-3</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-3</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-3</stddev>
+                </noise>
+              </z>
+            </orientation>
+            <angular_velocity>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-4</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>2e-3</stddev>
+                </noise>
+              </z>
+            </angular_velocity>
+            <linear_acceleration>
+              <x>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </x>
+              <y>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </y>
+              <z>
+                <noise type="gaussian">
+                  <mean>0.0</mean>
+                  <stddev>1.7e-2</stddev>
+                </noise>
+              </z>
+            </linear_acceleration>
+          </imu>
+          <plugin name="${node_name}_imu" filename="libgazebo_ros_imu_sensor.so">
+            <ros>
+              <namespace>${node_namespace}</namespace>
+              <remapping>~/out:=${topic_prefix}data</remapping>
+            </ros>
+            <initial_orientation_as_reference>false</initial_orientation_as_reference>
+            <frame_name>${frame_prefix}imu_frame</frame_name>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>
+  </xacro:macro>
+</robot>

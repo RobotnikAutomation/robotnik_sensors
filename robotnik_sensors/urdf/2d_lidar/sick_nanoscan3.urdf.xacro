@@ -5,7 +5,7 @@
                        parent
                        *origin
                        simulation:=false
-                       node_name:=sick_tim571
+                       node_name:=sick_nanoscan3
                        node_namespace:=${None}
                        topic_prefix:=~/
                        gpu:=false">
@@ -19,6 +19,7 @@
       <parent link="${parent}"/>
       <child link="${frame_prefix}base_link"/>
     </joint>
+
     <link name="${frame_prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -38,14 +39,24 @@
         <xacro:solid_cuboid_inertia m="0.67" w="0.1006" h="0.1006" d="0.08" />
 	  </inertial>
     </link>
+
     <joint name="${frame_prefix}joint" type="fixed">
       <origin xyz="0.0 0 0.0505" rpy="0 0 0"/>
       <parent link="${frame_prefix}base_link"/>
       <child link="${frame_prefix}link"/>
     </joint>
+
     <link name="${frame_prefix}link"/>
+
+    <!-- sick_nanoscan3 sensor for simulation -->
     <xacro:if value="${simulation}">
-      <xacro:if value="${gpu}">
+      <xacro:sensor_sick_nanoscan3_gazebo/>
+    </xacro:if>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_sick_nanoscan3_gazebo">
+    <xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
       </xacro:if>
       <xacro:unless value="${gpu}">
@@ -55,7 +66,7 @@
         <sensor type="${ray_type}" name="${frame_prefix}sensor">
           <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
           <visualize>false</visualize>
-		  <update_rate>12.5</update_rate>
+		      <update_rate>12.5</update_rate>
           <ray>
             <scan>
               <horizontal>
@@ -82,10 +93,9 @@
               <remapping>~/out:=~/scan</remapping>
             </ros>
             <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+            <frame_name>${frame_prefix}link</frame_name>
           </plugin>
         </sensor>
       </gazebo>
-    </xacro:if>
   </xacro:macro>
 </robot>

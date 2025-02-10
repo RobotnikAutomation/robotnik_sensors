@@ -10,11 +10,16 @@
                        topic_prefix:=~/
                        gpu:=false">
 
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
+
     <joint name="${frame_prefix}base_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${frame_prefix}base_link"/>
     </joint>
+
     <link name="${frame_prefix}base_link">
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -37,13 +42,22 @@
 		<xacro:solid_cuboid_inertia m="0.840" w="0.109" h="0.109" d="0.0827" />
       </inertial>
     </link>
+
     <joint name="${frame_prefix}joint" type="fixed">
       <parent link="${frame_prefix}base_link"/>
       <child link="${frame_prefix}link"/>
       <origin xyz="0.0 0 0.0635" rpy="0 0 0"/>
     </joint>
+
     <link name="${frame_prefix}link"/>
+
     <xacro:if value="${simulation}">
+      <xacro:sensor_robosense_helios_16p_gazebo/>
+    </xacro:if>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_robosense_helios_16p_gazebo">
       <xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
       </xacro:if>
@@ -86,7 +100,7 @@
               <namespace>${node_namespace}</namespace>
               <remapping>~/out:=${topic_prefix}point_cloud</remapping>
             </ros>
-            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+            <frame_name>${frame_prefix}link</frame_name>
             <min_range>0.05</min_range>
             <max_range>100.0</max_range>
             <gaussian_noise>0.01</gaussian_noise>
@@ -94,6 +108,7 @@
           </plugin>
         </sensor>
       </gazebo>
-    </xacro:if>
+
   </xacro:macro>
+
 </robot>

@@ -5,7 +5,7 @@
                        parent
                        *origin
                        simulation:=false
-                       node_name:=sick_tim571
+                       node_name:=sick_microscan3
                        node_namespace:=${None}
                        topic_prefix:=~/
                        gpu:=false">
@@ -19,6 +19,7 @@
       <parent link="${parent}"/>
       <child link="${frame_prefix}base_link"/>
     </joint>
+
     <link name="${frame_prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -33,19 +34,29 @@
         </geometry>
       </collision>
       <inertial>
-		<mass value="1.15" />
-		<origin xyz="0 0 0.075" rpy="0 0 0"/>
-		<xacro:solid_cuboid_inertia m="1.15" w="0.112" h="0.111" d="0.15" />
+        <mass value="1.15" />
+        <origin xyz="0 0 0.075" rpy="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="1.15" w="0.112" h="0.111" d="0.15" />
       </inertial>
     </link>
+
     <joint name="${frame_prefix}joint" type="fixed">
-		<origin xyz="0.0 0 0.110" rpy="0 0 0"/>
+		  <origin xyz="0.0 0 0.110" rpy="0 0 0"/>
       <parent link="${frame_prefix}base_link"/>
       <child link="${frame_prefix}link"/>
     </joint>
+
     <link name="${frame_prefix}link"/>
+
+    <!-- sick_microscan3 sensor for simulation -->
     <xacro:if value="${simulation}">
-      <xacro:if value="${gpu}">
+      <xacro:sensor_sick_microscan3_gazebo/>
+    </xacro:if>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_sick_microscan3_gazebo">
+    <xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
       </xacro:if>
       <xacro:unless value="${gpu}">
@@ -83,10 +94,10 @@
               <remapping>~/out:=~/scan</remapping>
             </ros>
             <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+            <frame_name>${frame_prefix}link</frame_name>
           </plugin>
         </sensor>
       </gazebo>
-    </xacro:if>
   </xacro:macro>
+
 </robot>

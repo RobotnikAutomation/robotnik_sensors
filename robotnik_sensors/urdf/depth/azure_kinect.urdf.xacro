@@ -136,7 +136,7 @@
             <remapping>~/depth/image_raw:=${topic_prefix}depth/image_raw</remapping>
           </ros>
           <camera_name>${node_name}</camera_name>
-          <frame_name>${node_namespace}/${frame_prefix}rgb_optical_frame</frame_name>
+          <frame_name>${frame_prefix}rgb_optical_frame</frame_name>
           <min_depth>0.4</min_depth>
           <max_depth>3.5</max_depth>
         </plugin>

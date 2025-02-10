@@ -5,7 +5,7 @@
                        parent
                        *origin
                        simulation:=false
-                       node_name:=sick_tim571
+                       node_name:=sick_s3000
                        node_namespace:=${None}
                        topic_prefix:=~/
                        gpu:=false">
@@ -19,6 +19,7 @@
       <parent link="${parent}"/>
       <child link="${frame_prefix}base_link"/>
     </joint>
+
     <link name="${frame_prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -38,13 +39,22 @@
         <xacro:solid_cuboid_inertia m="3.3" w="0.16" h="0.160" d="0.185" />
 	  </inertial>
     </link>
+
     <joint name="${frame_prefix}joint" type="fixed">
       <origin xyz="0.093 0 0.0625" rpy="0 0 0"/>
       <parent link="${frame_prefix}base_link"/>
       <child link="${frame_prefix}link"/>
     </joint>
+
     <link name="${frame_prefix}link"/>
+
     <xacro:if value="${simulation}">
+      <xacro:sensor_sick_s3000_gazebo/>
+    </xacro:if>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_sick_s3000_gazebo">
       <xacro:if value="${gpu}">
         <xacro:property name="ray_type" value="gpu_ray" />
       </xacro:if>
@@ -55,7 +65,7 @@
         <sensor type="${ray_type}" name="${frame_prefix}sensor">
           <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
           <visualize>false</visualize>
-		  <update_rate>15.0</update_rate>
+		      <update_rate>15.0</update_rate>
           <ray>
             <scan>
               <horizontal>
@@ -67,7 +77,7 @@
             </scan>
             <range>
               <min>0.07</min>
-			  <max>49.0</max>
+			        <max>49.0</max>
               <resolution>0.00575</resolution>
             </range>
             <noise>
@@ -82,10 +92,9 @@
               <remapping>~/out:=~/scan</remapping>
             </ros>
             <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>${node_namespace}/${frame_prefix}link</frame_name>
+            <frame_name>${frame_prefix}link</frame_name>
           </plugin>
         </sensor>
       </gazebo>
-    </xacro:if>
   </xacro:macro>
 </robot>

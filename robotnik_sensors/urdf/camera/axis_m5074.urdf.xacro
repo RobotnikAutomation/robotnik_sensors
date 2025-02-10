@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_axis_m5013">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_axis_m5074">
   <xacro:property name="ptz_joint_effort_limit" value="100.0"/>
   <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>
   <xacro:property name="ptz_joint_friction" value="0.1"/>
@@ -7,15 +7,15 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
   <xacro:property name="PI" value="3.14159265359"/>
 
-  <xacro:arg name="axis_m5013_controllers_params_file" default="$(find robotnik_sensors_gazebo)/config/camera/axis_m5013.yaml"/>
+  <xacro:arg name="axis_m5074_controllers_params_file" default="$(find robotnik_sensors_gazebo)/config/camera/axis_m5074.yaml"/>
 
-  <xacro:macro name="sensor_axis_m5013"
+  <xacro:macro name="sensor_axis_m5074"
                params="frame_prefix
                        parent
                        *origin
                        simulation:=false
                        node_namespace:=${None}
-                       node_name:=sensor_axis_m5013
+                       node_name:=sensor_axis_m5074
                        topic_prefix:=~/">
 
     <joint name="${frame_prefix}base_joint" type="fixed">
@@ -24,7 +24,6 @@
       <parent link="${parent}"/>
       <child link="${frame_prefix}base_link"/>
     </joint>
-
     <link name="${frame_prefix}base_link">
       <inertial>
         <origin xyz="0.0175 0 0" rpy="0 ${PI/2} 0"/>
@@ -113,13 +112,13 @@
 
     <!-- Axis sensor for simulation -->
     <xacro:if value="${simulation}">
-      <xacro:sensor_axis_m5013_gazebo/>
+      <xacro:sensor_axis_m5074_gazebo/>
     </xacro:if>
 
   </xacro:macro>
 
 
-	<xacro:macro name="sensor_axis_m5013_gazebo">
+	<xacro:macro name="sensor_axis_m5074_gazebo">
 
 		<gazebo reference="${frame_prefix}frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
 			<sensor name="${frame_prefix}sensor" type="camera">
@@ -167,10 +166,10 @@
 
     <!-- ros2 control -->
     <gazebo>
-      <plugin name="axis_m5013_control" filename="libgazebo_ros2_control.so">
+      <plugin name="axis_m5074_control" filename="libgazebo_ros2_control.so">
         <robot_param>robot_description</robot_param>
         <robot_param_node>robot_state_publisher</robot_param_node>
-        <parameters>$(arg axis_m5013_controllers_params_file)</parameters>
+        <parameters>$(arg axis_m5074_controllers_params_file)</parameters>
         <ros>
             <namespace>/${node_namespace}</namespace>
         </ros>

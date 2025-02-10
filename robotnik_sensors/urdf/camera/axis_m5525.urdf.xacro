@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_axis_m5013">
-  <xacro:property name="ptz_joint_effort_limit" value="100.0"/>
-  <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_axis_m5525">
+  <xacro:property name="ptz_joint_effort_limit" value="1.0"/>
+  <xacro:property name="ptz_joint_velocity_limit" value="1.0"/>
   <xacro:property name="ptz_joint_friction" value="0.1"/>
   <xacro:property name="ptz_joint_damping" value="0.1"/>
-  <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
+  <xacro:property name="ptz_mechanical_reduction" value="1.0"/>  
   <xacro:property name="PI" value="3.14159265359"/>
 
-  <xacro:arg name="axis_m5013_controllers_params_file" default="$(find robotnik_sensors_gazebo)/config/camera/axis_m5013.yaml"/>
+  <xacro:arg name="axis_m5525_controllers_params_file" default="$(find robotnik_sensors_gazebo)/config/camera/axis_m5525.yaml"/>
 
-  <xacro:macro name="sensor_axis_m5013"
+  <xacro:macro name="sensor_axis_m5525"
                params="frame_prefix
                        parent
                        *origin
                        simulation:=false
                        node_namespace:=${None}
-                       node_name:=sensor_axis_m5013
+                       node_name:=sensor_axis_m5525
                        topic_prefix:=~/">
 
     <joint name="${frame_prefix}base_joint" type="fixed">
@@ -27,31 +27,31 @@
 
     <link name="${frame_prefix}base_link">
       <inertial>
-        <origin xyz="0.0175 0 0" rpy="0 ${PI/2} 0"/>
-        <mass value="0.3"/>
-        <xacro:solid_cuboid_inertia m="0.3" w="0.130" h="0.130" d="0.035" /> <!-- Data from axis M5013 datasheet -->
+        <origin xyz="0.066 0 0" rpy="0 ${3.1415/2} 0"/>
+        <mass value="0.8"/>
+        <xacro:solid_cuboid_inertia m="0.8" w="0.165" h="0.165" d="0.132" />
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/>
+        <origin xyz="0 0 0" rpy="0 ${3.1415/2} 0"/>
         <!-- to center the axis model -->
         <material name="axis_color">
           <color rgba="0.1 0.1 0.1 1"/>
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/axis_m5013.dae" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_m5525.dae" scale="1.0 1.0 1.0"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0.0 0.0 0" rpy="0 ${PI/2} 0"/>
+        <origin xyz="0.0 0.0 0" rpy="0 ${3.1415/2} 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/axis_m5013.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="package://robotnik_sensors/meshes/axis_m5525.stl" scale="1.0 1.0 1.0"/>
         </geometry>
       </collision>
     </link>
 
     <joint name="${frame_prefix}pan_joint" type="revolute">
       <axis xyz="1 0 0"/>
-      <origin xyz="0.04 0.0 0.0" rpy="0 0 0"/>
+      <origin xyz="0.087 0.0 0.0" rpy="0 0 0"/>
       <!-- check the displacement -->
       <parent link="${frame_prefix}base_link"/>
       <child link="${frame_prefix}pan_link"/>
@@ -60,9 +60,9 @@
     </joint>
     <link name="${frame_prefix}pan_link">
       <inertial>
-        <mass value="0.01"/>
+        <mass value="0.1"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.03" h="0.06" d="0.06" /> 
+        <xacro:solid_cuboid_inertia m="0.1" w="0.1" h="0.11" d="0.11" />
       </inertial>
     </link>
 
@@ -76,35 +76,35 @@
     </joint>
     <link name="${frame_prefix}tilt_link">
       <inertial>
-        <mass value="0.01"/>
+        <mass value="0.1"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
       </inertial>
     </link>
 
     <joint name="${frame_prefix}frame_joint" type="fixed">
-      <origin xyz="0.0 0 -0.03" rpy="0 ${PI/2} 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${frame_prefix}tilt_link"/>
       <child link="${frame_prefix}frame_link"/>
     </joint>
     <link name="${frame_prefix}frame_link">
       <inertial>
-        <mass value="0.01"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
       </inertial>
     </link>
     <!-- Optical frame -->
     <joint name="${frame_prefix}optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}"/>
+      <origin xyz="0 0 0" rpy="${-3.1415/2} 0 ${-3.1415/2}"/>
       <parent link="${frame_prefix}frame_link"/>
       <child link="${frame_prefix}optical_frame_link"/>
     </joint>
     <link name="${frame_prefix}optical_frame_link">
       <inertial>
-        <mass value="0.01"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.03" d="0.06" /> 
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
       </inertial>
     </link>
     <gazebo reference="${frame_prefix}base_link">
@@ -113,13 +113,13 @@
 
     <!-- Axis sensor for simulation -->
     <xacro:if value="${simulation}">
-      <xacro:sensor_axis_m5013_gazebo/>
+      <xacro:sensor_axis_m5525_gazebo/>
     </xacro:if>
 
   </xacro:macro>
 
 
-	<xacro:macro name="sensor_axis_m5013_gazebo">
+	<xacro:macro name="sensor_axis_m5525_gazebo">
 
 		<gazebo reference="${frame_prefix}frame_link"> <!-- the image will be generated from this (${name}_frame) point of view, with the front being the X axis -->
 			<sensor name="${frame_prefix}sensor" type="camera">
@@ -167,10 +167,10 @@
 
     <!-- ros2 control -->
     <gazebo>
-      <plugin name="axis_m5013_control" filename="libgazebo_ros2_control.so">
+      <plugin name="axis_m5525_control" filename="libgazebo_ros2_control.so">
         <robot_param>robot_description</robot_param>
         <robot_param_node>robot_state_publisher</robot_param_node>
-        <parameters>$(arg axis_m5013_controllers_params_file)</parameters>
+        <parameters>$(arg axis_m5525_controllers_params_file)</parameters>
         <ros>
             <namespace>/${node_namespace}</namespace>
         </ros>

@@ -1,14 +1,20 @@
 <?xml version="1.0"?>
-<robot name="sensor_robosense_bpearl" xmlns:xacro="http://wiki.ros.org/xacro">
-  <xacro:macro name="sensor_robosense_bpearl"
+<robot name="sensor_livox_mid_360" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="sensor_livox_mid_360"
                params="frame_prefix
                        parent
                        *origin
                        simulation:=false
-                       node_name:=robosense_bpearl
+                       node_name:=livox_mid_360
                        node_namespace:=${None}
                        topic_prefix:=~/
                        gpu:=false">
+    <material name="black_alu">
+      <color rgba="0.9 0.9 0.9 1"/>
+    </material>
 
     <xacro:if value="${node_namespace == None}">
       <xacro:property name="node_namespace" value="${node_name}"/>
@@ -21,49 +27,48 @@
     </joint>
 
     <link name="${frame_prefix}base_link">
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/robotsense/bpearl.dae"/>
+          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/livox_mid_360.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="black_alu"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/livox_mid_360.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/robotsense/bpearl.dae"/>
-        </geometry>
-        <material name="blackgray_color">
-          <color rgba="0.25 0.25 0.25 1"/>
-        </material>
-      </visual>
       <inertial>
-        <mass value="0.92" />
-        <origin xyz="0 0 0.055" />
-        <xacro:solid_cuboid_inertia m="0.92" w="0.111" h="0.111" d="0.11" />
+        <origin xyz="-0.0 0.0 0.029" rpy="0 0 0" />
+        <mass value="3.5" />
+        <xacro:solid_cuboid_inertia m="3.5" w="0.06" h="0.06" d="0.058" />
       </inertial>
     </link>
 
     <joint name="${frame_prefix}joint" type="fixed">
       <parent link="${frame_prefix}base_link"/>
-      <child link="${frame_prefix}link"/>
-      <origin xyz="0 0 0.09427" rpy="0 0 0"/>
+      <child link="${frame_prefix}link" />
+      <origin xyz="0.0 0 0.0365" rpy="0 0 0"/>
     </joint>
+
     <link name="${frame_prefix}link"/>
 
     <xacro:if value="${simulation}">
-      <xacro:sensor_robosense_bpearl_gazebo/>
+      <xacro:sensor_livox_mid_360_gazebo/>
     </xacro:if>
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_robosense_bpearl_gazebo">
-      <xacro:if value="${gpu}">
-        <xacro:property name="ray_type" value="gpu_ray" />
-      </xacro:if>
-      <xacro:unless value="${gpu}">
-        <xacro:property name="ray_type" value="ray" />
-      </xacro:unless>
-      <gazebo reference="${frame_prefix}link">
+  <xacro:macro name="sensor_livox_mid_360_gazebo">
+    <xacro:if value="${gpu}">
+      <xacro:property name="ray_type" value="gpu_ray" />
+    </xacro:if>
+    <xacro:unless value="${gpu}">
+      <xacro:property name="ray_type" value="ray" />
+    </xacro:unless>
+    <gazebo reference="${frame_prefix}link">
         <sensor type="${ray_type}" name="${frame_prefix}sensor">
           <pose>0 0 0 0 0 0</pose>
           <visualize>false</visualize>
@@ -107,6 +112,6 @@
           </plugin>
         </sensor>
       </gazebo>
-
   </xacro:macro>
+
 </robot>
