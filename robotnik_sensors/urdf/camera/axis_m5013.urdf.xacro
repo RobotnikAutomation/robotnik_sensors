@@ -7,7 +7,7 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
   <xacro:property name="PI" value="3.14159265359"/>
 
-  <xacro:arg name="axis_m5013_controllers_params_file" default="$(find robotnik_sensors_gazebo)/config/camera/axis_m5013.yaml"/>
+  <xacro:arg name="axis_m5013_controllers_params_file" default=""/> <!-- $(find robotnik_sensors_gazebo)/config/camera/axis_m5013.yaml -->
 
   <xacro:macro name="sensor_axis_m5013"
                params="frame_prefix
