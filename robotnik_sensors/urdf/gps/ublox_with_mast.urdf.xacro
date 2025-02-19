@@ -27,12 +27,12 @@
 			<xacro:solid_cuboid_inertia m="1.0" w="${mast_radius}" h="${mast_radius}" d="${mast_height}" />
 		</inertial>
 	    <visual>
-	      <origin rpy="0 0 -1.57" xyz="0 0 0"/>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
 	      <material name="mast_color">
             <color rgba="0.1 0.1 0.1 1"/>
           </material>
 	      <geometry>
-                <mesh filename="package://robotnik_sensors/meshes/os1_128_support.STL" scale="1.0 1.0 1.0"/>
+	            <mesh filename="package://robotnik_sensors/meshes/ublox_support.STL" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </visual>
 	    <collision>
@@ -46,7 +46,7 @@
 	  <joint name="${frame_prefix}mast_joint" type="fixed">
 	    <parent link="${frame_prefix}mast_base_link"/>
 	    <child link="${frame_prefix}base_link"/>
-	    <origin xyz="0 0 0" rpy="0 0 0" />
+	    <origin xyz="0 0 0.257" rpy="0 0 0" />
 	  </joint>
 
 	  <gazebo reference="${frame_prefix}mast_base_link">
