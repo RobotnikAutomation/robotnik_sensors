@@ -156,7 +156,7 @@
             <ros>
               <namespace>${node_namespace}/${node_name}</namespace>
             </ros>
-            <camera_name>color</camera_name>
+            <camera_name>${node_name}_color</camera_name>
             <frame_name>${frame_prefix}color_optical_frame</frame_name>
           </plugin>
         </sensor>
@@ -188,7 +188,7 @@
             <ros>
               <namespace>${node_namespace}/${node_name}</namespace>
             </ros>
-            <camera_name>ired1</camera_name>
+            <camera_name>${node_name}_ired1</camera_name>
             <frame_name>${frame_prefix}infra1_optical_frame</frame_name>
           </plugin>
         </sensor>
@@ -220,7 +220,7 @@
             <ros>
               <namespace>${node_namespace}/${node_name}</namespace>
             </ros>
-            <camera_name>ired2</camera_name>
+            <camera_name>${node_name}_ired2</camera_name>
             <frame_name>${frame_prefix}infra2_optical_frame</frame_name>
           </plugin>
         </sensor>
@@ -251,7 +251,7 @@
             <ros>
               <namespace>${node_namespace}/${node_name}</namespace>
             </ros>
-            <camera_name>depth</camera_name>
+            <camera_name>${node_name}_depth</camera_name>
             <frame_name>${frame_prefix}depth_optical_frame</frame_name>
           </plugin>
         </sensor>
