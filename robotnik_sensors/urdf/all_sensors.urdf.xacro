@@ -33,6 +33,7 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_helios_16p.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/ouster.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/livox_mid_360.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/sick_multiscan_100.urdf.xacro" />
 
   <!-- IMUs -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/imu/vectornav.urdf.xacro" />
