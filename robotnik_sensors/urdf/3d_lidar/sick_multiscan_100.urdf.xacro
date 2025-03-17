@@ -9,7 +9,8 @@
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_name:=sick_multiscan_100
                        node_namespace:=${None}
                        topic_prefix:=~/
