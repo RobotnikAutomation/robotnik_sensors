@@ -1,10 +1,17 @@
 <?xml version="1.0"?>
 <robot name="sensor_intel_realsense_d435i" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/irred_camera_plugin.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/camera/camera_plugin.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
+
   <xacro:macro name="sensor_intel_realsense_d435i"
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_name:=realsense_d435i
                        node_namespace:=${None}
                        topic_prefix:=~/">
@@ -69,7 +76,6 @@
     </link>
 
     <!-- Use the nominal extrinsics between camera frames if the calibrated extrinsics aren't being published. e.g. running the device in simulation  -->
-    <xacro:if value="${simulation}">
       <!-- camera depth joints and links -->
       <joint name="${frame_prefix}depth_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -138,132 +144,77 @@
       </joint>
       <link name="${frame_prefix}imu_frame"/>
 
-      <gazebo reference="${frame_prefix}color_frame">
-        <sensor name="${node_namespace}color" type="camera">
-          <camera name="${frame_prefix}camera">
-            <horizontal_fov>${radians(69.4)}</horizontal_fov>
-            <image>
-              <width>1920</width>
-              <height>1080</height>
-              <format>RGB_INT8</format>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>false</visualize>
-          <plugin name="${node_name}_color" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-            </ros>
-            <camera_name>color</camera_name>
-            <frame_name>${frame_prefix}color_optical_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_classic="${gazebo_classic}"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="69.4"
+        vertical_fov="39"
+        video_width="1920"
+        video_height="1080"
+        min_depth="0.1"
+        max_depth="100"
+        rate="30"
+      >
+      </xacro:camera_plugin>
 
-      <gazebo reference="${frame_prefix}infra1_frame">
-        <sensor name="${node_namespace}ired1" type="camera">
-          <camera name="${frame_prefix}camera">
-            <horizontal_fov>${radians(85.2)}</horizontal_fov>
-            <image>
-              <width>1280</width>
-              <height>720</height>
-              <format>L_INT8</format>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-            </noise>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>90</update_rate>
-          <visualize>false</visualize>
-          <plugin name="${node_name}_ired1" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-            </ros>
-            <camera_name>ired1</camera_name>
-            <frame_name>${frame_prefix}infra1_optical_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
+      <xacro:irred_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_irred1"
+        topic_prefix="${topic_prefix}_irred1"
+        gazebo_classic="${gazebo_classic}"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}infra1_optical_frame"
+        reference_frame="${frame_prefix}infra2_frame"
+        horizontal_fov="85.2"
+        vertical_fov="48"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.1"
+        max_depth="100"
+        rate="30"
+      >
+      </xacro:irred_camera_plugin>
 
-      <gazebo reference="${frame_prefix}infra2_frame">
-        <sensor name="${node_namespace}ired2" type="camera">
-          <camera name="${frame_prefix}camera">
-            <horizontal_fov>${radians(85.2)}</horizontal_fov>
-            <image>
-              <width>1280</width>
-              <height>720</height>
-              <format>L_INT8</format>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-            </noise>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>90</update_rate>
-          <visualize>false</visualize>
-          <plugin name="${node_name}_ired2" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-            </ros>
-            <camera_name>ired2</camera_name>
-            <frame_name>${frame_prefix}infra2_optical_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
+      <xacro:irred_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_irred2"
+        topic_prefix="${topic_prefix}_irred2"
+        gazebo_classic="${gazebo_classic}"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}infra2_optical_frame"
+        reference_frame="${frame_prefix}infra2_frame"
+        horizontal_fov="85.2"
+        vertical_fov="48"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.1"
+        max_depth="100"
+        rate="30"
+      >
+      </xacro:irred_camera_plugin>
 
-      <gazebo reference="${frame_prefix}depth_frame">
-        <sensor name="${node_namespace}depth" type="depth">
-          <camera name="${frame_prefix}camera">
-            <horizontal_fov>${radians(85.2)}</horizontal_fov>
-            <image>
-              <width>1280</width>
-              <height>720</height>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.100</stddev>
-            </noise>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>90</update_rate>
-          <visualize>false</visualize>
-          <plugin name="${node_name}_depth" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-            </ros>
-            <camera_name>depth</camera_name>
-            <frame_name>${frame_prefix}depth_optical_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
+      <xacro:depth_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_depth"
+        topic_prefix="${topic_prefix}_depth"
+        gazebo_classic="${gazebo_classic}"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}depth_optical_frame"
+        reference_frame="${frame_prefix}depth_frame"
+        horizontal_fov="85.2"
+        vertical_fov="48"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.1"
+        max_depth="100"
+        rate="30"
+      >
+      </xacro:depth_camera_plugin>
 
       <!-- <gazebo>
         <plugin name="${node_name}" filename="librealsense_gazebo_plugin.so">
@@ -292,85 +243,15 @@
       </gazebo> -->
 
       <!-- Imu -->
-      <gazebo reference="${frame_prefix}imu_frame">
-      <gravity>true</gravity>
-      <sensor name="${frame_prefix}imu_sensor" type="imu">
-        <always_on>true</always_on>
-        <update_rate>200</update_rate>
-        <visualize>true</visualize>
 
-        <imu>
-          <orientation>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-3</stddev>
-              </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-3</stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-3</stddev>
-              </noise>
-            </z>
-          </orientation>
-          <angular_velocity>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-4</stddev>
-              </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-4</stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>2e-3</stddev>
-              </noise>
-            </z>
-          </angular_velocity>
-          <linear_acceleration>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>1.7e-2</stddev>
-              </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>1.7e-2</stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>1.7e-2</stddev>
-              </noise>
-            </z>
-          </linear_acceleration>
-        </imu>
-        <plugin name="${node_name}_imu" filename="libgazebo_ros_imu_sensor.so">
-          <ros>
-            <namespace>${node_namespace}</namespace>
-            <remapping>~/out:=${topic_prefix}data</remapping>
-          </ros>
-          <initial_orientation_as_reference>false</initial_orientation_as_reference>
-          <frame_name>${frame_prefix}imu_frame</frame_name>
-        </plugin>
-      </sensor>
-    </gazebo>
-    </xacro:if>
+    <xacro:imu_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      frame_link="${frame_prefix}link"
+      rate="200.0"
+    >
+    </xacro:imu_plugin>
   </xacro:macro>
 </robot>

@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <robot name="sensor_pixhawk" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
+
   <xacro:macro name="sensor_pixhawk"
                params="frame_prefix
                        parent
@@ -47,90 +50,19 @@
     <link name="${frame_prefix}link" />
 
 
-    <xacro:if value="${simulation}">
-      <gazebo reference="${frame_prefix}base_link">
-        <material>Gazebo/Black</material>
-      </gazebo>
+    <xacro:imu_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      frame_link="${frame_prefix}link"
+      rate="200.0"
+    >
+    </xacro:imu_plugin>
 
-      <gazebo reference="${frame_prefix}link">
-        <gravity>true</gravity>
-        <sensor name="${frame_prefix}sensor" type="imu">
-          <always_on>true</always_on>
-          <update_rate>200</update_rate>
-          <visualize>true</visualize>
+    <gazebo reference="${frame_prefix}base_link">
+      <material>Gazebo/Black</material>
+    </gazebo>
 
-          <imu>
-            <orientation>
-              <x>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </x>
-              <y>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </y>
-              <z>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </z>
-            </orientation>
-            <angular_velocity>
-              <x>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
-                </noise>
-              </x>
-              <y>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
-                </noise>
-              </y>
-              <z>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </z>
-            </angular_velocity>
-            <linear_acceleration>
-              <x>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
-                </noise>
-              </x>
-              <y>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
-                </noise>
-              </y>
-              <z>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
-                </noise>
-              </z>
-            </linear_acceleration>
-          </imu>
-          <plugin name="${node_name}" filename="libgazebo_ros_imu_sensor.so">
-            <ros>
-              <namespace>${node_namespace}</namespace>
-              <remapping>~/out:=${topic_prefix}data</remapping>
-            </ros>
-            <initial_orientation_as_reference>false</initial_orientation_as_reference>
-            <frame_name>${frame_prefix}link</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
-    </xacro:if>
   </xacro:macro>
 </robot>

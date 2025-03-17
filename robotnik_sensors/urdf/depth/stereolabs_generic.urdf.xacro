@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <robot name="sensor_stereolabs_generic" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/irred_camera_plugin.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/camera/camera_plugin.urdf.xacro" />
+
   <xacro:macro name="sensor_stereolabs_generic"
                params="frame_prefix
                        parent
                        *origin
                        model:=zed2
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_name:=stereolabs_generic
                        node_namespace:=${None}
                        topic_prefix:=~/
@@ -104,114 +110,59 @@
     </joint>
     <link name="${frame_prefix}depth_optical_frame"/>
 
-    <xacro:if value="${simulation}">
-      <gazebo reference="${frame_prefix}right_camera_frame">
-        <sensor name="${frame_prefix}right_sensor" type="camera">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>30</update_rate>
-          <camera>
-            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
-            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
-            <image>
-              <width>${video_width}</width>
-              <height>${video_height}</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.10</near>
-              <far>100.0</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name="${node_name}_right" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-              <remapping>right/image_raw:=right/image_raw_color</remapping>
-              <remapping>right/camera_info:=right/camera_info</remapping>
-            </ros>
-            <camera_name>right</camera_name>
-            <frame_name>${frame_prefix}right_camera_optical_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
-      <gazebo reference="${frame_prefix}left_camera_frame">
-        <sensor name="${frame_prefix}left_sensor" type="camera">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>30</update_rate>
-          <camera>
-            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
-            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
-            <image>
-              <width>${video_width}</width>
-              <height>${video_height}</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.10</near>
-              <far>100.0</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name="${node_name}_left" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-              <remapping>left/image_raw:=left/image_raw_color</remapping>
-              <remapping>left/camera_info:=left/camera_info</remapping>
-            </ros>
-            <camera_name>left</camera_name>
-            <frame_name>${frame_prefix}left_camera_optical_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
-      <gazebo reference="${frame_prefix}depth_frame">
-        <sensor name="${frame_prefix}sensor" type="depth">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>30</update_rate>
-          <camera>
-            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
-            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
-            <image>
-              <width>${video_width}</width>
-              <height>${video_height}</height>
-              <format>B8G8R8</format>
-            </image>
-            <clip>
-              <near>0.05</near>
-              <far>100.0</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name="${node_name}" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}</namespace>
-              <remapping>~/image_raw:=${topic_prefix}rgb/image_raw_color</remapping>
-              <remapping>~/camera_info:=${topic_prefix}rgb/camera_info</remapping>
-              <remapping>~/points:=${topic_prefix}point_cloud/cloud_registered</remapping>
-              <remapping>~/depth/camera_info:=${topic_prefix}depth/camera_info</remapping>
-              <remapping>~/depth/image_raw:=${topic_prefix}depth/depth_registered</remapping>
-            </ros>
-            <camera_name>${node_name}</camera_name>
-            <frame_name>${frame_prefix}depth_optical_frame</frame_name>
-            <min_depth>${min_depth}</min_depth>
-            <max_depth>${max_depth}</max_depth>
-          </plugin>
-        </sensor>
-      </gazebo>
-    </xacro:if>
+    <xacro:camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_right_sensor"
+      topic_prefix="${topic_prefix}_right_sensor"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}right_camera_optical_frame"
+      reference_frame="${frame_prefix}right_camera_frame"
+      horizontal_fov="${horizontal_fov}"
+      vertical_fov="${vertical_fov}"
+      video_width="${video_width}"
+      video_height="${video_height}"
+      min_depth="0.1"
+      max_depth="100"
+      rate="30"
+    >
+    </xacro:camera_plugin>
+
+    <xacro:camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_left_sensor"
+      topic_prefix="${topic_prefix}_left_sensor"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}left_camera_optical_frame"
+      reference_frame="${frame_prefix}left_camera_frame"
+      horizontal_fov="${horizontal_fov}"
+      vertical_fov="${vertical_fov}"
+      video_width="${video_width}"
+      video_height="${video_height}"
+      min_depth="0.1"
+      max_depth="100"
+      rate="30"
+    >
+    </xacro:camera_plugin>
+
+    <xacro:depth_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_depth"
+      topic_prefix="${topic_prefix}_depth"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}depth_optical_frame"
+      reference_frame="${frame_prefix}depth_frame"
+      horizontal_fov="${horizontal_fov}"
+      vertical_fov="${vertical_fov}"
+      video_width="${video_width}"
+      video_height="${video_height}"
+      min_depth="${min_depth}"
+      max_depth="${max_depth}"
+      rate="30"
+    >
+    </xacro:depth_camera_plugin>
+
   </xacro:macro>
 </robot>

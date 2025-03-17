@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_stereolabs_zed2i" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
+
   <xacro:macro name="sensor_stereolabs_zed2i"
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_namespace:=stereolabs_zed2i
                        node_name:=stereolabs_zed2i
                        topic_prefix:=~/">
@@ -12,7 +16,8 @@
     <xacro:sensor_stereolabs_generic frame_prefix="${frame_prefix}"
                                      parent="${parent}"
                                      model="zed2"
-                                     simulation="${simulation}"
+                                     gazebo_classic="false"
+                                     gazebo_ignition="false"
                                      node_namespace="${node_namespace}"
                                      node_name="${node_name}"
                                      topic_prefix="${topic_prefix}"
@@ -35,86 +40,14 @@
     <link name="${frame_prefix}imu_frame"/>
 
     <!-- Imu -->
-    <xacro:if value="${simulation}">
-      <gazebo reference="${frame_prefix}imu_frame">
-        <gravity>true</gravity>
-        <sensor name="${frame_prefix}imu_sensor" type="imu">
-          <always_on>true</always_on>
-          <update_rate>200</update_rate>
-          <visualize>true</visualize>
-
-          <imu>
-            <orientation>
-              <x>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </x>
-              <y>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </y>
-              <z>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </z>
-            </orientation>
-            <angular_velocity>
-              <x>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
-                </noise>
-              </x>
-              <y>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
-                </noise>
-              </y>
-              <z>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>2e-3</stddev>
-                </noise>
-              </z>
-            </angular_velocity>
-            <linear_acceleration>
-              <x>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
-                </noise>
-              </x>
-              <y>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
-                </noise>
-              </y>
-              <z>
-                <noise type="gaussian">
-                  <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
-                </noise>
-              </z>
-            </linear_acceleration>
-          </imu>
-          <plugin name="${node_name}_imu" filename="libgazebo_ros_imu_sensor.so">
-            <ros>
-              <namespace>${node_namespace}</namespace>
-              <remapping>~/out:=${topic_prefix}data</remapping>
-            </ros>
-            <initial_orientation_as_reference>false</initial_orientation_as_reference>
-            <frame_name>${frame_prefix}imu_frame</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
-    </xacro:if>
+    <xacro:imu_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      frame_link="${frame_prefix}imu_frame"
+      rate="200.0"
+    >
+    </xacro:imu_plugin>
   </xacro:macro>
 </robot>

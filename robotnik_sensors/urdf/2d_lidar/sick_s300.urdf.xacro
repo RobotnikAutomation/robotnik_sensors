@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_s300" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
+
   <xacro:macro name="sensor_sick_s300"
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_name:=sick_s300
                        node_namespace:=${None}
                        topic_prefix:=~/
@@ -48,53 +52,22 @@
 
     <link name="${frame_prefix}link"/>
 
-    <xacro:if value="${simulation}">
-      <xacro:sensor_sick_s300_gazebo/>
-    </xacro:if>
+    <xacro:lidar_2d_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      min_range="0.05"
+      max_range="10.0"
+      min_angle="${-radians(130)}"
+      max_angle="${radians(130)}"
+      frame_link="${frame_prefix}link"
+      rate="25.0"
+      resolution="0.00575"
+      samples="270"
+    >
+    </xacro:lidar_2d_plugin>
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_sick_s300_gazebo">
-      <xacro:if value="${gpu}">
-        <xacro:property name="ray_type" value="gpu_ray" />
-      </xacro:if>
-      <xacro:unless value="${gpu}">
-        <xacro:property name="ray_type" value="ray" />
-      </xacro:unless>
-      <gazebo reference="${frame_prefix}link">
-        <sensor type="${ray_type}" name="${frame_prefix}sensor">
-          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>25.0</update_rate>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>270</samples>
-                <resolution>1</resolution>
-                <min_angle>${-radians(135)}</min_angle>
-                <max_angle>${radians(135)}</max_angle>
-              </horizontal>
-            </scan>
-            <range>
-              <min>0.05</min>
-              <max>10.0</max>
-              <resolution>0.00575</resolution>
-            </range>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.01</stddev>
-            </noise>
-          </ray>
-          <plugin name="${node_name}" filename="libgazebo_ros_ray_sensor.so">
-            <ros>
-              <namespace>${node_namespace}</namespace>
-              <remapping>~/out:=~/scan</remapping>
-            </ros>
-            <output_type>sensor_msgs/LaserScan</output_type>
-            <frame_name>${frame_prefix}link</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
-  </xacro:macro>
 </robot>
