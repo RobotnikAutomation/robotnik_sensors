@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_ublox" xmlns:xacro="http://wiki.ros.org/xacro">
 
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps_plugin.urdf.xacro" />
+
 	<xacro:macro name="sensor_ublox"
 				params="frame_prefix
 						parent
 						*origin
-						simulation:=false
+						gazebo_classic:=false
+						gazebo_ignition:=false
 						node_name:=ublox
 						node_namespace:=${None}
 						topic_prefix:=~/
@@ -54,53 +57,16 @@
 	    <gravity>true</gravity>
 	  </gazebo>
 
-    <xacro:if value="${simulation}">
-
-		<gazebo reference="${frame_prefix}base_link">
-		<sensor type="gps" name="${frame_prefix}sensor">
-			<always_on>true</always_on>
-			<update_rate>${update_rate}</update_rate>
-			<gps>
-			<position_sensing>
-				<horizontal>
-				<noise type="gaussian">
-					<mean>0.0</mean>
-					<stddev>0.1</stddev>
-				</noise>
-				</horizontal>
-				<vertical>
-				<noise type="gaussian">
-					<mean>0.0</mean>
-					<stddev>0.1</stddev>
-				</noise>
-				</vertical>
-			</position_sensing>
-			<vertical_sensing>
-				<horizontal>
-				<noise type="gaussian">
-					<mean>0.0</mean>
-					<stddev>0.1</stddev>
-				</noise>
-				</horizontal>
-				<vertical>
-				<noise type="gaussian">
-					<mean>0.0</mean>
-					<stddev>0.1</stddev>
-				</noise>
-				</vertical>
-			</vertical_sensing>
-			</gps>
-			<plugin name="${node_name}" filename="libgazebo_ros_gps_sensor.so">
-			<ros>
-				<namespace>${node_namespace}</namespace>
-				<remapping>~/out:=${topic_prefix}fix</remapping>
-				<remapping>~/vel:=${topic_prefix}vel</remapping>
-			</ros>
-			</plugin>
-		</sensor>
-		</gazebo>
-
-    </xacro:if>
+    <xacro:gps_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      topic_prefix="${topic_prefix}_gps"
+      frame_link="${frame_prefix}base_link"
+      rate="${update_rate}"
+    >
+    </xacro:gps_plugin>
 
   </xacro:macro>
 

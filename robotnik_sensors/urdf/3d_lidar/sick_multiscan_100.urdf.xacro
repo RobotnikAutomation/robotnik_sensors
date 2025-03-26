@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <robot name="sensor_sick_multiscan_100" xmlns:xacro="http://wiki.ros.org/xacro">
 
+  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
+
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
   <xacro:macro name="sensor_sick_multiscan_100"
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_name:=sick_multiscan_100
                        node_namespace:=${None}
                        topic_prefix:=~/
@@ -55,65 +58,22 @@
 
     <link name="${frame_prefix}link"/>
 
-    <xacro:if value="${simulation}">
-      <xacro:sensor_sick_multiscan_100_gazebo/>
-    </xacro:if>
+    <xacro:lidar_3d_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      min_range="0.1"
+      max_range="52.0"
+      max_angle="65"
+      frame_link="${frame_prefix}link"
+      rate="10"
+      horizontal_samples="1200"
+      vertical_samples="16"
+    >
+    </xacro:lidar_3d_plugin>
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_sick_multiscan_100_gazebo">
-
-    <xacro:if value="${gpu}">
-      <xacro:property name="ray_type" value="gpu_ray" />
-    </xacro:if>
-    <xacro:unless value="${gpu}">
-      <xacro:property name="ray_type" value="ray" />
-    </xacro:unless>
-    <gazebo reference="${frame_prefix}link">
-        <sensor type="${ray_type}" name="${frame_prefix}sensor">
-          <pose>0 0 0 0 0 0</pose>
-          <visualize>false</visualize>
-          <update_rate>10</update_rate>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1200</samples>
-                <resolution>1.0</resolution>
-                <min_angle>${-radians(180)}</min_angle>
-                <max_angle>${radians(180)}</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>16</samples>
-                <resolution>1.0</resolution>
-                <min_angle>0.0</min_angle>
-                <max_angle>${radians(65)}</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.05</min>
-              <max>62</max>
-              <resolution>0.001</resolution>
-            </range>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.00</stddev>
-            </noise>
-          </ray>
-          <plugin name="${node_name}" filename="libgazebo_ros_velodyne_laser.so">
-            <ros>
-              <namespace>${node_namespace}</namespace>
-              <remapping>~/out:=${topic_prefix}point_cloud</remapping>
-            </ros>
-            <frame_name>${frame_prefix}link</frame_name>
-            <min_range>0.05</min_range>
-            <max_range>100.0</max_range>
-            <gaussian_noise>0.01</gaussian_noise>
-            <organize_cloud>0</organize_cloud>
-          </plugin>
-        </sensor>
-      </gazebo>
-
-  </xacro:macro>
 
 </robot>

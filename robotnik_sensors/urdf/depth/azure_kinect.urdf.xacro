@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_azure_kinect" xmlns:xacro="http://wiki.ros.org/xacro">
   
+  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
+
   <xacro:macro name="sensor_azure_kinect" 
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_namespace:=${None}
                        node_name:=azure_kinect
                        topic_prefix:=~/">
@@ -95,54 +98,24 @@
     </material>
 
     <!-- RGBD sensor for simulation, same as Kinect -->
-    <xacro:if value="${simulation}">
-      <xacro:sensor_azure_kinect_gazebo/>
-    </xacro:if>
+    <xacro:depth_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      topic_prefix="${topic_prefix}"
+      gazebo_classic="${gazebo_classic}"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}color_optical_frame"
+      reference_frame="${frame_prefix}color_frame"
+      horizontal_fov="60"
+      vertical_fov="45"
+      video_width="640"
+      video_height="480"
+      min_depth="0.05"
+      max_depth="3.5"
+      rate="30"
+    >
+    </xacro:depth_camera_plugin>
 
   </xacro:macro>
-
-  <xacro:macro name="sensor_azure_kinect_gazebo">
-
-    <gazebo reference="${frame_prefix}link">
-      <sensor name="${frame_prefix}sensor" type="depth">
-        <always_on>true</always_on>
-        <update_rate>30.0</update_rate>
-        <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-        <visualize>true</visualize>
-        <camera>
-          <horizontal_fov>${60.0*PI/180.0}</horizontal_fov>
-          <image>
-            <format>B8G8R8</format>
-            <width>640</width>
-            <height>480</height>
-          </image>
-          <clip>
-            <near>0.05</near>
-            <far>3.5</far>
-          </clip>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.75</stddev>
-          </noise>
-        </camera>
-        <plugin name="${node_name}" filename="libgazebo_ros_camera.so">
-          <ros>
-            <namespace>${node_namespace}</namespace>
-            <remapping>~/image_raw:=${topic_prefix}rgb/image_raw</remapping>
-            <remapping>~/camera_info:=${topic_prefix}rgb/camera_info</remapping>
-            <remapping>~/points:=${topic_prefix}depth_registered/points</remapping>
-            <remapping>~/depth/camera_info:=${topic_prefix}depth/camera_info</remapping>
-            <remapping>~/depth/image_raw:=${topic_prefix}depth/image_raw</remapping>
-          </ros>
-          <camera_name>${node_name}</camera_name>
-          <frame_name>${frame_prefix}rgb_optical_frame</frame_name>
-          <min_depth>0.4</min_depth>
-          <max_depth>3.5</max_depth>
-        </plugin>
-      </sensor>
-    </gazebo>
-  </xacro:macro>
-
 
 </robot>
