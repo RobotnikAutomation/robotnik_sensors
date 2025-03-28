@@ -1,20 +1,23 @@
 <?xml version="1.0"?>
 <robot name="sensor" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:arg name="sensor_type" default="orbbec_astra" />
-  <xacro:arg name="sensor_name" default="front" />
-  <xacro:arg name="sensor_ns" default="" />
+  <xacro:arg name="model" default=""/>
+  <xacro:arg name="name" default=""/>
+  <xacro:arg name="namespace" default=""/>
+  <xacro:arg name="gazebo_classic" default=""/>
+  <xacro:arg name="gazebo_ignition" default=""/>
 
   <link name="world"/>
   <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
   <xacro:call
-      macro="sensor_$(arg sensor_type)"
-      frame_prefix="$(arg sensor_name)_"
+      macro="sensor_$(arg model)"
+      frame_prefix="$(arg name)_"
       parent="world"
-      simulation="true"
-      node_namespace="$(arg sensor_ns)"
-      node_name="$(arg sensor_name)"
-      topic_prefix="~/">
+      node_namespace="$(arg namespace)"
+      node_name="$(arg name)"
+      gazebo_classic="$(arg gazebo_classic)"
+      gazebo_ignition="$(arg gazebo_ignition)"
+      topic_prefix="~/$(arg name)">
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
   </xacro:call>
 </robot>
