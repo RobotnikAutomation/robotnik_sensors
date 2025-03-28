@@ -35,7 +35,7 @@
             <color rgba="0.1 0.1 0.1 1"/>
           </material>
 	      <geometry>
-	            <mesh filename="package://robotnik_sensors/meshes/ublox_support.STL" scale="1.0 1.0 1.0"/>
+                <box size="0.05 0.05 0.2"/>
 	      </geometry>
 	    </visual>
 	    <collision>

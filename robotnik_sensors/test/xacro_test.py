@@ -30,269 +30,133 @@
 """Xacro test module."""
 
 import os
-import pytest
-import tempfile
-import subprocess
 import shutil
+import subprocess
+import tempfile
 import xml.etree.ElementTree as ET
 
 from ament_index_python.packages import get_package_share_directory
 
+import pytest
+
 
 def check_meshes(urdf_file):
+    """Check that all meshes in the URDF file exist."""
     # Parse URDF file
     root = ET.parse(urdf_file).getroot()
     # Find all mesh elements
-    meshes = root.findall(".//mesh")
+    meshes = root.findall('.//mesh')
     # List of all failed meshes [filename: reason]
     failed_meshes = []
     # Check that all meshes exist
     for mesh in meshes:
-        filename = mesh.get("filename")
-        if filename.startswith("package://"):
-            package_name, _, package_path = filename[10:].partition("/")
+        filename = mesh.get('filename')
+        if filename.startswith('package://'):
+            package_name, _, package_path = filename[10:].partition('/')
             package_share_path = get_package_share_directory(package_name)
-            if not os.path.exists(f"{package_share_path}/{package_path}"):
-                failed_meshes.append(f"{filename}: file does not exist")
+            if not os.path.exists(f'{package_share_path}/{package_path}'):
+                failed_meshes.append(f'{filename}: file does not exist')
         else:
-            failed_meshes.append(f"{filename}: not a package:// path")
+            failed_meshes.append(f'{filename}: not a package:// path')
 
-    assert not failed_meshes, f"Failed meshes:\n{failed_meshes}"
+    assert not failed_meshes, f'Failed meshes:\n{failed_meshes}'
 
 
 # List of all sensors
 sensors = [
-    "intel_realsense_d435",
-    "intel_realsense_d435i",
-    "orbbec_astra",
-    "stereolabs_zed2",
-    "stereolabs_zed2i",
-    "azure_kinect",
-    "sick_microscan3",
-    "sick_nanoscan3",
-    "sick_outdoorscan3",
-    "sick_s300",
-    "sick_s3000",
-    "sick_tim551",
-    "sick_tim571",
-    "hokuyo_urg04lx",
-    "hokuyo_ust10lx",
-    "hokuyo_ust20lx",
-    "hokuyo_utm30lx",
-    "velodyne_vlp16",
-    "robosense_bpearl",
-    "robosense_helios_16p",
-    "ouster",
-    "livox_mid_360",
-    "sick_multiscan_100",
-    "vectornav",
-    "myahrs",
-    "pixhawk",
-    "gps",
-    "gps_with_mast",
-    "ublox",
-    "ublox_with_mast",
-    "axis_m5013",
-    "axis_m5074",
-    "axis_m5525",
-    "axis_m5526",
+    'intel_realsense_d435',
+    'intel_realsense_d435i',
+    'orbbec_astra',
+    'stereolabs_zed2',
+    'stereolabs_zed2i',
+    'azure_kinect',
+    'sick_microscan3',
+    'sick_nanoscan3',
+    'sick_outdoorscan3',
+    'sick_s300',
+    'sick_s3000',
+    'sick_tim551',
+    'sick_tim571',
+    'hokuyo_urg04lx',
+    'hokuyo_ust10lx',
+    'hokuyo_ust20lx',
+    'hokuyo_utm30lx',
+    'velodyne_vlp16',
+    'robosense_bpearl',
+    'robosense_helios_16p',
+    'ouster',
+    'livox_mid_360',
+    'sick_multiscan_100',
+    'vectornav',
+    'myahrs',
+    'pixhawk',
+    'gps',
+    'gps_with_mast',
+    'ublox',
+    'ublox_with_mast',
+    'axis_m5013',
+    'axis_m5074',
+    'axis_m5525',
+    'axis_m5526',
 ]
 
-@pytest.mark.parametrize("sensor", sensors)
+
+@pytest.mark.parametrize('sensor', sensors)
 def test_xacro_file(sensor):
-    (fd, tmp_urdf_output_file) = tempfile.mkstemp(suffix=".urdf")
+    """Test xacro file generation."""
+    (fd, tmp_urdf_output_file) = tempfile.mkstemp(suffix='.urdf')
     os.close(fd)
 
     current_path = os.path.dirname(os.path.realpath(__file__))
     description_path = os.path.join(
-        f"{current_path}", "test.xacro",
+        current_path, 'test.xacro',
     )
 
     xacro_path = shutil.which('xacro')
-    assert xacro_path, "xacro is not installed"
+    assert xacro_path, 'xacro is not installed'
 
     check_urdf_path = shutil.which('check_urdf')
-    assert check_urdf_path, "check_urdf is not installed"
+    assert check_urdf_path, 'check_urdf is not installed'
 
     xacro_command = (
         f"{shutil.which('xacro')}"
-        f" {description_path}"
-        f" model:={sensor}"
-        f" name:=sensor_name"
-        f" namespace:=sensor_namespace"
-        f" gazebo_classic:=false"
-        f" gazebo_ignition:=false"
-        f" -o {tmp_urdf_output_file}"
+        f' {description_path}'
+        f' model:={sensor}'
+        f' name:=sensor_name'
+        f' namespace:=sensor_namespace'
+        f' gazebo_classic:=false'
+        f' gazebo_ignition:=false'
+        f' -o {tmp_urdf_output_file}'
     )
     check_command = (
         f"{shutil.which('check_urdf')}"
-        f" {tmp_urdf_output_file}"
+        f' {tmp_urdf_output_file}'
     )
 
     try:
         # Generate URDF file
-        print(f"running: {xacro_command}")
+        print(f'running: {xacro_command}')
         xacro_process = subprocess.run(
             xacro_command, capture_output=True, text=True, shell=True
         )
-        assert xacro_process.returncode == 0, f"> xacro failed: {xacro_process.stderr}"
-        assert os.path.exists(tmp_urdf_output_file), f"> xacro failed, output file not found: {tmp_urdf_output_file}"
+        assert xacro_process.returncode == 0, (
+            f'> xacro failed: {xacro_process.stderr}'
+        )
+        assert os.path.exists(tmp_urdf_output_file), (
+            f'> xacro failed, output file not found: {tmp_urdf_output_file}'
+        )
 
         # Check URDF file
-        print(f"running: {check_command}")
+        print(f'running: {check_command}')
         check_process = subprocess.run(
             check_command, capture_output=True, text=True, shell=True
         )
-        assert check_process.returncode == 0, f"> check_urdf failed: {check_process.stderr}"
+        assert check_process.returncode == 0, (
+            f'> check_urdf failed: {check_process.stderr}'
+        )
 
         # Check meshes
         check_meshes(tmp_urdf_output_file)
 
     finally:
         os.remove(tmp_urdf_output_file)
-
-
-# def check_xacro_file(name: str):
-#     """Check if the xacro file is valid."""
-#     current_path = os.path.dirname(os.path.realpath(__file__))
-#     description_path = os.path.join(
-#         current_path,
-#         "test.xacro",
-#     )
-
-#     _, urdf_file = tempfile.mkstemp(suffix=".urdf")
-#     xacro_command = (
-#         f"{shutil.which('xacro')}"
-#         f" {description_path}"
-#         f" sensor_type:={name}"
-#         f" > {urdf_file}"
-#     )
-#     urdf_command = f"{shutil.which('check_urdf')}" f" {urdf_file}"
-
-#     try:
-#         xacro_process = subprocess.run(
-#             xacro_command,
-#             stdout=subprocess.PIPE,
-#             stderr=subprocess.PIPE,
-#             shell=True,
-#             check=False,
-#         )
-
-#         if xacro_process.returncode != 0:
-#             print(xacro_process.stdout.decode("utf-8"))
-#             print(xacro_process.stderr.decode("utf-8"))
-
-#         assert xacro_process.returncode == 0, "Xacro process failed!"
-
-#         urdf_process = subprocess.run(
-#             urdf_command,
-#             stdout=subprocess.PIPE,
-#             stderr=subprocess.PIPE,
-#             shell=True,
-#             check=False,
-#         )
-
-#         if urdf_process.returncode != 0:
-#             print(urdf_process.stdout.decode("utf-8"))
-#             print(urdf_process.stderr.decode("utf-8"))
-
-#         assert urdf_process.returncode == 0, "URDF process failed!"
-
-#     finally:
-#         os.remove(urdf_file)
-
-
-# def test_xacro_intel_realsense_d435():
-#     """Test xacro default."""
-#     check_xacro_file("intel_realsense_d435")
-
-
-# def test_xacro_orbbec_astra():
-#     """Test xacro default."""
-#     check_xacro_file("orbbec_astra")
-
-
-# def test_xacro_stereolabs_zed2():
-#     """Test xacro default."""
-#     check_xacro_file("stereolabs_zed2")
-
-
-# def test_xacro_sick_microscan3():
-#     """Test xacro default."""
-#     check_xacro_file("sick_microscan3")
-
-
-# def test_xacro_sick_nanoscan3():
-#     """Test xacro default."""
-#     check_xacro_file("sick_nanoscan3")
-
-
-# def test_xacro_sick_outdoorscan3():
-#     """Test xacro default."""
-#     check_xacro_file("sick_outdoorscan3")
-
-
-# def test_xacro_sick_s300():
-#     """Test xacro default."""
-#     check_xacro_file("sick_s300")
-
-
-# def test_xacro_sick_s3000():
-#     """Test xacro default."""
-#     check_xacro_file("sick_s3000")
-
-
-# def test_xacro_sick_tim551():
-#     """Test xacro default."""
-#     check_xacro_file("sick_tim551")
-
-
-# def test_xacro_sick_tim571():
-#     """Test xacro default."""
-#     check_xacro_file("sick_tim571")
-
-
-# def test_xacro_robosense_bpearl():
-#     """Test xacro default."""
-#     check_xacro_file("robosense_bpearl")
-
-
-# def test_xacro_velodyne_vlp16():
-#     """Test xacro default."""
-#     check_xacro_file("velodyne_vlp16")
-
-
-# def test_xacro_vectornav():
-#     """Test xacro default."""
-#     check_xacro_file("vectornav")
-
-
-# def test_xacro_gps():
-#     """Test xacro default."""
-#     check_xacro_file("gps")
-
-
-# if __name__ == "__main__":
-#     # Run depth camera tests
-#     test_xacro_intel_realsense_d435()
-#     test_xacro_orbbec_astra()
-#     test_xacro_stereolabs_zed2()
-
-#     # Run 2d lidar tests
-#     test_xacro_sick_microscan3()
-#     test_xacro_sick_nanoscan3()
-#     test_xacro_sick_outdoorscan3()
-#     test_xacro_sick_s300()
-#     test_xacro_sick_s3000()
-#     test_xacro_sick_tim551()
-#     test_xacro_sick_tim571()
-
-#     # Run 3d lidar tests
-#     test_xacro_robosense_bpearl()
-#     test_xacro_velodyne_vlp16()
-
-#     # Run imu tests
-#     test_xacro_vectornav()
-
-#     # Run gps tests
-#     test_xacro_gps()
