@@ -4,7 +4,7 @@
   <xacro:property name="ptz_joint_velocity_limit" value="1.0"/>
   <xacro:property name="ptz_joint_friction" value="0.1"/>
   <xacro:property name="ptz_joint_damping" value="0.1"/>
-  <xacro:property name="ptz_mechanical_reduction" value="1.0"/>  
+  <xacro:property name="ptz_mechanical_reduction" value="1.0"/>
   <xacro:property name="PI" value="3.14159265359"/>
 
   <xacro:arg name="axis_m5526_controllers_params_file" default=""/> <!--$(find robotnik_sensors_gazebo)/config/camera/axis_m5526.yaml-->
@@ -13,9 +13,10 @@
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
+                       node_name:=axis_m5526
                        node_namespace:=${None}
-                       node_name:=sensor_axis_m5526
                        topic_prefix:=~/">
 
     <joint name="${frame_prefix}base_joint" type="fixed">
