@@ -2,6 +2,51 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.0 (2025-03-28)
+------------------
+* First official release of the package for ROS2
+* Support for ROS2 Humble and Jazzy
+* Checked depth sensors:
+  - Intel RealSense D435
+  - Intel RealSense D435i
+  - Orbbec Astra
+  - Stereolabs ZED2
+  - Stereolabs ZED2i
+  - Azure Kinect
+* Checked 2D sensors:
+  - Sick MicroScan3
+  - Sick NanoScan3
+  - Sick OutdoorScan3
+  - Sick S300
+  - Sick S3000
+  - Sick TIM551
+  - Sick TIM571
+  - Hokuyo URG-04LX
+  - Hokuyo UST-10LX
+  - Hokuyo UST-20LX
+  - Hokuyo UTM-30LX
+* Checked 3D sensors:
+  - Velodyne VLP-16
+  - Robosense RS-Bpearl
+  - Robosense RS-Helios
+  - Ouster
+  - Livox Mid-360
+  - Sick Multiscan 100
+* Checked imu:
+  - Vectornav
+  - MyAhrs
+  - Pixhawk
+* Checked GPS:
+  - Generic
+  - Generic with mast
+  - U-Blox
+  - U-Blox with mast
+* Checked cameras:
+  - Axis M5013
+  - Axis M5074
+  - Axis M5525
+  - Axis M5526
+
 1.1.2 (2018-05-14)
 ------------------
 * solved depreciation warnings

@@ -6,7 +6,7 @@ This package contains the description of the sensors used in Robotnik robots.
 
 Download this repository and use the branch ros2-devel
 
-```sh
+```bash
 git clone https://github.com/RobotnikAutomation/robotnik_sensors.git -b ros2-devel
 ```
 
@@ -67,9 +67,9 @@ The available sensors in the package are:
 
 ## Usage
 
-This repository contains 2 packages *robotnik_sensors* and *robotnik_sensors_gazebo*. The first package includes all the URDF files with the macros and the second includes an example of usage in a URDF file and launch for Gazebo classic.
+This repository contains a package *robotnik_sensors* which includes the URDF description of the sensors.
 
-All the sensors are included in a file, [all_sensors.urdf.xacro](robotnik_sensors/urdf/all_sensors.urdf.xacro). This is the main file that must be included in URDF robots files to call the sensors description.
+The entrypoint of the package is the file [robotnik_sensors/urdf/sensors.urdf.xacro](robotnik_sensors/urdf/sensors.urdf.xacro). This file includes all the sensors macros and the description of the sensors.
 
 The sensors macros have the following arguments:
 
@@ -78,11 +78,17 @@ The sensors macros have the following arguments:
 | frame_prefix   	| prefix added to the frame                                                     	|
 | parent         	| parent link of the sensor                                                     	|
 | origin         	| origin block for the position and orientation of the sensor                   	|
-| simulation     	| boolean to determine if the sensor will be used for simulation or not         	|
-| node_name      	| name used for the plugin node in Gazebo                                       	|
+
+For simulation, the following arguments are also available:
+
+| Arguments      	| Description                                                                   	|
+|----------------	|-------------------------------------------------------------------------------	|
 | node_namespace 	| namespace of the plugin                                                       	|
+| node_name      	| name used for the plugin node in Gazebo                                       	|
+| gazebo_classic 	| boolean to include the plugin for Gazebo classic                                |
+| gazebo_ignition	| boolean to include the plugin for Gazebo Ignition                               |
 | topic_prefix   	| prefix added to the topic name                                                	|
-| gpu            	| boolean to determine if the gpu will be used for the plugins of Gazebo or not 	|
+| gpu             | boolean to use the GPU for the sensor (only available for 2d and 3d lidar)      |
 
 You can find an example of the usage in the [default.urdf.xacro](robotnik_sensors_gazebo/urdf/default.urdf.xacro) file in robotnik_sensors_gazebo.
 
@@ -92,9 +98,10 @@ You can find an example of the usage in the [default.urdf.xacro](robotnik_sensor
       macro="sensor_$(arg sensor_type)"
       frame_prefix="$(arg sensor_name)_"
       parent="world"
-      simulation="true"
       node_namespace="$(arg sensor_ns)"
       node_name="$(arg sensor_name)"
+      gazebo_classic="false"
+      gazebo_ignition="true"
       topic_prefix="~/">
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
   </xacro:call>
@@ -104,7 +111,3 @@ The macro names are sensor_ + the name of the sensor described above. For exampl
 
 - sensor_intel_realsence_d435
 - sensor_vectornav
-
-## Cameras Configuration
-
-In the case of the axis cameras, the URDF description of it includes some revolut joints to point the camera in the available directions. To use it in Gazebo, some controllers have to be used. By default it is used the joint_trajectory_controller. The file is found in the package [robotnik_sensors_gazebo](robotnik_sensors_gazebo/config/camera/).

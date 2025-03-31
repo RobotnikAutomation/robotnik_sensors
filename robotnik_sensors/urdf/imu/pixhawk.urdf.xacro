@@ -7,7 +7,8 @@
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
                        node_name:=imu
                        node_namespace:=${None}
                        topic_prefix:=~/">

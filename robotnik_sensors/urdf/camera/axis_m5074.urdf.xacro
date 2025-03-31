@@ -13,9 +13,10 @@
                params="frame_prefix
                        parent
                        *origin
-                       simulation:=false
+                       gazebo_classic:=false
+                       gazebo_ignition:=false
+                       node_name:=axis_m5074
                        node_namespace:=${None}
-                       node_name:=sensor_axis_m5074
                        topic_prefix:=~/">
 
     <joint name="${frame_prefix}base_joint" type="fixed">
@@ -61,7 +62,7 @@
       <inertial>
         <mass value="0.01"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.03" h="0.06" d="0.06" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.03" h="0.06" d="0.06" />
       </inertial>
     </link>
 
@@ -77,7 +78,7 @@
       <inertial>
         <mass value="0.01"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" />
       </inertial>
     </link>
 
@@ -90,7 +91,7 @@
       <inertial>
         <mass value="0.01"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.06" d="0.03" />
       </inertial>
     </link>
     <!-- Optical frame -->
@@ -103,7 +104,7 @@
       <inertial>
         <mass value="0.01"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.03" d="0.06" /> 
+        <xacro:solid_cuboid_inertia m="0.01" w="0.06" h="0.03" d="0.06" />
       </inertial>
     </link>
     <gazebo reference="${frame_prefix}base_link">
