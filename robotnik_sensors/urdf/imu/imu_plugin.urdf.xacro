@@ -175,8 +175,6 @@
             <angular_velocity_enabled>true</angular_velocity_enabled>
             <linear_acceleration_enabled>true</linear_acceleration_enabled>
           </imu>
-          <plugin filename="libignition-gazebo6-imu-system.so" name="ignition::gazebo::systems::Imu">
-          </plugin>
 
           <topic>${node_namespace}/${node_name}/data</topic>
           <gz_frame_id>${frame_link}</gz_frame_id>
