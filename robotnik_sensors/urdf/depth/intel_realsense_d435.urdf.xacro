@@ -153,7 +153,7 @@
       >
       </xacro:camera_plugin>
 
-      <xacro:irred_camera_plugin
+      <!-- <xacro:irred_camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_irred1"
         topic_prefix="${topic_prefix}_irred1"
@@ -187,15 +187,15 @@
         max_depth="100"
         rate="30"
       >
-      </xacro:irred_camera_plugin>
+      </xacro:irred_camera_plugin> -->
 
-      <xacro:depth_camera_plugin
+      <!-- <xacro:depth_camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_depth"
         topic_prefix="${topic_prefix}_depth"
         gazebo_classic="${gazebo_classic}"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}depth_optical_frame"
+        optical_frame="${frame_prefix}depth_frame"
         reference_frame="${frame_prefix}depth_frame"
         horizontal_fov="85.2"
         vertical_fov="48"
@@ -205,7 +205,7 @@
         max_depth="100"
         rate="30"
       >
-      </xacro:depth_camera_plugin>
+      </xacro:depth_camera_plugin> -->
 
   </xacro:macro>
 </robot>
