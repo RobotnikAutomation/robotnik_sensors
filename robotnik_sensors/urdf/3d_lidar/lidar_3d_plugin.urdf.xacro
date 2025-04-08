@@ -65,7 +65,7 @@
       <gazebo reference="${frame_link}">
         <sensor type="gpu_lidar" name="${node_name}">
           <pose>0 0 0 0 0 0</pose>
-          <visualize>true</visualize>
+          <visualize>false</visualize>
           <update_rate>${rate}</update_rate>
           <lidar>
             <scan>
