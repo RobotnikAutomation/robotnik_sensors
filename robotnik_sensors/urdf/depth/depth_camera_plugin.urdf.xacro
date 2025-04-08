@@ -83,11 +83,14 @@
             </noise>
           </camera>
           <always_on>1</always_on>
-          <update_rate>90</update_rate>
+          <update_rate>30</update_rate>
           <visualize>false</visualize>
-
+            
+          <camera_info_topic>${node_namespace}/${node_name}/depth/camera_info</camera_info_topic>
           <topic>${node_namespace}/${node_name}/depth/image_raw</topic>
           <gz_frame_id>${optical_frame}</gz_frame_id>
+          <min_depth>${min_depth}</min_depth>
+          <max_depth>${max_depth}</max_depth>
         </sensor>
       </gazebo>
     </xacro:if>
