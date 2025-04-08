@@ -24,7 +24,7 @@
 			<origin xyz="0.0 0 0.015" rpy="0 0 0" />
 			<mass value="0.2" />
 			<xacro:solid_cuboid_inertia m="0.2" w="0.081" h="0.081" d="0.03" />
-      </inertial>
+                </inertial>
 	    <visual>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
 		  <material name="ublox_gps_color">
@@ -42,10 +42,21 @@
 	    </collision>
 	  </link>
 
-	<gazebo reference="${frame_prefix}base_link">
+	  <gazebo reference="${frame_prefix}base_link">
 	    <material>Gazebo/White</material>
 	    <gravity>true</gravity>
 	  </gazebo>
+
+	  <joint name="${frame_prefix}joint" type="fixed">
+	      <axis xyz="1 0 0"/>
+	      <origin xyz="0.0 0.0 0.01125"/>
+	      <parent link="${frame_prefix}base_link"/>
+	      <child link="${frame_prefix}link"/>
+	  </joint>
+	
+	  <link name="${frame_prefix}link">
+	  </link>
+
 
     <xacro:gps_plugin
       node_namespace="${node_namespace}"
