@@ -1,6 +1,13 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Unreleased
+----------
+* Simulation Jazzy:
+  - Change LiDAR 3D plugin to fix for simulation in Jazzy
+  - Removed plugins of infrared and depth cameras that are not working correctly in simulation for Jazzy
+* Visual:
+  - Fix GPS mast mesh
 
 2.0.0 (2025-03-28)
 ------------------
