@@ -48,7 +48,6 @@
 	  </gazebo>
 
 	  <joint name="${frame_prefix}joint" type="fixed">
-	      <axis xyz="1 0 0"/>
 	      <origin xyz="0.0 0.0 0.01125"/>
 	      <parent link="${frame_prefix}base_link"/>
 	      <child link="${frame_prefix}link"/>
