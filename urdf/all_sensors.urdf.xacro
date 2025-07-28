@@ -164,6 +164,9 @@
   <!-- RoboSense RS-Helios 16p -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rs_helios_16p.urdf.xacro" />
 
+  <!-- RoboSense RS-Airy -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/rs_airy.urdf.xacro" />
+
   <!-- RoboSense RS-BPearl -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/rs_bpearl.urdf.xacro" />
 
