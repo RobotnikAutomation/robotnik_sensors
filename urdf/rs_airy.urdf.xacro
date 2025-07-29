@@ -21,7 +21,7 @@
         <xacro:black_alu_material/>
       </visual>
       <collision>
-        <origin rpy="0 0 0" xyz="0 0 0.05"/>
+        <origin rpy="0 0 0" xyz="0 0 0.032"/>
 	      <geometry>
 	        <cylinder radius="0.0305" length="0.064"/>
 	      </geometry>
