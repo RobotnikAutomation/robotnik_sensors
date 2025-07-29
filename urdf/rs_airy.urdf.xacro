@@ -3,7 +3,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="sensor_rs_airy" params="prefix parent *origin prefix_topic suffix_topic:='' range_min:=0.1 range_max:=60.0 hfov:=360 hres:=0.2 vfov:=30.0 vres:=2 fps:=10.0 gpu:=^|true include_inertial:=^|true">
+  <xacro:macro name="sensor_rs_airy" params="prefix parent *origin prefix_topic:='top_3d_laser' suffix_topic:='' range_min:=0.1 range_max:=60.0 hfov:=360 hres:=0.2 vfov:=30.0 vres:=2 fps:=10.0 gpu:=^|true include_inertial:=^|true">
 
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />
