@@ -13,7 +13,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_name:=axis_m5013
                        node_namespace:=${None}
@@ -117,7 +116,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}_color"
       topic_prefix="${topic_prefix}_color"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}color_optical_frame"
       reference_frame="${frame_prefix}color_frame"

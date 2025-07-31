@@ -7,7 +7,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_namespace:=${None}
                        node_name:=orbbec_astra
@@ -70,7 +69,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       topic_prefix="${topic_prefix}"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}depth_optical_frame"
       reference_frame="${frame_prefix}depth_frame"

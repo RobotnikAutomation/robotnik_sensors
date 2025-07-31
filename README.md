@@ -85,7 +85,6 @@ For simulation, the following arguments are also available:
 |----------------	|-------------------------------------------------------------------------------	|
 | node_namespace 	| namespace of the plugin                                                       	|
 | node_name      	| name used for the plugin node in Gazebo                                       	|
-| gazebo_classic 	| boolean to include the plugin for Gazebo classic                                |
 | gazebo_ignition	| boolean to include the plugin for Gazebo Ignition                               |
 | topic_prefix   	| prefix added to the topic name                                                	|
 | gpu             | boolean to use the GPU for the sensor (only available for 2d and 3d lidar)      |
@@ -100,7 +99,6 @@ You can find an example of the usage in the [default.urdf.xacro](robotnik_sensor
       parent="world"
       node_namespace="$(arg sensor_ns)"
       node_name="$(arg sensor_name)"
-      gazebo_classic="false"
       gazebo_ignition="true"
       topic_prefix="~/">
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>

@@ -7,7 +7,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_name:=imu
                        node_namespace:=${None}
@@ -53,7 +52,6 @@
     <xacro:imu_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}link"
       rate="200.0"

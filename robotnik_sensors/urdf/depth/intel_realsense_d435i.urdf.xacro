@@ -10,7 +10,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_name:=realsense_d435i
                        node_namespace:=${None}
@@ -148,7 +147,6 @@
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
         topic_prefix="${topic_prefix}_color"
-        gazebo_classic="${gazebo_classic}"
         gazebo_ignition="${gazebo_ignition}"
         optical_frame="${frame_prefix}color_optical_frame"
         reference_frame="${frame_prefix}color_frame"
@@ -166,7 +164,6 @@
         node_namespace="${node_namespace}"
         node_name="${node_name}_irred1"
         topic_prefix="${topic_prefix}_irred1"
-        gazebo_classic="${gazebo_classic}"
         gazebo_ignition="${gazebo_ignition}"
         optical_frame="${frame_prefix}infra1_optical_frame"
         reference_frame="${frame_prefix}infra2_frame"
@@ -184,7 +181,6 @@
         node_namespace="${node_namespace}"
         node_name="${node_name}_irred2"
         topic_prefix="${topic_prefix}_irred2"
-        gazebo_classic="${gazebo_classic}"
         gazebo_ignition="${gazebo_ignition}"
         optical_frame="${frame_prefix}infra2_optical_frame"
         reference_frame="${frame_prefix}infra2_frame"
@@ -202,7 +198,6 @@
         node_namespace="${node_namespace}"
         node_name="${node_name}_depth"
         topic_prefix="${topic_prefix}_depth"
-        gazebo_classic="${gazebo_classic}"
         gazebo_ignition="${gazebo_ignition}"
         optical_frame="${frame_prefix}depth_optical_frame"
         reference_frame="${frame_prefix}depth_frame"
@@ -247,7 +242,6 @@
     <xacro:imu_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}link"
       rate="200.0"

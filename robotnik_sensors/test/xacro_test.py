@@ -124,7 +124,6 @@ def test_xacro_file(sensor):
         f' model:={sensor}'
         f' name:=sensor_name'
         f' namespace:=sensor_namespace'
-        f' gazebo_classic:=false'
         f' gazebo_ignition:=false'
         f' -o {tmp_urdf_output_file}'
     )

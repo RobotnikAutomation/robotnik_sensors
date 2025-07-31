@@ -4,7 +4,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_namespace:=stereolabs_zed2
                        node_name:=stereolabs_zed2
@@ -13,7 +12,6 @@
     <xacro:sensor_stereolabs_generic frame_prefix="${frame_prefix}"
                                      parent="${parent}"
                                      model="zed2"
-                                     gazebo_classic="false"
                                      gazebo_ignition="false"
                                      node_namespace="${node_namespace}"
                                      node_name="${node_name}"

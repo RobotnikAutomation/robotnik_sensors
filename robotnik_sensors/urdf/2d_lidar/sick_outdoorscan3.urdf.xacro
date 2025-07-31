@@ -7,7 +7,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_name:=sick_outdoorscan3
                        node_namespace:=${None}
@@ -54,7 +53,6 @@
     <xacro:lidar_2d_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       min_range="0.05"
       max_range="40.0"
