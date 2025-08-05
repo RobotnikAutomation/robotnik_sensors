@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<robot name="sensor_fixposition" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps_plugin.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gnss_antenna.urdf.xacro" />
+        
+	<xacro:macro name="sensor_fixposition"
+				params="frame_prefix
+						parent
+						*origin
+						gazebo_classic:=false
+						gazebo_ignition:=false
+						node_name:=fixposition
+						node_namespace:=${None}
+						topic_prefix:=~/
+						update_rate:=5.0
+       						num_antennas:=2
+					        gps_1_type:=spherical
+        					gps_1_xyz_x:=0
+					        gps_1_xyz_y:=0
+					        gps_1_xyz_z:=0
+					        gps_1_rpy_r:=0
+					        gps_1_rpy_p:=0
+					        gps_1_rpy_y:=0
+					        gps_1_parent:=base_link
+
+					        gps_2_type:=spherical
+					        gps_2_xyz_x:=0
+					        gps_2_xyz_y:=0
+					        gps_2_xyz_z:=0
+					        gps_2_rpy_r:=0
+					        gps_2_rpy_p:=0
+					        gps_2_rpy_y:=0
+					        gps_2_parent:=base_link">
+	  <!-- ANTENNA GPS -->
+	  <joint name="${frame_prefix}base_joint" type="fixed">
+	    <xacro:insert_block name="origin"/>
+	    <parent link="${parent}"/>
+	    <child link="${frame_prefix}base_link"/>
+	  </joint>
+	  <link name="${frame_prefix}base_link">
+	    <inertial>
+		<origin xyz="0.0 0 0.015" rpy="0 0 0" />
+		<mass value="0.2" />
+		<xacro:solid_cuboid_inertia m="0.2" w="0.081" h="0.081" d="0.03" />
+            </inertial>
+	    <visual>
+	      <material name="rbtnk_white">
+                <color rgba="1.0 1.0 1.0 1.0"/>
+              </material>
+	      <origin rpy="0 0 0" xyz="0 0 0"/>
+	      <geometry>
+                    <mesh filename="package://robotnik_sensors/meshes/fixposition.stl" scale="0.001 0.001 0.001" />
+	      </geometry>
+	    </visual>
+	    <collision>
+                <origin xyz="0 0 0.015" rpy="0 0 0" />
+	        <geometry>
+                    <box size="0.1291 0.1136 0.03" />
+	        </geometry>
+	    </collision>
+	  </link>
+
+	  <joint name="${frame_prefix}joint" type="fixed">
+              <origin xyz="0.035 0 0.03" rpy="0 0 0" />
+	      <parent link="${frame_prefix}base_link"/>
+	      <child link="${frame_prefix}link"/>
+	  </joint>
+
+        <!--
+            Sensor origin is on the top of the unit, slightly in front of the mounting point
+        -->
+	  <link name="${frame_prefix}link"/>
+
+         <xacro:gnss_antenna
+            prefix="${frame_prefix}gps_1"
+            parent_link="${gps_1_parent}"
+            type="${gps_1_type}">
+            <origin
+                xyz="${gps_1_xyz_x} ${gps_1_xyz_y} ${gps_1_xyz_z}"
+                rpy="${gps_1_rpy_r} ${gps_1_rpy_p} ${gps_1_rpy_y}"
+            />
+        </xacro:gnss_antenna>
+        <!--gazebo reference="${frame_prefix}_gps_0_link">
+            <sensor name="${frame_prefix}_gps_0" type="navsat">
+                <always_on>1</always_on>
+                <update_rate>1</update_rate>
+                <gz_frame_id>${frame_prefix}_gps_0_link</gz_frame_id>
+                <topic>$(arg namespace)/sensors/${frame_prefix}/gps_0/fix</topic>
+            </sensor>
+        </gazebo-->
+        
+        <xacro:if value="${num_antennas > 1}">
+            <xacro:gnss_antenna
+                prefix="${frame_prefix}gps_2"
+                parent_link="${gps_2_parent}"
+                type="${gps_2_type}">
+                <origin
+                    xyz="${gps_2_xyz_x} ${gps_2_xyz_y} ${gps_2_xyz_z}"
+                    rpy="${gps_2_rpy_r} ${gps_2_rpy_p} ${gps_2_rpy_y}"
+                />
+            </xacro:gnss_antenna>
+            <!--gazebo reference="${frame_prefix}_gps_2_link">
+                <sensor name="${frame_prefix}_gps_2" type="navsat">
+                    <always_on>1</always_on>
+                    <update_rate>1</update_rate>
+                    <gz_frame_id>${frame_prefix}_gps_2_link</gz_frame_id>
+                    <topic>$(arg namespace)/sensors/${frame_prefix}/gps_2/fix</topic>
+                </sensor>
+            </gazebo-->
+        </xacro:if>
+
+  </xacro:macro>
+
+</robot>
