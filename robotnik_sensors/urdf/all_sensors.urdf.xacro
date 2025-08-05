@@ -45,6 +45,7 @@
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps/gps_with_mast.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps/ublox.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/gps/ublox_with_mast.urdf.xacro" />
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gps/fixposition.urdf.xacro" />
 
   <!-- Camera -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/camera/axis_m5013.urdf.xacro" />
