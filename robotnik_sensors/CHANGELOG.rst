@@ -8,7 +8,9 @@ Unreleased
   - Removed plugins of infrared and depth cameras that are not working correctly in simulation for Jazzy
 * Visual:
   - Fix GPS mast mesh
-
+* Model:
+  - Added FixPosition sensor model: urdf + meshes of the device and antennas
+  
 2.0.0 (2025-03-28)
 ------------------
 * First official release of the package for ROS2
