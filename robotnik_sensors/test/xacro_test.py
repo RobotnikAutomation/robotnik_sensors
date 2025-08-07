@@ -102,7 +102,8 @@ sensors = [
 
 
 @pytest.mark.parametrize('sensor', sensors)
-def test_xacro_file(sensor):
+@pytest.mark.parametrize('ignition', [False, True])
+def test_xacro_file(sensor, ignition):
     """Test xacro file generation."""
     (fd, tmp_urdf_output_file) = tempfile.mkstemp(suffix='.urdf')
     os.close(fd)
@@ -124,7 +125,7 @@ def test_xacro_file(sensor):
         f' model:={sensor}'
         f' name:=sensor_name'
         f' namespace:=sensor_namespace'
-        f' gazebo_ignition:=false'
+        f' gazebo_ignition:={"true" if ignition else "false"}'
         f' -o {tmp_urdf_output_file}'
     )
     check_command = (
