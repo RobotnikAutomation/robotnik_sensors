@@ -5,7 +5,6 @@
             node_namespace
             node_name
             topic_prefix
-            gazebo_classic
             gazebo_ignition
             optical_frame
             reference_frame
@@ -17,41 +16,6 @@
             max_depth
             rate
             ">
-
-    <xacro:if value="${gazebo_classic}">
-      <gazebo reference="${reference_frame}">
-        <sensor name="${node_name}" type="camera">
-          <camera name="${node_name}">
-            <horizontal_fov>${radians(horizontal_fov)}</horizontal_fov>
-            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
-            <image>
-              <width>${video_width}</width>
-              <height>${video_height}</height>
-              <format>RGB_INT8</format>
-            </image>
-            <clip>
-              <near>${min_depth}</near>
-              <far>${max_depth}</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0.0</mean>
-              <stddev>0.05</stddev>
-            </noise>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>${rate}</update_rate>
-          <visualize>false</visualize>
-          <plugin name="${node_name}" filename="libgazebo_ros_camera.so">
-            <ros>
-              <namespace>${node_namespace}/${node_name}</namespace>
-            </ros>
-            <camera_name>${node_name}</camera_name>
-            <frame_name>${optical_frame}</frame_name>
-          </plugin>
-        </sensor>
-      </gazebo>
-    </xacro:if>
 
     <xacro:if value="${gazebo_ignition}">
       <gazebo reference="${reference_frame}">

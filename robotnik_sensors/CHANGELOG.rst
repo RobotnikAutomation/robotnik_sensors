@@ -3,6 +3,7 @@ Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Unreleased
 ----------
+* BRAKING_CHANGE: removed `gazebo_classic` parameter for sensor macros
 * Simulation Jazzy:
   - Change LiDAR 3D plugin to fix for simulation in Jazzy
   - Removed plugins of infrared and depth cameras that are not working correctly in simulation for Jazzy

@@ -4,7 +4,6 @@
   <xacro:arg name="model" default=""/>
   <xacro:arg name="name" default=""/>
   <xacro:arg name="namespace" default=""/>
-  <xacro:arg name="gazebo_classic" default=""/>
   <xacro:arg name="gazebo_ignition" default=""/>
 
   <link name="world"/>
@@ -15,7 +14,6 @@
       parent="world"
       node_namespace="$(arg namespace)"
       node_name="$(arg name)"
-      gazebo_classic="$(arg gazebo_classic)"
       gazebo_ignition="$(arg gazebo_ignition)"
       topic_prefix="~/$(arg name)">
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>

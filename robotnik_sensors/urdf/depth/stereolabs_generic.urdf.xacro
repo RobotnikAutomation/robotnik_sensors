@@ -10,7 +10,6 @@
                        parent
                        *origin
                        model:=zed2
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_name:=stereolabs_generic
                        node_namespace:=${None}
@@ -114,7 +113,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}_right_sensor"
       topic_prefix="${topic_prefix}_right_sensor"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}right_camera_optical_frame"
       reference_frame="${frame_prefix}right_camera_frame"
@@ -132,7 +130,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}_left_sensor"
       topic_prefix="${topic_prefix}_left_sensor"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}left_camera_optical_frame"
       reference_frame="${frame_prefix}left_camera_frame"
@@ -150,7 +147,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}_depth"
       topic_prefix="${topic_prefix}_depth"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}depth_optical_frame"
       reference_frame="${frame_prefix}depth_frame"

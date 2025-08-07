@@ -7,8 +7,7 @@
 				params="frame_prefix
 						parent
 						*origin
-						gazebo_classic:=false
-						gazebo_ignition:=false
+												gazebo_ignition:=false
 						node_name:=ublox
 						node_namespace:=${None}
 						topic_prefix:=~/
@@ -60,7 +59,6 @@
     <xacro:gps_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       topic_prefix="${topic_prefix}_gps"
       frame_link="${frame_prefix}base_link"

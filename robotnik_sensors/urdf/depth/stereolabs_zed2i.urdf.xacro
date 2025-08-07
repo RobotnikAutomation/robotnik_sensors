@@ -7,7 +7,6 @@
                params="frame_prefix
                        parent
                        *origin
-                       gazebo_classic:=false
                        gazebo_ignition:=false
                        node_namespace:=stereolabs_zed2i
                        node_name:=stereolabs_zed2i
@@ -16,7 +15,6 @@
     <xacro:sensor_stereolabs_generic frame_prefix="${frame_prefix}"
                                      parent="${parent}"
                                      model="zed2"
-                                     gazebo_classic="false"
                                      gazebo_ignition="false"
                                      node_namespace="${node_namespace}"
                                      node_name="${node_name}"
@@ -43,7 +41,6 @@
     <xacro:imu_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      gazebo_classic="${gazebo_classic}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}imu_frame"
       rate="200.0"
