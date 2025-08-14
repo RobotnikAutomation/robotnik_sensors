@@ -4,7 +4,6 @@
   <xacro:property name="mast_height" value="0.5" />
   <xacro:property name="mast_radius" value="0.010" />
 
-  <!-- English code, with English comments -->
   <!-- NOTE: world provides spherical_coordinates (WGS84), so no per-sensor reference lat/lon needed -->
   <xacro:macro name="sensor_gps_with_mast" params="prefix parent *origin update_rate:=^|5 include_inertial:=^|true frame_id:=^|${prefix}_base_link topic_ns:=^|gps">
 
