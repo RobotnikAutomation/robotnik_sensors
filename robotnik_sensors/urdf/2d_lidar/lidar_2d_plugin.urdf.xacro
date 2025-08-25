@@ -18,7 +18,7 @@
     <xacro:if value="${gazebo_ignition}">
       <gazebo reference="${frame_link}">
         <sensor type="gpu_lidar" name="${node_name}">
-          <pose>0 0 0 0 0 0</pose>
+          <pose relative_to='${frame_link}'>0 0 0 0 0 0</pose>
           <visualize>false</visualize>
           <update_rate>${rate}</update_rate>
           <lidar>
@@ -41,9 +41,8 @@
               <stddev>0.03</stddev>
             </noise>
           </lidar>
-
-          <topic> ${node_namespace}/${node_name}/scan </topic>
-          <gz_frame_id> ${frame_link} </gz_frame_id>
+          <topic>${node_namespace}/${node_name}/scan</topic>
+          <gz_frame_id>${frame_link}</gz_frame_id>
         </sensor>
       </gazebo>
     </xacro:if>
