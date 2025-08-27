@@ -9,12 +9,6 @@ install(
   DESTINATION share/${PROJECT_NAME}/
 )
 
-set(_hook "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.dsv")
-file(WRITE "${_hook}"
-"prepend-non-duplicate;GZ_SIM_RESOURCE_PATH;share/${PROJECT_NAME}/..\n")
-install(FILES "${_hook}" DESTINATION share/${PROJECT_NAME})
-ament_environment_hooks("${_hook}")
-
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_pytest REQUIRED)
