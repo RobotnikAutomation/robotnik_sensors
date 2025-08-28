@@ -1,55 +1,79 @@
-<?xml version="1.0"?>
-<robot name="sensor_velodyne_vlp16" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_velodyne_vlp16"
+  xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
 
-  <xacro:macro name="sensor_velodyne_vlp16"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_name:=velodyne_vlp16
-                       node_namespace:=${None}
-                       topic_prefix:=~/
-                       gpu:=false">
+  <xacro:macro
+    name="sensor_velodyne_vlp16"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_name:=velodyne_vlp16
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
 
     <xacro:if value="${node_namespace == None}">
-      <xacro:property name="node_namespace" value="${node_name}"/>
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
     </xacro:if>
 
-    <joint name="${frame_prefix}base_joint" type="fixed">
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
       <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}base_link"/>
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
     </joint>
 
     <link name="${frame_prefix}base_link">
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/velodyne/vlp16.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/3d_lidar/velodyne/vlp16.dae" />
         </geometry>
       </collision>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/velodyne/vlp16.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/3d_lidar/velodyne/vlp16.dae" />
         </geometry>
       </visual>
       <inertial>
         <mass value="0.830" />
-        <origin xyz="0 0 0.03555" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.830" w="0.1033" h="0.1033" d="0.0711" />
+        <origin
+          xyz="0 0 0.03555"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.830"
+          w="0.1033"
+          h="0.1033"
+          d="0.0711" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-      <parent link="${frame_prefix}base_link"/>
-      <child link="${frame_prefix}link"/>
-      <origin xyz="0.0 0 0.035" rpy="0 0 0"/>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}link" />
+      <origin
+        xyz="0.0 0 0.035"
+        rpy="0 0 0" />
     </joint>
 
-    <link name="${frame_prefix}link"/>
+    <link name="${frame_prefix}link" />
 
     <xacro:lidar_3d_plugin
       node_namespace="${node_namespace}"
@@ -62,8 +86,7 @@
       frame_link="${frame_prefix}link"
       rate="10"
       horizontal_samples="1200"
-      vertical_samples="15"
-    >
+      vertical_samples="15">
     </xacro:lidar_3d_plugin>
 
   </xacro:macro>

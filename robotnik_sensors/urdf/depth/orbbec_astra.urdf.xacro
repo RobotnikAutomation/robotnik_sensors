@@ -1,69 +1,102 @@
-<?xml version="1.0"?>
-<robot name="sensor_orbbec_astra" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_orbbec_astra"
+  xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
 
-  <xacro:macro name="sensor_orbbec_astra"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_namespace:=${None}
-                       node_name:=orbbec_astra
-                       topic_prefix:=~/">
+  <xacro:macro
+    name="sensor_orbbec_astra"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_namespace:=${None}
+            node_name:=orbbec_astra
+            topic_prefix:=~/">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
-      <xacro:property name="node_namespace" value="${node_name}"/>
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
     </xacro:if>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-    	<xacro:insert_block name="origin"/>
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}link"/>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+    	<xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${frame_prefix}link" />
     </joint>
     <link name="${frame_prefix}link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/depth/orbbec_astra/orbbec_astra.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/depth/orbbec_astra/orbbec_astra.dae" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="-0.02 0 0.015" rpy="0 0 0"/>
+        <origin
+          xyz="-0.02 0 0.015"
+          rpy="0 0 0" />
         <geometry>
-          <box size="0.042 0.155 0.03"/>
+          <box size="0.042 0.155 0.03" />
         </geometry>
       </collision>
       <inertial>
         <mass value="0.3" />
         <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.3" w="0.04" h="0.165" d="0.03" />
+        <xacro:solid_cuboid_inertia
+          m="0.3"
+          w="0.04"
+          h="0.165"
+          d="0.03" />
       </inertial>
     </link>
-    <joint name="${frame_prefix}rgb_joint" type="fixed">
-      <origin xyz="0.0 0.0125 0.0150" rpy="0.0 0.0 0.0"/>
-      <parent link="${frame_prefix}link"/>
+    <joint
+      name="${frame_prefix}rgb_joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0.0125 0.0150"
+        rpy="0.0 0.0 0.0" />
+      <parent link="${frame_prefix}link" />
       <child link="${frame_prefix}rgb_frame" />
     </joint>
-    <link name="${frame_prefix}rgb_frame"/>
-    <joint name="${frame_prefix}rgb_optical_joint" type="fixed">
-      <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0 ${-pi/2}" />
+    <link name="${frame_prefix}rgb_frame" />
+    <joint
+      name="${frame_prefix}rgb_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0.0 0.0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}rgb_frame" />
       <child link="${frame_prefix}rgb_optical_frame" />
     </joint>
-    <link name="${frame_prefix}rgb_optical_frame"/>
-    <joint name="${frame_prefix}depth_joint" type="fixed">
-      <origin xyz="0.0 0.0375 0.0150" rpy="0 0 0" />
+    <link name="${frame_prefix}rgb_optical_frame" />
+    <joint
+      name="${frame_prefix}depth_joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0.0375 0.0150"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}link" />
       <child link="${frame_prefix}depth_frame" />
     </joint>
-    <link name="${frame_prefix}depth_frame"/>
-    <joint name="${frame_prefix}depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+    <link name="${frame_prefix}depth_frame" />
+    <joint
+      name="${frame_prefix}depth_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}depth_frame" />
       <child link="${frame_prefix}depth_optical_frame" />
     </joint>
-    <link name="${frame_prefix}depth_optical_frame"/>
+    <link name="${frame_prefix}depth_optical_frame" />
 
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
@@ -78,8 +111,7 @@
       video_height="480"
       min_depth="0.05"
       max_depth="8.0"
-      rate="30"
-    >
+      rate="30">
     </xacro:depth_camera_plugin>
   </xacro:macro>
 </robot>

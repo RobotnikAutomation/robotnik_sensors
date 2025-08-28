@@ -1,8 +1,11 @@
-<?xml version="1.0"?>
-<robot name="camera_plugin" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="camera_plugin"
+  xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="camera_plugin" params="
-            node_namespace
+  <xacro:macro
+    name="camera_plugin"
+    params="node_namespace
             node_name
             topic_prefix
             gazebo_ignition
@@ -19,7 +22,9 @@
 
     <xacro:if value="${gazebo_ignition}">
       <gazebo reference="${reference_frame}">
-        <sensor name="${node_name}" type="camera">
+        <sensor
+          name="${node_name}"
+          type="camera">
             <camera name="${node_name}">
             <horizontal_fov>${radians(horizontal_fov)}</horizontal_fov>
             <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>

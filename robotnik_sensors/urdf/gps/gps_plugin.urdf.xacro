@@ -1,8 +1,11 @@
-<?xml version="1.0"?>
-<robot name="gps_plugin" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="gps_plugin"
+  xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="gps_plugin" params="
-            node_namespace
+  <xacro:macro
+    name="gps_plugin"
+    params="node_namespace
             node_name
             frame_link
             topic_prefix
@@ -12,19 +15,21 @@
 
     <xacro:if value="${gazebo_ignition}">
         <gazebo reference="${frame_link}">
-            <sensor name="${node_name}" type="navsat">
+            <sensor
+          name="${node_name}"
+          type="navsat">
                 <navsat>
                     <position_sensing>
                     <horizontal>
                         <noise type="gaussian">
-                        <mean>0.0</mean>
-                        <stddev>0.1</stddev>
+                        <mean>0</mean>
+                        <stddev>1.75e-6</stddev>
                         </noise>
                     </horizontal>
                     <vertical>
                         <noise type="gaussian">
                         <mean>0.0</mean>
-                        <stddev>0.1</stddev>
+                        <stddev>1.35e-6</stddev>
                         </noise>
                     </vertical>
                     </position_sensing>
@@ -32,22 +37,24 @@
                     <horizontal>
                         <noise type="gaussian">
                         <mean>0.0</mean>
-                        <stddev>0.1</stddev>
+                        <stddev>0.0001</stddev>
                         </noise>
                     </horizontal>
                     <vertical>
                         <noise type="gaussian">
                         <mean>0.0</mean>
-                        <stddev>0.1</stddev>
+                        <stddev>0.0001</stddev>
                         </noise>
                     </vertical>
                     </vertical_sensing>
                 </navsat>
                 <always_on>1</always_on>
-                <update_rate>${rate}</update_rate>
+                <update_rate>1.0</update_rate>
                 <topic>${node_namespace}/${node_name}/data</topic>
                 <gz_frame_id>${frame_link}</gz_frame_id>
-                <plugin filename="ignition-gazebo-navsat-system" name="ignition::gazebo::systems::NavSat"/>
+                <plugin
+            filename="ignition-gazebo-navsat-system"
+            name="ignition::gazebo::systems::NavSat" />
             </sensor>
         </gazebo>
     </xacro:if>

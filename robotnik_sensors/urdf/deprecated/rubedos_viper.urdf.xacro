@@ -1,15 +1,24 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:property name="rubedos_viper_width" value="0.246"/>
-  <xacro:property name="rubedos_viper_height" value="0.035"/>
-  <xacro:property name="rubedos_viper_depth" value="0.09"/>
+  <xacro:property
+    name="rubedos_viper_width"
+    value="0.246" />
+  <xacro:property
+    name="rubedos_viper_height"
+    value="0.035" />
+  <xacro:property
+    name="rubedos_viper_depth"
+    value="0.09" />
 
-  <xacro:macro name="stereo_camera"
+  <xacro:macro
+    name="stereo_camera"
     params="prefix fps baseline hfov width height format near far">
 
     <gazebo reference="${prefix}_base_link">
-      <sensor type="multicamera" name="stereo_camera">
+      <sensor
+        type="multicamera"
+        name="stereo_camera">
         <update_rate>${fps}</update_rate>
         <camera name="left">
           <pose>0 0 0 0 0 0 </pose>
@@ -47,7 +56,9 @@
             <stddev>0.007</stddev>
           </noise>
         </camera>
-        <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+        <plugin
+          name="stereo_camera_controller"
+          filename="libgazebo_ros_multicamera.so">
           <alwaysOn>true</alwaysOn>
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
@@ -66,39 +77,60 @@
     </gazebo>
   </xacro:macro>
 
-  <xacro:macro name="rubedos_viper"
+  <xacro:macro
+    name="rubedos_viper"
     params="prefix:=bumblebee parent *origin format:=R8G8B8 near:=0.05 far:=300">
 
-    <joint name="${prefix}_base_joint" type="fixed">
+    <joint
+      name="${prefix}_base_joint"
+      type="fixed">
       <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
+      <parent link="${parent}" />
       <child link="${prefix}_base_link" />
     </joint>
 
     <link name="${prefix}_base_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
           <!--box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/--> 
-          <mesh filename="package://robotnik_sensors/meshes/viper.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/viper.dae" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
-          <box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/>
+          <box
+            size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}" />
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="-0.0 0.0 0.0" rpy="0 0 0" />
+        <origin
+          xyz="-0.0 0.0 0.0"
+          rpy="0 0 0" />
         <mass value="0.8" />
-        <xacro:solid_cuboid_inertia m="0.8" w="0.0574" h="0.187" d="0.036" />
+        <xacro:solid_cuboid_inertia
+          m="0.8"
+          w="0.0574"
+          h="0.187"
+          d="0.036" />
       </inertial>
     </link>
 
-    <joint name="${prefix}_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
-      <origin xyz="0 0 0" rpy="0 0 0" />
+    <joint
+      name="${prefix}_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="-1.570796 0 -1.570796" />
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <parent link="${prefix}_base_link" />
       <child link="${prefix}_optical_frame" />
     </joint>
@@ -114,19 +146,23 @@
     </link>
 
       <xacro:stereo_camera
-        prefix="${prefix}"
-        hfov="1.2217"
-        baseline="0.20"
-        fps="60"
-        width="2304"
-        height="1535"
-        format="${format}"
-        near="${near}"
-        far="${far}"/>
+      prefix="${prefix}"
+      hfov="1.2217"
+      baseline="0.20"
+      fps="60"
+      width="2304"
+      height="1535"
+      format="${format}"
+      near="${near}"
+      far="${far}" />
   </xacro:macro>
 
-  <xacro:macro name="sensor_rubedos_viper" params="prefix:=myviper parent *origin" >
-    <rubedos_viper prefix="${prefix}" parent="${parent}">
+  <xacro:macro
+    name="sensor_rubedos_viper"
+    params="prefix:=myviper parent *origin">
+    <rubedos_viper
+      prefix="${prefix}"
+      parent="${parent}">
       <xacro:insert_block name="origin" />
     </rubedos_viper>
   </xacro:macro>

@@ -1,18 +1,28 @@
-<?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_asus_xtion_pro">
+<?xml version="1.0" ?>
+<robot
+  xmlns:xacro="http://wiki.ros.org/xacro"
+  name="sensor_asus_xtion_pro">
 
   <!-- Xacro properties -->
   <!-- xacro:property name="M_SCALE" value="0.001"/ -->
-  <xacro:property name="M_SCALE" value="1.0"/>
+  <xacro:property
+    name="M_SCALE"
+    value="1.0" />
 
   <!-- xacro:property name="asus_xtion_scale" value="0.001"/ -->
-  <xacro:property name="asus_xtion_scale" value="1.0"/>
-  <xacro:property name="asus_xtion_pro_depth_rel_rgb_py" value="0.0270" />
-  <xacro:property name="asus_xtion_pro_rgb_rel_rgb_py"   value="-0.0220" />
-  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property
+    name="asus_xtion_scale"
+    value="1.0" />
+  <xacro:property
+    name="asus_xtion_pro_depth_rel_rgb_py"
+    value="0.0270" />
+  <xacro:property
+    name="asus_xtion_pro_rgb_rel_rgb_py"
+    value="-0.0220" />
 
-  <xacro:macro name="sensor_asus_xtion_pro"
-                params="frame_prefix
+  <xacro:macro
+    name="sensor_asus_xtion_pro"
+    params="frame_prefix
                         parent
                         *origin
                         model:=asus_xtion_pro
@@ -28,9 +38,11 @@
                         min_depth:=0.8
                         max_depth:=3.5">
 
-    <joint name="${frame_prefix}rgb_joint" type="fixed">
+    <joint
+      name="${frame_prefix}rgb_joint"
+      type="fixed">
 	  <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
+      <parent link="${parent}" />
       <child link="${frame_prefix}rgb_base_link" />
     </joint>
 
@@ -38,12 +50,20 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="-0.0175 0 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.035"
+          h="0.180"
+          d="0.05" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}rgb_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+    <joint
+      name="${frame_prefix}rgb_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}rgb_base_link" />
       <child link="${frame_prefix}rgb_optical_frame" />
     </joint>
@@ -52,38 +72,61 @@
       <inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.180" h="0.035" d="0.05" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.180"
+          h="0.035"
+          d="0.05" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-      <origin xyz="0 ${asus_xtion_pro_rgb_rel_rgb_py} 0"
-              rpy="0 0 0"/>
-      <parent link="${frame_prefix}rgb_base_link"/>
-      <child link="${frame_prefix}link"/>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <origin
+        xyz="0 ${asus_xtion_pro_rgb_rel_rgb_py} 0"
+        rpy="0 0 0" />
+      <parent link="${frame_prefix}rgb_base_link" />
+      <child link="${frame_prefix}link" />
     </joint>
     <link name="${frame_prefix}link">
       <visual>
-        <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
+        <origin
+          xyz="-0.01 0 0"
+          rpy="${-radians(90)} -${radians(180)} ${-radians(90)}" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/asus_xtion_pro_live.dae" scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/asus_xtion_pro_live.dae"
+            scale="${asus_xtion_scale} ${asus_xtion_scale} ${asus_xtion_scale}" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <origin
+          xyz="0.0 0.0 0.0"
+          rpy="0 0 0" />
         <geometry>
-        <box size="0.0730 .2760 0.0720"/>
+        <box size="0.0730 .2760 0.0720" />
       </geometry>
       </collision>
       <inertial>
         <mass value="0.01" />
-        <origin xyz="-0.0175 0.0025 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" />
+        <origin
+          xyz="-0.0175 0.0025 0"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.035"
+          h="0.180"
+          d="0.05" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}depth_joint" type="fixed">
-      <origin xyz="0 ${asus_xtion_pro_depth_rel_rgb_py} 0" rpy="0 0 0" />
+    <joint
+      name="${frame_prefix}depth_joint"
+      type="fixed">
+      <origin
+        xyz="0 ${asus_xtion_pro_depth_rel_rgb_py} 0"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}rgb_base_link" />
       <child link="${frame_prefix}depth_link" />
     </joint>
@@ -91,13 +134,22 @@
     <link name="${frame_prefix}depth_link">
       <inertial>
         <mass value="0.01" />
-        <origin xyz="-0.0175 -${asus_xtion_pro_depth_rel_rgb_py} 0" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.035" h="0.180" d="0.05" />
+        <origin
+          xyz="-0.0175 -${asus_xtion_pro_depth_rel_rgb_py} 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.035"
+          h="0.180"
+          d="0.05" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+    <joint
+      name="${frame_prefix}depth_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}depth_link" />
       <child link="${frame_prefix}depth_optical_frame" />
     </joint>
@@ -105,24 +157,31 @@
     <link name="${frame_prefix}depth_optical_frame">
       <inertial>
         <mass value="0.01" />
-        <origin xyz="${asus_xtion_pro_depth_rel_rgb_py} 0 -0.0175" />
-        <xacro:solid_cuboid_inertia m="0.01" w="0.18" h="0.05" d="0.035" />
+        <origin
+          xyz="${asus_xtion_pro_depth_rel_rgb_py} 0 -0.0175" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.18"
+          h="0.05"
+          d="0.035" />
       </inertial>
     </link>
 
   <!-- RGBD sensor for simulation, same as Kinect -->
-  <xacro:sensor_xtion_pro_gazebo/>
+  <xacro:sensor_xtion_pro_gazebo />
 
   </xacro:macro>
 
   <xacro:macro name="sensor_xtion_pro_gazebo">
 
     <gazebo reference="${frame_prefix}depth_link">
-      <sensor type="depth" name="${node_name}sensor">
+      <sensor
+        type="depth"
+        name="${node_name}sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
         <camera>
-          <horizontal_fov>${60.0*M_PI/180.0}</horizontal_fov>
+          <horizontal_fov>${radians(60)}</horizontal_fov>
           <image>
             <format>R8G8B8</format>
             <width>640</width>
@@ -133,7 +192,9 @@
             <far>3.5</far>
           </clip>
         </camera>
-        <plugin name="${node_name}controller" filename="libgazebo_ros_openni_kinect.so">
+        <plugin
+          name="${node_name}controller"
+          filename="libgazebo_ros_openni_kinect.so">
           <cameraName>${node_name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>15</updateRate>

@@ -92,7 +92,8 @@ For simulation, the following arguments are also available:
 You can find an example of the usage in the [default.urdf.xacro](robotnik_sensors_gazebo/urdf/default.urdf.xacro) file in robotnik_sensors_gazebo.
 
 ```sh
-  <xacro:include filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
   <xacro:call
       macro="sensor_$(arg sensor_type)"
       frame_prefix="$(arg sensor_name)_"

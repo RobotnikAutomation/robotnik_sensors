@@ -1,24 +1,32 @@
-<?xml version="1.0"?>
-<robot name="sensor_azure_kinect" xmlns:xacro="http://wiki.ros.org/xacro">
-  
-  <xacro:include filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
+<?xml version="1.0" ?>
+<robot
+  name="sensor_azure_kinect"
+  xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_azure_kinect" 
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_namespace:=${None}
-                       node_name:=azure_kinect
-                       topic_prefix:=~/">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
+
+  <xacro:macro
+    name="sensor_azure_kinect"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_namespace:=${None}
+            node_name:=azure_kinect
+            topic_prefix:=~/">
     <xacro:if value="${node_namespace == None}">
-      <xacro:property name="node_namespace" value="${node_name}"/>
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
     </xacro:if>
 
-    <joint name="${frame_prefix}joint" type="fixed">
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
     	<xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}link"/>
+      <parent link="${parent}" />
+      <child link="${frame_prefix}link" />
     </joint>
     <link name="${frame_prefix}link">
       <visual>
@@ -29,21 +37,31 @@
         <material name="${frame_prefix}grey" />
       </visual>
       <collision>
-        <origin xyz="-0.013 0. 0." rpy="0 0 0"/>
+        <origin
+          xyz="-0.013 0. 0."
+          rpy="0 0 0" />
         <geometry>
-          <box size="0.026 0.103 0.03039"/>
+          <box size="0.026 0.103 0.03039" />
         </geometry>
       </collision>
       <inertial>
         <mass value="0.3" />
         <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.3" w="0.026" h="0.103" d="0.03039" />
+        <xacro:solid_cuboid_inertia
+          m="0.3"
+          w="0.026"
+          h="0.103"
+          d="0.03039" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}rgb_joint" type="fixed">
-      <origin xyz="0.0 0. 0.008" rpy="0.0 0.0 0.0"/>
-      <parent link="${frame_prefix}link"/>
+    <joint
+      name="${frame_prefix}rgb_joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0. 0.008"
+        rpy="0.0 0.0 0.0" />
+      <parent link="${frame_prefix}link" />
       <child link="${frame_prefix}rgb_frame" />
     </joint>
     <link name="${frame_prefix}rgb_frame">
@@ -56,14 +74,20 @@
       </visual>
     </link>
 
-    <joint name="${frame_prefix}rgb_optical_joint" type="fixed">
-      <origin xyz="0.0 0.0 0.0" rpy="${-PI/2} 0 ${-PI/2}" />
+    <joint
+      name="${frame_prefix}rgb_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0.0 0.0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}rgb_frame" />
       <child link="${frame_prefix}rgb_optical_frame" />
     </joint>
     <link name="${frame_prefix}rgb_optical_frame">
       <visual>
-        <origin xyz="0.0 0.01 -0.015" rpy="0.0 0.0 ${-PI/2}" />
+        <origin
+          xyz="0.0 0.01 -0.015"
+          rpy="0.0 0.0 ${-radians(90)}" />
         <geometry>
           <box size="0.026 0.101 0.037" />
         </geometry>
@@ -71,19 +95,27 @@
       </visual>
     </link>
 
-    <joint name="${frame_prefix}depth_joint" type="fixed">
-      <origin xyz="0.0 0.0375 0.008" rpy="0 0 0" />
+    <joint
+      name="${frame_prefix}depth_joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0.0375 0.008"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}link" />
       <child link="${frame_prefix}depth_frame" />
     </joint>
-    <link name="${frame_prefix}depth_frame"/>
+    <link name="${frame_prefix}depth_frame" />
 
-    <joint name="${frame_prefix}depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}" />
+    <joint
+      name="${frame_prefix}depth_optical_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}depth_frame" />
       <child link="${frame_prefix}depth_optical_frame" />
     </joint>
-    <link name="${frame_prefix}depth_optical_frame"/>
+    <link name="${frame_prefix}depth_optical_frame" />
 
 
     <material name="${frame_prefix}black">
@@ -110,8 +142,7 @@
       video_height="480"
       min_depth="0.05"
       max_depth="3.5"
-      rate="30"
-    >
+      rate="30">
     </xacro:depth_camera_plugin>
 
   </xacro:macro>
