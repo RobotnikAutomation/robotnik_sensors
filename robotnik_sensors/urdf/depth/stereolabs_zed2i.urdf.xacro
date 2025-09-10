@@ -1,41 +1,48 @@
-<?xml version="1.0"?>
-<robot name="sensor_stereolabs_zed2i" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_stereolabs_zed2i"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
-
-  <xacro:macro name="sensor_stereolabs_zed2i"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_namespace:=stereolabs_zed2i
-                       node_name:=stereolabs_zed2i
-                       topic_prefix:=~/">
-
-    <xacro:sensor_stereolabs_generic frame_prefix="${frame_prefix}"
-                                     parent="${parent}"
-                                     model="zed2"
-                                     gazebo_ignition="false"
-                                     node_namespace="${node_namespace}"
-                                     node_name="${node_name}"
-                                     topic_prefix="${topic_prefix}"
-                                     horizontal_fov="110"
-                                     vertical_fov="70"
-                                     video_width="1920"
-                                     video_height="1080"
-                                     video_fps="30"
-                                     min_depth="0.2"
-                                     max_depth="20.0">
+  <xacro:macro
+    name="sensor_stereolabs_zed2i"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_namespace:=stereolabs_zed2i
+            node_name:=stereolabs_zed2i
+            topic_prefix:=~/">
+    <xacro:sensor_stereolabs_generic
+      frame_prefix="${frame_prefix}"
+      parent="${parent}"
+      model="zed2"
+      gazebo_ignition="false"
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      topic_prefix="${topic_prefix}"
+      horizontal_fov="110"
+      vertical_fov="70"
+      video_width="1920"
+      video_height="1080"
+      video_fps="30"
+      min_depth="0.2"
+      max_depth="20.0">
       <xacro:insert_block name="origin" />
     </xacro:sensor_stereolabs_generic>
 
     <!-- Imu frame -->
-    <joint name="${frame_prefix}imu_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
+    <joint
+      name="${frame_prefix}imu_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}base_link" />
       <child link="${frame_prefix}imu_frame" />
     </joint>
-    <link name="${frame_prefix}imu_frame"/>
+    <link name="${frame_prefix}imu_frame" />
 
     <!-- Imu -->
     <xacro:imu_plugin
@@ -43,8 +50,6 @@
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}imu_frame"
-      rate="200.0"
-    >
-    </xacro:imu_plugin>
+      rate="200.0" />
   </xacro:macro>
 </robot>

@@ -1,56 +1,74 @@
-<?xml version="1.0"?>
-<robot name="sensor_hokuyo_utm30lx" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_hokuyo_utm30lx"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
-
-  <xacro:macro name="sensor_hokuyo_utm30lx"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_name:=hokuyo_utm30lx
-                       node_namespace:=${None}
-                       topic_prefix:=~/
-                       gpu:=false">
+  <xacro:macro
+    name="sensor_hokuyo_utm30lx"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_name:=hokuyo_utm30lx
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
-      <xacro:property name="node_namespace" value="${node_name}"/>
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
     </xacro:if>
 
-    <joint name="${frame_prefix}base_joint" type="fixed">
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
       <!-- FRONT MOUNT  -->
       <!-- origin xyz="0.29 0 0.1" -->
       <!-- TOP MOUNT -->
       <!-- origin xyz="0.0 0.0 0.325"-->
       <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}base_link"/>
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
     </joint>
-
 
     <link name="${frame_prefix}base_link">
       <visual>
-        <origin xyz="0 0 0.055" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0.055"
+          rpy="0 0 0" />
         <geometry>
-            <mesh filename="package://robotnik_sensors/meshes/hokuyo_utm_30lx.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/hokuyo_utm_30lx.dae" />
         </geometry>
       </visual>
 
       <inertial>
-        <origin xyz="0.0 0 0.0435" rpy="0 0 0" />
+        <origin
+          xyz="0.0 0 0.0435"
+          rpy="0 0 0" />
         <mass value="0.370" />
-        <xacro:solid_cuboid_inertia m="0.370" w="0.06" h="0.06" d="0.087" />
+        <xacro:solid_cuboid_inertia
+          m="0.370"
+          w="0.06"
+          h="0.06"
+          d="0.087" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-      <parent link="${frame_prefix}base_link"/>
-      <child link="${frame_prefix}link"/>
-      <origin xyz="0.00 0 0.055" rpy="0 0 0"/>
-	  </joint>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}link" />
+      <origin
+        xyz="0.00 0 0.055"
+        rpy="0 0 0" />
+    </joint>
 
-    <link name="${frame_prefix}link">
-    </link>
+    <link name="${frame_prefix}link" />
 
     <!-- Hokuyo sensor for simulation -->
     <xacro:lidar_2d_plugin
@@ -64,10 +82,6 @@
       frame_link="${frame_prefix}link"
       rate="30"
       resolution="0.01"
-      samples="1081"
-    >
-    </xacro:lidar_2d_plugin>
-
+      samples="1081" />
   </xacro:macro>
-
 </robot>

@@ -1,61 +1,84 @@
-<?xml version="1.0"?>
-<robot name="sensor_livox_mid_360" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_livox_mid_360"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
-
-  <xacro:property name="M_PI" value="3.1415926535897931" />
-
-  <xacro:macro name="sensor_livox_mid_360"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_name:=livox_mid_360
-                       node_namespace:=${None}
-                       topic_prefix:=~/
-                       gpu:=false">
+  <xacro:macro
+    name="sensor_livox_mid_360"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_name:=livox_mid_360
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
     <material name="black_alu">
-      <color rgba="0.9 0.9 0.9 1"/>
+      <color rgba="0.9 0.9 0.9 1" />
     </material>
 
     <xacro:if value="${node_namespace == None}">
-      <xacro:property name="node_namespace" value="${node_name}"/>
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
     </xacro:if>
 
-    <joint name="${frame_prefix}base_joint" type="fixed">
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
       <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}base_link"/>
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
     </joint>
 
     <link name="${frame_prefix}base_link">
       <visual>
-        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="1.57 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/livox_mid_360.stl" scale="0.001 0.001 0.001"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/3d_lidar/livox_mid_360.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
-        <material name="black_alu"/>
+        <material name="black_alu" />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="1.57 0 0" />
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/3d_lidar/livox_mid_360.stl" scale="0.001 0.001 0.001"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/3d_lidar/livox_mid_360.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="-0.0 0.0 0.029" rpy="0 0 0" />
+        <origin
+          xyz="-0.0 0.0 0.029"
+          rpy="0 0 0" />
         <mass value="3.5" />
-        <xacro:solid_cuboid_inertia m="3.5" w="0.06" h="0.06" d="0.058" />
+        <xacro:solid_cuboid_inertia
+          m="3.5"
+          w="0.06"
+          h="0.06"
+          d="0.058" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-      <parent link="${frame_prefix}base_link"/>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <parent link="${frame_prefix}base_link" />
       <child link="${frame_prefix}link" />
-      <origin xyz="0.0 0 0.0365" rpy="0 0 0"/>
+      <origin
+        xyz="0.0 0 0.0365"
+        rpy="0 0 0" />
     </joint>
 
-    <link name="${frame_prefix}link"/>
+    <link name="${frame_prefix}link" />
 
     <xacro:lidar_3d_plugin
       node_namespace="${node_namespace}"
@@ -63,13 +86,11 @@
       gazebo_ignition="${gazebo_ignition}"
       min_range="0.1"
       max_range="100.0"
+      min_angle="0.0"
       max_angle="85"
       frame_link="${frame_prefix}link"
       rate="10"
       horizontal_samples="1200"
-      vertical_samples="32"
-    >
-    </xacro:lidar_3d_plugin>
+      vertical_samples="32" />
   </xacro:macro>
-
 </robot>

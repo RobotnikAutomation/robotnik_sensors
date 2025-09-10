@@ -1,0 +1,17 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 60,
+  "singleAttributePerLine": true,
+  "bracketSameLine": true,
+  "xmlSelfClosingSpace": true,
+  "xmlSortAttributesByKey": false,
+  "xmlQuoteAttributes": "double",
+  "xmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+  {
+      "files": ["*.xacro", "*.urdf"],
+      "options": { "parser": "xml" }
+    }
+  ]
+}

@@ -1,55 +1,78 @@
-<?xml version="1.0"?>
-<robot name="sensor_sick_microscan3" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_sick_microscan3"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
-
-  <xacro:macro name="sensor_sick_microscan3"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_name:=sick_microscan3
-                       node_namespace:=${None}
-                       topic_prefix:=~/
-                       gpu:=false">
+  <xacro:macro
+    name="sensor_sick_microscan3"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_name:=sick_microscan3
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
-      <xacro:property name="node_namespace" value="${node_name}"/>
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
     </xacro:if>
 
-    <joint name="${frame_prefix}base_joint" type="fixed">
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
       <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}base_link"/>
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
     </joint>
 
     <link name="${frame_prefix}base_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
-		  <mesh filename="package://robotnik_sensors/meshes/2d_lidar/sick/microscan3.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/2d_lidar/sick/microscan3.dae" />
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
         <geometry>
-		  <mesh filename="package://robotnik_sensors/meshes/2d_lidar/sick/microscan3.dae"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/2d_lidar/sick/microscan3.dae" />
         </geometry>
       </collision>
       <inertial>
         <mass value="1.15" />
-        <origin xyz="0 0 0.075" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="1.15" w="0.112" h="0.111" d="0.15" />
+        <origin
+          xyz="0 0 0.075"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="1.15"
+          w="0.112"
+          h="0.111"
+          d="0.15" />
       </inertial>
     </link>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-		  <origin xyz="0.0 0 0.110" rpy="0 0 0"/>
-      <parent link="${frame_prefix}base_link"/>
-      <child link="${frame_prefix}link"/>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <origin
+        xyz="0.0 0 0.110"
+        rpy="0 0 0" />
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}link" />
     </joint>
 
-    <link name="${frame_prefix}link"/>
+    <link name="${frame_prefix}link" />
 
     <!-- sick_microscan3 sensor for simulation -->
     <xacro:lidar_2d_plugin
@@ -63,10 +86,6 @@
       frame_link="${frame_prefix}link"
       rate="30"
       resolution="0.00575"
-      samples="700"
-    >
-    </xacro:lidar_2d_plugin>
-
+      samples="700" />
   </xacro:macro>
-
 </robot>

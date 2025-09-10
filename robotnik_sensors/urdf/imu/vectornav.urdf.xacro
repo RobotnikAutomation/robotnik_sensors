@@ -1,51 +1,68 @@
-<?xml version="1.0"?>
-<robot name="sensor_vectornav" xmlns:xacro="http://wiki.ros.org/xacro">
+<?xml version="1.0" ?>
+<robot
+  name="sensor_vectornav"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
 
-  <xacro:include filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
-
-  <xacro:macro name="sensor_vectornav"
-               params="frame_prefix
-                       parent
-                       *origin
-                       gazebo_ignition:=false
-                       node_name:=imu
-                       node_namespace:=${None}
-                       topic_prefix:=~/">
-
-    <joint name="${frame_prefix}base_joint" type="fixed">
-      <xacro:insert_block name="origin"/>
-      <parent link="${parent}"/>
-      <child link="${frame_prefix}base_link"/>
+  <xacro:macro
+    name="sensor_vectornav"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_name:=imu
+            node_namespace:=${None}
+            topic_prefix:=~/">
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
     </joint>
 
     <link name="${frame_prefix}base_link">
       <inertial>
-        <origin xyz="0.0 0 0.01" rpy="0 0 0" />
+        <origin
+          xyz="0.0 0 0.01"
+          rpy="0 0 0" />
         <mass value="0.05" />
-        <xacro:solid_cuboid_inertia m="0.05" w="0.02" h="0.02" d="0.02" />
+        <xacro:solid_cuboid_inertia
+          m="0.05"
+          w="0.02"
+          h="0.02"
+          d="0.02" />
       </inertial>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <origin
+          rpy="0 0 0"
+          xyz="0 0 0" />
         <material name="vectornav_imu_color">
-          <color rgba="1 0 0 1"/>
+          <color rgba="1 0 0 1" />
         </material>
         <geometry>
-          <mesh filename="package://robotnik_sensors/meshes/imu/vectornav_vn100.stl"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/imu/vectornav_vn100.stl" />
         </geometry>
       </visual>
       <collision>
-        <origin rpy="0 0 0" xyz="0 0 0.0045"/>
+        <origin
+          rpy="0 0 0"
+          xyz="0 0 0.0045" />
         <geometry>
-          <box size="0.036 0.037 0.009"/>
+          <box size="0.036 0.037 0.009" />
         </geometry>
       </collision>
     </link>
 
-    <joint name="${frame_prefix}joint" type="fixed">
-        <axis xyz="1 0 0"/>
-        <origin xyz="-0.00745 0.0 0.0088"/>
-        <parent link="${frame_prefix}base_link"/>
-        <child link="${frame_prefix}link"/>
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <axis xyz="1 0 0" />
+      <origin xyz="-0.00745 0.0 0.0088" />
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}link" />
     </joint>
     <link name="${frame_prefix}link" />
 
@@ -54,9 +71,7 @@
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}link"
-      rate="200.0"
-    >
-    </xacro:imu_plugin>
+      rate="200.0" />
 
     <gazebo reference="${frame_prefix}base_link">
       <material>Gazebo/Red</material>

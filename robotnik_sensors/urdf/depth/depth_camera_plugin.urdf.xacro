@@ -1,8 +1,10 @@
-<?xml version="1.0"?>
-<robot name="depth_camera_plugin" xmlns:xacro="http://wiki.ros.org/xacro">
-
-  <xacro:macro name="depth_camera_plugin" params="
-            node_namespace
+<?xml version="1.0" ?>
+<robot
+  name="depth_camera_plugin"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro
+    name="depth_camera_plugin"
+    params="node_namespace
             node_name
             topic_prefix
             gazebo_ignition
@@ -14,16 +16,22 @@
             video_height
             min_depth
             max_depth
-            rate
-            ">
-
+            rate">
     <xacro:if value="${gazebo_ignition}">
       <gazebo reference="${reference_frame}">
-        <sensor name="${node_name}" type="depth">
+        <sensor
+          name="${node_name}"
+          type="depth">
           <camera name="${node_name}">
-            <camera_info_topic>${node_name}/depth/camera_info</camera_info_topic>
-            <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
-            <vertical_fov>${radians(float(vertical_fov))}</vertical_fov>
+            <camera_info_topic>
+              ${node_name}/depth/camera_info
+            </camera_info_topic>
+            <horizontal_fov>
+              ${radians(float(horizontal_fov))}
+            </horizontal_fov>
+            <vertical_fov>
+              ${radians(float(vertical_fov))}
+            </vertical_fov>
             <image>
               <width>${video_width}</width>
               <height>${video_height}</height>
@@ -42,16 +50,18 @@
           <always_on>1</always_on>
           <update_rate>30</update_rate>
           <visualize>false</visualize>
-            
-          <camera_info_topic>${node_namespace}/${node_name}/depth/camera_info</camera_info_topic>
-          <topic>${node_namespace}/${node_name}/depth/image_raw</topic>
+
+          <camera_info_topic>
+            ${node_namespace}/${node_name}/depth/camera_info
+          </camera_info_topic>
+          <topic>
+            ${node_namespace}/${node_name}/depth/image_raw
+          </topic>
           <gz_frame_id>${optical_frame}</gz_frame_id>
           <min_depth>${min_depth}</min_depth>
           <max_depth>${max_depth}</max_depth>
         </sensor>
       </gazebo>
     </xacro:if>
-
   </xacro:macro>
-
 </robot>
