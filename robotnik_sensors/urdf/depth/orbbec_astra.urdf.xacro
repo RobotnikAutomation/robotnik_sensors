@@ -2,7 +2,6 @@
 <robot
   name="sensor_orbbec_astra"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
 
@@ -25,7 +24,7 @@
     <joint
       name="${frame_prefix}joint"
       type="fixed">
-    	<xacro:insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${parent}" />
       <child link="${frame_prefix}link" />
     </joint>
@@ -111,7 +110,6 @@
       video_height="480"
       min_depth="0.05"
       max_depth="8.0"
-      rate="30">
-    </xacro:depth_camera_plugin>
+      rate="30" />
   </xacro:macro>
 </robot>

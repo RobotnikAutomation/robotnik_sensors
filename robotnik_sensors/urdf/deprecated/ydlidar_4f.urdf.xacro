@@ -2,19 +2,16 @@
 <robot
   name="sensor_ydlidar_4f"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_ydlidar_4f"
     params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14 max_angle:=3.14 gpu:=^true">
-
     <joint
       name="${prefix}_base_joint"
       type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}" />
       <child link="${prefix}_base_link" />
-	  </joint>
-
+    </joint>
 
     <link name="${prefix}_base_link">
       <inertial>
@@ -67,7 +64,7 @@
       <origin
         xyz="0.0 0 0.0312"
         rpy="0 0 0" />
-	  </joint>
+    </joint>
 
     <link name="${prefix}_link">
       <inertial>
@@ -89,9 +86,8 @@
           izz="0.00011103" /-->
       </inertial>
     </link>
-	  
-    <xacro:sensor_ydlidar_4f_gazebo />
 
+    <xacro:sensor_ydlidar_4f_gazebo />
   </xacro:macro>
 
   <xacro:macro name="sensor_ydlidar_4f_gazebo">
@@ -142,7 +138,8 @@
           name="${prefix}_controller"
           filename="${plugin_lib}">
           <topicName>${prefix_topic}/scan</topicName>
-          <frameName>/${prefix}_link</frameName><!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
+          <frameName>/${prefix}_link</frameName>
+          <!-- if not global (leading /) sets the current namespace as a prefix (/ns/name_laser_link) -->
         </plugin>
       </sensor>
     </gazebo>

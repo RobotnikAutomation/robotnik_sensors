@@ -2,11 +2,9 @@
 <robot
   name="sensor_benewake_ce30"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_rslidar_mems"
     params="prefix parent *origin">
-
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1" />
     </material>
@@ -69,14 +67,12 @@
       range_min="1"
       range_max="180"
       gpu="false" />
-
   </xacro:macro>
 
   <xacro:macro
     name="sensor_rslidar_mems_gazebo"
     params="range_min range_max gpu">
     <gazebo reference="${prefix}_link">
-
       <xacro:if value="${gpu}">
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
         <xacro:property
@@ -98,45 +94,45 @@
       <sensor
         type="${ray_type}"
         name="${prefix}_sensor">
-          <pose>0 0 0 0 0 0</pose>
-          <visualize>false</visualize>
-          <update_rate>15</update_rate>
-          <ray>
-              <scan>
-                  <horizontal>
-                      <samples>100</samples>
-                      <resolution>1.0</resolution>
-                      <min_angle>-1.0472</min_angle>
-                      <max_angle>1.0472</max_angle>
-                  </horizontal>
-                  <vertical>
-                      <samples>100</samples>
-                      <resolution>1.0</resolution>
-                      <min_angle>-0.610865238</min_angle>
-                      <max_angle>1.83591184</max_angle>
-                  </vertical>
-              </scan>
-              <range>
-              <min>${range_min}</min>
-              <max>${range_max}</max>
-                  <resolution>0.0035</resolution>
-              </range>
-              <noise>
-                  <type>gaussian</type>
-                  <mean>0.0</mean>
-                  <stddev>0.01</stddev>
-              </noise>
-          </ray>
-          <plugin
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>15</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>100</samples>
+              <resolution>1.0</resolution>
+              <min_angle>-1.0472</min_angle>
+              <max_angle>1.0472</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>100</samples>
+              <resolution>1.0</resolution>
+              <min_angle>-0.610865238</min_angle>
+              <max_angle>1.83591184</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${range_min}</min>
+            <max>${range_max}</max>
+            <resolution>0.0035</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin
           name="${prefix}_controller"
           filename="${plugin_lib}">
-              <topicName>/robot/front_3d_laser/point_cloud</topicName>
-              <frameName>/${prefix}_link</frameName>
-              <ignoreTfPrefix>1</ignoreTfPrefix>
-
-          </plugin>
+          <topicName>
+            /robot/front_3d_laser/point_cloud
+          </topicName>
+          <frameName>/${prefix}_link</frameName>
+          <ignoreTfPrefix>1</ignoreTfPrefix>
+        </plugin>
       </sensor>
     </gazebo>
   </xacro:macro>
-
 </robot>

@@ -2,7 +2,6 @@
 <robot
   name="sensor_sick_nanoscan3"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
@@ -37,7 +36,7 @@
           xyz="0 0 0"
           rpy="0 0 0" />
         <geometry>
-		  <mesh
+          <mesh
             filename="package://robotnik_sensors/meshes/2d_lidar/sick/nanoscan3.stl" />
         </geometry>
       </visual>
@@ -46,7 +45,7 @@
           xyz="0 0 0"
           rpy="0 0 0" />
         <geometry>
-		  <mesh
+          <mesh
             filename="package://robotnik_sensors/meshes/2d_lidar/sick/nanoscan3.stl" />
         </geometry>
       </collision>
@@ -60,7 +59,7 @@
           w="0.1006"
           h="0.1006"
           d="0.08" />
-	  </inertial>
+      </inertial>
     </link>
 
     <joint
@@ -87,9 +86,6 @@
       frame_link="${frame_prefix}link"
       rate="12.5"
       resolution="0.00575"
-      samples="1600">
-    </xacro:lidar_2d_plugin>
-
+      samples="1600" />
   </xacro:macro>
-
 </robot>

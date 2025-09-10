@@ -1,6 +1,5 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:property
     name="rubedos_viper_width"
     value="0.246" />
@@ -14,14 +13,13 @@
   <xacro:macro
     name="stereo_camera"
     params="prefix fps baseline hfov width height format near far">
-
     <gazebo reference="${prefix}_base_link">
       <sensor
         type="multicamera"
         name="stereo_camera">
         <update_rate>${fps}</update_rate>
         <camera name="left">
-          <pose>0 0 0 0 0 0 </pose>
+          <pose>0 0 0 0 0 0</pose>
           <horizontal_fov>${hfov}</horizontal_fov>
           <image>
             <width>${width}</width>
@@ -62,7 +60,9 @@
           <alwaysOn>true</alwaysOn>
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <cameraInfoTopicName>
+            camera_info
+          </cameraInfoTopicName>
           <frameName>/${prefix}_optical_frame</frameName>
           <hackBaseline>${baseline}</hackBaseline>
           <!-- NOTE: Distortion is currently unused -->
@@ -80,7 +80,6 @@
   <xacro:macro
     name="rubedos_viper"
     params="prefix:=bumblebee parent *origin format:=R8G8B8 near:=0.05 far:=300">
-
     <joint
       name="${prefix}_base_joint"
       type="fixed">
@@ -95,7 +94,7 @@
           xyz="0 0 0"
           rpy="0 0 0" />
         <geometry>
-          <!--box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/--> 
+          <!--box size="${rubedos_viper_depth} ${rubedos_viper_width} ${rubedos_viper_height}"/-->
           <mesh
             filename="package://robotnik_sensors/meshes/viper.dae" />
         </geometry>
@@ -145,7 +144,7 @@
       </inertial-->
     </link>
 
-      <xacro:stereo_camera
+    <xacro:stereo_camera
       prefix="${prefix}"
       hfov="1.2217"
       baseline="0.20"
@@ -166,5 +165,4 @@
       <xacro:insert_block name="origin" />
     </rubedos_viper>
   </xacro:macro>
-
 </robot>

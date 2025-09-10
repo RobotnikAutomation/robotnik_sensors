@@ -1,16 +1,16 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="depth_camera"
     params="prefix fps baseline hfov width height format near far  prefix_topic:='zed_node'">
-
     <gazebo reference="${prefix}_base_link">
       <visual>
         <material>
           <ambient>0.35 0.35 0.35 1.0</ambient>
           <diffuse>0.350754 0.350754 0.350754 1.0</diffuse>
-          <specular>0.308273 0.3508273 0.3508273 1.0</specular>
+          <specular>
+            0.308273 0.3508273 0.3508273 1.0
+          </specular>
           <emissive>0.0 0.0 0.0 0.0</emissive>
         </material>
       </visual>
@@ -44,12 +44,22 @@
             will control the frame rate. -->
           <updateRate>0.0</updateRate>
           <cameraName>${prefix_topic}</cameraName>
-          <imageTopicName> rgb/image_raw</imageTopicName>
-          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
-          <frameName>/${prefix}_depth_optical_frame</frameName>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>
+            rgb/camera_info
+          </cameraInfoTopicName>
+          <depthImageTopicName>
+            depth/image_raw
+          </depthImageTopicName>
+          <depthImageCameraInfoTopicName>
+            depth/camera_info
+          </depthImageCameraInfoTopicName>
+          <pointCloudTopicName>
+            depth/points
+          </pointCloudTopicName>
+          <frameName>
+            /${prefix}_depth_optical_frame
+          </frameName>
           <pointCloudCutoff>${near}</pointCloudCutoff>
           <pointCloudCutoffMax>${far}</pointCloudCutoffMax>
           <distortionK1>0</distortionK1>
@@ -70,19 +80,18 @@
   <xacro:macro
     name="stereolabs_zed2"
     params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.5 far:=30  prefix_topic:=zed_node">
-
     <xacro:if value="${model == 'zed'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.12" />
     </xacro:if>
     <xacro:if value="${model == 'zedm'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.06" />
     </xacro:if>
     <xacro:if value="${model == 'zed2'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.12" />
     </xacro:if>
@@ -96,7 +105,7 @@
     </joint>
 
     <link name="${prefix}_base_link">
-       <visual>
+      <visual>
         <origin
           xyz="0 0 0"
           rpy="0 0 0" />
@@ -128,7 +137,7 @@
       </inertial>
     </link>
 
-   <!-- Left camera -->
+    <!-- Left camera -->
     <joint
       name="${prefix}_camera_left_joint"
       type="fixed">
@@ -203,7 +212,7 @@
 
     <link name="${prefix}_depth_optical_frame" />
 
-      <xacro:depth_camera
+    <xacro:depth_camera
       prefix="${prefix}"
       hfov="1.2217"
       baseline="${baseline}"
@@ -227,5 +236,4 @@
       <xacro:insert_block name="origin" />
     </stereolabs_zed2>
   </xacro:macro>
-
 </robot>

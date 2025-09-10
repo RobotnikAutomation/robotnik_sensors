@@ -2,7 +2,6 @@
 <robot
   name="sensor_stereolabs_generic"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
   <xacro:include
@@ -35,17 +34,17 @@
     </xacro:if>
 
     <xacro:if value="${model == 'zed'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.12" />
     </xacro:if>
     <xacro:if value="${model == 'zedm'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.06" />
     </xacro:if>
     <xacro:if value="${model == 'zed2'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.12" />
     </xacro:if>
@@ -58,7 +57,7 @@
       <child link="${frame_prefix}base_link" />
     </joint>
     <link name="${frame_prefix}base_link">
-       <visual>
+      <visual>
         <origin
           xyz="0 0 0"
           rpy="0 0 0" />
@@ -90,7 +89,7 @@
       </inertial>
     </link>
 
-   <!-- Left camera -->
+    <!-- Left camera -->
     <joint
       name="${frame_prefix}color_left_joint"
       type="fixed">
@@ -175,8 +174,7 @@
       video_height="${video_height}"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-    </xacro:camera_plugin>
+      rate="30" />
 
     <xacro:camera_plugin
       node_namespace="${node_namespace}"
@@ -191,8 +189,7 @@
       video_height="${video_height}"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-    </xacro:camera_plugin>
+      rate="30" />
 
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
@@ -207,8 +204,6 @@
       video_height="${video_height}"
       min_depth="${min_depth}"
       max_depth="${max_depth}"
-      rate="30">
-    </xacro:depth_camera_plugin>
-
+      rate="30" />
   </xacro:macro>
 </robot>

@@ -2,11 +2,10 @@
 <robot
   name="sensor_gps"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/gps/gps_plugin.urdf.xacro" />
 
-	<xacro:macro
+  <xacro:macro
     name="sensor_gps"
     params="frame_prefix
             parent
@@ -16,15 +15,14 @@
             node_namespace:=${None}
             topic_prefix:=~/
             update_rate:=1.0">
-
-	  <joint
+    <joint
       name="${frame_prefix}joint"
       type="fixed">
-	    <xacro:insert_block name="origin" />
-	    <parent link="${parent}" />
-	    <child link="${frame_prefix}base_link" />
-	  </joint>
-	  <link name="${frame_prefix}base_link">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
+    </joint>
+    <link name="${frame_prefix}base_link">
       <inertial>
         <origin
           xyz="0.0 0 0.015"
@@ -36,33 +34,33 @@
           h="0.081"
           d="0.03" />
       </inertial>
-	    <visual>
-	      <origin
+      <visual>
+        <origin
           rpy="0 0 0"
           xyz="0 0 0" />
-	      <material name="gps_color">
-           <color rgba="1 1 1 1" />
+        <material name="gps_color">
+          <color rgba="1 1 1 1" />
         </material>
-	      <geometry>
-	        <mesh
+        <geometry>
+          <mesh
             filename="package://robotnik_sensors/meshes/gps/antenna_3GO16.stl" />
-	      </geometry>
-	    </visual>
-	    <collision>
-	      <origin
+        </geometry>
+      </visual>
+      <collision>
+        <origin
           rpy="0 0 0"
           xyz="0 0 0" />
-	      <geometry>
-	        <mesh
+        <geometry>
+          <mesh
             filename="package://robotnik_sensors/meshes/gps/antenna_3GO16.stl" />
-	      </geometry>
-	    </collision>
-	  </link>
+        </geometry>
+      </collision>
+    </link>
 
-	  <gazebo reference="${frame_prefix}base_link">
-	    <material>Gazebo/White</material>
-	    <gravity>true</gravity>
-	  </gazebo>
+    <gazebo reference="${frame_prefix}base_link">
+      <material>Gazebo/White</material>
+      <gravity>true</gravity>
+    </gazebo>
 
     <xacro:gps_plugin
       node_namespace="${node_namespace}"
@@ -70,7 +68,6 @@
       gazebo_ignition="${gazebo_ignition}"
       topic_prefix="${topic_prefix}_gps"
       frame_link="${frame_prefix}base_link"
-      rate="${update_rate}">
-    </xacro:gps_plugin>
+      rate="${update_rate}" />
   </xacro:macro>
 </robot>

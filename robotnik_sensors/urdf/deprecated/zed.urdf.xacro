@@ -1,16 +1,16 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="stereo_camera"
     params="prefix fps baseline hfov width height format near far">
-
     <gazebo reference="${prefix}_base_link">
       <visual>
         <material>
           <ambient>0.35 0.35 0.35 1.0</ambient>
           <diffuse>0.350754 0.350754 0.350754 1.0</diffuse>
-          <specular>0.308273 0.3508273 0.3508273 1.0</specular>
+          <specular>
+            0.308273 0.3508273 0.3508273 1.0
+          </specular>
           <emissive>0.0 0.0 0.0 0.0</emissive>
         </material>
       </visual>
@@ -19,7 +19,7 @@
         name="stereo_camera">
         <update_rate>${fps}</update_rate>
         <camera name="left">
-          <pose>0 0 0 0 0 0 </pose>
+          <pose>0 0 0 0 0 0</pose>
           <horizontal_fov>${hfov}</horizontal_fov>
           <image>
             <width>${width}</width>
@@ -60,7 +60,9 @@
           <alwaysOn>true</alwaysOn>
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <cameraInfoTopicName>
+            camera_info
+          </cameraInfoTopicName>
           <frameName>${prefix}_base_link</frameName>
           <hackBaseline>${baseline}</hackBaseline>
           <!-- NOTE: Distortion is currently unused -->
@@ -78,19 +80,18 @@
   <xacro:macro
     name="stereolabs_zed"
     params="prefix:=zed parent *origin model:=zed format:=R8G8B8 near:=0.05 far:=2500">
-
     <xacro:if value="${model == 'zed'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.12" />
     </xacro:if>
     <xacro:if value="${model == 'zedm'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.06" />
     </xacro:if>
     <xacro:if value="${model == 'zed2'}">
-        <xacro:property
+      <xacro:property
         name="baseline"
         value="0.12" />
     </xacro:if>
@@ -104,7 +105,7 @@
     </joint>
 
     <link name="${prefix}_base_link">
-       <visual>
+      <visual>
         <origin
           xyz="0 0 0"
           rpy="0 0 0" />
@@ -135,25 +136,24 @@
           d="0.03" />
       </inertial>
     </link>
-   <!-- Center camera -->
-   <joint
+    <!-- Center camera -->
+    <joint
       name="${prefix}_camera_center_joint"
       type="fixed">
-        <parent link="${prefix}_base_link" />
-        <child link="${prefix}_camera_center" />
-        <origin
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_camera_center" />
+      <origin
         xyz="0.0 0.0 0.0"
         rpy="0.0 0.0 0.0" />
     </joint>
 
-   <link name="${prefix}_camera_center" />
+    <link name="${prefix}_camera_center" />
 
-
-   <!-- Left camera -->
+    <!-- Left camera -->
     <joint
       name="${prefix}_camera_left_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 ${baseline/2} 0"
         rpy="0 0 0" />
       <parent link="${prefix}_camera_center" />
@@ -199,7 +199,7 @@
 
     <link name="${prefix}_right_camera_optical_frame" />
 
-      <xacro:stereo_camera
+    <xacro:stereo_camera
       prefix="${prefix}"
       hfov="1.2217"
       baseline="${baseline}"
@@ -221,5 +221,4 @@
       <xacro:insert_block name="origin" />
     </stereolabs_zed>
   </xacro:macro>
-
 </robot>

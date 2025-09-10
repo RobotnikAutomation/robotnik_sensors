@@ -5,6 +5,13 @@
   "singleAttributePerLine": true,
   "bracketSameLine": true,
   "xmlSelfClosingSpace": true,
+  "xmlSortAttributesByKey": false,
   "xmlQuoteAttributes": "double",
-  "xmlWhitespaceSensitivity": "strict"
+  "xmlWhitespaceSensitivity": "ignore",
+  "overrides": [
+  {
+      "files": ["*.xacro", "*.urdf"],
+      "options": { "parser": "xml" }
+    }
+  ]
 }

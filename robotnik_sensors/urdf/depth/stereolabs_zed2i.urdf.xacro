@@ -2,7 +2,6 @@
 <robot
   name="sensor_stereolabs_zed2i"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
 
@@ -15,7 +14,6 @@
             node_namespace:=stereolabs_zed2i
             node_name:=stereolabs_zed2i
             topic_prefix:=~/">
-
     <xacro:sensor_stereolabs_generic
       frame_prefix="${frame_prefix}"
       parent="${parent}"
@@ -52,7 +50,6 @@
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}imu_frame"
-      rate="200.0">
-    </xacro:imu_plugin>
+      rate="200.0" />
   </xacro:macro>
 </robot>

@@ -2,7 +2,6 @@
 <robot
   name="sensor_hokuyo_utm30lx"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
@@ -35,14 +34,13 @@
       <child link="${frame_prefix}base_link" />
     </joint>
 
-
     <link name="${frame_prefix}base_link">
       <visual>
         <origin
           xyz="0 0 0.055"
           rpy="0 0 0" />
         <geometry>
-            <mesh
+          <mesh
             filename="package://robotnik_sensors/meshes/hokuyo_utm_30lx.dae" />
         </geometry>
       </visual>
@@ -68,10 +66,9 @@
       <origin
         xyz="0.00 0 0.055"
         rpy="0 0 0" />
-	  </joint>
+    </joint>
 
-    <link name="${frame_prefix}link">
-    </link>
+    <link name="${frame_prefix}link" />
 
     <!-- Hokuyo sensor for simulation -->
     <xacro:lidar_2d_plugin
@@ -85,9 +82,6 @@
       frame_link="${frame_prefix}link"
       rate="30"
       resolution="0.01"
-      samples="1081">
-    </xacro:lidar_2d_plugin>
-
+      samples="1081" />
   </xacro:macro>
-
 </robot>

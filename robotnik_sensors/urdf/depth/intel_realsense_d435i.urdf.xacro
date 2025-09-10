@@ -2,7 +2,6 @@
 <robot
   name="sensor_intel_realsense_d435i"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
   <xacro:include
@@ -88,8 +87,8 @@
         rpy="0 0 0" />
       <child link="${frame_prefix}link" />
     </joint>
-    <link
-      name="${frame_prefix}link"> <!-- camera link is aligned with the infrared sensor 1 that is "in the middle of the camera", not the one in the edge -->
+    <link name="${frame_prefix}link">
+      <!-- camera link is aligned with the infrared sensor 1 that is "in the middle of the camera", not the one in the edge -->
       <visual>
         <origin
           xyz="${d435_cam_mount_from_center_offset} ${-d435_cam_depth_py} 0"
@@ -123,111 +122,111 @@
     </link>
 
     <!-- Use the nominal extrinsics between camera frames if the calibrated extrinsics aren't being published. e.g. running the device in simulation  -->
-      <!-- camera depth joints and links -->
-      <joint
+    <!-- camera depth joints and links -->
+    <joint
       name="${frame_prefix}depth_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 0 0"
         rpy="0 0 0" />
-        <parent link="${frame_prefix}link" />
-        <child link="${frame_prefix}depth_frame" />
-      </joint>
-      <link name="${frame_prefix}depth_frame" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}depth_frame" />
+    </joint>
+    <link name="${frame_prefix}depth_frame" />
 
-      <joint
+    <joint
       name="${frame_prefix}depth_optical_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 0 0"
         rpy="${-radians(90)} 0 ${-radians(90)}" />
-        <parent link="${frame_prefix}depth_frame" />
-        <child link="${frame_prefix}depth_optical_frame" />
-      </joint>
-      <link name="${frame_prefix}depth_optical_frame" />
+      <parent link="${frame_prefix}depth_frame" />
+      <child link="${frame_prefix}depth_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}depth_optical_frame" />
 
-      <!-- camera left IR joints and links -->
-      <joint
+    <!-- camera left IR joints and links -->
+    <joint
       name="${frame_prefix}infra1_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 ${d435_cam_depth_to_infra1_offset} 0"
         rpy="0 0 0" />
-        <parent link="${frame_prefix}link" />
-        <child link="${frame_prefix}infra1_frame" />
-      </joint>
-      <link name="${frame_prefix}infra1_frame" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}infra1_frame" />
+    </joint>
+    <link name="${frame_prefix}infra1_frame" />
 
-      <joint
+    <joint
       name="${frame_prefix}infra1_optical_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 0 0"
         rpy="${-radians(90)} 0 ${-radians(90)}" />
-        <parent link="${frame_prefix}infra1_frame" />
-        <child link="${frame_prefix}infra1_optical_frame" />
-      </joint>
-      <link name="${frame_prefix}infra1_optical_frame" />
+      <parent link="${frame_prefix}infra1_frame" />
+      <child link="${frame_prefix}infra1_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}infra1_optical_frame" />
 
-      <!-- camera right IR joints and links -->
-      <joint
+    <!-- camera right IR joints and links -->
+    <joint
       name="${frame_prefix}infra2_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 ${d435_cam_depth_to_infra2_offset} 0"
         rpy="0 0 0" />
-        <parent link="${frame_prefix}link" />
-        <child link="${frame_prefix}infra2_frame" />
-      </joint>
-      <link name="${frame_prefix}infra2_frame" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}infra2_frame" />
+    </joint>
+    <link name="${frame_prefix}infra2_frame" />
 
-      <joint
+    <joint
       name="${frame_prefix}infra2_optical_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 0 0"
         rpy="${-radians(90)} 0 ${-radians(90)}" />
-        <parent link="${frame_prefix}infra2_frame" />
-        <child link="${frame_prefix}infra2_optical_frame" />
-      </joint>
-      <link name="${frame_prefix}infra2_optical_frame" />
+      <parent link="${frame_prefix}infra2_frame" />
+      <child link="${frame_prefix}infra2_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}infra2_optical_frame" />
 
-      <!-- camera color joints and links -->
-      <joint
+    <!-- camera color joints and links -->
+    <joint
       name="${frame_prefix}color_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 ${d435_cam_depth_to_color_offset} 0"
         rpy="0 0 0" />
-        <parent link="${frame_prefix}link" />
-        <child link="${frame_prefix}color_frame" />
-      </joint>
-      <link name="${frame_prefix}color_frame" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}color_frame" />
+    </joint>
+    <link name="${frame_prefix}color_frame" />
 
-      <joint
+    <joint
       name="${frame_prefix}color_optical_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 0 0"
         rpy="${-radians(90)} 0 ${-radians(90)}" />
-        <parent link="${frame_prefix}color_frame" />
-        <child link="${frame_prefix}color_optical_frame" />
-      </joint>
-      <link name="${frame_prefix}color_optical_frame" />
+      <parent link="${frame_prefix}color_frame" />
+      <child link="${frame_prefix}color_optical_frame" />
+    </joint>
+    <link name="${frame_prefix}color_optical_frame" />
 
-      <!-- Imu frame -->
-      <joint
+    <!-- Imu frame -->
+    <joint
       name="${frame_prefix}imu_joint"
       type="fixed">
-        <origin
+      <origin
         xyz="0 0 0"
         rpy="0 0 0" />
-        <parent link="${frame_prefix}link" />
-        <child link="${frame_prefix}imu_frame" />
-      </joint>
-      <link name="${frame_prefix}imu_frame" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}imu_frame" />
+    </joint>
+    <link name="${frame_prefix}imu_frame" />
 
-      <xacro:camera_plugin
+    <xacro:camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_color"
       topic_prefix="${topic_prefix}_color"
@@ -240,10 +239,9 @@
       video_height="1080"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-      </xacro:camera_plugin>
+      rate="30" />
 
-      <xacro:irred_camera_plugin
+    <xacro:irred_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_irred1"
       topic_prefix="${topic_prefix}_irred1"
@@ -256,10 +254,9 @@
       video_height="720"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-      </xacro:irred_camera_plugin>
+      rate="30" />
 
-      <xacro:irred_camera_plugin
+    <xacro:irred_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_irred2"
       topic_prefix="${topic_prefix}_irred2"
@@ -272,10 +269,9 @@
       video_height="720"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-      </xacro:irred_camera_plugin>
+      rate="30" />
 
-      <xacro:depth_camera_plugin
+    <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_depth"
       topic_prefix="${topic_prefix}_depth"
@@ -288,10 +284,9 @@
       video_height="720"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-      </xacro:depth_camera_plugin>
+      rate="30" />
 
-      <!-- <gazebo>
+    <!-- <gazebo>
         <plugin name="${node_name}" filename="librealsense_gazebo_plugin.so">
           <prefix>${node_namespace}</prefix>
           <depthUpdateRate>60.0</depthUpdateRate>
@@ -317,14 +312,13 @@
         </plugin>
       </gazebo> -->
 
-      <!-- Imu -->
+    <!-- Imu -->
 
     <xacro:imu_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}link"
-      rate="200.0">
-    </xacro:imu_plugin>
+      rate="200.0" />
   </xacro:macro>
 </robot>

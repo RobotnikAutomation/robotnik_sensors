@@ -2,8 +2,6 @@
 <robot
   name="sensor_yujin_yrl"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
-
   <xacro:macro
     name="sensor_yujin_yrl"
     params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
@@ -16,7 +14,6 @@
       <parent link="${parent}" />
       <child link="${prefix}_base_link" />
     </joint>
-
 
     <link name="${prefix}_base_link">
       <collision>
@@ -33,7 +30,7 @@
           xyz="0 0 0.0"
           rpy="0 0 0" />
         <geometry>
-            <mesh
+          <mesh
             filename="package://robotnik_sensors/meshes/yujin_yrl.stl" />
         </geometry>
       </visual>
@@ -51,9 +48,8 @@
       </inertial>
     </link>
 
-    <link name="${prefix}_link">
-    </link>
-    
+    <link name="${prefix}_link" />
+
     <joint
       name="${prefix}_joint"
       type="fixed">
@@ -65,7 +61,5 @@
     </joint>
 
     <!-- TODO: Simulate sensor -->
-
   </xacro:macro>
-
 </robot>

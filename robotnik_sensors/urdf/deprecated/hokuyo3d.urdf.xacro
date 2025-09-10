@@ -2,11 +2,9 @@
 <robot
   name="sensor_hokuyo3d"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_hokuyo3d"
     params="prefix parent *origin gpu:=^|true">
-
     <joint
       name="${prefix}_fix_joint"
       type="fixed">
@@ -16,41 +14,39 @@
     </joint>
 
     <link name="${prefix}_base_link">
-        <collision>
-            <origin
+      <collision>
+        <origin
           xyz="0 0 0"
           rpy="0 0 0" />
-            <geometry>
-                <box size="0.05 0.05 0.08" />
-            </geometry>
-        </collision>
+        <geometry>
+          <box size="0.05 0.05 0.08" />
+        </geometry>
+      </collision>
 
-        <visual>
-            <origin
+      <visual>
+        <origin
           xyz="0 0 0"
           rpy="0 0 0" />
-            <geometry>
-                <mesh
+        <geometry>
+          <mesh
             filename="package://robotnik_sensors/meshes/hokuyo3d.stl" />
-            </geometry>
-        </visual>
+        </geometry>
+      </visual>
 
-        <inertial>
-            <mass value="0.65" />
-            <origin
+      <inertial>
+        <mass value="0.65" />
+        <origin
           xyz="0.0475 0.0 0.053"
           rpy="0 0 0" />
-            <xacro:solid_cuboid_inertia
+        <xacro:solid_cuboid_inertia
           m="0.65"
           w="0.095"
           h="0.07"
           d="0.106" />
-
-        </inertial>
+      </inertial>
     </link>
 
-    <link name="${prefix}_link">
-    </link>
+    <link name="${prefix}_link" />
     <joint
       name="${prefix}_joint"
       type="fixed">
@@ -61,12 +57,9 @@
         rpy="0 0 0" />
     </joint>
 
-
     <!-- Hokuyo sensor for simulation -->
     <xacro:sensor_hokuyo3d_gazebo gpu="${gpu}" />
-
   </xacro:macro>
-
 
   <xacro:macro
     name="sensor_hokuyo3d_gazebo"
@@ -93,44 +86,43 @@
       <sensor
         type="${ray_type}"
         name="${prefix}_sensor">
-          <pose>0 0 0 0 0 0</pose>
-          <visualize>false</visualize>
-          <update_rate>5</update_rate>
-          <ray>
-              <scan>
-                  <horizontal>
-                      <samples>144</samples>
-                      <resolution>1.0</resolution>
-                      <min_angle>-1.83591184</min_angle>
-                      <max_angle>1.83591184</max_angle>
-                  </horizontal>
-                  <vertical>
-                      <samples>74</samples>
-                      <resolution>1.0</resolution>
-                      <min_angle>-0.610865238</min_angle>
-                      <max_angle>0.0872664626</max_angle>
-                  </vertical>
-              </scan>
-              <range>
-                  <min>0.10</min>
-                  <max>20.0</max>
-                  <resolution>0.01</resolution>
-              </range>
-              <noise>
-                  <type>gaussian</type>
-                  <mean>0.0</mean>
-                  <stddev>0.01</stddev>
-              </noise>
-          </ray>
-          <plugin
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>5</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>144</samples>
+              <resolution>1.0</resolution>
+              <min_angle>-1.83591184</min_angle>
+              <max_angle>1.83591184</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>74</samples>
+              <resolution>1.0</resolution>
+              <min_angle>-0.610865238</min_angle>
+              <max_angle>0.0872664626</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>20.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin
           name="${prefix}_controller"
           filename="${plugin_lib}">
-                    <topicName>points</topicName>
-                    <frameName>${prefix}_link</frameName>
-                            <ignoreTfPrefix>1</ignoreTfPrefix>
-                </plugin>
-            </sensor>
-        </gazebo>
+          <topicName>points</topicName>
+          <frameName>${prefix}_link</frameName>
+          <ignoreTfPrefix>1</ignoreTfPrefix>
+        </plugin>
+      </sensor>
+    </gazebo>
   </xacro:macro>
-
 </robot>

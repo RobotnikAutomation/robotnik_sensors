@@ -2,7 +2,6 @@
 <robot
   name="sensor_sick_multiscan_100"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
 
@@ -92,10 +91,6 @@
       frame_link="${frame_prefix}link"
       rate="10"
       horizontal_samples="1200"
-      vertical_samples="16">
-    </xacro:lidar_3d_plugin>
-
+      vertical_samples="16" />
   </xacro:macro>
-
-
 </robot>

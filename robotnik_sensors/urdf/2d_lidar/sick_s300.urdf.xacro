@@ -2,7 +2,6 @@
 <robot
   name="sensor_sick_s300"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
@@ -86,9 +85,6 @@
       frame_link="${frame_prefix}link"
       rate="25.0"
       resolution="0.00575"
-      samples="270">
-    </xacro:lidar_2d_plugin>
-
+      samples="270" />
   </xacro:macro>
-
 </robot>

@@ -2,7 +2,6 @@
 <robot
   xmlns:xacro="http://wiki.ros.org/xacro"
   name="sensor_asus_xtion_pro">
-
   <!-- Xacro properties -->
   <!-- xacro:property name="M_SCALE" value="0.001"/ -->
   <xacro:property
@@ -37,11 +36,10 @@
                         video_fps:=30
                         min_depth:=0.8
                         max_depth:=3.5">
-
     <joint
       name="${frame_prefix}rgb_joint"
       type="fixed">
-	  <xacro:insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${parent}" />
       <child link="${frame_prefix}rgb_base_link" />
     </joint>
@@ -105,8 +103,8 @@
           xyz="0.0 0.0 0.0"
           rpy="0 0 0" />
         <geometry>
-        <box size="0.0730 .2760 0.0720" />
-      </geometry>
+          <box size="0.0730 .2760 0.0720" />
+        </geometry>
       </collision>
       <inertial>
         <mass value="0.01" />
@@ -167,13 +165,11 @@
       </inertial>
     </link>
 
-  <!-- RGBD sensor for simulation, same as Kinect -->
-  <xacro:sensor_xtion_pro_gazebo />
-
+    <!-- RGBD sensor for simulation, same as Kinect -->
+    <xacro:sensor_xtion_pro_gazebo />
   </xacro:macro>
 
   <xacro:macro name="sensor_xtion_pro_gazebo">
-
     <gazebo reference="${frame_prefix}depth_link">
       <sensor
         type="depth"
@@ -199,11 +195,21 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>15</updateRate>
           <imageTopicName>rgb/image_raw</imageTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
-          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${frame_prefix}depth_optical_frame</frameName>
+          <depthImageTopicName>
+            depth/image_raw
+          </depthImageTopicName>
+          <pointCloudTopicName>
+            depth/points
+          </pointCloudTopicName>
+          <cameraInfoTopicName>
+            rgb/camera_info
+          </cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>
+            depth/camera_info
+          </depthImageCameraInfoTopicName>
+          <frameName>
+            ${frame_prefix}depth_optical_frame
+          </frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

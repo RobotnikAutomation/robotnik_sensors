@@ -2,12 +2,80 @@
 
 This package contains the description of the sensors used in Robotnik robots.
 
+The types of sensors available are:
+- 2D LiDAR
+- 3D LiDAR
+- Camera
+- Depth Camera
+- GPS
+- IMU
+
+You can find the list of available sensors at the [Sensors section](#sensors).
+
 ## Installation
 
 Download this repository and use the branch ros2-devel
 
 ```bash
 git clone https://github.com/RobotnikAutomation/robotnik_sensors.git -b ros2-devel
+```
+
+## Usage
+
+The entrypoint of the package is the file [robotnik_sensors/urdf/all_sensors.urdf.xacro](robotnik_sensors/urdf/all_sensors.urdf.xacro). This file includes all the sensor description of the sensors.
+
+The sensors macros have the following arguments:
+
+| Arguments      	| Description                                                                   	|
+|----------------	|-------------------------------------------------------------------------------	|
+| frame_prefix   	| prefix added to the frame                                                     	|
+| parent         	| parent link of the sensor                                                     	|
+| origin         	| origin block for the position and orientation of the sensor                   	|
+
+For simulation, the following arguments are also available:
+
+| Arguments      	| Description                                                                   	|
+|----------------	|-------------------------------------------------------------------------------	|
+| node_namespace 	| namespace of the plugin                                                       	|
+| node_name      	| name used for the plugin node in Gazebo                                       	|
+| gazebo_ignition	| boolean to additional information for Gazebo Ignition simulation                              |
+| topic_prefix   	| prefix added to the topic name                                                	|
+| gpu             | boolean to use the GPU for the sensor (only available for 2d and 3d lidar)      |
+
+
+#### Example
+
+This example shows how to include a SICK S300 2D LiDAR in a robot description:
+
+```sh
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
+  
+  <xacro:sensor_sick_s300
+    frame_prefix="$(arg prefix)front_laser_"
+    parent="$(arg prefix)chassis_link"
+    node_namespace="$(arg namespace)"
+    node_name="front_laser"
+    gazebo_ignition="$(arg gazebo_ignition)">
+    <origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="0 ${-PI} ${-3/4*PI}" />
+  </xacro:sensor_sick_s300>
+```
+
+### Contributing
+
+All files must be formatted using [Prettier](https://prettier.io/) with the configuration found in [.github/.prettierrc.json](.github/.prettierrc.json).
+
+Install npm, prettier and prettier/plugin-xml:
+
+```bash
+sudo apt install npm
+sudo npm install -g prettier @prettier/plugin-xml
+```
+
+To format the files, run:
+
+```bash
+prettier --plugin=$(npm root -g)/@prettier/plugin-xml/src/plugin.js --config .github/.prettierrc.json --write "robotnik_sensors/urdf/**/*.{xml,xacro,urdf}"
 ```
 
 ## Sensors
@@ -43,7 +111,7 @@ The available sensors in the package are:
 - axis_m5525
 - axis_m5526
 
-### Depth
+### Depth Camera
 
 - azure_kinect
 - intel_realsense_d435
@@ -63,50 +131,3 @@ The available sensors in the package are:
 - myahrs
 - pixhawk
 - vectornav
-
-
-## Usage
-
-This repository contains a package *robotnik_sensors* which includes the URDF description of the sensors.
-
-The entrypoint of the package is the file [robotnik_sensors/urdf/sensors.urdf.xacro](robotnik_sensors/urdf/sensors.urdf.xacro). This file includes all the sensors macros and the description of the sensors.
-
-The sensors macros have the following arguments:
-
-| Arguments      	| Description                                                                   	|
-|----------------	|-------------------------------------------------------------------------------	|
-| frame_prefix   	| prefix added to the frame                                                     	|
-| parent         	| parent link of the sensor                                                     	|
-| origin         	| origin block for the position and orientation of the sensor                   	|
-
-For simulation, the following arguments are also available:
-
-| Arguments      	| Description                                                                   	|
-|----------------	|-------------------------------------------------------------------------------	|
-| node_namespace 	| namespace of the plugin                                                       	|
-| node_name      	| name used for the plugin node in Gazebo                                       	|
-| gazebo_ignition	| boolean to include the plugin for Gazebo Ignition                               |
-| topic_prefix   	| prefix added to the topic name                                                	|
-| gpu             | boolean to use the GPU for the sensor (only available for 2d and 3d lidar)      |
-
-You can find an example of the usage in the [default.urdf.xacro](robotnik_sensors_gazebo/urdf/default.urdf.xacro) file in robotnik_sensors_gazebo.
-
-```sh
-  <xacro:include
-    filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
-  <xacro:call
-      macro="sensor_$(arg sensor_type)"
-      frame_prefix="$(arg sensor_name)_"
-      parent="world"
-      node_namespace="$(arg sensor_ns)"
-      node_name="$(arg sensor_name)"
-      gazebo_ignition="true"
-      topic_prefix="~/">
-    <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
-  </xacro:call>
-```
-
-The macro names are sensor_ + the name of the sensor described above. For example:
-
-- sensor_intel_realsence_d435
-- sensor_vectornav

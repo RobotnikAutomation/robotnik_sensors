@@ -2,7 +2,6 @@
 <robot
   name="all_sensors"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <xacro:include
@@ -89,5 +88,4 @@
     filename="$(find robotnik_sensors)/urdf/camera/axis_m5525.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/camera/axis_m5526.urdf.xacro" />
-
 </robot>

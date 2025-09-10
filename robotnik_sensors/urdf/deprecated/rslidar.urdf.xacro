@@ -2,11 +2,9 @@
 <robot
   name="sensor_rslidar"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_rslidar"
     params="prefix parent prefix_topic *origin range_min range_max hfov hres vfov vres fps gpu:=^|true">
-
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1" />
     </material>
@@ -21,8 +19,8 @@
 
     <link name="${prefix}_base_link">
       <visual>
-      <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
-      <origin
+        <!-- origin xyz="0 0 0" rpy="0 0 1.5708"/ -->
+        <origin
           xyz="0 0 0"
           rpy="0 0 0" />
         <geometry>
@@ -43,7 +41,7 @@
       <inertial>
         <mass value="0.840" />
         <origin xyz="0 0 0.04135" />
-				<xacro:solid_cuboid_inertia
+        <xacro:solid_cuboid_inertia
           m="0.840"
           w="0.109"
           h="0.109"
@@ -62,7 +60,7 @@
     </joint>
     <link name="${prefix}_link" />
 
-  <xacro:sensor_rslidar_gazebo
+    <xacro:sensor_rslidar_gazebo
       range_min="${range_min}"
       range_max="${range_max}"
       hfov="${hfov}"
@@ -71,7 +69,6 @@
       vres="${vres}"
       fps="${fps}"
       gpu="${gpu}" />
-
   </xacro:macro>
 
   <xacro:macro
@@ -95,45 +92,44 @@
           name="plugin_lib"
           value="libgazebo_ros_velodyne_laser.so" />
       </xacro:unless>
-        <sensor
+      <sensor
         type="${ray_type}"
         name="${prefix}_sensor">
-          <pose>0 0 0 0 0 0.0</pose>
-          <visualize>false</visualize>
-          <update_rate>${fps}</update_rate>
-          <ray>
-            <scan>
-              <horizontal>
-				<!-- for a high quality simulation -->
-                <samples>${hfov/hres}</samples>
-                <min_angle>-${radians(hfov)}</min_angle>
-                <max_angle>${radians(hfov)}</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>${vfov/vres}</samples>
-                <min_angle>-${radians(vfov)}</min_angle>
-                <max_angle>${radians(vfov)}</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>${range_min}</min>
-              <max>${range_max}</max>
-              <resolution>0.01</resolution>
-            </range>
-            <noise>
-              <type>none</type>
-            </noise>
-          </ray>
-          <plugin
+        <pose>0 0 0 0 0 0.0</pose>
+        <visualize>false</visualize>
+        <update_rate>${fps}</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <!-- for a high quality simulation -->
+              <samples>${hfov/hres}</samples>
+              <min_angle>-${radians(hfov)}</min_angle>
+              <max_angle>${radians(hfov)}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>${vfov/vres}</samples>
+              <min_angle>-${radians(vfov)}</min_angle>
+              <max_angle>${radians(vfov)}</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${range_min}</min>
+            <max>${range_max}</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>none</type>
+          </noise>
+        </ray>
+        <plugin
           name="${prefix}_controller"
           filename="${plugin_lib}">
-            <topicName>${prefix_topic}/points</topicName>
-            <frameName>/${prefix}_link</frameName>
-            <gaussianNoise>0.008</gaussianNoise>
-          </plugin>
-        </sensor>
+          <topicName>${prefix_topic}/points</topicName>
+          <frameName>/${prefix}_link</frameName>
+          <gaussianNoise>0.008</gaussianNoise>
+        </plugin>
+      </sensor>
     </gazebo>
-
   </xacro:macro>
 
   <xacro:macro

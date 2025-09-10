@@ -2,12 +2,10 @@
 <robot
   name="roboteq_mgs"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="roboteq_mgs"
     params="prefix parent *origin">
-
-		<joint
+    <joint
       name="${prefix}_base_joint"
       type="fixed">
       <xacro:insert_block name="origin" />
@@ -26,7 +24,5 @@
           d="0.025" />
       </inertial>
     </link>
-
   </xacro:macro>
-
 </robot>

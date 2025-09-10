@@ -2,11 +2,9 @@
 <robot
   name="sensor_flir_ax8"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_flir_ax8"
     params="prefix parent *origin">
-
     <joint
       name="${prefix}_joint"
       type="fixed">
@@ -30,7 +28,8 @@
       <visual>
         <origin
           xyz="0.0125 0 0"
-          rpy="0 0 0" /> <!-- to center the .dae model -->
+          rpy="0 0 0" />
+        <!-- to center the .dae model -->
         <material name="fotonic_color">
           <color rgba="0.5 0.5 0.5 1" />
         </material>
@@ -71,7 +70,5 @@
     </joint>
 
     <link name="${prefix}_thermal_link" />
-
   </xacro:macro>
-
 </robot>

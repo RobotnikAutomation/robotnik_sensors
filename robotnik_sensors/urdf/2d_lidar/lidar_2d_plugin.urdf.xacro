@@ -2,7 +2,6 @@
 <robot
   name="lidar_2d_plugin"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="lidar_2d_plugin"
     params="node_namespace
@@ -17,7 +16,6 @@
             resolution
             samples
             ">
-
     <xacro:if value="${gazebo_ignition}">
       <gazebo reference="${frame_link}">
         <sensor
@@ -52,7 +50,5 @@
         </sensor>
       </gazebo>
     </xacro:if>
-
   </xacro:macro>
-
 </robot>

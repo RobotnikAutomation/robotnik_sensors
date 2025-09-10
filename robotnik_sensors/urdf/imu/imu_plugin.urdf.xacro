@@ -2,7 +2,6 @@
 <robot
   name="imu_plugin"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="imu_plugin"
     params="node_namespace
@@ -10,7 +9,6 @@
             gazebo_ignition
             frame_link
             rate">
-
     <xacro:if value="${gazebo_ignition}">
       <gazebo reference="${frame_link}">
         <gravity>true</gravity>
@@ -84,17 +82,18 @@
             </linear_acceleration>
 
             <orientation_enabled>true</orientation_enabled>
-            <angular_velocity_enabled>true</angular_velocity_enabled>
-            <linear_acceleration_enabled>true</linear_acceleration_enabled>
+            <angular_velocity_enabled>
+              true
+            </angular_velocity_enabled>
+            <linear_acceleration_enabled>
+              true
+            </linear_acceleration_enabled>
           </imu>
 
           <topic>${node_namespace}/${node_name}/data</topic>
           <gz_frame_id>${frame_link}</gz_frame_id>
-
         </sensor>
       </gazebo>
     </xacro:if>
-
   </xacro:macro>
-
 </robot>

@@ -2,7 +2,6 @@
 <robot
   name="sensor_robosense_bpearl"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
 
@@ -16,7 +15,6 @@
             node_namespace:=${None}
             topic_prefix:=~/
             gpu:=false">
-
     <xacro:if value="${node_namespace == None}">
       <xacro:property
         name="node_namespace"
@@ -86,8 +84,6 @@
       frame_link="${frame_prefix}link"
       rate="10"
       horizontal_samples="1200"
-      vertical_samples="32">
-    </xacro:lidar_3d_plugin>
-
+      vertical_samples="32" />
   </xacro:macro>
 </robot>

@@ -20,7 +20,6 @@
   <xacro:macro
     name="sensor_pantilt"
     params="prefix parent *origin far:=^|8.0 near:=^|0.05">
-    
     <joint
       name="${prefix}_joint"
       type="fixed">
@@ -29,7 +28,7 @@
       <parent link="${parent}" />
       <child link="${prefix}_base_link" />
     </joint>
-    
+
     <link name="${prefix}_base_link">
       <inertial>
         <origin
@@ -63,7 +62,7 @@
         </geometry>
       </collision-->
     </link>
-    
+
     <joint
       name="pan"
       type="revolute">
@@ -83,7 +82,7 @@
         damping="${ptz_joint_damping}"
         friction="{ptz_joint_friction}" />
     </joint>
-    
+
     <link name="pan_link">
       <inertial>
         <mass value="0.1" />
@@ -103,14 +102,20 @@
     <transmission name="${prefix}_pan_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="pan">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
       </joint>
       <actuator name="pan_motor">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
+        <mechanicalReduction>
+          ${ptz_mechanical_reduction}
+        </mechanicalReduction>
       </actuator>
     </transmission>
-    
+
     <joint
       name="tilt"
       type="revolute">
@@ -127,7 +132,7 @@
         damping="${ptz_joint_damping}"
         friction="{ptz_joint_friction}" />
     </joint>
-    
+
     <link name="tilt_link">
       <inertial>
         <mass value="0.1" />
@@ -143,18 +148,22 @@
           izz="0.1" />
       </inertial>
     </link>
-    
+
     <transmission name="${prefix}_tilt_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="tilt">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
       </joint>
       <actuator name="tilt_motor">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
+        <mechanicalReduction>
+          ${ptz_mechanical_reduction}
+        </mechanicalReduction>
       </actuator>
     </transmission>
-    
   </xacro:macro>
-
 </robot>

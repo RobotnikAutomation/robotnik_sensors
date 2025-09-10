@@ -1,6 +1,5 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_ueye_cp_gige"
     params="prefix parent *origin">
@@ -87,15 +86,15 @@
       <child link="${prefix}_rgb_optical_frame_link" />
     </joint>
     <link name="${prefix}_rgb_optical_frame_link">
-    <inertial>
-      <mass value="0.0001" />
+      <inertial>
+        <mass value="0.0001" />
         <origin xyz="0 0 0" />
         <xacro:solid_cuboid_inertia
           m="0.0001"
           w="0.0604"
           h="0.029"
           d="0.029" />
-    </inertial>
+      </inertial>
     </link>
     <sensor_ueye_cp_gige_gazebo />
   </xacro:macro>
@@ -130,7 +129,9 @@
           <updateRate>0.0</updateRate>
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <cameraInfoTopicName>
+            camera_info
+          </cameraInfoTopicName>
           <frameName>/${prefix}_rgb_frame_link</frameName>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>

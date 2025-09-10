@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="lidar_mast"
     params="prefix:=lidar_mast parent *origin">
-
     <joint
       name="${prefix}_base_joint"
       type="fixed">
@@ -14,7 +12,7 @@
     </joint>
 
     <link name="${prefix}_base_link">
-       <visual>
+      <visual>
         <origin
           xyz="0 0 0"
           rpy="0 0 0" />
@@ -38,5 +36,4 @@
       </collision>
     </link>
   </xacro:macro>
-
 </robot>

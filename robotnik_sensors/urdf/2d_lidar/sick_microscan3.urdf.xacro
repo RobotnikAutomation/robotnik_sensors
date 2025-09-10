@@ -2,7 +2,6 @@
 <robot
   name="sensor_sick_microscan3"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
@@ -37,7 +36,7 @@
           xyz="0 0 0"
           rpy="0 0 0" />
         <geometry>
-		  <mesh
+          <mesh
             filename="package://robotnik_sensors/meshes/2d_lidar/sick/microscan3.dae" />
         </geometry>
       </visual>
@@ -46,7 +45,7 @@
           xyz="0 0 0"
           rpy="0 0 0" />
         <geometry>
-		  <mesh
+          <mesh
             filename="package://robotnik_sensors/meshes/2d_lidar/sick/microscan3.dae" />
         </geometry>
       </collision>
@@ -66,7 +65,7 @@
     <joint
       name="${frame_prefix}joint"
       type="fixed">
-		  <origin
+      <origin
         xyz="0.0 0 0.110"
         rpy="0 0 0" />
       <parent link="${frame_prefix}base_link" />
@@ -87,9 +86,6 @@
       frame_link="${frame_prefix}link"
       rate="30"
       resolution="0.00575"
-      samples="700">
-    </xacro:lidar_2d_plugin>
-
+      samples="700" />
   </xacro:macro>
-
 </robot>

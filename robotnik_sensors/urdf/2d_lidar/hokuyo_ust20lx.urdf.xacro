@@ -2,7 +2,6 @@
 <robot
   name="sensor_hokuyo_ust20lx"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/lidar_2d_plugin.urdf.xacro" />
 
@@ -72,7 +71,7 @@
       <origin
         xyz="0.00 0.0 0.0474"
         rpy="0 0 0" />
-	  </joint>
+    </joint>
 
     <link name="${frame_prefix}link" />
 
@@ -88,8 +87,6 @@
       frame_link="${frame_prefix}link"
       rate="40"
       resolution="0.004359297"
-      samples="1081">
-    </xacro:lidar_2d_plugin>
-
+      samples="1081" />
   </xacro:macro>
 </robot>

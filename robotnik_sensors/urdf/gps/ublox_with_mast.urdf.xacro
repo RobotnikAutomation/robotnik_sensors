@@ -2,7 +2,6 @@
 <robot
   name="sensor_ublox"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/gps/gps_plugin.urdf.xacro" />
 
@@ -13,7 +12,7 @@
     name="mast_radius"
     value="0.010" />
 
-	<xacro:macro
+  <xacro:macro
     name="sensor_ublox_with_mast"
     params="frame_prefix
 		        parent
@@ -23,104 +22,104 @@
 		        node_namespace:=${None}
 		        topic_prefix:=~/
 		        update_rate:=5.0">
-	  <!-- ANTENNA GPS -->
-	  <joint
+    <!-- ANTENNA GPS -->
+    <joint
       name="${frame_prefix}base_joint"
       type="fixed">
-	    <xacro:insert_block name="origin" />
-	    <parent link="${parent}" />
-	    <child link="${frame_prefix}base_link" />
-	  </joint>
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
+    </joint>
 
-	  <link name="${frame_prefix}base_link">
-		<inertial>
-			<origin
+    <link name="${frame_prefix}base_link">
+      <inertial>
+        <origin
           xyz="0.0 0 0.015"
           rpy="0 0 0" />
-			<mass value="0.2" />
-			<xacro:solid_cuboid_inertia
+        <mass value="0.2" />
+        <xacro:solid_cuboid_inertia
           m="0.2"
           w="0.081"
           h="0.081"
           d="0.03" />
-      		</inertial>
-	    	<visual>
-	      		<origin
+      </inertial>
+      <visual>
+        <origin
           rpy="0 0 0"
           xyz="0 0 0" />
-		  	<material name="ublox_gps_color">
-           			<color rgba="0.5 0.5 0.5 1" />
-          		</material>
-		        <geometry>
-				<mesh
+        <material name="ublox_gps_color">
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+        <geometry>
+          <mesh
             filename="package://robotnik_sensors/meshes/gps/antenna_ANN_MB.stl"
             scale="1.0 1.0 1.0" />
-		        </geometry>
-	    	</visual>
-	        <collision>
-	          	<origin
+        </geometry>
+      </visual>
+      <collision>
+        <origin
           rpy="0 0 0"
           xyz="0 0 0.01125" />
-		        <geometry>
-		     		<box size="0.0607 0.083 0.0225" />
-		        </geometry>
-	        </collision>
-	  </link>
+        <geometry>
+          <box size="0.0607 0.083 0.0225" />
+        </geometry>
+      </collision>
+    </link>
 
-	  <joint
+    <joint
       name="${frame_prefix}mast_joint"
       type="fixed">
-	    <parent link="${frame_prefix}base_link" />
-	    <child link="${frame_prefix}mast_base_link" />
-	    <origin
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}mast_base_link" />
+      <origin
         xyz="0 0 -0.37"
         rpy="0 0 0" />
-	  </joint>
+    </joint>
 
-	  <link name="${frame_prefix}mast_base_link">
-		<inertial>
-			<origin
+    <link name="${frame_prefix}mast_base_link">
+      <inertial>
+        <origin
           xyz="0.0 0 0.0"
           rpy="0 0 0" />
-			<mass value="1.0" />
-			<xacro:solid_cuboid_inertia
+        <mass value="1.0" />
+        <xacro:solid_cuboid_inertia
           m="1.0"
           w="${mast_radius}"
           h="${mast_radius}"
           d="${mast_height}" />
-		</inertial>
-	    	<visual>
-		      <origin
+      </inertial>
+      <visual>
+        <origin
           rpy="0 0 0"
           xyz="0 0 0" />
-		      <material name="mast_color">
-	              	    <color rgba="0.1 0.1 0.1 1" />
-         	      </material>
-		      <geometry>
-		            <mesh
+        <material name="mast_color">
+          <color rgba="0.1 0.1 0.1 1" />
+        </material>
+        <geometry>
+          <mesh
             filename="package://robotnik_sensors/meshes/gps/mastil_gps.stl"
             scale="1.0 1.0 1.0" />
-		      </geometry>
-	    	</visual>
-	        <collision>
-	            <origin
+        </geometry>
+      </visual>
+      <collision>
+        <origin
           rpy="0 0 0"
           xyz="0 0 0" />
-	            <geometry>
-			<box size="0.05 0.05 0.2" />
-	            </geometry>
-	    	</collision>
-	  </link>
+        <geometry>
+          <box size="0.05 0.05 0.2" />
+        </geometry>
+      </collision>
+    </link>
 
-	  <gazebo reference="${frame_prefix}mast_base_link">
-	    <material>Gazebo/Black</material>
-	    <gravity>true</gravity>
-	  </gazebo>
+    <gazebo reference="${frame_prefix}mast_base_link">
+      <material>Gazebo/Black</material>
+      <gravity>true</gravity>
+    </gazebo>
 
-	<gazebo reference="${frame_prefix}base_link">
-	    <material>Gazebo/White</material>
-	    <gravity>true</gravity>
-	</gazebo>
+    <gazebo reference="${frame_prefix}base_link">
+      <material>Gazebo/White</material>
+      <gravity>true</gravity>
+    </gazebo>
 
     <xacro:gps_plugin
       node_namespace="${node_namespace}"
@@ -128,9 +127,6 @@
       gazebo_ignition="${gazebo_ignition}"
       topic_prefix="${topic_prefix}_gps"
       frame_link="${frame_prefix}base_link"
-      rate="${update_rate}">
-    </xacro:gps_plugin>
-
+      rate="${update_rate}" />
   </xacro:macro>
-
 </robot>

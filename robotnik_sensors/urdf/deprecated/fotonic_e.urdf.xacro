@@ -2,11 +2,9 @@
 <robot
   name="sensor_fotonic"
   xmlns:xacro="http://wiki.ros.org/xacro">
-
   <xacro:macro
     name="sensor_fotonic"
     params="prefix parent *origin">
-
     <joint
       name="${prefix}_joint"
       type="fixed">
@@ -30,7 +28,8 @@
       <visual>
         <origin
           xyz="0.0 0.0 -0.04"
-          rpy="0 0 0" /> <!-- to center the .dae model -->
+          rpy="0 0 0" />
+        <!-- to center the .dae model -->
         <material name="fotonic_color">
           <color rgba="0.5 0.5 0.5 1" />
         </material>
@@ -94,17 +93,11 @@
       </inertial-->
     </link>
 
-
     <!-- Fotonic sensor for simulation -->
     <xacro:sensor_fotonic_gazebo />
-
   </xacro:macro>
 
-
-
-
   <xacro:macro name="sensor_fotonic_gazebo">
-
     <gazebo reference="${prefix}_base_link">
       <material>Gazebo/Grey</material>
     </gazebo>
@@ -115,15 +108,20 @@
         name="${prefix}_sensor">
         <update_rate>30.0</update_rate>
         <camera name="fotonic">
-          <horizontal_fov>1.221730476</horizontal_fov>  <!-- 70 deg -->
+          <horizontal_fov>1.221730476</horizontal_fov>
+          <!-- 70 deg -->
           <image>
-            <width>160</width>  <!-- 160 -->
-            <height>120</height> <!-- 120 -->
-            <format>L8</format> <!-- gray -->
+            <width>160</width>
+            <!-- 160 -->
+            <height>120</height>
+            <!-- 120 -->
+            <format>L8</format>
+            <!-- gray -->
           </image>
           <clip>
             <near>0.05</near>
-            <far>7.0</far>         <!-- outdoor down to 3m depending on luminosity -->
+            <far>7.0</far>
+            <!-- outdoor down to 3m depending on luminosity -->
           </clip>
           <noise>
             <type>gaussian</type>
@@ -139,11 +137,19 @@
           <updateRate>10.0</updateRate>
           <cameraName>${prefix}</cameraName>
           <imageTopicName>ir/image_raw</imageTopicName>
-          <cameraInfoTopicName>ir/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <cameraInfoTopicName>
+            ir/camera_info
+          </cameraInfoTopicName>
+          <depthImageTopicName>
+            depth/image_raw
+          </depthImageTopicName>
+          <depthImageCameraInfoTopicName>
+            depth/camera_info
+          </depthImageCameraInfoTopicName>
           <pointCloudTopicName>points</pointCloudTopicName>
-          <frameName>${prefix}_depth_optical_frame_link</frameName>
+          <frameName>
+            ${prefix}_depth_optical_frame_link
+          </frameName>
           <pointCloudCutoff>0.5</pointCloudCutoff>
           <distortionK1>0</distortionK1>
           <distortionK2>0</distortionK2>
@@ -159,7 +165,5 @@
         </plugin>
       </sensor>
     </gazebo>
-
   </xacro:macro>
-
 </robot>

@@ -2,15 +2,13 @@
 <robot
   name="sensor_orbbec_astra_embedded_s"
   xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
-
   <xacro:macro
     name="sensor_orbbec_astra_embedded_s"
     params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
-
     <joint
       name="${prefix}_joint"
       type="fixed">
-	  <xacro:insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${parent}" />
       <child link="${prefix}_link" />
     </joint>
@@ -57,8 +55,7 @@
       <child link="${prefix}_rgb_frame" />
     </joint>
 
-    <link name="${prefix}_rgb_frame">
-    </link>
+    <link name="${prefix}_rgb_frame" />
 
     <joint
       name="${prefix}_rgb_optical_joint"
@@ -70,8 +67,7 @@
       <child link="${prefix}_rgb_optical_frame" />
     </joint>
 
-    <link name="${prefix}_rgb_optical_frame">
-    </link>
+    <link name="${prefix}_rgb_optical_frame" />
 
     <joint
       name="${prefix}_depth_joint"
@@ -83,8 +79,7 @@
       <child link="${prefix}_depth_frame" />
     </joint>
 
-    <link name="${prefix}_depth_frame">
-    </link>
+    <link name="${prefix}_depth_frame" />
 
     <joint
       name="${prefix}_depth_optical_joint"
@@ -96,16 +91,13 @@
       <child link="${prefix}_depth_optical_frame" />
     </joint>
 
-    <link name="${prefix}_depth_optical_frame">
-    </link>
+    <link name="${prefix}_depth_optical_frame" />
 
-  <!-- RGBD sensor for simulation, same as Kinect -->
-  <xacro:sensor_astra_embedded_s_gazebo />
-
+    <!-- RGBD sensor for simulation, same as Kinect -->
+    <xacro:sensor_astra_embedded_s_gazebo />
   </xacro:macro>
 
-   <xacro:macro name="sensor_astra_embedded_s_gazebo">
-
+  <xacro:macro name="sensor_astra_embedded_s_gazebo">
     <gazebo reference="${prefix}_link">
       <sensor
         type="depth"
@@ -127,15 +119,25 @@
         <plugin
           name="${prefix}_controller"
           filename="libgazebo_ros_openni_kinect.so">
-	        <cameraName>${prefix_topic}</cameraName>
+          <cameraName>${prefix_topic}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
           <imageTopicName>rgb/image_raw</imageTopicName>
-          <depthImageTopicName>depth/image_raw</depthImageTopicName>
-          <pointCloudTopicName>depth/points</pointCloudTopicName>
-          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>/${prefix}_depth_optical_frame</frameName>
+          <depthImageTopicName>
+            depth/image_raw
+          </depthImageTopicName>
+          <pointCloudTopicName>
+            depth/points
+          </pointCloudTopicName>
+          <cameraInfoTopicName>
+            rgb/camera_info
+          </cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>
+            depth/camera_info
+          </depthImageCameraInfoTopicName>
+          <frameName>
+            /${prefix}_depth_optical_frame
+          </frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

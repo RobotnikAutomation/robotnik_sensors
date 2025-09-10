@@ -20,7 +20,8 @@
 
   <xacro:arg
     name="axis_m5074_controllers_params_file"
-    default="" /> <!-- $(find robotnik_sensors_gazebo)/config/camera/axis_m5074.yaml-->
+    default="" />
+  <!-- $(find robotnik_sensors_gazebo)/config/camera/axis_m5074.yaml-->
 
   <xacro:macro
     name="sensor_axis_m5074"
@@ -31,7 +32,6 @@
             node_name:=axis_m5074
             node_namespace:=${None}
             topic_prefix:=~/">
-
     <joint
       name="${frame_prefix}base_joint"
       type="fixed">
@@ -50,7 +50,8 @@
           m="0.3"
           w="0.130"
           h="0.130"
-          d="0.035" /> <!-- Data from axis M5013 datasheet -->
+          d="0.035" />
+        <!-- Data from axis M5013 datasheet -->
       </inertial>
       <visual>
         <origin
@@ -206,10 +207,6 @@
       video_height="480"
       min_depth="0.1"
       max_depth="100"
-      rate="30">
-    </xacro:camera_plugin>
-
+      rate="30" />
   </xacro:macro>
-
-
 </robot>

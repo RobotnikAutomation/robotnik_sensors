@@ -134,11 +134,17 @@
     <transmission name="${prefix}_pan_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}_pan_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
       </joint>
       <actuator name="pan_motor">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
+        <mechanicalReduction>
+          ${ptz_mechanical_reduction}
+        </mechanicalReduction>
       </actuator>
     </transmission>
     <joint
@@ -202,11 +208,17 @@
     <transmission name="${prefix}_tilt_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}_tilt_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
       </joint>
       <actuator name="tilt_motor">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+        <hardwareInterface>
+          hardware_interface/VelocityJointInterface
+        </hardwareInterface>
+        <mechanicalReduction>
+          ${ptz_mechanical_reduction}
+        </mechanicalReduction>
       </actuator>
     </transmission>
     <joint
@@ -249,9 +261,6 @@
     <xacro:sensor_axis_q8641_gazebo />
   </xacro:macro>
 
-
-
-
   <xacro:macro name="sensor_axis_q8641_gazebo">
     <gazebo reference="${prefix}_frame_link">
       <sensor
@@ -277,8 +286,12 @@
           <updateRate>0.0</updateRate>
           <cameraName>${prefix}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>/${prefix}_optical_frame_link</frameName>
+          <cameraInfoTopicName>
+            camera_info
+          </cameraInfoTopicName>
+          <frameName>
+            /${prefix}_optical_frame_link
+          </frameName>
           <hackBaseline>0.0</hackBaseline>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>
@@ -289,5 +302,4 @@
       </sensor>
     </gazebo>
   </xacro:macro>
-
 </robot>
