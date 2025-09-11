@@ -113,26 +113,26 @@
           d="0.11" />
       </inertial>
       <visual>
-        <origin 
+        <origin
           xyz="0 0 0"
           rpy="0 0 0" />
         <material name="grey_color">
-          <color rgba="0.1 0.1 0.1 1"/>
+          <color rgba="0.1 0.1 0.1 1" />
         </material>
         <geometry>
-          <mesh 
+          <mesh
             filename="package://robotnik_sensors/meshes/camera/link_750_pan.stl"
             scale="1.0 1.0 1.0" />
         </geometry>
       </visual>
       <collision>
-        <origin 
+        <origin
           xyz="0.0 0.0 0"
           rpy="0 0 0" />
         <geometry>
-          <mesh 
-            filename="package://robotnik_sensors/meshes/camera/link_750_pan.stl" 
-            scale="1.0 1.0 1.0"/>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_pan.stl"
+            scale="1.0 1.0 1.0" />
         </geometry>
       </collision>
     </link>
@@ -168,47 +168,55 @@
           d="0.1" />
       </inertial>
       <visual>
-        <origin 
-          xyz="0 0 0" 
-          rpy="${radians(90)} 0 0"/>
+        <origin
+          xyz="0 0 0"
+          rpy="${radians(90)} 0 0" />
         <material name="grey_color">
-          <color rgba="0.1 0.1 0.1 1"/>
+          <color rgba="0.1 0.1 0.1 1" />
         </material>
         <geometry>
-          <mesh 
-            filename="package://robotnik_sensors/meshes/camera/link_750_tilt.stl" 
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_tilt.stl"
             scale="1.0 1.0 1.0" />
         </geometry>
       </visual>
       <collision>
-        <origin 
-          xyz="0.0 0.0 0" 
+        <origin
+          xyz="0.0 0.0 0"
           rpy="${radians(90)} 0 0" />
         <geometry>
-          <mesh 
-            filename="package://robotnik_sensors/meshes/camera/link_750_tilt.stl" 
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_tilt.stl"
             scale="1.0 1.0 1.0" />
         </geometry>
       </collision>
     </link>
 
-    <joint name="${frame_prefix}zoom_color_joint" type="prismatic">
-      <axis xyz="0 0 1"/>
-      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-      <parent link="${frame_prefix}optical_frame_link"/>
-      <child link="${frame_prefix}zoom_color_link"/>
-      <limit effort="10000.0" velocity="10" lower="0" upper="${ptz_zoom}"/>
+    <joint
+      name="${frame_prefix}zoom_color_joint"
+      type="prismatic">
+      <axis xyz="0 0 1" />
+      <origin
+        xyz="0.0 0.0 0.0"
+        rpy="0 0 0" />
+      <parent link="${frame_prefix}optical_frame_link" />
+      <child link="${frame_prefix}zoom_color_link" />
+      <limit
+        effort="10000.0"
+        velocity="10"
+        lower="0"
+        upper="${ptz_zoom}" />
     </joint>
     <link name="${frame_prefix}zoom_color_link">
       <inertial>
-        <mass value="0.00001"/>
-        <origin 
+        <mass value="0.00001" />
+        <origin
           xyz="0 0 0"
           rpy="0 0 0" />
         <xacro:solid_cuboid_inertia
           m="0.00001"
-          w="0.11" 
-          h="0.11" 
+          w="0.11"
+          h="0.11"
           d="0.1" />
       </inertial>
     </link>

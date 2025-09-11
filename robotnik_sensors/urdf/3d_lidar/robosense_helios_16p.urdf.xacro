@@ -85,7 +85,6 @@
       frame_link="${frame_prefix}link"
       rate="10"
       horizontal_samples="1800"
-      vertical_samples="16">
-    </xacro:lidar_3d_plugin>
+      vertical_samples="16" />
   </xacro:macro>
 </robot>
