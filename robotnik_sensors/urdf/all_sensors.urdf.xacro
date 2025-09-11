@@ -88,4 +88,6 @@
     filename="$(find robotnik_sensors)/urdf/camera/axis_m5525.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/camera/axis_m5526.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/camera/link_750_nh.urdf.xacro" />
 </robot>

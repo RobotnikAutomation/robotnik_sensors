@@ -14,10 +14,10 @@ You can find the list of available sensors at the [Sensors section](#sensors).
 
 ## Installation
 
-Download this repository and use the branch ros2-devel
+Download this repository and use the default devel branch: jazzy-devel
 
 ```bash
-git clone https://github.com/RobotnikAutomation/robotnik_sensors.git -b ros2-devel
+git clone https://github.com/RobotnikAutomation/robotnik_sensors.git -b jazzy-devel
 ```
 
 ## Usage

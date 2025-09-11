@@ -1,0 +1,324 @@
+<?xml version="1.0" ?>
+<robot
+  xmlns:xacro="http://wiki.ros.org/xacro"
+  name="sensor_link_750_nh">
+  <xacro:property
+    name="ptz_joint_effort_limit"
+    value="10000.0" />
+  <xacro:property
+    name="ptz_joint_velocity_limit"
+    value="10000.0" />
+  <xacro:property
+    name="ptz_joint_friction"
+    value="0.1" />
+  <xacro:property
+    name="ptz_joint_damping"
+    value="0.1" />
+  <xacro:property
+    name="ptz_mechanical_reduction"
+    value="1.0" />
+  <xacro:property
+    name="ptz_zoom"
+    value="30.0" />
+
+  <xacro:arg
+    name="link_750_nh_controllers_params_file"
+    default="" />
+  <!-- $(find robotnik_sensors_gazebo)/config/camera/link_750_nh.yaml -->
+
+  <xacro:macro
+    name="sensor_link_750_nh"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_name:=link_750_nh
+            node_namespace:=${None}
+            topic_prefix:=~/">
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
+      <axis xyz="0 0 1" />
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
+    </joint>
+
+    <link name="${frame_prefix}base_link">
+      <inertial>
+        <origin
+          xyz="0.066 0 0"
+          rpy="0 0 0" />
+        <mass value="0.8" />
+        <xacro:solid_cuboid_inertia
+          m="0.8"
+          w="0.165"
+          h="0.165"
+          d="0.132" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="-0.07 -0.07 -0.045"
+          rpy="0 0 0" />
+        <material name="link_750_nh_color">
+          <color rgba="0.1 0.1 0.1 1" />
+        </material>
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_base.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin
+          xyz="-0.07 -0.07 -0.045"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_base.stl"
+            scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint
+      name="${frame_prefix}pan_joint"
+      type="revolute">
+      <axis xyz="0 0 1" />
+      <origin
+        xyz="0.0 0.0 0.0318"
+        rpy="0 0 0" />
+      <!-- check the displacement -->
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}pan_link" />
+      <limit
+        effort="${ptz_joint_effort_limit}"
+        velocity="${ptz_joint_velocity_limit}"
+        lower="${radians(-180)}"
+        upper="${radians(180)}" />
+      <joint_properties
+        damping="${ptz_joint_damping}"
+        friction="{ptz_joint_friction}" />
+    </joint>
+    <link name="${frame_prefix}pan_link">
+      <inertial>
+        <mass value="0.1" />
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.1"
+          w="0.1"
+          h="0.11"
+          d="0.11" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <material name="grey_color">
+          <color rgba="0.1 0.1 0.1 1" />
+        </material>
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_pan.stl"
+            scale="1.0 1.0 1.0" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin
+          xyz="0.0 0.0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_pan.stl"
+            scale="1.0 1.0 1.0" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint
+      name="${frame_prefix}tilt_joint"
+      type="revolute">
+      <axis xyz="0 0 1" />
+      <origin
+        xyz="0.0 0.0 0.102"
+        rpy="${radians(90)} 0 0" />
+      <parent link="${frame_prefix}pan_link" />
+      <child link="${frame_prefix}tilt_link" />
+      <limit
+        effort="${ptz_joint_effort_limit}"
+        velocity="${ptz_joint_velocity_limit}"
+        lower="${radians(-90)}"
+        upper="${radians(90)}" />
+      <joint_properties
+        damping="${ptz_joint_damping}"
+        friction="{ptz_joint_friction}" />
+    </joint>
+    <link name="${frame_prefix}tilt_link">
+      <inertial>
+        <mass value="0.1" />
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.1"
+          w="0.11"
+          h="0.11"
+          d="0.1" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="${radians(90)} 0 0" />
+        <material name="grey_color">
+          <color rgba="0.1 0.1 0.1 1" />
+        </material>
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_tilt.stl"
+            scale="1.0 1.0 1.0" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin
+          xyz="0.0 0.0 0"
+          rpy="${radians(90)} 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/camera/link_750_tilt.stl"
+            scale="1.0 1.0 1.0" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint
+      name="${frame_prefix}zoom_color_joint"
+      type="prismatic">
+      <axis xyz="0 0 1" />
+      <origin
+        xyz="0.0 0.0 0.0"
+        rpy="0 0 0" />
+      <parent link="${frame_prefix}optical_frame_link" />
+      <child link="${frame_prefix}zoom_color_link" />
+      <limit
+        effort="10000.0"
+        velocity="10"
+        lower="0"
+        upper="${ptz_zoom}" />
+    </joint>
+    <link name="${frame_prefix}zoom_color_link">
+      <inertial>
+        <mass value="0.00001" />
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.00001"
+          w="0.11"
+          h="0.11"
+          d="0.1" />
+      </inertial>
+    </link>
+
+    <joint
+      name="${frame_prefix}frame_joint"
+      type="fixed">
+      <origin
+        xyz="0.05 0.025 0.0"
+        rpy="${radians(-90)} 0 0" />
+      <parent link="${frame_prefix}tilt_link" />
+      <child link="${frame_prefix}frame_link" />
+    </joint>
+    <link name="${frame_prefix}frame_link">
+      <inertial>
+        <mass value="0.01" />
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.06"
+          h="0.06"
+          d="0.03" />
+      </inertial>
+    </link>
+    <!-- Optical frame -->
+    <joint
+      name="${frame_prefix}optical_joint"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
+      <parent link="${frame_prefix}frame_link" />
+      <child link="${frame_prefix}optical_frame_link" />
+    </joint>
+    <link name="${frame_prefix}optical_frame_link">
+      <inertial>
+        <mass value="0.01" />
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <xacro:solid_cuboid_inertia
+          m="0.01"
+          w="0.06"
+          h="0.03"
+          d="0.06" />
+      </inertial>
+    </link>
+    <gazebo reference="${frame_prefix}base_link">
+      <material>Gazebo/DarkGrey</material>
+    </gazebo>
+
+    <!-- camera sensor for simulation -->
+    <xacro:camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_color"
+      topic_prefix="${topic_prefix}_color"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}optical_frame_link"
+      reference_frame="${frame_prefix}frame_link"
+      horizontal_fov="63.7"
+      vertical_fov="32"
+      video_width="1920"
+      video_height="1080"
+      min_depth="0.1"
+      max_depth="100"
+      rate="30" />
+
+    <ros2_control
+      name="${node_name}_control"
+      type="system">
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
+      <joint name="${frame_prefix}pan_joint">
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${frame_prefix}tilt_joint">
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${frame_prefix}zoom_color_joint">
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+    </ros2_control>
+  </xacro:macro>
+</robot>

@@ -64,7 +64,7 @@
         </material>
         <geometry>
           <mesh
-            filename="package://robotnik_sensors/meshes/axis_m5013.dae"
+            filename="package://robotnik_sensors/meshes/camera/axis_m5013.dae"
             scale="1.0 1.0 1.0" />
         </geometry>
       </visual>
@@ -74,7 +74,7 @@
           rpy="0 ${radians(90)} 0" />
         <geometry>
           <mesh
-            filename="package://robotnik_sensors/meshes/axis_m5013.stl"
+            filename="package://robotnik_sensors/meshes/camera/axis_m5013.stl"
             scale="1.0 1.0 1.0" />
         </geometry>
       </collision>
