@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot name="sensor_multiscan" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="sensor_sick_multiscan" params="prefix parent prefix_topic suffix_topic:='' *origin range_min range_max hfov hres vfov vres fps gpu:=^|true include_inertial">
+
+    <joint name="${prefix}_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <visual>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.1" radius="0.05"/>
+        </geometry>
+        <xacro:black_alu_material/>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0.05"/>
+	      <geometry>
+	        <cylinder length="0.1" radius="0.05"/>
+	      </geometry>
+      </collision>
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <mass value="1.0" />
+          <origin xyz="0 0 0.04135" />
+			  	<xacro:solid_cuboid_inertia m="0.840" w="0.109" h="0.109" d="0.0827" />
+        </inertial>
+      </xacro:if>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_link" />
+      <origin xyz="0.0 0 0.07" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}_link"/>
+
+    <!-- <joint name="${prefix}_joint_6" type="fixed">
+      <parent link="${prefix}_base_link" />
+      <child link="${prefix}_link_6" />
+      <origin xyz="0.0 0 0.07" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}_link_6"/> -->
+
+    <!-- Relative position of the IMU to the optical origin (-17 mm, +23.5 mm, -30 mm) -->
+    <joint name="${prefix}imu_joint" type="fixed">
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_imu_link" />
+      <origin xyz="-0.017 0.0235 -0.03" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}_imu_link"/>
+
+  <xacro:sensor_sick_multiscan_gazebo range_min="${range_min}" range_max="${range_max}" hfov="${hfov}" hres="${hres}" vfov="${vfov}" vres="${vres}" fps="${fps}" gpu="${gpu}"/>
+
+  </xacro:macro>
+
+  <xacro:macro name="sensor_sick_multiscan_gazebo" params="range_min range_max hfov hres vfov vres fps gpu">
+    <gazebo reference="${prefix}_link">
+      <xacro:if value="${gpu}">
+        <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
+        <xacro:property name="ray_type" value="gpu_ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_gpu_laser.so" />
+      </xacro:if>
+      <xacro:unless value="${gpu}">
+        <xacro:property name="ray_type" value="ray" />
+        <xacro:property name="plugin_lib" value="libgazebo_ros_velodyne_laser.so" />
+      </xacro:unless>
+        <sensor type="${ray_type}" name="${prefix}_sensor">
+          <pose>0 0 0 0 0 0.0</pose>
+          <visualize>false</visualize>
+          <update_rate>${fps}</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+				<!-- for a high quality simulation -->
+                <samples>${hfov/hres}</samples>
+                <min_angle>-${hfov/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${hfov/2.0*M_PI/180.0}</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>${vfov/vres}</samples>
+                <min_angle>-${vfov/2.0*M_PI/180.0}</min_angle>
+                <max_angle>${vfov/2.0*M_PI/180.0}</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>${range_min}</min>
+              <max>${range_max}</max>
+              <resolution>0.01</resolution>
+            </range>
+            <noise>
+              <type>none</type>
+            </noise>
+          </ray>
+          <plugin name="${prefix}_controller" filename="${plugin_lib}">
+            <topicName>${prefix_topic}/points${suffix_topic}</topicName>
+            <frameName>/${prefix}_link</frameName>
+            <min_range>${range_min}</min_range>
+            <max_range>${range_max}</max_range>
+            <gaussianNoise>0.008</gaussianNoise>
+          </plugin>
+        </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+  <xacro:macro name="sick_multiscan" params="prefix parent prefix_topic:='lidar_3d' suffix_topic:='' *origin gpu:=false include_inertial:=^|true">
+    <xacro:sensor_sick_multiscan prefix="${prefix}" parent="${parent}" prefix_topic="${prefix_topic}" suffix_topic="${suffix_topic}" range_min="0.2" range_max="150.0" hfov="360.0" hres="0.2" vfov="30.0" vres="2" fps="10.0" gpu="${gpu}" include_inertial="${include_inertial}">
+      <xacro:insert_block name="origin" />
+    </xacro:sensor_sick_multiscan>
+  </xacro:macro>
+
+</robot>
