@@ -1,14 +1,18 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Unreleased
-----------
+
+2.1.0 (2025-09-11)
+------------------
 * BRAKING_CHANGE: removed `gazebo_classic` parameter for sensor macros
 * Simulation Jazzy:
   - Change LiDAR 3D plugin to fix for simulation in Jazzy
   - Removed plugins of infrared and depth cameras that are not working correctly in simulation for Jazzy
 * Visual:
   - Fix GPS mast mesh
+* Added Link 750 Ptz Camera
+* Fixed minor issues in Gazebo plugins for Jazzy
+* Apply prettier formatting to all xacro files
 
 2.0.0 (2025-03-28)
 ------------------
