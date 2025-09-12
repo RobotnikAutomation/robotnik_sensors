@@ -226,5 +226,51 @@
       min_depth="0.1"
       max_depth="100"
       rate="30" />
+    
+    <xacro:irred_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_irred1"
+      topic_prefix="${topic_prefix}_irred1"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}infra1_optical_frame"
+      reference_frame="${frame_prefix}infra2_frame"
+      horizontal_fov="85.2"
+      vertical_fov="48"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.1"
+      max_depth="100"
+      rate="30" />
+
+    <xacro:irred_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_irred2"
+      topic_prefix="${topic_prefix}_irred2"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}infra2_optical_frame"
+      reference_frame="${frame_prefix}infra2_frame"
+      horizontal_fov="85.2"
+      vertical_fov="48"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.1"
+      max_depth="100"
+      rate="30" />
+
+    <xacro:depth_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_depth"
+      topic_prefix="${topic_prefix}_depth"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}depth_optical_frame"
+      reference_frame="${frame_prefix}depth_frame"
+      horizontal_fov="85.2"
+      vertical_fov="48"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.1"
+      max_depth="100"
+      rate="30" />
+      
   </xacro:macro>
 </robot>
