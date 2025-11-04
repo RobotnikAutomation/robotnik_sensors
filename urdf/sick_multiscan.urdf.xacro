@@ -49,7 +49,7 @@
     <link name="${prefix}_link_6"/> -->
 
     <!-- Relative position of the IMU to the optical origin (-17 mm, +23.5 mm, -30 mm) -->
-    <joint name="${prefix}imu_joint" type="fixed">
+    <joint name="${prefix}_imu_joint" type="fixed">
       <parent link="${prefix}_link"/>
       <child link="${prefix}_imu_link" />
       <origin xyz="-0.017 0.0235 -0.03" rpy="0 0 0"/>
