@@ -14,6 +14,7 @@
             node_name:=sick_outdoorscan3
             node_namespace:=${None}
             topic_prefix:=~/
+            low_performance:=false
             gpu:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
@@ -73,18 +74,34 @@
 
     <link name="${frame_prefix}link" />
 
-    <xacro:lidar_2d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.05"
-      max_range="40.0"
-      min_angle="${-radians(135)}"
-      max_angle="${radians(135)}"
-      frame_link="${frame_prefix}link"
-      rate="12.5"
-      resolution="0.00575"
-      samples="700" />
+    <xacro:if value="${low_performance}">
+      <xacro:lidar_2d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.05"
+        max_range="40.0"
+        min_angle="${-radians(135)}"
+        max_angle="${radians(135)}"
+        frame_link="${frame_prefix}link"
+        rate="5"
+        resolution="0.00575"
+        samples="700" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:lidar_2d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.05"
+        max_range="40.0"
+        min_angle="${-radians(135)}"
+        max_angle="${radians(135)}"
+        frame_link="${frame_prefix}link"
+        rate="12.5"
+        resolution="0.00575"
+        samples="700" />
+    </xacro:unless>
   </xacro:macro>
 
   <xacro:macro name="sensor_sick_outdoorscan3_gazebo">
