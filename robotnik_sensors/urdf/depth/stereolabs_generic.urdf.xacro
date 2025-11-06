@@ -25,7 +25,8 @@
             video_height:=720
             video_fps:=30
             min_depth:=0.4
-            max_depth:=6.5">
+            max_depth:=6.5
+            low_performance:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -47,6 +48,19 @@
       <xacro:property
         name="baseline"
         value="0.12" />
+    </xacro:if>
+
+    <!-- Override parameters for low performance mode -->
+    <xacro:if value="${low_performance}">
+      <xacro:property
+        name="video_width"
+        value="640" />
+      <xacro:property
+        name="video_height"
+        value="480" />
+      <xacro:property
+        name="video_fps"
+        value="5" />
     </xacro:if>
 
     <joint
@@ -174,7 +188,7 @@
       video_height="${video_height}"
       min_depth="0.1"
       max_depth="100"
-      rate="30" />
+      rate="${video_fps}" />
 
     <xacro:camera_plugin
       node_namespace="${node_namespace}"
@@ -189,7 +203,7 @@
       video_height="${video_height}"
       min_depth="0.1"
       max_depth="100"
-      rate="30" />
+      rate="${video_fps}" />
 
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
@@ -204,6 +218,6 @@
       video_height="${video_height}"
       min_depth="${min_depth}"
       max_depth="${max_depth}"
-      rate="30" />
+      rate="${video_fps}" />
   </xacro:macro>
 </robot>

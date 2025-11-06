@@ -13,7 +13,8 @@
             gazebo_ignition:=false
             node_namespace:=${None}
             node_name:=orbbec_astra
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -97,19 +98,37 @@
     </joint>
     <link name="${frame_prefix}depth_optical_frame" />
 
-    <xacro:depth_camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      topic_prefix="${topic_prefix}"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}depth_optical_frame"
-      reference_frame="${frame_prefix}depth_frame"
-      horizontal_fov="60"
-      vertical_fov="45"
-      video_width="640"
-      video_height="480"
-      min_depth="0.05"
-      max_depth="8.0"
-      rate="30" />
+    <xacro:if value="${low_performance}">
+      <xacro:depth_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        topic_prefix="${topic_prefix}"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}depth_optical_frame"
+        reference_frame="${frame_prefix}depth_frame"
+        horizontal_fov="60"
+        vertical_fov="45"
+        video_width="320"
+        video_height="240"
+        min_depth="0.05"
+        max_depth="8.0"
+        rate="5" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:depth_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        topic_prefix="${topic_prefix}"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}depth_optical_frame"
+        reference_frame="${frame_prefix}depth_frame"
+        horizontal_fov="60"
+        vertical_fov="45"
+        video_width="640"
+        video_height="480"
+        min_depth="0.05"
+        max_depth="8.0"
+        rate="30" />
+    </xacro:unless>
   </xacro:macro>
 </robot>

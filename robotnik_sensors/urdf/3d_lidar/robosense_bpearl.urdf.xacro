@@ -14,7 +14,8 @@
             node_name:=robosense_bpearl
             node_namespace:=${None}
             topic_prefix:=~/
-            gpu:=false">
+            gpu:=false
+            low_performance:=false">
     <xacro:if value="${node_namespace == None}">
       <xacro:property
         name="node_namespace"
@@ -73,17 +74,33 @@
     </joint>
     <link name="${frame_prefix}link" />
 
-    <xacro:lidar_3d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.1"
-      max_range="100.0"
-      min_angle="0.0"
-      max_angle="85.0"
-      frame_link="${frame_prefix}link"
-      rate="10"
-      horizontal_samples="1200"
-      vertical_samples="32" />
+    <xacro:if value="${low_performance}">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.1"
+        max_range="50.0"
+        min_angle="0.0"
+        max_angle="85.0"
+        frame_link="${frame_prefix}link"
+        rate="5"
+        horizontal_samples="600"
+        vertical_samples="32" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.1"
+        max_range="100.0"
+        min_angle="0.0"
+        max_angle="85.0"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        horizontal_samples="1200"
+        vertical_samples="32" />
+    </xacro:unless>
   </xacro:macro>
 </robot>
