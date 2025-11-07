@@ -34,8 +34,7 @@
             gazebo_ignition:=false
             node_name:=link_750_nh
             node_namespace:=${None}
-            topic_prefix:=~/
-            low_performance:=false">
+            topic_prefix:=~/">
     <joint
       name="${frame_prefix}base_joint"
       type="fixed">

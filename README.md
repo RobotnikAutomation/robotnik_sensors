@@ -43,6 +43,14 @@ For simulation, the following arguments are also available:
 | gpu             | boolean to use the GPU for the sensor (only available for 2d and 3d lidar)      |
 
 
+### Global argument
+
+There is a global property that is set in the [all_sensors.urdf.xacro](robotnik_sensors/urdf/all_sensors.urdf.xacro) file:
+
+- `low_performance`: boolean to set low performance mode for simulation. When set to true, the sensor plugins will use lower resolution and frame rates to reduce CPU/GPU usage.
+
+> **Note**: All properties can be overridden after including the `all_sensors.urdf.xacro` file.
+
 #### Example
 
 This example shows how to include a SICK S300 2D LiDAR in a robot description:

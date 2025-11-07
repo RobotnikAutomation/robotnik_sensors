@@ -17,8 +17,7 @@
             gazebo_ignition:=false
             node_name:=realsense_d435
             node_namespace:=${None}
-            topic_prefix:=~/
-            low_performance:=false">
+            topic_prefix:=~/">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property

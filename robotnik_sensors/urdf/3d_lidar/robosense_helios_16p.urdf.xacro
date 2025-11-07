@@ -14,8 +14,7 @@
             node_name:=robosense_helios_16p
             node_namespace:=${None}
             topic_prefix:=~/
-            gpu:=false
-            low_performance:=false">
+            gpu:=false">
     <xacro:if value="${node_namespace == None}">
       <xacro:property
         name="node_namespace"
