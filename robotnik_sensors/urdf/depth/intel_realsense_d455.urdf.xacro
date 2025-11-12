@@ -64,7 +64,7 @@
     <xacro:property
       name="d455_mesh_x_offset"
       value="${d455_cam_mount_from_center_offset-d455_glass_to_front-d455_zero_depth_to_glass}" />
-    
+
     <!-- The following offset is relative to the physical d455 camera peripherial
   	camera tripod mount -->
     <xacro:property
@@ -105,7 +105,8 @@
           rpy="${radians(90)} 0 ${radians(90)}" />
         <geometry>
           <mesh
-            filename="package://robotnik_sensors/meshes/depth/intel_realsense_d455/intel_d455.stl"  scale="0.001 0.001 0.001" />
+            filename="package://robotnik_sensors/meshes/depth/intel_realsense_d455/intel_d455.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
       </visual>
       <collision>
@@ -122,7 +123,7 @@
           xyz="0 0 0"
           rpy="0 0 0" />
         <mass value="0.072" />
-        <inertia 
+        <inertia
           ixx="0.003881243"
           ixy="0.0"
           ixz="0.0"
@@ -246,51 +247,52 @@
       name="${frame_prefix}accel_joint"
       type="fixed">
       <origin
-        xyz = "${d455_imu_px} ${d455_imu_py} ${d455_imu_pz}"
-        rpy = "0 0 0" />
+        xyz="${d455_imu_px} ${d455_imu_py} ${d455_imu_pz}"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}link" />
       <child link="${frame_prefix}accel_frame" />
     </joint>
     <link name="${frame_prefix}accel_frame" />
 
-    <joint 
+    <joint
       name="${frame_prefix}accel_optical_joint"
       type="fixed">
       <origin
-        xyz = "0 0 0"
-        rpy = "${-radians(90)} 0 ${-radians(90)}" />
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}accel_frame" />
       <child link="${frame_prefix}accel_optical_frame" />
     </joint>
     <link name="${frame_prefix}accel_optical_frame" />
 
-    <joint 
+    <joint
       name="${frame_prefix}gyro_joint"
       type="fixed">
       <origin
-        xyz = "${d455_imu_px} ${d455_imu_py} ${d455_imu_pz}"
-        rpy = "0 0 0" />
+        xyz="${d455_imu_px} ${d455_imu_py} ${d455_imu_pz}"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}link" />
       <child link="${frame_prefix}gyro_frame" />
     </joint>
     <link name="${frame_prefix}gyro_frame" />
 
-    <joint 
+    <joint
       name="${frame_prefix}gyro_optical_joint"
       type="fixed">
       <origin
-        xyz = "0 0 0"
-        rpy = "${-radians(90)} 0 ${-radians(90)}" />
+        xyz="0 0 0"
+        rpy="${-radians(90)} 0 ${-radians(90)}" />
       <parent link="${frame_prefix}gyro_frame" />
       <child link="${frame_prefix}gyro_optical_frame" />
     </joint>
     <link name="${frame_prefix}gyro_optical_frame" />
 
-    <joint 
+    <joint
       name="${frame_prefix}imu_optical_joint"
       type="fixed">
       <origin
-        xyz = "0 0 0" rpy = "0 0 0" />
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <parent link="${frame_prefix}gyro_optical_frame" />
       <child link="${frame_prefix}imu_optical_frame" />
     </joint>
