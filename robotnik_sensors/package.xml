@@ -5,13 +5,11 @@
   <version>2.1.0</version>
   <description>Robotnik standard sensors description. URDF and meshses.</description>
 
+  <maintainer email="ros-developers@robotnik.es">Robotnik Developers</maintainer>
   <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
-  <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
-  <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
   <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
   <maintainer email="rvasquez@robotnik.es">Robert Vasquez Zavaleta</maintainer>
-  <maintainer email="cgascon@robotnik.es">Carlos Gascon Bononad</maintainer>
 
   <license>BSD</license>
 
