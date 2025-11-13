@@ -8,6 +8,8 @@
     filename="$(find robotnik_sensors)/urdf/depth/irred_camera_plugin.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/camera/camera_plugin.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/imu/imu_plugin.urdf.xacro" />
 
   <xacro:macro
     name="sensor_intel_realsense_d455"
@@ -91,7 +93,6 @@
       name="${frame_prefix}joint"
       type="fixed">
       <parent link="${frame_prefix}base_link" />
-      <child link="${frame_prefix}link" />
       <origin
         xyz="${d455_mesh_x_offset} ${d455_cam_depth_py} ${d455_cam_depth_pz}"
         rpy="0 0 0" />
@@ -309,8 +310,60 @@
       vertical_fov="65.0"
       video_width="1280"
       video_height="800"
-      min_depth="0.52"
+      min_depth="0.18"
       max_depth="100"
       rate="30" />
+
+    <xacro:irred_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_irred1"
+      topic_prefix="${topic_prefix}_irred1"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}infra1_optical_frame"
+      reference_frame="${frame_prefix}infra1_frame"
+      horizontal_fov="90"
+      vertical_fov="62"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.18"
+      max_depth="100"
+      rate="30" />
+
+    <xacro:irred_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_irred2"
+      topic_prefix="${topic_prefix}_irred2"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}infra2_optical_frame"
+      reference_frame="${frame_prefix}infra2_frame"
+      horizontal_fov="90"
+      vertical_fov="62"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.18"
+      max_depth="100"
+      rate="30" />
+
+    <xacro:depth_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_depth"
+      topic_prefix="${topic_prefix}_depth"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}depth_optical_frame"
+      reference_frame="${frame_prefix}depth_frame"
+      horizontal_fov="87"
+      vertical_fov="58"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.18"
+      max_depth="100"
+      rate="30" />
+
+  <xacro:imu_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      gazebo_ignition="${gazebo_ignition}"
+      frame_link="${frame_prefix}link"
+      rate="200.0" />
   </xacro:macro>
 </robot>
