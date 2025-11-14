@@ -13,6 +13,8 @@
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/intel_realsense_d435i.urdf.xacro" />
   <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/intel_realsense_d455.urdf.xacro" />
+  <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/orbbec_astra.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/stereolabs_generic.urdf.xacro" />

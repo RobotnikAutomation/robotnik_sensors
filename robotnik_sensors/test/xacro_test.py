@@ -66,6 +66,7 @@ def check_meshes(urdf_file):
 sensors = [
     'intel_realsense_d435',
     'intel_realsense_d435i',
+    'intel_realsense_d455',
     'orbbec_astra',
     'stereolabs_zed2',
     'stereolabs_zed2i',
