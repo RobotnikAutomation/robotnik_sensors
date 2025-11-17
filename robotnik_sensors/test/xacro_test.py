@@ -99,6 +99,7 @@ sensors = [
     'axis_m5074',
     'axis_m5525',
     'axis_m5526',
+    'link_750_nh',
 ]
 
 

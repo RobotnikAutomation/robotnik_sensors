@@ -359,7 +359,7 @@
       max_depth="100"
       rate="30" />
 
-  <xacro:imu_plugin
+    <xacro:imu_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"

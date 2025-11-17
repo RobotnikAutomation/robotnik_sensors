@@ -101,7 +101,8 @@ The available sensors in the package are:
 - livox_mid_360
 - ouster
 - robosense_bpearl
-- robosense_helio_16p
+- robosense_helios_16p
+- sick_multiscan_100
 - velodyne_vlp16
 
 ### Camera
@@ -110,13 +111,15 @@ The available sensors in the package are:
 - axis_m5074
 - axis_m5525
 - axis_m5526
+- link_750_nh
 
 ### Depth Camera
 
 - azure_kinect
 - intel_realsense_d435
 - intel_realsense_d435i
-- orbbec_astre
+- intel_realsense_d455
+- orbbec_astra
 - stereolabs_zed2
 - stereolabs_zed2i
 
@@ -125,6 +128,7 @@ The available sensors in the package are:
 - gps
 - gps_with_mast
 - ublox
+- ublox_with_mast
 
 ### IMU
 
