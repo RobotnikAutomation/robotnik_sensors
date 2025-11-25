@@ -271,20 +271,38 @@
     </gazebo>
 
     <!-- camera sensor for simulation -->
-    <xacro:camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_color"
-      topic_prefix="${topic_prefix}_color"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}optical_frame_link"
-      reference_frame="${frame_prefix}frame_link"
-      horizontal_fov="63.7"
-      vertical_fov="32"
-      video_width="1920"
-      video_height="1080"
-      min_depth="0.1"
-      max_depth="100"
-      rate="30" />
+    <xacro:if value="${low_performance}">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}optical_frame_link"
+        reference_frame="${frame_prefix}frame_link"
+        horizontal_fov="63.7"
+        vertical_fov="32"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.1"
+        max_depth="100"
+        rate="5" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}optical_frame_link"
+        reference_frame="${frame_prefix}frame_link"
+        horizontal_fov="63.7"
+        vertical_fov="32"
+        video_width="1920"
+        video_height="1080"
+        min_depth="0.1"
+        max_depth="100"
+        rate="25" />
+    </xacro:unless>
 
     <ros2_control
       name="${node_name}_control"

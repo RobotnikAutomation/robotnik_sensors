@@ -212,19 +212,37 @@
     </joint>
     <link name="${frame_prefix}color_optical_frame" />
 
-    <xacro:camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_color"
-      topic_prefix="${topic_prefix}_color"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}color_optical_frame"
-      reference_frame="${frame_prefix}color_frame"
-      horizontal_fov="69.4"
-      vertical_fov="39"
-      video_width="1920"
-      video_height="1080"
-      min_depth="0.1"
-      max_depth="100"
-      rate="30" />
+    <xacro:if value="${low_performance}">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="69.4"
+        vertical_fov="39"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.1"
+        max_depth="100"
+        rate="5" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="69.4" 
+        vertical_fov="39"
+        video_width="1920"
+        video_height="1080"
+        min_depth="0.1"
+        max_depth="100"
+        rate="30" />
+    </xacro:unless>      
   </xacro:macro>
 </robot>

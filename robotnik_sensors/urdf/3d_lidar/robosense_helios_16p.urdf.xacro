@@ -74,17 +74,33 @@
 
     <link name="${frame_prefix}link" />
 
-    <xacro:lidar_3d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.2"
-      max_range="150.0"
-      min_angle="-15.0"
-      max_angle="15.0"
-      frame_link="${frame_prefix}link"
-      rate="10"
-      horizontal_samples="1800"
-      vertical_samples="16" />
+    <xacro:if value="${low_performance}">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.2"
+        max_range="60.0"
+        min_angle="-15.0"
+        max_angle="15.0"
+        frame_link="${frame_prefix}link"
+        rate="5"
+        horizontal_samples="900"
+        vertical_samples="16" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.2"
+        max_range="150.0"
+        min_angle="-15.0"
+        max_angle="15.0"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        horizontal_samples="1800"
+        vertical_samples="16" />
+    </xacro:unless>
   </xacro:macro>
 </robot>
