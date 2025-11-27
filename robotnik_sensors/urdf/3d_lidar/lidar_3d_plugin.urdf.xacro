@@ -11,6 +11,8 @@
             max_range
             min_angle
             max_angle
+            min_fov
+            max_fov
             frame_link
             rate
             horizontal_samples
@@ -29,14 +31,14 @@
               <horizontal>
                 <samples>${horizontal_samples}</samples>
                 <resolution>1</resolution>
-                <min_angle>${-radians(180)}</min_angle>
-                <max_angle>${radians(180)}</max_angle>
+                <min_angle>${min_angle}</min_angle>
+                <max_angle>${max_angle}</max_angle>
               </horizontal>
               <vertical>
                 <samples>${vertical_samples}</samples>
                 <resolution>1.0</resolution>
-                <min_angle>${radians(min_angle)}</min_angle>
-                <max_angle>${radians(max_angle)}</max_angle>
+                <min_angle>${min_fov}</min_angle>
+                <max_angle>${max_fov}</max_angle>
               </vertical>
             </scan>
             <range>
