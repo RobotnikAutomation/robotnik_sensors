@@ -2,6 +2,10 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Unreleased
+----------
+* Add min_angle and max_angle to define angle limits for 2d and 3d laser in simulation
+
 2.1.0 (2025-09-11)
 ------------------
 * BRAKING_CHANGE: removed `gazebo_classic` parameter for sensor macros
