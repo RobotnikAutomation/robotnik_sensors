@@ -13,6 +13,8 @@
             gazebo_ignition:=false
             node_name:=sick_tim551
             node_namespace:=${None}
+            min_angle:=-2.35
+            max_angle:=2.35
             topic_prefix:=~/
             gpu:=false">
     <!-- node_namespace is used from node_name if not set -->
@@ -80,8 +82,8 @@
       gazebo_ignition="${gazebo_ignition}"
       min_range="0.05"
       max_range="30.0"
-      min_angle="${-radians(135)}"
-      max_angle="${radians(135)}"
+      min_angle="${min_angle}"
+      max_angle="${max_angle}"
       frame_link="${frame_prefix}link"
       rate="15.0"
       resolution="0.00575"

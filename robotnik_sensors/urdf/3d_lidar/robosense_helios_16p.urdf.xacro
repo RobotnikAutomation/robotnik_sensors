@@ -11,6 +11,8 @@
             parent
             *origin
             gazebo_ignition:=false
+            max_angle:=${radians(180)}
+            min_angle:=${-radians(180)}
             node_name:=robosense_helios_16p
             node_namespace:=${None}
             topic_prefix:=~/
@@ -81,8 +83,10 @@
         gazebo_ignition="${gazebo_ignition}"
         min_range="0.2"
         max_range="60.0"
-        min_angle="-15.0"
-        max_angle="15.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="-0.2618"
+        max_fov="0.2618"
         frame_link="${frame_prefix}link"
         rate="5"
         horizontal_samples="900"
@@ -95,8 +99,10 @@
         gazebo_ignition="${gazebo_ignition}"
         min_range="0.2"
         max_range="150.0"
-        min_angle="-15.0"
-        max_angle="15.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(15)}"
+        max_fov="${radians(15)}"
         frame_link="${frame_prefix}link"
         rate="10"
         horizontal_samples="1800"
