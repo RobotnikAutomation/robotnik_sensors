@@ -51,8 +51,8 @@
           <topic>${node_namespace}/${node_name}/data</topic>
           <gz_frame_id>${frame_link}</gz_frame_id>
           <plugin
-            filename="ignition-gazebo-navsat-system"
-            name="ignition::gazebo::systems::NavSat" />
+            filename="gz-sim-navsat-system"
+            name="gz::sim::systems::NavSat" />
         </sensor>
       </gazebo>
     </xacro:if>
