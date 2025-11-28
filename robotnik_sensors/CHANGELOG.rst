@@ -2,9 +2,12 @@
 Changelog for package robotnik_sensors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Unreleased
+2.2.0 (2025-11-28)
 ----------
 * Add min_angle and max_angle to define angle limits for 2d and 3d laser in simulation
+* Add low_performance parameter for simulation
+* Add realsense D455
+* Add email support
 
 2.1.0 (2025-09-11)
 ------------------
