@@ -31,7 +31,7 @@
                 </noise>
               </vertical>
             </position_sensing>
-            <vertical_sensing>
+            <velocity_sensing>
               <horizontal>
                 <noise type="gaussian">
                   <mean>0.0</mean>
@@ -44,7 +44,7 @@
                   <stddev>0.0001</stddev>
                 </noise>
               </vertical>
-            </vertical_sensing>
+            </velocity_sensing>
           </navsat>
           <always_on>1</always_on>
           <update_rate>1.0</update_rate>
