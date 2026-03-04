@@ -45,6 +45,8 @@
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim571.urdf.xacro" />
   <xacro:include
+    filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_picoscan120.urdf.xacro" />
+  <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_urg04lx.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_ust10lx.urdf.xacro" />
