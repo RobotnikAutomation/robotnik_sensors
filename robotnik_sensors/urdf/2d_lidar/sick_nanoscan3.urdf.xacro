@@ -16,7 +16,8 @@
             min_angle:=-2.35
             max_angle:=2.35
             topic_prefix:=~/
-            gpu:=false">
+            gpu:=false
+            low_performance:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -77,17 +78,33 @@
     <link name="${frame_prefix}link" />
 
     <!-- sick_nanoscan3 sensor for simulation -->
-    <xacro:lidar_2d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.05"
-      max_range="40.0"
-      min_angle="${min_angle}"
-      max_angle="${max_angle}"
-      frame_link="${frame_prefix}link"
-      rate="12.5"
-      resolution="0.00575"
-      samples="1600" />
+    <xacro:if value="${low_performance}">
+      <xacro:lidar_2d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.05"
+        max_range="40.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        resolution="0.00575"
+        samples="1600" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:lidar_2d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.05"
+        max_range="40.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        frame_link="${frame_prefix}link"
+        rate="12.5"
+        resolution="0.00575"
+        samples="1600" />
+    </xacro:unless>
   </xacro:macro>
 </robot>

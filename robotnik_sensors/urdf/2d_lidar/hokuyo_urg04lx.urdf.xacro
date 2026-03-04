@@ -15,7 +15,8 @@
             node_namespace:=${None}
             min_angle:=-2.0943
             max_angle:=2.0943
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=false">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -67,17 +68,33 @@
     <link name="${frame_prefix}link" />
 
     <!-- Hokuyo sensor for simulation -->
-    <xacro:lidar_2d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.06"
-      max_range="4.0"
-      min_angle="${min_angle}"
-      max_angle="${max_angle}"
-      frame_link="${frame_prefix}link"
-      rate="10"
-      resolution="0.004359297"
-      samples="640" />
+    <xacro:if value="${low_performance}">
+      <xacro:lidar_2d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.06"
+        max_range="4.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        resolution="0.004359297"
+        samples="640" />
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:lidar_2d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.06"
+        max_range="4.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        resolution="0.004359297"
+        samples="640" />
+    </xacro:unless>
   </xacro:macro>
 </robot>
