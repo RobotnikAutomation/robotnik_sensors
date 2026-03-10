@@ -46,7 +46,7 @@
 
   </xacro:macro>
 
-  <xacro:macro name="sensor_rslidar_gazebo" params="range_min range_max hfov hres vfov vres fps gpu">
+  <xacro:macro name="sensor_rslidar_gazebo" params="range_min range_max hfov hres vfov vres fps gpu prefix_topic:='top_3d_laser' suffix_topic:=''">
     <gazebo reference="${prefix}_link">
       <xacro:if value="${gpu}">
         <!-- Using GPU needs: https://github.com/RobotnikAutomation/velodyne_simulator -->
