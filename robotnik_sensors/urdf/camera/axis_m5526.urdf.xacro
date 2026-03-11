@@ -31,7 +31,8 @@
             gazebo_ignition:=false
             node_name:=axis_m5526
             node_namespace:=${None}
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
     <joint
       name="${frame_prefix}base_joint"
       type="fixed">
@@ -190,19 +191,37 @@
     </gazebo>
 
     <!-- Axis sensor for simulation -->
-    <xacro:camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_color"
-      topic_prefix="${topic_prefix}_color"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}color_optical_frame"
-      reference_frame="${frame_prefix}color_frame"
-      horizontal_fov="45"
-      vertical_fov="32"
-      video_width="640"
-      video_height="480"
-      min_depth="0.1"
-      max_depth="100"
-      rate="30" />
+    <xacro:if value="$(arg low_performance)">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="45"
+        vertical_fov="32"
+        video_width="640"
+        video_height="480"
+        min_depth="0.1"
+        max_depth="100"
+        rate="10" />
+    </xacro:if>
+    <xacro:unless value="$(arg low_performance)">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="45"
+        vertical_fov="32"
+        video_width="640"
+        video_height="480"
+        min_depth="0.1"
+        max_depth="100"
+        rate="30" />
+    </xacro:unless>
   </xacro:macro>
 </robot>

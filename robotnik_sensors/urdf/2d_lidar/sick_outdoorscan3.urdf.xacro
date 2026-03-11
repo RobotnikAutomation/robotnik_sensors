@@ -17,7 +17,7 @@
             max_angle:=2.35
             topic_prefix:=~/
             gpu:=false
-            low_performance:=false">
+            low_performance:=${low_performance}">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -76,7 +76,7 @@
 
     <link name="${frame_prefix}link" />
 
-    <xacro:if value="${low_performance}">
+    <xacro:if value="$(arg low_performance)">
       <xacro:lidar_2d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"
@@ -90,7 +90,7 @@
         resolution="0.00575"
         samples="700" />
     </xacro:if>
-    <xacro:unless value="${low_performance}">
+    <xacro:unless value="$(arg low_performance)">
       <xacro:lidar_2d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"

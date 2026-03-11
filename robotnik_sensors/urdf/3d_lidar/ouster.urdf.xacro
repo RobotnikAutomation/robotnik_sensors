@@ -17,7 +17,7 @@
             node_namespace:=${None}
             topic_prefix:=~/
             gpu:=false
-            low_performance:=false">
+            low_performance:=${low_performance}">
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1" />
     </material>
@@ -81,7 +81,7 @@
 
     <link name="${frame_prefix}link" />
     <!-- Ouster OS2 -->
-    <xacro:if value="${low_performance}">
+    <xacro:if value="$(arg low_performance)">
       <xacro:lidar_3d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"
@@ -97,7 +97,7 @@
         horizontal_samples="600"
         vertical_samples="32" />
     </xacro:if>
-    <xacro:unless value="${low_performance}">
+    <xacro:unless value="$(arg low_performance)">
       <xacro:lidar_3d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"
