@@ -220,4 +220,11 @@
   <!-- sensia_raismart -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart_pt.urdf.xacro" />
+
+  <!-- Sick Multiscan100 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_multiscan100.urdf.xacro" />
+
+  <!-- GoPro Hero 13 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/gopro_hero13.urdf.xacro" />
+  
 </robot>
