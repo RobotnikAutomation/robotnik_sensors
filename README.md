@@ -103,6 +103,7 @@ The available sensors in the package are:
 - sick_s3000
 - sick_tim551
 - sick_tim571
+- sick_picoscan120
 
 ### 3D LiDAR
 

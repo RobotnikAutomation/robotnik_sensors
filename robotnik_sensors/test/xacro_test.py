@@ -88,6 +88,7 @@ sensors = [
     'ouster',
     'livox_mid_360',
     'sick_multiscan_100',
+    'sick_picoscan120',
     'vectornav',
     'myahrs',
     'pixhawk',

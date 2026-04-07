@@ -5,8 +5,12 @@
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Declare global argument to set low_performance mode -->
-  <xacro:arg name="low_performance" default="false" />
-  <xacro:property name="low_performance" value="$(arg low_performance)" />
+  <xacro:arg
+    name="low_performance"
+    default="false" />
+  <xacro:property
+    name="low_performance"
+    value="$(arg low_performance)" />
 
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/utils/inertia.urdf.xacro" />
