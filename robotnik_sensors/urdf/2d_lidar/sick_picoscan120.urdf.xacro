@@ -76,6 +76,18 @@
 
     <link name="${frame_prefix}link" />
 
+    <joint
+      name="${frame_prefix}joint_1"
+      type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <parent link="${frame_prefix}link" />
+      <child link="${frame_prefix}link_1" />
+    </joint>
+
+    <link name="${frame_prefix}link_1" />
+
     <xacro:lidar_2d_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
