@@ -16,7 +16,7 @@
       frame_prefix="${frame_prefix}"
       parent="${parent}"
       model="zed2"
-      gazebo_ignition="false"
+      gazebo_ignition="${gazebo_ignition}"
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       topic_prefix="${topic_prefix}"

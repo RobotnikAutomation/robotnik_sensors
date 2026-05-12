@@ -5,8 +5,12 @@
   <!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
 
   <!-- Declare global argument to set low_performance mode -->
-  <xacro:arg name="low_performance" default="false" />
-  <xacro:property name="low_performance" value="$(arg low_performance)" />
+  <xacro:arg
+    name="low_performance"
+    default="false" />
+  <xacro:property
+    name="low_performance"
+    value="$(arg low_performance)" />
 
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/utils/inertia.urdf.xacro" />
@@ -45,6 +49,8 @@
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_tim571.urdf.xacro" />
   <xacro:include
+    filename="$(find robotnik_sensors)/urdf/2d_lidar/sick_picoscan120.urdf.xacro" />
+  <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_urg04lx.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/2d_lidar/hokuyo_ust10lx.urdf.xacro" />
@@ -60,6 +66,8 @@
     filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_bpearl.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_helios_16p.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/3d_lidar/robosense_airy.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/3d_lidar/ouster.urdf.xacro" />
   <xacro:include
