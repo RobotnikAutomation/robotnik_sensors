@@ -83,6 +83,7 @@
     <xacro:lidar_3d_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
+      topic_prefix="${topic_prefix}"
       gazebo_ignition="${gazebo_ignition}"
       min_range="0.1"
       max_range="50.0"
