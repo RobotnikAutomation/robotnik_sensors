@@ -33,8 +33,7 @@
             *origin
             gazebo_ignition:=false
             node_name:=link_750_nh
-            node_namespace:=${None}
-            topic_prefix:=~/">
+            node_namespace:=${None}">
     <joint
       name="${frame_prefix}base_joint"
       type="fixed">
@@ -275,7 +274,6 @@
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
-        topic_prefix="${topic_prefix}_color"
         gazebo_ignition="${gazebo_ignition}"
         optical_frame="${frame_prefix}optical_frame_link"
         reference_frame="${frame_prefix}frame_link"
@@ -291,7 +289,6 @@
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
-        topic_prefix="${topic_prefix}_color"
         gazebo_ignition="${gazebo_ignition}"
         optical_frame="${frame_prefix}optical_frame_link"
         reference_frame="${frame_prefix}frame_link"

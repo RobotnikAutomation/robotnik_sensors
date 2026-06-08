@@ -15,7 +15,6 @@
             min_angle:=${-radians(180)}
             node_name:=robosense_helios_16p
             node_namespace:=${None}
-            topic_prefix:=~/
             gpu:=false">
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -80,7 +79,6 @@
       <xacro:lidar_3d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"
-        topic_prefix="${topic_prefix}"
         gazebo_ignition="${gazebo_ignition}"
         min_range="0.2"
         max_range="60.0"
@@ -97,7 +95,6 @@
       <xacro:lidar_3d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"
-        topic_prefix="${topic_prefix}"
         gazebo_ignition="${gazebo_ignition}"
         min_range="0.2"
         max_range="150.0"

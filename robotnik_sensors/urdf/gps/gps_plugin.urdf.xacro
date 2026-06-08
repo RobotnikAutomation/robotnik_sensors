@@ -7,7 +7,6 @@
     params="node_namespace
             node_name
             frame_link
-            topic_prefix
             gazebo_ignition
             rate
             ">

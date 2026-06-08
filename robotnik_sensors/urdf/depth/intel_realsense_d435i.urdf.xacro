@@ -18,8 +18,7 @@
             *origin
             gazebo_ignition:=false
             node_name:=realsense_d435i
-            node_namespace:=${None}
-            topic_prefix:=~/">
+            node_namespace:=${None}">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -229,7 +228,6 @@
     <xacro:camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_color"
-      topic_prefix="${topic_prefix}_color"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}color_optical_frame"
       reference_frame="${frame_prefix}color_frame"
@@ -244,7 +242,6 @@
     <xacro:irred_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_irred1"
-      topic_prefix="${topic_prefix}_irred1"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}infra1_optical_frame"
       reference_frame="${frame_prefix}infra2_frame"
@@ -259,7 +256,6 @@
     <xacro:irred_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_irred2"
-      topic_prefix="${topic_prefix}_irred2"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}infra2_optical_frame"
       reference_frame="${frame_prefix}infra2_frame"
@@ -274,7 +270,6 @@
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_depth"
-      topic_prefix="${topic_prefix}_depth"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}depth_optical_frame"
       reference_frame="${frame_prefix}depth_frame"
@@ -292,14 +287,6 @@
           <depthUpdateRate>60.0</depthUpdateRate>
           <colorUpdateRate>60.0</colorUpdateRate>
           <infraredUpdateRate>60.0</infraredUpdateRate>
-          <depthTopicName>${topic_prefix}depth/image_rect_raw</depthTopicName>
-          <depthCameraInfoTopicName>${topic_prefix}depth/camera_info</depthCameraInfoTopicName>
-          <colorTopicName>${topic_prefix}color/image_raw</colorTopicName>
-          <colorCameraInfoTopicName>${topic_prefix}color/camera_info</colorCameraInfoTopicName>
-          <infrared1TopicName>${topic_prefix}infra1/image_raw</infrared1TopicName>
-          <infrared1CameraInfoTopicName>${topic_prefix}infra1/camera_info</infrared1CameraInfoTopicName>
-          <infrared2TopicName>${topic_prefix}infra2/image_raw</infrared2TopicName>
-          <infrared2CameraInfoTopicName>${topic_prefix}infra2/camera_info</infrared2CameraInfoTopicName>
           <colorOpticalframeName>${frame_prefix}color_optical_frame</colorOpticalframeName>
           <depthOpticalframeName>${frame_prefix}depth_optical_frame</depthOpticalframeName>
           <infrared1OpticalframeName>${frame_prefix}infra1_optical_frame</infrared1OpticalframeName>
@@ -307,7 +294,6 @@
           <rangeMinDepth>0.2</rangeMinDepth>
           <rangeMaxDepth>10.0</rangeMaxDepth>
           <pointCloud>true</pointCloud>
-          <pointCloudTopicName>${topic_prefix}depth/color/points</pointCloudTopicName>
           <pointCloudCutoff>0.5</pointCloudCutoff>
         </plugin>
       </gazebo> -->

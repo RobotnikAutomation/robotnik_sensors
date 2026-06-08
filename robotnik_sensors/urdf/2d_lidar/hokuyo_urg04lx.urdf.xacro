@@ -14,8 +14,7 @@
             node_name:=hokuyo_urg04lx
             node_namespace:=${None}
             min_angle:=-2.0943
-            max_angle:=2.0943
-            topic_prefix:=~/">
+            max_angle:=2.0943">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
