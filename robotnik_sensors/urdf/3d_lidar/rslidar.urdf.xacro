@@ -19,7 +19,6 @@
             max_fov:=${radians(15)}
             node_name:=rslidar
             node_namespace:=${None}
-            topic_prefix:=~/
             rate:=20
             horizontal_samples:=3600
             vertical_samples:=15
@@ -86,7 +85,6 @@
     <xacro:lidar_3d_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      topic_prefix="${topic_prefix}"
       gazebo_ignition="${gazebo_ignition}"
       min_range="${min_range}"
       max_range="${max_range}"
@@ -110,7 +108,6 @@
             min_angle:=${-radians(180)}
             node_name:=rslidar_16
             node_namespace:=${None}
-            topic_prefix:=~/
             gpu:=false">
     <xacro:if value="${low_performance}">
       <xacro:sensor_rslidar
@@ -125,7 +122,6 @@
         max_fov="${radians(15)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="10"
         horizontal_samples="1800"
         vertical_samples="15"
@@ -146,7 +142,6 @@
         max_fov="${radians(15)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="20"
         horizontal_samples="3600"
         vertical_samples="15"
@@ -166,7 +161,6 @@
             min_angle:=${-radians(180)}
             node_name:=rslidar_32
             node_namespace:=${None}
-            topic_prefix:=~/
             gpu:=false">
     <xacro:if value="${low_performance}">
       <xacro:sensor_rslidar
@@ -181,7 +175,6 @@
         max_fov="${radians(20)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="10"
         horizontal_samples="1800"
         vertical_samples="61"
@@ -202,7 +195,6 @@
         max_fov="${radians(20)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="20"
         horizontal_samples="3600"
         vertical_samples="121"
@@ -222,7 +214,6 @@
             min_angle:=${-radians(180)}
             node_name:=rslidar_ruby
             node_namespace:=${None}
-            topic_prefix:=~/
             gpu:=false">
     <xacro:if value="${low_performance}">
       <xacro:sensor_rslidar
@@ -237,7 +228,6 @@
         max_fov="${radians(20)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="10"
         horizontal_samples="1800"
         vertical_samples="200"
@@ -258,7 +248,6 @@
         max_fov="${radians(20)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="20"
         horizontal_samples="3600"
         vertical_samples="400"
@@ -278,7 +267,6 @@
             min_angle:=${-radians(60)}
             node_name:=rslidar_m1
             node_namespace:=${None}
-            topic_prefix:=~/
             gpu:=false">
     <!-- Keep the legacy rbcar M1 scan characteristics. -->
     <xacro:if value="${low_performance}">
@@ -294,7 +282,6 @@
         max_fov="${radians(12.5)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="10"
         horizontal_samples="600"
         vertical_samples="63"
@@ -315,7 +302,6 @@
         max_fov="${radians(12.5)}"
         node_name="${node_name}"
         node_namespace="${node_namespace}"
-        topic_prefix="${topic_prefix}"
         rate="20"
         horizontal_samples="1200"
         vertical_samples="125"

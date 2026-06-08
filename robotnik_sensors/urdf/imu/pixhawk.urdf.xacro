@@ -12,8 +12,7 @@
             *origin
             gazebo_ignition:=false
             node_name:=imu
-            node_namespace:=${None}
-            topic_prefix:=~/">
+            node_namespace:=${None}">
     <joint
       name="${frame_prefix}base_joint"
       type="fixed">

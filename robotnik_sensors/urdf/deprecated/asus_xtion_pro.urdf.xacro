@@ -28,7 +28,6 @@
                         simulation:=false
                         node_name:=asus_xtion_pro
                         node_namespace:=${None}
-                        topic_prefix:=~/
                         horizontal_fov:=58
                         vertical_fov:=45
                         video_width:=1280

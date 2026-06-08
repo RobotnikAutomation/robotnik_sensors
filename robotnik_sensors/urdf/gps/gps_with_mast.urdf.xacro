@@ -20,7 +20,6 @@
 			gazebo_ignition:=false
 			node_name:=gps_with_mast
 			node_namespace:=${None}
-			topic_prefix:=~/
 			update_rate:=1.0">
     <!-- MAST OF THE ANTENNA GPS -->
     <joint
@@ -130,7 +129,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
-      topic_prefix="${topic_prefix}_gps"
       frame_link="${frame_prefix}base_link"
       rate="${update_rate}" />
   </xacro:macro>

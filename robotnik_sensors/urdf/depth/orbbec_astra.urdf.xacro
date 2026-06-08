@@ -12,8 +12,7 @@
             *origin
             gazebo_ignition:=false
             node_namespace:=${None}
-            node_name:=orbbec_astra
-            topic_prefix:=~/">
+            node_name:=orbbec_astra">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -100,7 +99,6 @@
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      topic_prefix="${topic_prefix}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}depth_optical_frame"
       reference_frame="${frame_prefix}depth_frame"

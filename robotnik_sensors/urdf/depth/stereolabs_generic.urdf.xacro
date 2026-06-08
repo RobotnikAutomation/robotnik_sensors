@@ -18,7 +18,6 @@
             gazebo_ignition:=false
             node_name:=stereolabs_generic
             node_namespace:=${None}
-            topic_prefix:=~/
             horizontal_fov:=80
             vertical_fov:=60
             video_width:=1280
@@ -164,7 +163,6 @@
     <xacro:camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_right_sensor"
-      topic_prefix="${topic_prefix}_right_sensor"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}right_camera_optical_frame"
       reference_frame="${frame_prefix}right_camera_frame"
@@ -179,7 +177,6 @@
     <xacro:camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_left_sensor"
-      topic_prefix="${topic_prefix}_left_sensor"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}left_camera_optical_frame"
       reference_frame="${frame_prefix}left_camera_frame"
@@ -194,7 +191,6 @@
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_depth"
-      topic_prefix="${topic_prefix}_depth"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}depth_optical_frame"
       reference_frame="${frame_prefix}depth_frame"

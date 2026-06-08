@@ -39,7 +39,6 @@ For simulation, the following arguments are also available:
 | node_namespace 	| namespace of the plugin                                                       	|
 | node_name      	| name used for the plugin node in Gazebo                                       	|
 | gazebo_ignition	| boolean to additional information for Gazebo Ignition simulation                              |
-| topic_prefix   	| prefix added to the topic name                                                	|
 | gpu             | boolean to use the GPU for the sensor (only available for 2d and 3d lidar)      |
 
 

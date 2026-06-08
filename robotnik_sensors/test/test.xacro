@@ -14,8 +14,7 @@
       parent="world"
       node_namespace="$(arg namespace)"
       node_name="$(arg name)"
-      gazebo_ignition="$(arg gazebo_ignition)"
-      topic_prefix="~/$(arg name)">
+      gazebo_ignition="$(arg gazebo_ignition)">
     <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
   </xacro:call>
 </robot>

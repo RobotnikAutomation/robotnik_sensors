@@ -13,7 +13,6 @@
 			      gazebo_ignition:=false
 			      node_name:=ublox
 			      node_namespace:=${None}
-			      topic_prefix:=~/
 			      update_rate:=5.0">
     <!-- ANTENNA GPS -->
     <joint
@@ -77,7 +76,6 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
-      topic_prefix="${topic_prefix}_gps"
       frame_link="${frame_prefix}base_link"
       rate="${update_rate}" />
   </xacro:macro>

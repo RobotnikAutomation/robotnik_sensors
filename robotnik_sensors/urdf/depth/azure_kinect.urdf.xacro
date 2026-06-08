@@ -12,8 +12,7 @@
             *origin
             gazebo_ignition:=false
             node_namespace:=${None}
-            node_name:=azure_kinect
-            topic_prefix:=~/">
+            node_name:=azure_kinect">
     <xacro:if value="${node_namespace == None}">
       <xacro:property
         name="node_namespace"
@@ -130,7 +129,6 @@
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}"
-      topic_prefix="${topic_prefix}"
       gazebo_ignition="${gazebo_ignition}"
       optical_frame="${frame_prefix}color_optical_frame"
       reference_frame="${frame_prefix}color_frame"
