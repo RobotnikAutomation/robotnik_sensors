@@ -58,7 +58,7 @@ This example shows how to include a SICK S300 2D LiDAR in a robot description:
 ```sh
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/all_sensors.urdf.xacro" />
-  
+
   <xacro:sensor_sick_s300
     frame_prefix="$(arg prefix)front_laser_"
     parent="$(arg prefix)chassis_link"
@@ -111,6 +111,7 @@ The available sensors in the package are:
 - ouster
 - robosense_bpearl
 - robosense_helios_16p
+- rslidar
 - sick_multiscan_100
 - velodyne_vlp16
 
