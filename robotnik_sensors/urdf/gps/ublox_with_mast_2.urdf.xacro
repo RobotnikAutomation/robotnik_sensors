@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <robot
-  name="sensor_ublox_with_mast"
+  name="sensor_ublox_with_mast_2"
   xmlns:xacro="http://wiki.ros.org/xacro">
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/gps/gps_plugin.urdf.xacro" />
 
   <xacro:macro
-    name="sensor_ublox_with_mast"
+    name="sensor_ublox_with_mast_2"
     params="frame_prefix
 			      parent
 			      *origin
