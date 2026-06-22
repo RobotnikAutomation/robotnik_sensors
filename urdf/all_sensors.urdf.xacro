@@ -220,4 +220,10 @@
   <!-- sensia_raismart -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart.urdf.xacro" />
   <xacro:include filename="$(find robotnik_sensors)/urdf/sensia_raismart_pt.urdf.xacro" />
+
+  <!-- Fuke_sv600-->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/fuke_sv600.urdf.xacro" />
+
+  <!-- Sick MLSE 0200 -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/sick_mlse_0200.urdf.xacro" />
 </robot>
