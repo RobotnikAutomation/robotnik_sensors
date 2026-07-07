@@ -1,0 +1,327 @@
+<?xml version="1.0" ?>
+<robot
+  name="sensor_rslidar"
+  xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/3d_lidar/lidar_3d_plugin.urdf.xacro" />
+
+  <xacro:macro
+    name="sensor_rslidar"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            min_range:=0.4
+            max_range:=150.0
+            max_angle:=${radians(180)}
+            min_angle:=${-radians(180)}
+            min_fov:=${-radians(15)}
+            max_fov:=${radians(15)}
+            node_name:=rslidar
+            node_namespace:=${None}
+            topic_prefix:=~/
+            rate:=20
+            horizontal_samples:=3600
+            vertical_samples:=15
+            gpu:=false">
+    <xacro:if value="${node_namespace == None}">
+      <xacro:property
+        name="node_namespace"
+        value="${node_name}" />
+    </xacro:if>
+
+    <joint
+      name="${frame_prefix}base_joint"
+      type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${frame_prefix}base_link" />
+    </joint>
+
+    <link name="${frame_prefix}base_link">
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/rslidar.stl" />
+        </geometry>
+      </collision>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robotnik_sensors/meshes/rslidar.dae" />
+        </geometry>
+        <material name="blackgray_color">
+          <color rgba="0.25 0.25 0.25 1" />
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.840" />
+        <origin xyz="0 0 0.04135" />
+        <xacro:solid_cuboid_inertia
+          m="0.840"
+          w="0.109"
+          h="0.109"
+          d="0.0827" />
+      </inertial>
+    </link>
+
+    <joint
+      name="${frame_prefix}joint"
+      type="fixed">
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}link" />
+      <origin
+        xyz="0.0 0 0.038"
+        rpy="0 0 0" />
+    </joint>
+
+    <link name="${frame_prefix}link" />
+
+    <xacro:lidar_3d_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      topic_prefix="${topic_prefix}"
+      gazebo_ignition="${gazebo_ignition}"
+      min_range="${min_range}"
+      max_range="${max_range}"
+      min_angle="${min_angle}"
+      max_angle="${max_angle}"
+      min_fov="${min_fov}"
+      max_fov="${max_fov}"
+      frame_link="${frame_prefix}link"
+      rate="${rate}"
+      horizontal_samples="${horizontal_samples}"
+      vertical_samples="${vertical_samples}" />
+  </xacro:macro>
+
+  <xacro:macro
+    name="sensor_rslidar_16"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            max_angle:=${radians(180)}
+            min_angle:=${-radians(180)}
+            node_name:=rslidar_16
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
+    <xacro:if value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="60.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(15)}"
+        max_fov="${radians(15)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="10"
+        horizontal_samples="1800"
+        vertical_samples="15"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="150.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(15)}"
+        max_fov="${radians(15)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="20"
+        horizontal_samples="3600"
+        vertical_samples="15"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:unless>
+  </xacro:macro>
+
+  <xacro:macro
+    name="sensor_rslidar_32"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            max_angle:=${radians(180)}
+            min_angle:=${-radians(180)}
+            node_name:=rslidar_32
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
+    <xacro:if value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="80.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(20)}"
+        max_fov="${radians(20)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="10"
+        horizontal_samples="1800"
+        vertical_samples="61"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="200.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(20)}"
+        max_fov="${radians(20)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="20"
+        horizontal_samples="3600"
+        vertical_samples="121"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:unless>
+  </xacro:macro>
+
+  <xacro:macro
+    name="sensor_rslidar_ruby"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            max_angle:=${radians(180)}
+            min_angle:=${-radians(180)}
+            node_name:=rslidar_ruby
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
+    <xacro:if value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="100.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(20)}"
+        max_fov="${radians(20)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="10"
+        horizontal_samples="1800"
+        vertical_samples="200"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="250.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(20)}"
+        max_fov="${radians(20)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="20"
+        horizontal_samples="3600"
+        vertical_samples="400"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:unless>
+  </xacro:macro>
+
+  <xacro:macro
+    name="sensor_rslidar_m1"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            max_angle:=${radians(60)}
+            min_angle:=${-radians(60)}
+            node_name:=rslidar_m1
+            node_namespace:=${None}
+            topic_prefix:=~/
+            gpu:=false">
+    <!-- Keep the legacy rbcar M1 scan characteristics. -->
+    <xacro:if value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="100.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(12.5)}"
+        max_fov="${radians(12.5)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="10"
+        horizontal_samples="600"
+        vertical_samples="63"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:if>
+    <xacro:unless value="${low_performance}">
+      <xacro:sensor_rslidar
+        frame_prefix="${frame_prefix}"
+        parent="${parent}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.4"
+        max_range="250.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(12.5)}"
+        max_fov="${radians(12.5)}"
+        node_name="${node_name}"
+        node_namespace="${node_namespace}"
+        topic_prefix="${topic_prefix}"
+        rate="20"
+        horizontal_samples="1200"
+        vertical_samples="125"
+        gpu="${gpu}">
+        <xacro:insert_block name="origin" />
+      </xacro:sensor_rslidar>
+    </xacro:unless>
+  </xacro:macro>
+</robot>

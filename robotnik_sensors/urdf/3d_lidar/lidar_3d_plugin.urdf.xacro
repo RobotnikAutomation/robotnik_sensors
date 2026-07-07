@@ -6,6 +6,7 @@
     name="lidar_3d_plugin"
     params="node_namespace
             node_name
+            topic_prefix:=~/
             gazebo_ignition
             min_range
             max_range
