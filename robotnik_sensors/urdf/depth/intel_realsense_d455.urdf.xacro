@@ -19,7 +19,8 @@
             gazebo_ignition:=false
             node_name:=realsense_d455
             node_namespace:=${None}
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -299,65 +300,129 @@
     </joint>
     <link name="${frame_prefix}imu_optical_frame" />
 
-    <xacro:camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_color"
-      topic_prefix="${topic_prefix}_color"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}color_optical_frame"
-      reference_frame="${frame_prefix}color_frame"
-      horizontal_fov="90.0"
-      vertical_fov="65.0"
-      video_width="1280"
-      video_height="800"
-      min_depth="0.18"
-      max_depth="100"
-      rate="30" />
+    <xacro:if value="$(arg low_performance)">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="90.0"
+        vertical_fov="65.0"
+        video_width="1280"
+        video_height="800"
+        min_depth="0.18"
+        max_depth="100"
+        rate="10" />
 
-    <xacro:irred_camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_irred1"
-      topic_prefix="${topic_prefix}_irred1"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}infra1_optical_frame"
-      reference_frame="${frame_prefix}infra1_frame"
-      horizontal_fov="90"
-      vertical_fov="62"
-      video_width="1280"
-      video_height="720"
-      min_depth="0.18"
-      max_depth="100"
-      rate="30" />
+      <xacro:irred_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_irred1"
+        topic_prefix="${topic_prefix}_irred1"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}infra1_optical_frame"
+        reference_frame="${frame_prefix}infra1_frame"
+        horizontal_fov="90"
+        vertical_fov="62"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.18"
+        max_depth="100"
+        rate="10" />
 
-    <xacro:irred_camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_irred2"
-      topic_prefix="${topic_prefix}_irred2"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}infra2_optical_frame"
-      reference_frame="${frame_prefix}infra2_frame"
-      horizontal_fov="90"
-      vertical_fov="62"
-      video_width="1280"
-      video_height="720"
-      min_depth="0.18"
-      max_depth="100"
-      rate="30" />
+      <xacro:irred_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_irred2"
+        topic_prefix="${topic_prefix}_irred2"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}infra2_optical_frame"
+        reference_frame="${frame_prefix}infra2_frame"
+        horizontal_fov="90"
+        vertical_fov="62"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.18"
+        max_depth="100"
+        rate="10" />
 
-    <xacro:depth_camera_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}_depth"
-      topic_prefix="${topic_prefix}_depth"
-      gazebo_ignition="${gazebo_ignition}"
-      optical_frame="${frame_prefix}depth_optical_frame"
-      reference_frame="${frame_prefix}depth_frame"
-      horizontal_fov="87"
-      vertical_fov="58"
-      video_width="1280"
-      video_height="720"
-      min_depth="0.18"
-      max_depth="100"
-      rate="30" />
+      <xacro:depth_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_depth"
+        topic_prefix="${topic_prefix}_depth"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}depth_optical_frame"
+        reference_frame="${frame_prefix}depth_frame"
+        horizontal_fov="87"
+        vertical_fov="58"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.18"
+        max_depth="100"
+        rate="10" />
+    </xacro:if>
+
+    <xacro:unless value="$(arg low_performance)">
+      <xacro:camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_color"
+        topic_prefix="${topic_prefix}_color"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}color_optical_frame"
+        reference_frame="${frame_prefix}color_frame"
+        horizontal_fov="90.0"
+        vertical_fov="65.0"
+        video_width="1280"
+        video_height="800"
+        min_depth="0.18"
+        max_depth="100"
+        rate="30" />
+
+      <xacro:irred_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_irred1"
+        topic_prefix="${topic_prefix}_irred1"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}infra1_optical_frame"
+        reference_frame="${frame_prefix}infra1_frame"
+        horizontal_fov="90"
+        vertical_fov="62"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.18"
+        max_depth="100"
+        rate="30" />
+
+      <xacro:irred_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_irred2"
+        topic_prefix="${topic_prefix}_irred2"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}infra2_optical_frame"
+        reference_frame="${frame_prefix}infra2_frame"
+        horizontal_fov="90"
+        vertical_fov="62"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.18"
+        max_depth="100"
+        rate="30" />
+
+      <xacro:depth_camera_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}_depth"
+        topic_prefix="${topic_prefix}_depth"
+        gazebo_ignition="${gazebo_ignition}"
+        optical_frame="${frame_prefix}depth_optical_frame"
+        reference_frame="${frame_prefix}depth_frame"
+        horizontal_fov="87"
+        vertical_fov="58"
+        video_width="1280"
+        video_height="720"
+        min_depth="0.18"
+        max_depth="100"
+        rate="30" />
+    </xacro:unless>
 
     <xacro:imu_plugin
       node_namespace="${node_namespace}"
