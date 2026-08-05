@@ -94,6 +94,8 @@
     filename="$(find robotnik_sensors)/urdf/gps/ublox.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/gps/ublox_with_mast.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/gps/ublox_with_side_mast.urdf.xacro" />
 
   <!-- Camera -->
   <xacro:include

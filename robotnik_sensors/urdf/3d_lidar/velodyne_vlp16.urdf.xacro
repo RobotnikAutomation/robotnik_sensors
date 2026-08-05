@@ -16,7 +16,8 @@
             node_name:=velodyne_vlp16
             node_namespace:=${None}
             topic_prefix:=~/
-            gpu:=false">
+            gpu:=false
+            low_performance:=${low_performance}">
     <xacro:if value="${node_namespace == None}">
       <xacro:property
         name="node_namespace"
@@ -75,20 +76,39 @@
 
     <link name="${frame_prefix}link" />
 
-    <xacro:lidar_3d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      topic_prefix="${topic_prefix}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.1"
-      max_range="100.0"
-      min_angle="${min_angle}"
-      max_angle="${max_angle}"
-      min_fov="${-radians(20)}"
-      max_fov="${radians(20)}"
-      frame_link="${frame_prefix}link"
-      rate="10"
-      horizontal_samples="1200"
-      vertical_samples="15" />
+    <xacro:if value="$(arg low_performance)">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        topic_prefix="${topic_prefix}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.2"
+        max_range="60.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(20)}"
+        max_fov="${radians(20)}"
+        frame_link="${frame_prefix}link"
+        rate="5"
+        horizontal_samples="600"
+        vertical_samples="15" />
+    </xacro:if>
+    <xacro:unless value="$(arg low_performance)">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        topic_prefix="${topic_prefix}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.1"
+        max_range="100.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(20)}"
+        max_fov="${radians(20)}"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        horizontal_samples="1200"
+        vertical_samples="15" />
+    </xacro:unless>
   </xacro:macro>
 </robot>

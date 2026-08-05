@@ -13,7 +13,8 @@
             gazebo_ignition:=false
             node_namespace:=stereolabs_zed2i
             node_name:=stereolabs_zed2i
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
     <xacro:sensor_stereolabs_generic
       frame_prefix="${frame_prefix}"
       parent="${parent}"
@@ -22,6 +23,7 @@
       node_namespace="${node_namespace}"
       node_name="${node_name}"
       topic_prefix="${topic_prefix}"
+      low_performance="${low_performance}"
       horizontal_fov="110"
       vertical_fov="70"
       video_width="1920"

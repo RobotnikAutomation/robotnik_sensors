@@ -16,7 +16,8 @@
             node_name:=sick_multiscan_100
             node_namespace:=${None}
             topic_prefix:=~/
-            gpu:=false">
+            gpu:=false
+            low_performance:=${low_performance}">
     <material name="black_alu">
       <color rgba="0.9 0.9 0.9 1" />
     </material>
@@ -82,20 +83,39 @@
 
     <link name="${frame_prefix}link" />
 
-    <xacro:lidar_3d_plugin
-      node_namespace="${node_namespace}"
-      node_name="${node_name}"
-      topic_prefix="${topic_prefix}"
-      gazebo_ignition="${gazebo_ignition}"
-      min_range="0.1"
-      max_range="52.0"
-      min_angle="${min_angle}"
-      max_angle="${max_angle}"
-      min_fov="${-radians(32.5)}"
-      max_fov="${radians(32.5)}"
-      frame_link="${frame_prefix}link"
-      rate="10"
-      horizontal_samples="1200"
-      vertical_samples="16" />
+    <xacro:if value="$(arg low_performance)">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        topic_prefix="${topic_prefix}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.2"
+        max_range="35.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(32.5)}"
+        max_fov="${radians(32.5)}"
+        frame_link="${frame_prefix}link"
+        rate="5"
+        horizontal_samples="600"
+        vertical_samples="16" />
+    </xacro:if>
+    <xacro:unless value="$(arg low_performance)">
+      <xacro:lidar_3d_plugin
+        node_namespace="${node_namespace}"
+        node_name="${node_name}"
+        topic_prefix="${topic_prefix}"
+        gazebo_ignition="${gazebo_ignition}"
+        min_range="0.1"
+        max_range="52.0"
+        min_angle="${min_angle}"
+        max_angle="${max_angle}"
+        min_fov="${-radians(32.5)}"
+        max_fov="${radians(32.5)}"
+        frame_link="${frame_prefix}link"
+        rate="10"
+        horizontal_samples="1200"
+        vertical_samples="16" />
+    </xacro:unless>
   </xacro:macro>
 </robot>

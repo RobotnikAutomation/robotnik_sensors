@@ -34,7 +34,8 @@
             gazebo_ignition:=false
             node_name:=link_750_nh
             node_namespace:=${None}
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
     <joint
       name="${frame_prefix}base_joint"
       type="fixed">
@@ -271,7 +272,7 @@
     </gazebo>
 
     <!-- camera sensor for simulation -->
-    <xacro:if value="${low_performance}">
+    <xacro:if value="$(arg low_performance)">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -285,9 +286,9 @@
         video_height="720"
         min_depth="0.1"
         max_depth="100"
-        rate="5" />
+        rate="10" />
     </xacro:if>
-    <xacro:unless value="${low_performance}">
+    <xacro:unless value="$(arg low_performance)">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -301,7 +302,7 @@
         video_height="1080"
         min_depth="0.1"
         max_depth="100"
-        rate="25" />
+        rate="30" />
     </xacro:unless>
 
     <ros2_control

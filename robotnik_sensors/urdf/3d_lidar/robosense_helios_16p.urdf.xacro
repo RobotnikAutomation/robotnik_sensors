@@ -16,7 +16,8 @@
             node_name:=robosense_helios_16p
             node_namespace:=${None}
             topic_prefix:=~/
-            gpu:=false">
+            gpu:=false
+            low_performance:=${low_performance}">
     <xacro:if value="${node_namespace == None}">
       <xacro:property
         name="node_namespace"
@@ -76,7 +77,7 @@
 
     <link name="${frame_prefix}link" />
 
-    <xacro:if value="${low_performance}">
+    <xacro:if value="$(arg low_performance)">
       <xacro:lidar_3d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"
@@ -93,7 +94,7 @@
         horizontal_samples="900"
         vertical_samples="16" />
     </xacro:if>
-    <xacro:unless value="${low_performance}">
+    <xacro:unless value="$(arg low_performance)">
       <xacro:lidar_3d_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}"

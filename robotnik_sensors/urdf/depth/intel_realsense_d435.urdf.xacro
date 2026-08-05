@@ -17,7 +17,8 @@
             gazebo_ignition:=false
             node_name:=realsense_d435
             node_namespace:=${None}
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -212,7 +213,7 @@
     </joint>
     <link name="${frame_prefix}color_optical_frame" />
 
-    <xacro:if value="${low_performance}">
+    <xacro:if value="$(arg low_performance)">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -222,8 +223,8 @@
         reference_frame="${frame_prefix}color_frame"
         horizontal_fov="69.4"
         vertical_fov="39"
-        video_width="1280"
-        video_height="720"
+        video_width="960"
+        video_height="540"
         min_depth="0.1"
         max_depth="100"
         rate="5" />
@@ -243,8 +244,7 @@
         max_depth="100"
         rate="5" />
     </xacro:if>
-
-    <xacro:unless value="${low_performance}">
+    <xacro:unless value="$(arg low_performance)">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"

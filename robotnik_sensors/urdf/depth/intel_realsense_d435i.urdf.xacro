@@ -19,7 +19,8 @@
             gazebo_ignition:=false
             node_name:=realsense_d435i
             node_namespace:=${None}
-            topic_prefix:=~/">
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
     <!-- node_namespace is used from node_name if not set -->
     <xacro:if value="${node_namespace == None}">
       <xacro:property
@@ -226,6 +227,15 @@
     </joint>
     <link name="${frame_prefix}imu_frame" />
 
+    <xacro:property
+      name="camera_rate"
+      value="30" />
+    <xacro:if value="$(arg low_performance)">
+      <xacro:property
+        name="camera_rate"
+        value="10" />
+    </xacro:if>
+
     <xacro:camera_plugin
       node_namespace="${node_namespace}"
       node_name="${node_name}_color"
@@ -239,7 +249,7 @@
       video_height="1080"
       min_depth="0.1"
       max_depth="100"
-      rate="30" />
+      rate="${camera_rate}" />
 
     <xacro:irred_camera_plugin
       node_namespace="${node_namespace}"
@@ -254,7 +264,7 @@
       video_height="720"
       min_depth="0.1"
       max_depth="100"
-      rate="30" />
+      rate="${camera_rate}" />
 
     <xacro:irred_camera_plugin
       node_namespace="${node_namespace}"
@@ -269,7 +279,7 @@
       video_height="720"
       min_depth="0.1"
       max_depth="100"
-      rate="30" />
+      rate="${camera_rate}" />
 
     <xacro:depth_camera_plugin
       node_namespace="${node_namespace}"
@@ -284,7 +294,7 @@
       video_height="720"
       min_depth="0.1"
       max_depth="100"
-      rate="30" />
+      rate="${camera_rate}" />
 
     <!-- <gazebo>
         <plugin name="${node_name}" filename="librealsense_gazebo_plugin.so">
