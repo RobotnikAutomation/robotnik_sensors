@@ -24,7 +24,10 @@
 
   <!-- Axis q8641 -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/axis_q8641.urdf.xacro" />
-  
+
+  <!-- Axis 360 camera ring -->
+  <xacro:include filename="$(find robotnik_sensors)/urdf/axis_360_camera_ring.urdf.xacro" />
+
   <!-- BLK ARC -->
   <xacro:include filename="$(find robotnik_sensors)/urdf/blk_arc.urdf.xacro" />
 

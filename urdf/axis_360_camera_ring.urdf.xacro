@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor_axis_360_camera_ring">
+
+  <xacro:macro name="sensor_axis_360_camera_ring" params="prefix parent *origin prefix_topic:='camera_ring' camera_name:='robot' far:=^|100.0 near:=^|0.05 hfov:=^|1.5708 width:=^|640 height:=^|480 include_inertial:=^|true">
+
+    <joint name="${prefix}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_base_link"/>
+    </joint>
+
+    <link name="${prefix}_base_link">
+      <xacro:if value="${include_inertial}">
+        <inertial>
+          <origin xyz="-0.118 0 0" rpy="0 0 0"/>
+          <mass value="1.5"/>
+          <xacro:solid_cuboid_inertia m="1.5" w="0.21" h="0.21" d="0.09"/>
+        </inertial>
+      </xacro:if>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="axis_color">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/axis_360_camera_ring.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robotnik_sensors/meshes/axis_360_camera_ring.stl" scale="1 1 1"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${prefix}_base_link">
+      <material>Gazebo/DarkGrey</material>
+    </gazebo>
+
+    <!-- The four cameras of the ring, each one looking outwards -->
+    <xacro:sensor_axis_360_camera_ring_camera prefix="${prefix}_front" parent="${prefix}_base_link" prefix_topic="${prefix_topic}/front" camera_name="${camera_name}">
+      <origin xyz="0.1317 0.0 0.0" rpy="0 0 0"/>
+    </xacro:sensor_axis_360_camera_ring_camera>
+
+    <xacro:sensor_axis_360_camera_ring_camera prefix="${prefix}_right" parent="${prefix}_base_link" prefix_topic="${prefix_topic}/right" camera_name="${camera_name}">
+      <origin xyz="0 -0.1317 0.0" rpy="0 0 ${-M_PI/2}"/>
+    </xacro:sensor_axis_360_camera_ring_camera>
+
+    <xacro:sensor_axis_360_camera_ring_camera prefix="${prefix}_rear" parent="${prefix}_base_link" prefix_topic="${prefix_topic}/rear" camera_name="${camera_name}">
+      <origin xyz="-0.1317 0.0 0.0" rpy="0 0 ${M_PI}"/>
+    </xacro:sensor_axis_360_camera_ring_camera>
+
+    <xacro:sensor_axis_360_camera_ring_camera prefix="${prefix}_left" parent="${prefix}_base_link" prefix_topic="${prefix_topic}/left" camera_name="${camera_name}">
+      <origin xyz="0 0.1317 0.0" rpy="0 0 ${M_PI/2}"/>
+    </xacro:sensor_axis_360_camera_ring_camera>
+
+  </xacro:macro>
+
+  <!-- Single camera of the ring: frame link (X forward) + optical frame (Z forward) -->
+  <xacro:macro name="sensor_axis_360_camera_ring_camera" params="prefix parent *origin prefix_topic camera_name">
+    <joint name="${prefix}_frame_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}_frame_link"/>
+    </joint>
+    <link name="${prefix}_frame_link"/>
+
+    <joint name="${prefix}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+      <parent link="${prefix}_frame_link"/>
+      <child link="${prefix}_optical_frame_link"/>
+    </joint>
+    <link name="${prefix}_optical_frame_link"/>
+
+    <xacro:sensor_axis_360_camera_ring_gazebo prefix="${prefix}" prefix_topic="${prefix_topic}" camera_name="${camera_name}"/>
+  </xacro:macro>
+
+  <xacro:macro name="sensor_axis_360_camera_ring_gazebo" params="prefix prefix_topic camera_name">
+    <gazebo reference="${prefix}_frame_link">
+      <sensor type="camera" name="${prefix}_sensor">
+        <update_rate>10.0</update_rate>
+        <camera name="${prefix}">
+          <horizontal_fov>${hfov}</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>${width}</width>
+            <height>${height}</height>
+          </image>
+          <clip>
+            <near>${near}</near>
+            <far>${far}</far>
+          </clip>
+        </camera>
+        <plugin name="${prefix}_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>${prefix}_color</cameraName>
+          <imageTopicName>/${camera_name}/${prefix_topic}/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/${camera_name}/${prefix_topic}/color/camera_info</cameraInfoTopicName>
+          <frameName>/${prefix}_optical_frame_link</frameName>
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <ignoreTfPrefix>1</ignoreTfPrefix>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

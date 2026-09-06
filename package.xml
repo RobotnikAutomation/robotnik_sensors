@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>robotnik_sensors</name>
-  <version>1.13.0</version>
+  <version>1.14.0</version>
   <description>Robotnik standard sensors description. URDF and meshses.</description>
   <license>BSD</license>
 
@@ -11,9 +11,6 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
-  <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
-  <maintainer email="dredo@robotnik.es">David Redó</maintainer>
-  <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
   <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
 
