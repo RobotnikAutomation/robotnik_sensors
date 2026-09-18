@@ -35,132 +35,243 @@
     </xacro:if>
 
     <xacro:if value="${model == 'zed'}">
-      <xacro:property
-        name="baseline"
-        value="0.12" />
-    </xacro:if>
-    <xacro:if value="${model == 'zedm'}">
-      <xacro:property
-        name="baseline"
-        value="0.06" />
-    </xacro:if>
-    <xacro:if value="${model == 'zed2'}">
-      <xacro:property
-        name="baseline"
-        value="0.12" />
+      <xacro:property name="baseline" value="0.12" />
+      <xacro:property name="height" value="0.03" />
+      <xacro:property name="bottom_slope" value="0.05" />
+      <xacro:property name="screw_offset_x" value="0.0" />
+      <xacro:property name="screw_offset_z" value="0.0" />
+      <xacro:property name="optical_offset_x" value="-0.01" />
+      <xacro:property name="mono" value="false" />
+      <xacro:property name="mat" value="0.8 0.8 0.8 1.0" />
+      <!-- Offset from ZED reference center to Robotnik sensor reference point-->
+      <xacro:property name="base_offset_x" value="0.0165" />
+      <xacro:property name="base_offset_z" value="-0.015" />
     </xacro:if>
 
+    <xacro:if value="${model == 'zed2'}">
+      <xacro:property name="baseline" value="0.12" />
+      <xacro:property name="height" value="0.03" />
+      <xacro:property name="bottom_slope" value="0.05" />
+      <xacro:property name="screw_offset_x" value="0.0" />
+      <xacro:property name="screw_offset_z" value="0.0" />
+      <xacro:property name="optical_offset_x" value="-0.01" />
+      <xacro:property name="mono" value="false" />
+      <xacro:property name="mat" value="0.25 0.25 0.25 1.0" />
+      <!-- Offset from ZED reference center to Robotnik sensor reference point-->
+      <xacro:property name="base_offset_x" value="0.0155" />
+      <xacro:property name="base_offset_z" value="-0.01325" />
+    </xacro:if>
+
+    <xacro:if value="${model == 'zed2i'}">
+      <xacro:property name="baseline" value="0.12" />
+      <xacro:property name="height" value="0.03" />
+      <xacro:property name="bottom_slope" value="0.0" />
+      <xacro:property name="screw_offset_x" value="-0.01" />
+      <xacro:property name="screw_offset_z" value="0.0" />
+      <xacro:property name="optical_offset_x" value="-0.01" />
+      <xacro:property name="mono" value="false" />
+      <xacro:property name="mat" value="0.25 0.25 0.25 1.0" />
+      <!-- Offset from ZED reference center to Robotnik sensor reference point-->
+      <xacro:property name="base_offset_x" value="0.0215" />
+      <xacro:property name="base_offset_z" value="-0.015" />
+    </xacro:if>
+
+    <xacro:if value="${model == 'zedx'}">
+      <xacro:property name="baseline" value="0.12" />
+      <xacro:property name="height" value="0.032" />
+      <xacro:property name="bottom_slope" value="0.0" />
+      <xacro:property name="screw_offset_x" value="0.0" />
+      <xacro:property name="screw_offset_z" value="-0.016" />
+      <xacro:property name="optical_offset_x" value="-0.01" />
+      <xacro:property name="mono" value="false" />
+      <xacro:property name="mat" value="0.25 0.25 0.25 1.0" />
+      <!-- Offset from ZED reference center to Robotnik sensor reference point-->
+      <xacro:property name="base_offset_x" value="0.01875" />
+      <xacro:property name="base_offset_z" value="-0.016" />
+    </xacro:if>
+
+    <xacro:if value="${model == 'zedxm'}">
+      <xacro:property name="baseline" value="0.05" />
+      <xacro:property name="height" value="0.032" />
+      <xacro:property name="bottom_slope" value="0.0" />
+      <xacro:property name="screw_offset_x" value="0.0" />
+      <xacro:property name="screw_offset_z" value="-0.016" />
+      <xacro:property name="optical_offset_x" value="-0.01" />
+      <xacro:property name="mono" value="false" />
+      <xacro:property name="mat" value="0.25 0.25 0.25 1.0" />
+      <!-- Offset from ZED reference center to Robotnik sensor reference point-->
+      <xacro:property name="base_offset_x" value="0.01875" />
+      <xacro:property name="base_offset_z" value="-0.016" />
+    </xacro:if>
+
+    <!-- User-defined sensor mounting position and orientation -->
+
     <joint
-      name="${frame_prefix}base_joint"
+      name="${frame_prefix}camera_base_joint"
       type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}" />
       <child link="${frame_prefix}base_link" />
     </joint>
-    <link name="${frame_prefix}base_link">
-      <visual>
-        <origin
-          xyz="0 0 0"
-          rpy="0 0 0" />
-        <geometry>
-          <mesh
-            filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl" />
-        </geometry>
-        <material name="light_zed_grey">
-          <color rgba="0.35 0.35 0.35 1" />
-        </material>
-      </visual>
-      <collision>
-        <origin
-          xyz="0.0 0.0 0.0"
-          rpy="0 0 0" />
-        <geometry>
-          <mesh
-            filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl" />
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="0.135" />
-        <origin xyz="0 0 0" />
-        <xacro:solid_cuboid_inertia
-          m="0.135"
-          w="0.033"
-          h="0.175"
-          d="0.03" />
-      </inertial>
+
+    <!-- Intermediate frame to apply the offset from the ZED reference center to
+    the Robotnik sensor reference point (geometric center of the rear/bottom face) -->
+
+    <link name="${frame_prefix}base_link" />
+    <joint
+      name="${frame_prefix}camera_joint"
+      type="fixed">
+      <origin xyz="${base_offset_x} 0 ${base_offset_z}" rpy="0 0 0"/>
+      <parent link="${frame_prefix}base_link" />
+      <child link="${frame_prefix}camera_link" />
+    </joint>
+
+    <!-- ZED-specific frames and geometry -->
+
+    <!-- Camera mounting point (the threaded screw hole in the bottom) -->
+    <link name="${frame_prefix}camera_link" />
+    
+    <!-- Camera Center -->
+    <link name="${frame_prefix}camera_center">
+      <xacro:unless value="${model == 'virtual'}">
+        <visual>
+          <origin xyz="${screw_offset_x} 0 ${screw_offset_z}" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+          </geometry>
+          <material name="cam_mat">
+            <color rgba="${mat}"/>
+          </material>
+        </visual>
+        <collision>
+          <origin xyz="${screw_offset_x} 0 ${screw_offset_z}" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+          </geometry>
+        </collision>
+      </xacro:unless>
     </link>
-
-    <!-- Left camera -->
-    <joint
-      name="${frame_prefix}color_left_joint"
-      type="fixed">
-      <origin
-        xyz="0.0 0.06 0.0"
-        rpy="0.0 0.0 0.0" />
-      <parent link="${frame_prefix}base_link" />
-      <child link="${frame_prefix}left_camera_frame" />
+    <joint name="${frame_prefix}camera_center_joint" type="fixed">
+      <parent link="${frame_prefix}camera_link"/>
+      <child link="${frame_prefix}camera_center"/>
+      <origin xyz="0 0 ${height/2}" rpy="0 ${bottom_slope} 0" />
     </joint>
-    <link name="${frame_prefix}left_camera_frame" />
 
-    <joint
-      name="${frame_prefix}color_left_optical_joint"
-      type="fixed">
-      <origin
-        xyz="0.0 0.0 0.0"
-        rpy="${-radians(90)} 0.0 ${-radians(90)}" />
-      <parent link="${frame_prefix}left_camera_frame" />
-      <child
-        link="${frame_prefix}left_camera_optical_frame" />
-    </joint>
-    <link name="${frame_prefix}left_camera_optical_frame" />
+    <xacro:unless value="${mono}">
+      <!-- Left Camera -->
+      <link name="${frame_prefix}left_camera_frame">
+        <xacro:if value="${model == 'virtual'}">
+          <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+              <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+            </geometry>
+            <material name="cam_mat">
+              <color rgba="${mat}"/>
+            </material>
+          </visual>
+          <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+              <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+            </geometry>
+          </collision>
+        </xacro:if>
+      </link>
+      <joint name="${frame_prefix}left_camera_joint" type="fixed">
+        <parent link="${frame_prefix}camera_center"/>
+        <child link="${frame_prefix}left_camera_frame"/>
+        <origin xyz="${optical_offset_x} ${baseline/2} 0" rpy="0 0 0" />
+      </joint>
 
-    <!-- Right camera-->
-    <joint
-      name="${frame_prefix}color_right_joint"
-      type="fixed">
-      <origin
-        xyz="0.0 -0.06 0.0"
-        rpy="0.0 0.0 0.0" />
-      <parent link="${frame_prefix}base_link" />
-      <child link="${frame_prefix}right_camera_frame" />
-    </joint>
-    <link name="${frame_prefix}right_camera_frame" />
+<link name="${frame_prefix}left_camera_frame_optical"/>
+      <joint name="${frame_prefix}left_camera_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-${pi/2} 0.0 -${pi/2}"/>
+        <parent link="${frame_prefix}left_camera_frame"/>
+<child link="${frame_prefix}left_camera_frame_optical"/>
+      </joint>
 
-    <joint
-      name="${frame_prefix}color_right_optical_joint"
-      type="fixed">
-      <origin
-        xyz="0.0 0 0.0"
-        rpy="${-radians(90)} 0.0 ${-radians(90)}" />
-      <parent link="${frame_prefix}right_camera_frame" />
-      <child
-        link="${frame_prefix}right_camera_optical_frame" />
-    </joint>
-    <link
-      name="${frame_prefix}right_camera_optical_frame" />
+      <!-- Right Camera -->
+      <link name="${frame_prefix}right_camera_frame">
+        <xacro:if value="${model == 'virtual'}">
+          <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+              <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+            </geometry>
+            <material name="cam_mat">
+              <color rgba="${mat}"/>
+            </material>
+          </visual>
+          <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+              <mesh filename="package://robotnik_sensors/meshes/depth/stereolabs_zed/${model}.stl"/>
+            </geometry>
+          </collision>
+        </xacro:if>
+      </link>
+      <joint name="${frame_prefix}right_camera_joint" type="fixed">
+        <parent link="${frame_prefix}camera_center"/>
+        <child link="${frame_prefix}right_camera_frame"/>
+        <origin xyz="${optical_offset_x} -${baseline/2} 0" rpy="0 0 0" />
+      </joint>
 
-    <!-- Depth image-->
-    <joint
-      name="${frame_prefix}depth_joint"
-      type="fixed">
-      <origin
-        xyz="0.0 0.0 0.0"
-        rpy="0.0 0.0 0.0" />
-      <parent link="${frame_prefix}base_link" />
-      <child link="${frame_prefix}depth_frame" />
-    </joint>
-    <link name="${frame_prefix}depth_frame" />
+<link name="${frame_prefix}right_camera_frame_optical"/>
+      <joint name="${frame_prefix}right_camera_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-${pi/2} 0.0 -${pi/2}"/>
+        <parent link="${frame_prefix}right_camera_frame"/>
+<child link="${frame_prefix}right_camera_frame_optical"/>
+      </joint>
 
-    <joint
-      name="${frame_prefix}depth_optical_joint"
-      type="fixed">
-      <origin
-        xyz="0.0 0.0 0.0"
-        rpy="${-radians(90)} 0.0 ${-radians(90)}" />
-      <parent link="${frame_prefix}depth_frame" />
-      <child link="${frame_prefix}depth_optical_frame" />
-    </joint>
-    <link name="${frame_prefix}depth_optical_frame" />
+      <!-- ZED2 Sensors -->
+      <xacro:if value="${model == 'zed2'}">
+        <link name="${frame_prefix}mag_link" />
+        <joint name="${frame_prefix}mag_joint" type="fixed">
+          <parent link="${frame_prefix}camera_center"/>
+          <child link="${frame_prefix}mag_link"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${frame_prefix}baro_link" />
+        <joint name="${frame_prefix}baro_joint" type="fixed">
+          <parent link="${frame_prefix}camera_center"/>
+          <child link="${frame_prefix}baro_link"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${frame_prefix}temp_left_link" />
+        <joint name="${frame_prefix}temp_left_joint" type="fixed">
+          <parent link="${frame_prefix}left_camera_frame"/>
+          <child link="${frame_prefix}temp_left_link"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <link name="${frame_prefix}temp_right_link" />
+        <joint name="${frame_prefix}temp_right_joint" type="fixed">
+          <parent link="${frame_prefix}right_camera_frame"/>
+          <child link="${frame_prefix}temp_right_link"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+      </xacro:if>      
+    </xacro:unless>
+
+    <xacro:if value="${mono}">
+      <!-- Camera -->
+      <link name="${frame_prefix}camera_frame" />
+      <joint name="${frame_prefix}camera_joint" type="fixed">
+        <parent link="${frame_prefix}camera_center"/>
+        <child link="${frame_prefix}camera_frame"/>
+        <origin xyz="${optical_offset_x} 0 0" rpy="0 0 0" />
+      </joint>
+
+<link name="${frame_prefix}camera_frame_optical"/>
+      <joint name="${frame_prefix}camera_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-${pi/2} 0.0 -${pi/2}"/>
+        <parent link="${frame_prefix}camera_frame"/>
+<child link="${frame_prefix}camera_frame_optical"/>
+      </joint>
+    </xacro:if>
 
     <xacro:if value="$(arg low_performance)">
       <xacro:camera_plugin
@@ -168,8 +279,8 @@
         node_name="${node_name}_right_sensor"
         topic_prefix="${topic_prefix}_right_sensor"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}right_camera_optical_frame"
-        reference_frame="${frame_prefix}right_camera_frame"
+        optical_frame="${frame_prefix}right_camera_frame_optical"
+        reference_frame="${frame_prefix}right_frame_optical"
         horizontal_fov="${horizontal_fov}"
         vertical_fov="${vertical_fov}"
         video_width="${video_width}"
@@ -183,8 +294,8 @@
         node_name="${node_name}_left_sensor"
         topic_prefix="${topic_prefix}_left_sensor"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}left_camera_optical_frame"
-        reference_frame="${frame_prefix}left_camera_frame"
+        optical_frame="${frame_prefix}left_camera_frame_optical"
+        reference_frame="${frame_prefix}left_camera_frame_optical"
         horizontal_fov="${horizontal_fov}"
         vertical_fov="${vertical_fov}"
         video_width="${video_width}"
@@ -198,8 +309,8 @@
         node_name="${node_name}_depth"
         topic_prefix="${topic_prefix}_depth"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}depth_optical_frame"
-        reference_frame="${frame_prefix}depth_frame"
+        optical_frame="${frame_prefix}left_camera_frame_optical"
+        reference_frame="${frame_prefix}left_camera_frame_optical"
         horizontal_fov="${horizontal_fov}"
         vertical_fov="${vertical_fov}"
         video_width="${video_width}"
@@ -215,8 +326,8 @@
         node_name="${node_name}_right_sensor"
         topic_prefix="${topic_prefix}_right_sensor"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}right_camera_optical_frame"
-        reference_frame="${frame_prefix}right_camera_frame"
+        optical_frame="${frame_prefix}right_camera_frame_optical"
+        reference_frame="${frame_prefix}right_camera_frame_optical"
         horizontal_fov="${horizontal_fov}"
         vertical_fov="${vertical_fov}"
         video_width="${video_width}"
@@ -230,8 +341,8 @@
         node_name="${node_name}_left_sensor"
         topic_prefix="${topic_prefix}_left_sensor"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}left_camera_optical_frame"
-        reference_frame="${frame_prefix}left_camera_frame"
+        optical_frame="${frame_prefix}left_camera_frame_optical"
+        reference_frame="${frame_prefix}left_camera_frame_optical"
         horizontal_fov="${horizontal_fov}"
         vertical_fov="${vertical_fov}"
         video_width="${video_width}"
@@ -245,8 +356,8 @@
         node_name="${node_name}_depth"
         topic_prefix="${topic_prefix}_depth"
         gazebo_ignition="${gazebo_ignition}"
-        optical_frame="${frame_prefix}depth_optical_frame"
-        reference_frame="${frame_prefix}depth_frame"
+        optical_frame="${frame_prefix}left_camera_frame_optical"
+        reference_frame="${frame_prefix}left_camera_frame_optical"
         horizontal_fov="${horizontal_fov}"
         vertical_fov="${vertical_fov}"
         video_width="${video_width}"
