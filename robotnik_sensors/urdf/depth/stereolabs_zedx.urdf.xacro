@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<robot 
+  name="sensor_stereolabs_zedx" 
+  xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro
+    name="sensor_stereolabs_zedx"
+    params="frame_prefix
+            parent
+            *origin
+            gazebo_ignition:=false
+            node_namespace:=stereolabs_zedx
+            node_name:=stereolabs_zedx
+            topic_prefix:=~/
+            low_performance:=${low_performance}">
+
+    <!-- If GNSS fusion is enabled the position of the antenna with respect to the camera mount point is required -->
+    <xacro:sensor_stereolabs_generic
+      frame_prefix="${frame_prefix}"
+      parent="${parent}"      
+      model="zedx"
+      gazebo_ignition="${gazebo_ignition}"
+      node_namespace="${node_namespace}"
+      node_name="${node_name}"
+      topic_prefix="${topic_prefix}"
+      low_performance="${low_performance}"
+      horizontal_fov="110"
+      vertical_fov="70"
+      video_width="1920"
+      video_height="1080"
+      video_fps="30"
+      min_depth="0.2"
+      max_depth="20.0"
+      >
+       <xacro:insert_block name="origin" />
+    </xacro:sensor_stereolabs_generic>
+  </xacro:macro>
+</robot>
+

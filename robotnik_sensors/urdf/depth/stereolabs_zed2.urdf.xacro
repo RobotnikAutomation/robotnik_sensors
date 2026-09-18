@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<robot
-  name="sensor_stereolabs_zed2"
-  xmlns:xacro="http://wiki.ros.org/xacro">
+<robot 
+  name="sensor_stereolabs_zed2" 
+  xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro
     name="sensor_stereolabs_zed2"
     params="frame_prefix
@@ -12,9 +12,11 @@
             node_name:=stereolabs_zed2
             topic_prefix:=~/
             low_performance:=${low_performance}">
+
+    <!-- If GNSS fusion is enabled the position of the antenna with respect to the camera mount point is required -->
     <xacro:sensor_stereolabs_generic
       frame_prefix="${frame_prefix}"
-      parent="${parent}"
+      parent="${parent}"      
       model="zed2"
       gazebo_ignition="${gazebo_ignition}"
       node_namespace="${node_namespace}"
@@ -27,8 +29,10 @@
       video_height="1080"
       video_fps="30"
       min_depth="0.2"
-      max_depth="20.0">
-      <xacro:insert_block name="origin" />
+      max_depth="20.0"
+      >
+       <xacro:insert_block name="origin" />
     </xacro:sensor_stereolabs_generic>
   </xacro:macro>
 </robot>
+

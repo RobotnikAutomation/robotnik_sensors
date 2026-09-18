@@ -27,9 +27,15 @@
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/stereolabs_generic.urdf.xacro" />
   <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed.urdf.xacro" />
+  <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed2.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zed2i.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zedx.urdf.xacro" />
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/stereolabs_zedxm.urdf.xacro" />
   <xacro:include
     filename="$(find robotnik_sensors)/urdf/depth/azure_kinect.urdf.xacro" />
 
