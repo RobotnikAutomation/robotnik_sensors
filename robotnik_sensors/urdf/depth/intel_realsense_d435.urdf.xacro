@@ -213,7 +213,7 @@
     </joint>
     <link name="${frame_prefix}color_optical_frame" />
 
-    <xacro:if value="$(arg low_performance)">
+    <xacro:if value="${low_performance}">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -244,7 +244,7 @@
         max_depth="100"
         rate="5" />
     </xacro:if>
-    <xacro:unless value="$(arg low_performance)">
+    <xacro:unless value="${low_performance}">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -258,7 +258,7 @@
         video_height="1080"
         min_depth="0.1"
         max_depth="100"
-        rate="30" />
+        rate="25" />
 
       <xacro:depth_camera_plugin
         node_namespace="${node_namespace}"
@@ -273,7 +273,7 @@
         video_height="1080"
         min_depth="0.1"
         max_depth="100"
-        rate="30" />
+        rate="25" />
     </xacro:unless>
   </xacro:macro>
 </robot>
