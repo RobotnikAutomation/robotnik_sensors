@@ -2,6 +2,8 @@
 <robot
   xmlns:xacro="http://wiki.ros.org/xacro"
   name="sensor_link_750_nh">
+  <xacro:include
+    filename="$(find robotnik_sensors)/urdf/depth/depth_camera_plugin.urdf.xacro" />
   <xacro:property
     name="ptz_joint_effort_limit"
     value="10000.0" />
@@ -272,7 +274,7 @@
     </gazebo>
 
     <!-- camera sensor for simulation -->
-    <xacro:if value="$(arg low_performance)">
+    <xacro:if value="${low_performance}">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -286,9 +288,9 @@
         video_height="720"
         min_depth="0.1"
         max_depth="100"
-        rate="10" />
+        rate="25" />
     </xacro:if>
-    <xacro:unless value="$(arg low_performance)">
+    <xacro:unless value="${low_performance}">
       <xacro:camera_plugin
         node_namespace="${node_namespace}"
         node_name="${node_name}_color"
@@ -298,12 +300,26 @@
         reference_frame="${frame_prefix}frame_link"
         horizontal_fov="63.7"
         vertical_fov="32"
-        video_width="1920"
-        video_height="1080"
+        video_width="1280"
+        video_height="720"
         min_depth="0.1"
         max_depth="100"
-        rate="30" />
+        rate="25" />
     </xacro:unless>
+    <xacro:depth_camera_plugin
+      node_namespace="${node_namespace}"
+      node_name="${node_name}_depth"
+      topic_prefix="${topic_prefix}_depth"
+      gazebo_ignition="${gazebo_ignition}"
+      optical_frame="${frame_prefix}optical_frame_link"
+      reference_frame="${frame_prefix}frame_link"
+      horizontal_fov="63.7"
+      vertical_fov="32"
+      video_width="1280"
+      video_height="720"
+      min_depth="0.1"
+      max_depth="100"
+      rate="25" />
 
     <ros2_control
       name="${node_name}_control"

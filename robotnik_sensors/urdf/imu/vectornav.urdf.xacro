@@ -71,7 +71,7 @@
       node_name="${node_name}"
       gazebo_ignition="${gazebo_ignition}"
       frame_link="${frame_prefix}link"
-      rate="200.0" />
+      rate="100.0" />
 
     <gazebo reference="${frame_prefix}base_link">
       <material>Gazebo/Red</material>

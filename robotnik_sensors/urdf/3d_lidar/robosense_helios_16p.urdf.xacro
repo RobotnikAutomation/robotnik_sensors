@@ -90,8 +90,8 @@
         min_fov="-0.2618"
         max_fov="0.2618"
         frame_link="${frame_prefix}link"
-        rate="5"
-        horizontal_samples="900"
+        rate="10"
+        horizontal_samples="1800"
         vertical_samples="16" />
     </xacro:if>
     <xacro:unless value="$(arg low_performance)">
