@@ -18,7 +18,7 @@
     <xacro:sensor_stereolabs_generic
       frame_prefix="${frame_prefix}"
       parent="${parent}"
-      model="zed2"
+      model="zed2i"
       gazebo_ignition="false"
       node_namespace="${node_namespace}"
       node_name="${node_name}"
@@ -41,7 +41,7 @@
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
-      <parent link="${frame_prefix}base_link" />
+      <parent link="${frame_prefix}camera_link" />
       <child link="${frame_prefix}imu_frame" />
     </joint>
     <link name="${frame_prefix}imu_frame" />
